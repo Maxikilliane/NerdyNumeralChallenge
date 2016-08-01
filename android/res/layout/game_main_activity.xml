@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:padding="@dimen/activity_general_padding"
     android:layout_height="match_parent"
-    android:background="@drawable/Octocat"
-    android:scaleType="centerCrop">
+    android:background="@drawable/octocaat"
+    >
 
 
 
