@@ -8,5 +8,8 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowFullscreen">true</item>
     </style>
+    <style name="AppTheme" parent="android:Theme.DeviceDefault.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
 
 </resources>
