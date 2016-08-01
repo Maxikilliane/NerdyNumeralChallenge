@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">NerdyNumeralChallenge</string>
+    <string name="continue_button_text">-></string>
 
 
     //TutorialMain
@@ -9,6 +10,9 @@
     <string name="tutorial_2_button">anderes System -> Dezimal</string>
     <string name="tutorial_3_button">Dezimal -> anderes System</string>
     <string name="tutorial_4_button">Super Nerdy Tricks</string>
+
+    //Explanation
+    <string name="tutorial_solution_button">Lösen</string>
 
     //StartScreen
     <string name="start_tutorial_button">Tutorial</string>
@@ -19,7 +23,7 @@
     //Settings
     <string name="settings_sound_textView">Sounds</string>
     <string name="settings_soundEffects">Soundeffekte</string>
-    <string name="settings_music">Hintegrundmusik</string>
+    <string name="settings_music">Hintergrundmusik</string>
     <string name="settings_pushNotifications">Push-Benachrichtigungen</string>
     <string name="settings_push_activated">aktivieren</string>
 
