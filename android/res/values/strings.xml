@@ -10,4 +10,17 @@
     <string name="tutorial_3_button">Dezimal -> anderes System</string>
     <string name="tutorial_4_button">Super Nerdy Tricks</string>
 
+    //StartScreen
+    <string name="start_tutorial_button">Tutorial</string>
+    <string name="start_practice_button">Übungsaufgaben</string>
+    <string name="start_game_button">Spielmodus</string>
+    <string name="start_progress_button">Fortschritt</string>
+
+    //Settings
+    <string name="settings_sound_textView">Sounds</string>
+    <string name="settings_soundEffects">Soundeffekte</string>
+    <string name="settings_music">Hintegrundmusik</string>
+    <string name="settings_pushNotifications">Push-Benachrichtigungen</string>
+    <string name="settings_push_activated">aktivieren</string>
+
 </resources>
