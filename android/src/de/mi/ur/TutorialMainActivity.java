@@ -1,6 +1,7 @@
 package de.mi.ur;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,34 +11,51 @@ import android.widget.Button;
  */
 public class TutorialMainActivity extends Activity implements View.OnClickListener {
     //ich weiß nicht, ob man die Buttons hier überhaupt braucht. ;) Bin aber jetzt mal vorsichtig
-    Button introButton = (Button)findViewById(R.id.tutorial_intro_button);
-    Button fromDecimalButton = (Button) findViewById(R.id.tutorial_from_decimal_button);
-    Button fromOtherButton = (Button)findViewById(R.id.tutorial_from_other_numeral_button);
-    Button tricksButton= (Button) findViewById(R.id.tutorial_tricks_button);
+    private Button introButton;
+    private Button fromDecimalButton;
+    private Button fromOtherButton;
+    private Button tricksButton;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tutorial_main_activity);
+        setUpUI();
+    }
 
-
+    private void setUpUI(){
+        introButton = (Button)findViewById(R.id.tutorial_intro_button);
+        fromDecimalButton = (Button) findViewById(R.id.tutorial_from_decimal_button);
+        fromOtherButton = (Button)findViewById(R.id.tutorial_from_other_numeral_button);
+        tricksButton= (Button) findViewById(R.id.tutorial_tricks_button);
     }
 
     //noch nicht implementiert... Da muss ich vermutlich irgendwie ein Bundle mitgeben, dass die ExplanationActivity weiß,
     //welches Tutorial sie anzeigen soll.
     @Override
     public void onClick(View v) {
+        Intent i = new Intent (TutorialMainActivity.this, ExplanationActivity.class);
         switch(v.getId()){
             case R.id.tutorial_intro_button:
+                i.putExtra(Constants.KEY_TUTORIAL, Constants.INTRO_TUTORIAL);
                 break;
             case R.id.tutorial_from_decimal_button:
+                i.putExtra(Constants.KEY_TUTORIAL, Constants.DECIMAL_TUTORIAL);
                 break;
             case R.id.tutorial_from_other_numeral_button:
+                i.putExtra(Constants.KEY_TUTORIAL, Constants.OTHER_TUTORIAL);
                 break;
             case R.id.tutorial_tricks_button:
+                i.putExtra(Constants.KEY_TUTORIAL, Constants.TRICKS_TUTORIAL);
                 break;
             default:
                 break;
+        }
+
+        if(i.getExtras()!= null){
+            startActivity(i);
         }
     }
 }
