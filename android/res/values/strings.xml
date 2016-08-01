@@ -23,7 +23,7 @@
     //Settings
     <string name="settings_sound_textView">Sounds</string>
     <string name="settings_soundEffects">Soundeffekte</string>
-    <string name="settings_music">Hintegrundmusik</string>
+    <string name="settings_music">Hintergrundmusik</string>
     <string name="settings_pushNotifications">Push-Benachrichtigungen</string>
     <string name="settings_push_activated">aktivieren</string>
 
