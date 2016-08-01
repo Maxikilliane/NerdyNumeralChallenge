@@ -23,4 +23,8 @@
     <string name="settings_pushNotifications">Push-Benachrichtigungen</string>
     <string name="settings_push_activated">aktivieren</string>
 
+    //gameMain
+    <string name="game_start">Start!</string>
+    <string name="game_highscore">Highscore</string>
+    <string name="game_help">Help</string>
 </resources>
