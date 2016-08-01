@@ -27,9 +27,13 @@ public class TutorialMainActivity extends Activity implements View.OnClickListen
 
     private void setUpUI(){
         introButton = (Button)findViewById(R.id.tutorial_intro_button);
+        introButton.setOnClickListener(this);
         fromDecimalButton = (Button) findViewById(R.id.tutorial_from_decimal_button);
+        fromDecimalButton.setOnClickListener(this);
         fromOtherButton = (Button)findViewById(R.id.tutorial_from_other_numeral_button);
+        fromOtherButton.setOnClickListener(this);
         tricksButton= (Button) findViewById(R.id.tutorial_tricks_button);
+        tricksButton.setOnClickListener(this);
     }
 
     //noch nicht implementiert... Da muss ich vermutlich irgendwie ein Bundle mitgeben, dass die ExplanationActivity weiß,

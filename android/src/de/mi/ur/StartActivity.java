@@ -27,13 +27,15 @@ public class StartActivity extends Activity implements View.OnClickListener {
 
     }
 
-    //geändert...
     private void setupUI() {
         buttonTutorial = (Button) findViewById(R.id.start_tutorial_button);
+        buttonTutorial.setOnClickListener(this);
         buttonPractice = (Button) findViewById(R.id.start_practice_button);
+        buttonPractice.setOnClickListener(this);
         buttonGame = (Button) findViewById(R.id.start_game_button);
+        buttonGame.setOnClickListener(this);
         buttonProgress = (Button) findViewById(R.id.start_progress_button);
-
+        buttonProgress.setOnClickListener(this);
     }
 
 
