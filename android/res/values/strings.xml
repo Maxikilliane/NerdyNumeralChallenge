@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">NerdyNumeralChallenge</string>
+    <string name="continue_button_text">-></string>
 
 
     //TutorialMain
@@ -9,5 +10,8 @@
     <string name="tutorial_2_button">anderes System -> Dezimal</string>
     <string name="tutorial_3_button">Dezimal -> anderes System</string>
     <string name="tutorial_4_button">Super Nerdy Tricks</string>
+
+    //Explanation
+    <string name="tutorial_solution_button">Lösen</string>
 
 </resources>
