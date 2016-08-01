@@ -3,4 +3,11 @@
 
     <string name="app_name">NerdyNumeralChallenge</string>
 
+
+    //TutorialMain
+    <string name="tutorial_1_button">Einführung</string>
+    <string name="tutorial_2_button">anderes System -> Dezimal</string>
+    <string name="tutorial_3_button">Dezimal -> anderes System</string>
+    <string name="tutorial_4_button">Super Nerdy Tricks</string>
+
 </resources>
