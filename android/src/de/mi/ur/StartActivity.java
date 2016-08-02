@@ -16,9 +16,7 @@ public class StartActivity extends Activity {
     private Button buttonPractice;
     private Button buttonGame;
     private Button buttonProgress;
-
-    //test comment
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
