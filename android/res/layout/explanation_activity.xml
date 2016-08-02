@@ -33,12 +33,30 @@
 
     </ScrollView>
 
-    <Button
-        android:id="@+id/explanation_continue"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/continue_button_text"
-        android:layout_gravity="end"
-        />
+        >
+
+        <Button
+            android:id="@+id/explanation_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/back_button_text"
+            android:layout_alignParentBottom="true"
+            />
+
+        <Button
+            android:id="@+id/explanation_continue_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/continue_button_text"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            />
+
+    </RelativeLayout>
+
 
 </LinearLayout>

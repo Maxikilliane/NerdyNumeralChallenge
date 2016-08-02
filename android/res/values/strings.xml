@@ -3,6 +3,7 @@
 
     <string name="app_name">NerdyNumeralChallenge</string>
     <string name="continue_button_text">-></string>
+    <string name="back_button_text">&lt;-</string>
     <string name="tutorial_solution_button">Lösen</string>
 
 

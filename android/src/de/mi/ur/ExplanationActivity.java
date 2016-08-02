@@ -10,9 +10,10 @@ import android.widget.TextView;
 /**
  * Created by Anna-Marie on 01.08.2016.
  */
-public class ExplanationActivity extends Activity {
+public class ExplanationActivity extends Activity implements View.OnClickListener{
     private TextView explanationTextView;
     private Button continueButton;
+    private Button backButton;
 
     private int tutorialType;
     private int explanationNumber;
@@ -65,23 +66,43 @@ public class ExplanationActivity extends Activity {
 
     }
 
-    //Bei Klick auf Continue-Button: anderer Erklärungstext (nächste Stelle im Text-Array)
+
     private void setUpUI(){
         explanationTextView = (TextView) findViewById(R.id.explanation_textview);
         explanationTextView.setText(explanationText);
-        continueButton = (Button) findViewById(R.id.explanation_continue);
-        continueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(explanationNumber <=maxNumExplanations) {
-                    if (explanationNumber == maxNumExplanations - 1) {
-                        continueButton.setEnabled(false);
-                    }
-                    explanationNumber++;
-                    explanationText = tutorialTexts[explanationNumber];
-                    explanationTextView.setText(explanationText);
+        continueButton = (Button) findViewById(R.id.explanation_continue_button);
+        backButton = (Button) findViewById(R.id.explanation_back_button);
+        continueButton.setOnClickListener(this);
+        backButton.setOnClickListener(this);
+    }
+
+    /*
+     * Click auf Continue-Button:nächster Erklärtext wird eingeblendet
+     * Click auf Back-Button: letzter Erklärtext wird eingeblendet
+     */
+    @Override
+    public void onClick(View v) {
+        continueButton.setEnabled(true);
+        backButton.setEnabled(true);
+        switch(v.getId()){
+            case R.id.explanation_continue_button:
+                if(explanationNumber == maxNumExplanations-1){
+                    continueButton.setEnabled(false);
                 }
-            }
-        });
+                explanationNumber++;
+                break;
+            case R.id.explanation_back_button:
+                if(explanationNumber==1){
+                    backButton.setEnabled(false);
+                }
+                explanationNumber--;
+                break;
+            default:
+        }
+        explanationText = tutorialTexts[explanationNumber];
+        explanationTextView.setText(explanationText);
+
+
+
     }
 }
