@@ -2,6 +2,7 @@ package de.mi.ur;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,7 +11,7 @@ import android.widget.EditText;
 /**
  * Created by maxiwindl on 01.08.16.
  */
-public class StartActivity extends Activity {
+public class StartActivity extends Activity implements View.OnClickListener {
 
     private Button buttonTutorial;
     private Button buttonPractice;
@@ -28,20 +29,37 @@ public class StartActivity extends Activity {
 
     private void setupUI() {
         buttonTutorial = (Button) findViewById(R.id.start_tutorial_button);
-        setOnClickListener (buttonTutorial);
+        buttonTutorial.setOnClickListener(this);
         buttonPractice = (Button) findViewById(R.id.start_practice_button);
-        setOnClickListener(buttonPractice);
+        buttonPractice.setOnClickListener(this);
         buttonGame = (Button) findViewById(R.id.start_game_button);
-        setOnClickListener(buttonGame);
+        buttonGame.setOnClickListener(this);
         buttonProgress = (Button) findViewById(R.id.start_progress_button);
-        setOnClickListener(buttonProgress);
+        buttonProgress.setOnClickListener(this);
     }
 
-    private void setOnClickListener (Button button) {
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick (View v) {
 
-            }
-        });
+    //nicht vollständig implementiert (Practice und Progress fehlen
+    @Override
+    public void onClick(View v) {
+        Intent i = null;
+        switch (v.getId()){
+            case R.id.start_tutorial_button:
+                i = new Intent(StartActivity.this, TutorialMainActivity.class);
+                break;
+            case R.id.start_practice_button:
+                break;
+            case R.id.start_game_button:
+                i= new Intent (StartActivity.this, GameMainActivity.class);
+                break;
+            case R.id.start_progress_button:
+                break;
+            default:
+                break;
+        }
+        if(i!=null){
+            startActivity(i);
+        }
+
     }
 }

@@ -45,10 +45,10 @@ public class Nerd {
     public void update(float dt) {
         birdAnimation.update(dt);
         if (position.y > 0) {
-            //nur auf die y Ache brauchen wir Schwerkraft
+            //nur auf der y-Achse brauchen wir Schwerkraft
             velocity.add(0, GRAVITY, 0);
         }
-        //mulitploziert alles mit delta-time
+        //mulitpliziert alles mit delta-time
         velocity.scl(dt);
         position.add(MOVEMENT * dt, velocity.y, 0);
         if (position.y <= ground.getHeight() + GROUND_Y_OFFSET) {
