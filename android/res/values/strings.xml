@@ -31,8 +31,39 @@
     <string name="game_highscore">Highscore</string>
     <string name="game_help">Help</string>
 
-    //Explanations
+    //Questions
 
+    <string-array name="numeral_systems">
+        <item>Binärsystem</item>
+        <item>Trialsystem</item>
+        <item>Quaternalsystem</item>
+        <item>Pentalsystem</item>
+        <item>Hexalsystem</item>
+        <item>Heptalsystem</item>
+        <item>Oktalsystem</item>
+        <item>Nonalsystem</item>
+        <item>Dezimalsystem</item>
+        <item>Undezimalsystem</item>
+        <item>Duodezimalsystem</item>
+        <item>Tridezimalsystem</item>
+        <item>Quatridezimalsystem</item>
+        <item>Pentadezimalsystem</item>
+        <item>Hexadezimalsystem</item>
+    </string-array>
+    //Freetext: part1+numeral_systems[x]+part2
+    <string name="free_text_question_1">Rechnen Sie die gegebene Zahl in das </string>
+    <string name="free_text_question_2"> um.\n</string>
+
+
+    //MultipleChoice: part1 + numeral_systems[x]+part2
+    <string name="multiple_choice_question_1">Wählen Sie für die gegebene Zahl die richtige Entsprechung im </string>
+    <string name="multiple_choice_question_2"> aus.\n</string>
+
+    //True/False:
+    <string name="true_false_question_1">Ist der folgende Ausdruck wahr oder falsch?\n</string>
+
+
+    //Explanations
     <string-array name="tutorial_intro">
         <item>
             Die Zahlensysteme, um die es hier geht, sind Stellenwertsysteme, d.h. es gibt eine bestimmte Anzahl an Ziffern in einem Zahlensystem.

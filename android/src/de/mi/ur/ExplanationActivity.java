@@ -102,7 +102,5 @@ public class ExplanationActivity extends Activity implements View.OnClickListene
         explanationText = tutorialTexts[explanationNumber];
         explanationTextView.setText(explanationText);
 
-
-
     }
 }
