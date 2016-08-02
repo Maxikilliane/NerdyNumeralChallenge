@@ -43,22 +43,23 @@ public class TutorialMainActivity extends Activity implements View.OnClickListen
         Intent i = new Intent (TutorialMainActivity.this, ExplanationActivity.class);
         switch(v.getId()){
             case R.id.tutorial_intro_button:
-                i.putExtra(Constants.KEY_TUTORIAL, Constants.INTRO_TUTORIAL);
+                i.putExtra(Constants.KEY_TYPE_TUTORIAL, Constants.INTRO_TUTORIAL);
                 break;
             case R.id.tutorial_from_decimal_button:
-                i.putExtra(Constants.KEY_TUTORIAL, Constants.DECIMAL_TUTORIAL);
+                i.putExtra(Constants.KEY_TYPE_TUTORIAL, Constants.DECIMAL_TUTORIAL);
                 break;
             case R.id.tutorial_from_other_numeral_button:
-                i.putExtra(Constants.KEY_TUTORIAL, Constants.OTHER_TUTORIAL);
+                i.putExtra(Constants.KEY_TYPE_TUTORIAL, Constants.OTHER_TUTORIAL);
                 break;
             case R.id.tutorial_tricks_button:
-                i.putExtra(Constants.KEY_TUTORIAL, Constants.TRICKS_TUTORIAL);
+                i.putExtra(Constants.KEY_TYPE_TUTORIAL, Constants.TRICKS_TUTORIAL);
                 break;
             default:
                 break;
         }
 
         if(i.getExtras()!= null){
+            i.putExtra(Constants.KEY_NUMBER_TUTORIAL, Constants.NUMBER_1);
             startActivity(i);
         }
     }
