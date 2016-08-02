@@ -32,10 +32,9 @@ public class ExplanationActivity extends Activity {
 
         setUpTexts();
         setUpUI();
-
-
     }
 
+    // Welches Tutorial wurde angeklickt? Auswählen der richtigen Konstante für dieses Tutorial
     private void setUpTexts(){
         int idTexts;
         switch (tutorialType){
@@ -66,6 +65,7 @@ public class ExplanationActivity extends Activity {
 
     }
 
+    //Bei Klick auf Continue-Button: anderer Erklärungstext (nächste Stelle im Text-Array)
     private void setUpUI(){
         explanationTextView = (TextView) findViewById(R.id.explanation_textview);
         explanationTextView.setText(explanationText);

@@ -22,6 +22,7 @@ public class Constants {
     public static final int NUMBER_5 = 4;
     public static final int NUMBER_6 = 5;
 
+    //Anzahl der Screens pro Tutorial -> Zählanfang im Array bei 0, d.h. das ist der letzte zugreifbare Punkt im jeweiligen String-Array
     public static final int MAX_EXPLANATION_NUM_INTRO = 5;
     public static final int MAX_EXPLANATION_NUM_DECIMAL = 3;
     public static final int MAX_EXPLANATION_NUM_OTHER = 5;
