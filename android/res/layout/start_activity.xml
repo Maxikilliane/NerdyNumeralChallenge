@@ -14,7 +14,7 @@
         android:textSize="@dimen/text_general_size"
         android:layout_marginTop="@dimen/margin_top"
         android:layout_marginBottom="@dimen/margin_bottom"
-        android:background="@color/blue_grey"
+        android:background="@drawable/mybutton"
 
         />
 
@@ -26,7 +26,7 @@
         android:text="@string/start_practice_button"
         android:textColor="@color/text_white"
         android:textSize="@dimen/text_general_size"
-        android:background="@color/blue_grey"
+        android:background="@drawable/mybutton"
         android:layout_marginBottom="@dimen/margin_bottom"
         />
 
@@ -36,8 +36,9 @@
         android:layout_height="@dimen/button_size"
         android:text="@string/start_game_button"
         android:textColor="@color/text_white"
+
         android:textSize="@dimen/text_general_size"
-        android:background="@color/blue_grey"
+        android:background="@drawable/mybutton"
         android:layout_marginBottom="@dimen/margin_bottom"/>
 
     <Button
@@ -47,7 +48,7 @@
         android:text="@string/start_progress_button"
         android:textColor="@color/text_white"
         android:textSize="@dimen/text_general_size"
-        android:background="@color/blue_grey"/>
+        android:background="@drawable/mybutton"/>
 
 
 

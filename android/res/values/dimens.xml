@@ -9,6 +9,10 @@
     <dimen name="margin_bottom">8dp</dimen>
     //settings
     <dimen name="text_settings_size">20sp</dimen>
+    //buttonLayout
+    <dimen name="stroke_width">1dp</dimen>
+    <dimen name="corner_radius">10dp</dimen>
+
 
 
 
