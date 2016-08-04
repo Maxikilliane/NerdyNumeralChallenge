@@ -3,16 +3,14 @@
 
     <string name="app_name">NerdyNumeralChallenge</string>
     <string name="continue_button_text">-></string>
+    <string name="tutorial_solution_button">Lösen</string>
 
 
     //TutorialMain
-    <string name="tutorial_1_button">Einführung</string>
-    <string name="tutorial_2_button">anderes System -> Dezimal</string>
-    <string name="tutorial_3_button">Dezimal -> anderes System</string>
-    <string name="tutorial_4_button">Super Nerdy Tricks</string>
-
-    //Explanation
-    <string name="tutorial_solution_button">Lösen</string>
+    <string name="tutorial_intro_button">Einführung</string>
+    <string name="tutorial_from_10_button">anderes System -> Dezimal</string>
+    <string name="tutorial_from_other_button">Dezimal -> anderes System</string>
+    <string name="tutorial_tricks_button">Super Nerdy Tricks</string>
 
     //StartScreen
     <string name="start_tutorial_button">Tutorial</string>
@@ -31,4 +29,6 @@
     <string name="game_start">Start!</string>
     <string name="game_highscore">Highscore</string>
     <string name="game_help">Help</string>
+
+    //Explanation
 </resources>

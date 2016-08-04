@@ -22,6 +22,15 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ExplanationActivity">
+        </activity>
+
+        <activity android:name=".TutorialMainActivity">
+        </activity>
+
+        <activity android:name=".GameMainActivity">
+        </activity>
+
         <activity
             android:name="de.mi.ur.AndroidLauncher"
             android:label="@string/app_name" 

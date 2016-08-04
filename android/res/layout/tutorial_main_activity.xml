@@ -7,31 +7,31 @@
     >
 
     <Button
-    android:id="@+id/tutorial_1_button"
+    android:id="@+id/tutorial_intro_button"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="@string/tutorial_1_button"
+    android:text="@string/tutorial_intro_button"
     android:gravity="center"/>
 
     <Button
-        android:id="@+id/tutorial_2_button"
+        android:id="@+id/tutorial_from_decimal_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tutorial_2_button"
+        android:text="@string/tutorial_from_10_button"
         android:gravity="center"/>
 
     <Button
-        android:id="@+id/tutorial_3_button"
+        android:id="@+id/tutorial_from_other_numeral_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tutorial_3_button"
+        android:text="@string/tutorial_from_other_button"
         android:gravity="center"/>
 
     <Button
         android:id="@+id/tutorial_tricks_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tutorial_4_button"
+        android:text="@string/tutorial_tricks_button"
         android:gravity="center"/>
 
 </LinearLayout>
