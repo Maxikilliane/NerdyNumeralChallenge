@@ -9,9 +9,9 @@
 
     //TutorialMain
     <string name="tutorial_intro_button">Einführung</string>
-    <string name="tutorial_from_10_button">anderes System -> Dezimal</string>
-    <string name="tutorial_from_other_button">Dezimal -> anderes System</string>
-    <string name="tutorial_tricks_button">Super Nerdy Tricks</string>
+    <string name="tutorial_from_10_button">Anderes System -> Dezimal</string>
+    <string name="tutorial_from_other_button">Dezimal -> Anderes System</string>
+    <string name="tutorial_tricks_button">Nerdy Tricks</string>
 
     //StartScreen
     <string name="start_tutorial_button">Tutorial</string>

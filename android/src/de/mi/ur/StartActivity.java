@@ -32,6 +32,12 @@ public class StartActivity extends Activity {
     private void setupUI() {
         buttonTutorial = (Button) findViewById(R.id.start_tutorial_button);
         setOnClickListener (buttonTutorial);
+        buttonTutorial.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent i = new Intent(StartActivity.this, TutorialMainActivity.class);
+                startActivity(i);
+            }
+        });
         buttonPractice = (Button) findViewById(R.id.start_practice_button);
         setOnClickListener(buttonPractice);
         buttonGame = (Button) findViewById(R.id.start_game_button);

@@ -9,30 +9,44 @@
     <Button
     android:id="@+id/tutorial_intro_button"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/button_size"
     android:text="@string/tutorial_intro_button"
-    android:gravity="center"/>
+        android:textColor="@color/text_white"
+        android:textSize="@dimen/text_general_size"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_marginBottom="@dimen/margin_bottom"
+        android:background="@drawable/mybutton"></Button>
 
     <Button
         android:id="@+id/tutorial_from_decimal_button"
+
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/button_size"
         android:text="@string/tutorial_from_10_button"
-        android:gravity="center"/>
+        android:textColor="@color/text_white"
+        android:textSize="25sp"
+        android:background="@drawable/mybutton"
+        android:layout_marginBottom="@dimen/margin_bottom"/>
 
     <Button
         android:id="@+id/tutorial_from_other_numeral_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/button_size"
         android:text="@string/tutorial_from_other_button"
-
-        android:gravity="center"/>
+        android:textColor="@color/text_white"
+        android:textSize="25sp"
+        android:background="@drawable/mybutton"
+        android:layout_marginBottom="@dimen/margin_bottom"></Button>
 
     <Button
         android:id="@+id/tutorial_tricks_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/button_size"
         android:text="@string/tutorial_tricks_button"
-        android:gravity="center"/>
+        android:textColor="@color/text_white"
+        android:textSize="@dimen/text_general_size"
+        android:layout_marginBottom="@dimen/margin_bottom"
+        android:background="@drawable/mybutton"/>
 
 </LinearLayout>
