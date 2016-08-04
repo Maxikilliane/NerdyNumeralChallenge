@@ -3,6 +3,7 @@
 
     <string name="app_name">NerdyNumeralChallenge</string>
     <string name="continue_button_text">-></string>
+    <string name="back_button_text">&lt;-</string>
     <string name="tutorial_solution_button">Lösen</string>
 
 
@@ -30,5 +31,211 @@
     <string name="game_highscore">Highscore</string>
     <string name="game_help">Help</string>
 
-    //Explanation
+    //Questions
+
+    <string-array name="numeral_systems">
+        <item>Binärsystem</item>
+        <item>Trialsystem</item>
+        <item>Quaternalsystem</item>
+        <item>Pentalsystem</item>
+        <item>Hexalsystem</item>
+        <item>Heptalsystem</item>
+        <item>Oktalsystem</item>
+        <item>Nonalsystem</item>
+        <item>Dezimalsystem</item>
+        <item>Undezimalsystem</item>
+        <item>Duodezimalsystem</item>
+        <item>Tridezimalsystem</item>
+        <item>Quatridezimalsystem</item>
+        <item>Pentadezimalsystem</item>
+        <item>Hexadezimalsystem</item>
+    </string-array>
+    //Freetext: part1+numeral_systems[x]+part2
+    <string name="free_text_question_1">Rechnen Sie die gegebene Zahl in das </string>
+    <string name="free_text_question_2"> um.\n</string>
+
+
+    //MultipleChoice: part1 + numeral_systems[x]+part2
+    <string name="multiple_choice_question_1">Wählen Sie für die gegebene Zahl die richtige Entsprechung im </string>
+    <string name="multiple_choice_question_2"> aus.\n</string>
+
+    //True/False:
+    <string name="true_false_question_1">Ist der folgende Ausdruck wahr oder falsch?\n</string>
+
+
+    //Explanations
+    <string-array name="tutorial_intro">
+        <item>
+            Die Zahlensysteme, um die es hier geht, sind Stellenwertsysteme, d.h. es gibt eine bestimmte Anzahl an Ziffern in einem Zahlensystem.
+            Abhängig davon an welcher Stelle in einer Zahl diese stehen, haben sie einen unterschiedlichen Wert.
+            Je weiter links eine Ziffer steht, desto höher ist dieser Wert.
+            Das im Alltag am meisten verwendete Zahlensystem ist das Dezimalsystem, das auf der Basis 10 basiert.\n
+            Man kann bei der Zahl 387 von der Einerstelle, der Zehnerstelle und der Hunderterstelle sprechen.\n
+            [Grafik einfügen]\n
+            Die 7 an der Einerstelle hat einen Wert von 7 * 1 = 7\n
+            Die 8 an der Zehnerstelle hat einen Wert von 8 * 10 = 80\n
+            Die 3 an der Hunderterstelle hat einen Wert von 3 * 100 = 300\n
+            Um den Wert der ganzen Zahl zu bekommen muss man die Werte der einzelnen Stellen addieren:\n
+            7+80+300 = 387
+        </item>
+        <item>
+            In der Informatik gibt es noch weitere Zahlensysteme, die auf das Binärsystem, dem Zahlensystem zur Basis 2, zurückgehen.
+            Das hat den Grund, dass ein Computer auf der Hardware-Ebene nur zwei Zustände kennt: An/Aus, Geladen/Ungeladen...
+            Im Binärsystem gibt es daher auch nur zwei Ziffern: 0 und 1. Auch das Binärsystem und alle weiteren hier behandelten Zahlensysteme
+            sind stellenwertbasierte Systeme, d.h. je weiter links eine Ziffer in einer Zahl steht, desto höher ist ihr Wert.
+
+        </item>
+        <item>
+             Weitere in der Informatik relevante Zahlensysteme sind das Oktalsystem (zur Basis 8) und das Hexadezimalsystem (zur Basis 16).
+            Diese beiden sind leicht in das Binärsystem umzuwandeln und haben analog zum Binärsystem, das 2 verschiedene Ziffern hat,
+            8 bzw. 16 unterschiedliche Ziffern.
+        </item>
+        <item>
+            Für Zahlensysteme mit einer höheren Basis als 10 gibt es allerdings keine arabischen Ziffern mehr.
+            Deswegen verwendet man dann die Buchstaben des lateinischen Alphabets, angefangen bei A.
+            Das Hexadezimalsystem hat somit die Ziffern 0-9 und A-F
+        </item>
+        <item>
+            Für die verschiedenen Systeme gibt es auch Namen, die oft aus dem Lateinischen oder Griechischen abeleitet sind:\n
+Liste aus Reischer-Folien
+
+        </item>
+        <item>
+            Der Anfang ist gemacht. Im nächsten Tutorial geht es um die Umrechnung eines Zahlensystems ins Dezimalsystem.
+        </item>
+    </string-array>
+
+    <string-array name="tutorial_decimal">
+        <item>
+            Bei der Betrachtung einer Dezimalzahl fällt auf, dass nach links jede Stelle 10 mal mehr wert ist als die letzte.
+            Die Zehnerstelle ist 10 * 1 wert. Die Hunderterstelle ist 10*10 wert usw.\n
+            Man kann verallgemeinern:\n
+            Einerstelle entspricht 10^0-Stelle\n
+            Zehnerstelle entspricht 10^1 Stelle\n
+            Hunderterstelle entspricht 10^2-Stelle  ...\n
+            [Grafik]\n
+            In anderen Zahlensystemen funktioniert dieses System genauso, nur mit einer anderen Basis natürlich.\n
+            Beispiel im Binärsystem:\n
+            [Grafik\n
+            ___  ___  ___  ___\n
+            2^3   2^2  2^1  2^0\n
+            ]\n
+
+            Analog zum Dezimalsystem gilt also:\n
+            1 an 2^0-Stelle entspricht 1=2^0\n
+            1 an 2^1-Stelle entspricht 2=2^1\n
+            1 an 2^2-Stelle entspricht 4 =2^2\n
+
+        </item>
+        <item>
+            Wenn man nun eine Zahl aus einem anderen Zahlensystem ins Dezimalsystem umrechnen will, muss man nur die Werte
+            der einzelnen Stellen anschließend addieren, wie man es auch implizit im Dezimalsystem tut (109 = 100 +9).\n
+
+            Beispiel im Binärsystem:\n
+            1010 = 2^3*1 + 2^2*0 + 2^1*1 +2^0*0 = 10 im Dezimalsystem\n
+            oder kürzer, da eine Null an einer Stelle keinen Wert hat:\n
+            2^3*1 + 2^1*1 = 10 im Dezimalsystem
+        </item>
+        <item>
+            Bei Zahlensystemen mit anderen Basen funktioniert das analog, es wird aber natürlich mit anderen Basen gerechnet,
+            also ist die Stelle ganz rechts nicht die 2^0-Stelle, sondern z.B. im 3er-System die 3^0-Stelle oder im 6er-System
+            die 6^0-Stelle.\n
+            Jeweils die Ziffer an der entsprechenden Stelle wird mit der Potenz, die diesem Stellenwert entspricht, multipliziert
+            und dann mit den anderen Stellen addiert.
+        </item>
+        <item>
+            Super, weiter geht es mit der Umrechnung aus dem Dezimalsystem!
+        </item>
+    </string-array>
+
+    <string-array name="tutorial_other">
+        <item>
+            Um eine Dezimalzahl in ein anderes  Zahlensystem umzurechnen, hilft es, wenn man ungefähr die Stellenwerte
+            in diesem Zahlensystem kennt. Also im Binärsystem 1 = 2^0, 2 = 2^1, 4 = 2^2, 8 = 2^3, 16 = 2^4...
+            Dann kann man schauen, welche dieser Stellenwerte der Größte ist, der in die Dezimalzahl hineinpasst.\n
+            Beispiel:\n
+            Dezimal 21: Der größte Stellenwert aus dem Binärsystem, der in 21 passt, ist 2^4 -> 16.\n
+        </item>
+        <item>
+            Dann kann man diesen Stellenwert von der Dezimalzahl abziehen und beim Rest analog verfahren.\n
+            Beispiel:\n
+            Dezimal 21 - 16 = 5 Der größte Binärstellenwert der in 5 passt, ist 2^2 =4. \n
+            5 -4 = 1 Der größte Binärstellenwert der in 1 passt, ist 2^0 = 1.\n
+            Damit weiß man, dass an der 2^4-Stelle (16er-Stelle), an der 2^2-Stelle (4er-Stelle) und an der 2^0-Stelle (1er-Stelle) Einser stehen müssen.
+            Die restlichen Stellenwerte kommen nicht vor und werden daher mit Nullern aufgefüllt, die ja keinen Wert haben.
+        </item>
+        <item>
+            Bei höheren Basen als 2 wird dieses Vorgehen allerdings schnell schwierig, da ja dann an einer Stelle nicht nur eine 1
+            oder 0 stehen kann, sondern auch noch weitere Ziffern, sodass man jeweils noch überlegen müsste, welche Ziffer an einer
+            Stelle stehen soll. Deswegen gibt es eine Vorgehensweise, die für alle Zahlensysteme funktioniert.\n\n
+
+            Am Anfang steht die Zahl, die man umrechnen will:\n
+            Beispiel: 27\n
+            Diese teilt man durch die Basis des Systems, in das man umrechnen will.\n
+            27 : 2 = 13 R:1\n
+            Der Rest entspricht später der Ziffer im Zielsystem.\n
+            Das Ergebnis teilt man wiederholt durch die Basis des Zielsystems, solange bis das Ergebnis 0 ist.\n
+            13 : 2 = 6 R: 1\n
+             6 : 2 = 3 R: 0\n
+             3 : 2 = 1 R: 1\n
+             1 : 2 = 0 R: 1\n
+            Die Zahl im Zielsystem erhält man nun, indem man die Reste von unten nach oben liest. \n
+            27 ist also im Binärsystem 11011.\n
+            Man kann im Arbeitsfluss den Rest, den man zuerst erhält, ganz rechts hinschreiben und dann immer eins weiter links
+            die nächsten Reste, die man bekommt, eintragen.
+        </item>
+        <item>
+            Man kann genauso natürlich auch in andere Systeme umrechnen, indem man nicht durch 2 teilt,
+            sondern z.B. um ins Hexalsystem umzurechnen durch 6. Man wird bemerken, dass automatisch nur Reste bleiben,
+            die den Ziffern des jeweiligen Zielsystems entsprechen.
+        </item>
+        <item>
+            Bei Zahlensystemen mit Basen, die größer als 10 sind, muss man allerdings beachten, dass man dann nicht mehr den dezimalen Rest
+            hinschreiben kann, sondern die entsprechende Ziffer in diesem Zahlensystem. Statt 10, schreibt man also A, statt 11 B und so weiter.
+        </item>
+        <item>
+            Fast geschafft! Im letzten Tutorial verraten wir ein paar nerdy Umrechnungstricks!
+        </item>
+    </string-array>
+    <string-array name="tutorial_tricks">
+        <item>
+            Vorher wurde ja schon erwähnt, dass die Umrechnung zwischen Hexadezimalsystem, Oktalsystem und Binärsystem relativ einfach ist.
+            Das liegt daran, dass diese Systeme, Zahlensysteme mit Basis 2^n sind.2^2 ist 4, 2^3 ist 8, 2^4 ist 16...
+            Diese Zahlensysteme kann man ohne zu rechnen ineinander umwandeln.
+        </item>
+        <item>
+            Einer Stelle im 4er-/8er-/16er-System entsprechen 2/3/4 Stellen im 2er-System.
+            Die Zahl der jeweiligen 2er-Potenz entspricht der Anzahl der Stellen im Binärsystem, die mit einer Stelle
+            im entsprechenden Zahlensystem der Basis 2^n dargestellt werden können.
+            Man kann also Blöcke von (je nach System) 2, 3 oder 4 Stellen auf einmal umrechnen und diese einfach aneinanderhängen.\n
+            Beispiel:\n
+            Quartärzahl: 3  0  1  2\n
+            Binärzahl:    11000110\n
+            11 entspricht 3, 00 entspricht 0, 01 entspricht 1, 10 entspricht 2\n
+        </item>
+        <item>
+            Im Hexadezimalsystem wird das Ganze dadurch etwas komplizierter, dass die gewohnten arabischen Ziffern durch Buchstaben
+            ergänzt werden. Mit einer Tabelle kann man sich aber die Entsprechungen der Buchstaben relativ leicht einprägen.\n
+            [Grafik Tabelle]\n
+            Aber Vorsicht! Während man direkt vom Binär ins Hexadezimalsystem umschreiben kann, ist dies vom Oktalsystem aus nicht
+            möglich. Hier muss ein Umweg über das Binärsystem gegangen werden, da sich die Blöcke an Ziffern, die gleichzeitig
+            transkribiert werden, überschneiden.\n
+            [Graphik Beispiel]\n
+        </item>
+        <item>
+            Bei der Umrechnung zwischen anderen Zahlensystemen wird bei größeren Zahlen
+            schnell ein Taschenrechner und ein Schmierblatt sehr hilfreich.
+        </item>
+        <item>
+            Das gilt auch für die Umrechnung zwischen nicht dezimalen Zahlensystemen, die nicht Basen 2^n haben.
+            Hierfür müsste man im Ausgangszahlensystem dividieren , was relativ aufwendig ist.
+            Es ist in diesem Fall einfacher, jeweils die entsprechende Zahl ins Dezimalsystem umzurechnen und dann zu teilen.
+        </item>
+        <item>
+            Herzlichen Glückwunsch! Die Tutorials sind alle geschafft, jetzt kann es mit den Übungen so richtig los gehen!
+        </item>
+    </string-array>
+
+
+
 </resources>
