@@ -12,14 +12,14 @@ import de.mi.ur.NerdyNumeralChallenge;
 public class MenueState extends State {
 
     private Texture background;
-    private Texture playbutton;
+    private Texture playButton;
 
 
     public MenueState(GameStateManager gameManager) {
         super(gameManager);
-        cam.setToOrtho(false);
+        cam.setToOrtho(false, NerdyNumeralChallenge.WIDTH/2, NerdyNumeralChallenge.HEIGHT/2);
         background = new Texture("background_final.png");
-        playbutton = new Texture("playbtn.png");
+        playButton = new Texture("playbtn.png");
     }
 
     @Override
@@ -31,7 +31,7 @@ public class MenueState extends State {
     }
 
     @Override
-    public void update(float flt) {
+    public void update(float dt) {
         handleInput();
 
     }
@@ -40,9 +40,8 @@ public class MenueState extends State {
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.setProjectionMatrix(cam.combined);
         spriteBatch.begin();
-        spriteBatch.draw(background, 0, 0, NerdyNumeralChallenge.WIDTH, NerdyNumeralChallenge.HEIGHT);
-        spriteBatch.draw(playbutton, (NerdyNumeralChallenge.WIDTH / 2) -
-                (playbutton.getWidth() / 2), NerdyNumeralChallenge.HEIGHT / 2);
+        spriteBatch.draw(background, 0, 0);
+        spriteBatch.draw(playButton,cam.position.x - playButton.getWidth() / 2, cam.position.y);
         spriteBatch.end();
 
     }
@@ -50,7 +49,7 @@ public class MenueState extends State {
     @Override
     public void dispose() {
         background.dispose();
-        playbutton.dispose();
+        playButton.dispose();
 
     }
 }

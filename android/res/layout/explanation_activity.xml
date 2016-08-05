@@ -28,6 +28,8 @@
                 android:id="@+id/tutorial_solution_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/mybutton"
+                android:textColor="@color/black"
                 android:text="@string/tutorial_solution_button"/>
         </LinearLayout>
 
@@ -40,17 +42,20 @@
 
         <Button
             android:id="@+id/explanation_back_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/back_button_text"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:background="@drawable/mybutton"
+            android:drawableLeft="@drawable/arrow_icon_left"
             android:layout_alignParentBottom="true"
             />
 
         <Button
             android:id="@+id/explanation_continue_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/continue_button_text"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:background="@drawable/mybutton"
+            android:drawableRight="@drawable/arrow_icon"
+            android:textColor="@color/text_white"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
