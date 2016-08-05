@@ -62,7 +62,6 @@
     //True/False:
     <string name="true_false_question_1">Ist der folgende Ausdruck wahr oder falsch?\n</string>
 
-
     //Explanations
     <string-array name="tutorial_intro">
         <item>
