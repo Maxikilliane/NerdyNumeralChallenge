@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector3;
  */
 public abstract class State {
     //camera to locate a position in the world
-    protected OrthographicCamera cam;
+    public static OrthographicCamera cam;
 
     protected GameStateManager gameManager;
 
