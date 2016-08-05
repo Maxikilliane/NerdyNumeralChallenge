@@ -1,13 +1,12 @@
 package de.mi.ur.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g3d.particles.ResourceData;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 import java.util.Random;
 
-import de.mi.ur.Constants;
+import de.mi.ur.ConstantsGame;
 import de.mi.ur.states.State;
 
 /**
@@ -29,9 +28,9 @@ public class Pit {
         position = new Vector3(0, 0, 0);
         velocity = new Vector3(0, 0, 0);
         random = new Random();
-        pitPos1 = new Vector2(x, pitPos1.y - Constants.PIT_GAP - pit.getHeight());
-       pitPos1 = new Vector2(State.cam.position.x - State.cam.viewportWidth / 2, Constants.PIT_Y_OFFSET);
-        pitPos2 = new Vector2((State.cam.position.x - State.cam.viewportWidth / 2) + pit.getWidth()/2, Constants.PIT_Y_OFFSET);
+        pitPos1 = new Vector2(x, pitPos1.y - ConstantsGame.PIT_GAP - pit.getHeight());
+       pitPos1 = new Vector2(State.cam.position.x - State.cam.viewportWidth / 2, ConstantsGame.PIT_Y_OFFSET);
+        pitPos2 = new Vector2((State.cam.position.x - State.cam.viewportWidth / 2) + pit.getWidth()/2, ConstantsGame.PIT_Y_OFFSET);
     }
 
     public float getX() {
@@ -44,7 +43,7 @@ public class Pit {
 
     public void reposition(float x){
 
-        pitPos1.set(x, pitPos1.y - Constants.PIT_GAP - pit.getHeight());
+        pitPos1.set(x, pitPos1.y - ConstantsGame.PIT_GAP - pit.getHeight());
 
     }
 

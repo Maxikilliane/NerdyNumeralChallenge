@@ -18,6 +18,6 @@
 
 
     //explanationActivity
-    <dimen name="text_explanation_size">14sp</dimen>
+    <dimen name="text_explanation_size">17sp</dimen>
 
 </resources>
