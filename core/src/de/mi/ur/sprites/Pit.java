@@ -30,8 +30,8 @@ public class Pit {
         velocity = new Vector3(0, 0, 0);
         random = new Random();
         pitPos1 = new Vector2(x, pitPos1.y - Constants.PIT_GAP - pit.getHeight());
-      /*  pitPos1 = new Vector2(State.cam.position.x - State.cam.viewportWidth / 2, Constants.PIT_Y_OFFSET);
-        pitPos2 = new Vector2((State.cam.position.x - State.cam.viewportWidth / 2) + pit.getWidth()/2, Constants.PIT_Y_OFFSET);*/
+       pitPos1 = new Vector2(State.cam.position.x - State.cam.viewportWidth / 2, Constants.PIT_Y_OFFSET);
+        pitPos2 = new Vector2((State.cam.position.x - State.cam.viewportWidth / 2) + pit.getWidth()/2, Constants.PIT_Y_OFFSET);
     }
 
     public float getX() {
