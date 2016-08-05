@@ -2,4 +2,6 @@
 <resources>
     <color name="blue_grey">#104e8b</color>
     <color name="text_white">#DCDCDC</color>
+    <color name="turquoise">#1FA8D1</color>
+    <color name="black">#000000</color>
 </resources>
