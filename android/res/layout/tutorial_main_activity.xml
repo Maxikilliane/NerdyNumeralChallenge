@@ -11,7 +11,7 @@
         android:layout_height="@dimen/button_size"
         android:layout_marginBottom="@dimen/margin_bottom"
         android:layout_marginTop="@dimen/margin_top"
-        android:background="@drawable/mybutton"
+        android:background="@drawable/my_button"
         android:text="@string/tutorial_intro_button"
         android:textColor="@color/text_white"
         android:textSize="@dimen/text_general_size"></Button>
@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_size"
         android:layout_marginBottom="@dimen/margin_bottom"
-        android:background="@drawable/mybutton"
+        android:background="@drawable/my_button"
         android:text="@string/tutorial_from_10_button"
         android:textColor="@color/text_white"
         android:textSize="25sp" />
@@ -36,7 +36,7 @@
         android:layout_marginBottom="@dimen/margin_bottom"
 
 
-        android:background="@drawable/mybutton"
+        android:background="@drawable/my_button"
         android:text="@string/tutorial_from_other_button"
         android:textColor="@color/text_white"
         android:textSize="25sp"></Button>
@@ -46,7 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_size"
         android:layout_marginBottom="@dimen/margin_bottom"
-        android:background="@drawable/mybutton"
+        android:background="@drawable/my_button"
         android:text="@string/tutorial_tricks_button"
         android:textColor="@color/text_white"
         android:textSize="@dimen/text_general_size" />

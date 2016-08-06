@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-import de.mi.ur.Constants;
+import de.mi.ur.ConstantsGame;
 import de.mi.ur.sprites.Nerd;
 import de.mi.ur.sprites.Pit;
 
@@ -33,7 +33,7 @@ public class PlayState extends State {
 
         pits = new Array<Pit>();
         for(int i = 1; i <= 4; i++)
-            pits.add(new Pit(i * (125+ Constants.PIT_WIDTH)));
+            pits.add(new Pit(i * (125+ ConstantsGame.PIT_WIDTH)));
         ground = new Texture("ground.png");
         groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, GROUND_Y_OFFSET);
         groundPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2) + ground.getWidth(), GROUND_Y_OFFSET);
