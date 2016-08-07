@@ -1,6 +1,7 @@
 package de.mi.ur.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
@@ -20,63 +21,46 @@ public class Pit {
     private Vector3 velocity;
     private static final int MOVEMENT = 100;
     private Random random;
+    private Rectangle bounds;
     private Vector2 pitPos1, pitPos2;
 
 
     public Pit (float x) {
-        pit = new Texture("pit.png");
+
+        pit = new Texture("pit_new.png");
         position = new Vector3(0, 0, 0);
         velocity = new Vector3(0, 0, 0);
         random = new Random();
-        pitPos1 = new Vector2(x, pitPos1.y - ConstantsGame.PIT_GAP - pit.getHeight());
-       pitPos1 = new Vector2(State.cam.position.x - State.cam.viewportWidth / 2, ConstantsGame.PIT_Y_OFFSET);
-        pitPos2 = new Vector2((State.cam.position.x - State.cam.viewportWidth / 2) + pit.getWidth()/2, ConstantsGame.PIT_Y_OFFSET);
-    }
+        pitPos1 = new Vector2(x, 0);
+        bounds = new Rectangle(getPitPos1().x, getPitPos1().y, pit.getWidth()- ConstantsGame.PIT_BOUNDS_OFFSET, pit.getHeight());
 
-    public float getX() {
-        return pitPos1.x;
-    }
-
-    public float getY() {
-        return pitPos2.y;
-    }
-
-    public void reposition(float x){
-
-        pitPos1.set(x, pitPos1.y - ConstantsGame.PIT_GAP - pit.getHeight());
 
     }
-
-    public Texture getTexture () {
+    public Texture getPit () {
         return pit;
     }
 
-    private void createNewPit() {
-        random = new Random();
+    public Vector2 getPitPos1() {
+        return pitPos1;
+    }
 
-        int pitWidth = random.nextInt();
+    public boolean collides(Rectangle player){
+        return player.overlaps(bounds);
+    }
+
+
+    public void reposition(float x){
+
+        pitPos1.set(x, 0);
+        bounds.setPosition(x,getPitPos1().y);
 
     }
 
 
 
-    public int getWidth () {
-        return pit.getWidth();
-    }
-
-   /* public void update(float dt) {
-        if (State.cam.position.x - (State.cam.viewportWidth / 2) > pitPos1.x + pit.getWidth()+1) {
-            pitPos1.add(pit.getWidth() * 2, 0);
-        }
-       if (State.cam.position.x - (State.cam.viewportWidth / 2) > pitPos2.x + pit.getWidth()+1) {
-           pitPos2.add(pit.getWidth() * 2, 0);
-       }
 
 
 
-
-
-    }*/
 
 
 
