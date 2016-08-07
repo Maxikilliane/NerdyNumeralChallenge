@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/activity_general_padding"
-                android:background="@color/turquoise"
+                android:background="@color/powder_blue"
                 android:layout_marginBottom="@dimen/margin_bottom">
 
             </FrameLayout>
