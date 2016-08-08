@@ -4,7 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 
+import java.util.Random;
+
+import de.mi.ur.ConstantsGame;
+import de.mi.ur.gameLogic.Score;
 import de.mi.ur.sprites.Nerd;
 import de.mi.ur.sprites.Pit;
 
@@ -16,23 +21,41 @@ public class PlayState extends State {
     private Nerd bird;
     private Texture background;
     private Texture ground;
-    private Pit pit;
-    private Vector2 pitPos1, pitPos2;
+    private Score score;
+
+
+    private Array<Pit> pits;
     private Vector2 groundPos1, groundPos2;
-    private static int GROUND_Y_OFFSET = -30;
+    private Random random;
+    private int newInt;
 
 
     protected PlayState(GameStateManager gameManager) {
         super(gameManager);
         bird = new Nerd(40, 200);
         background = new Texture("background_final.png");
+        random = new Random();
+        score = new Score();
+        pits = new Array<Pit>();
+        for (int i = 1; i <= 4; i++) {
+            newInt = generateNewDistance();
+            pits.add(new Pit(i * (newInt + ConstantsGame.PIT_WIDTH)));
 
-        pit = new Pit();
+        }
+        score.startTimer();
         ground = new Texture("ground.png");
-        groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, GROUND_Y_OFFSET);
-        groundPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2) + ground.getWidth(), GROUND_Y_OFFSET);
-        pitPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, GROUND_Y_OFFSET);
-        pitPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2) + pit.getWidth()/2, GROUND_Y_OFFSET);
+        groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, ConstantsGame.GROUND_Y_OFFSET);
+        groundPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2) + ground.getWidth(), ConstantsGame.GROUND_Y_OFFSET);
+
+    }
+
+    private int generateNewDistance() {
+        int newInt = random.nextInt(180);
+        if (newInt > 130) {
+            return newInt;
+        } else {
+            return newInt + generateNewDistance();
+        }
     }
 
     @Override
@@ -64,11 +87,21 @@ public class PlayState extends State {
     public void update(float dt) {
         handleInput();
         updateGround();
-        pit.update(dt);
         bird.update(dt);
-        cam.position.set(bird.getX() + 80, cam.viewportHeight / 2, 0);
+        score.updateScore();
+        cam.position.x = bird.getPosition().x + 80;
+        for (int i = 0; i < pits.size; i++) {
+            Pit pit = pits.get(i);
+            newInt = generateNewDistance();
+            if (cam.position.x - (cam.viewportWidth / 2) > pit.getPitPos1().x + pit.getPit().getWidth()) {
+                pit.reposition(pit.getPitPos1().x + newInt * 4);
+            }
+            if (pit.collides(bird.getBounds()))
+                gameManager.set(new MenueState(gameManager));
+        }
         cam.update();
     }
+
 
     @Override
     //draws things on the screen
@@ -76,13 +109,14 @@ public class PlayState extends State {
         spriteBatch.setProjectionMatrix(cam.combined);
         spriteBatch.begin();
         spriteBatch.draw(background, cam.position.x - (cam.viewportWidth / 2), 0);
+        score.renderScore(spriteBatch, cam);
         spriteBatch.draw(ground, groundPos1.x, groundPos1.y);
         spriteBatch.draw(ground, groundPos2.x, groundPos2.y);
-        spriteBatch.draw(pit.getTexture(), pitPos1.x, pitPos2.y);
         spriteBatch.draw(bird.getTexture(), bird.getX(), bird.getY());
-
+        for (Pit pit : pits) {
+            spriteBatch.draw(pit.getPit(), pit.getPitPos1().x, pit.getPitPos1().y);
+        }
         spriteBatch.end();
-
     }
 
     @Override

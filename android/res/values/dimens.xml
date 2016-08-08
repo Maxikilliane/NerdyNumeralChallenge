@@ -9,11 +9,16 @@
     <dimen name="margin_bottom">8dp</dimen>
     //settings
     <dimen name="text_settings_size">20sp</dimen>
+    //buttonLayout
+    <dimen name="stroke_width">1dp</dimen>
+    <dimen name="corner_radius">10dp</dimen>
+
+
 
 
 
 
     //explanationActivity
-    <dimen name="text_explanation_size">14sp</dimen>
+    <dimen name="text_explanation_size">17sp</dimen>
 
 </resources>

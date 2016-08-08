@@ -2,4 +2,13 @@
 <resources>
     <color name="blue_grey">#104e8b</color>
     <color name="text_white">#DCDCDC</color>
+    <color name="turquoise">#1FA8D1</color>
+    <color name="black">#000000</color>
+    <color name="grey">#808080</color>
+    <color name="powder_blue">#b0e0e6</color>
+
+
+    <color name="correct_solution_green">#9acd23</color>
+    <color name="wrong_solution_red">#b22222</color>
+    <color name="white">#ffffff</color>
 </resources>

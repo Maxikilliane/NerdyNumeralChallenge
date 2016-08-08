@@ -1,19 +1,35 @@
 package de.mi.ur;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import de.mi.ur.QuestionFragments.FreeTextQuestionFragment;
+import de.mi.ur.QuestionLogic.TutorialQuestion;
 
 /**
  * Created by Anna-Marie on 01.08.2016.
  */
 public class ExplanationActivity extends Activity implements View.OnClickListener{
     private TextView explanationTextView;
+    private TextView questionTextView;
+    private Button solutionButton;
     private Button continueButton;
     private Button backButton;
+
+    private FragmentManager fragmentManager;
+    private FreeTextQuestionFragment questionFragment;
+    private EditText solutionEditText;
 
     private int tutorialType;
     private int explanationNumber;
@@ -21,17 +37,22 @@ public class ExplanationActivity extends Activity implements View.OnClickListene
     private String explanationText;
     private int maxNumExplanations;
 
+    private TutorialQuestion currentQuestion;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.explanation_activity);
+        //sorgt dafür, dass die Tastatur am Anfang nicht sofort aufpoppt
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         Bundle extras = getIntent().getExtras();
         tutorialType = extras.getInt(Constants.KEY_TYPE_TUTORIAL);
         explanationNumber = extras.getInt(Constants.KEY_NUMBER_TUTORIAL);
 
         setUpTexts();
+        setUpQuestions();
         setUpUI();
     }
 
@@ -66,19 +87,58 @@ public class ExplanationActivity extends Activity implements View.OnClickListene
 
     }
 
+    private void setUpQuestions(){
+        currentQuestion = new TutorialQuestion(tutorialType, explanationNumber);
+    }
 
+    /*
+     * Click auf Solution-Button: grüner Hintergrund falls richtige Lösung,
+     *                            roter Hintergrund falls falsche Lösung + Toast mit richtiger Lösung
+     */
     private void setUpUI(){
         explanationTextView = (TextView) findViewById(R.id.explanation_textview);
         explanationTextView.setText(explanationText);
+
+       // questionTextView = (TextView) findViewById(R.id.revision_question_textview);
+        questionTextView.setText(currentQuestion.getQuestion());
+
+        solutionButton = (Button) findViewById(R.id.tutorial_solution_button);
+        solutionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String solution = questionFragment.getTextFromSolutionEditText();
+                if(solution.equals(currentQuestion.getRightAnswer())){
+                    questionFragment.getView().setBackgroundResource(R.color.correct_solution_green);
+                }else{
+                    questionFragment.getView().setBackgroundResource(R.color.wrong_solution_red);
+                    showWrongAnswerToast();
+                }
+            }
+        });
+
         continueButton = (Button) findViewById(R.id.explanation_continue_button);
-        backButton = (Button) findViewById(R.id.explanation_back_button);
         continueButton.setOnClickListener(this);
+
+        backButton = (Button) findViewById(R.id.explanation_back_button);
         backButton.setOnClickListener(this);
+        backButton.setEnabled(false);
+
+        setUpFragment();
+    }
+
+    private void setUpFragment(){
+        fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        questionFragment = new FreeTextQuestionFragment();
+        //fragmentTransaction.add(R.id.revision_answer_fragment_placeholder, questionFragment);
+        fragmentTransaction.commit();
+       // solutionEditText = (EditText) questionFragment.getView().findViewById(R.id.freetext_edit_text);
     }
 
     /*
      * Click auf Continue-Button:nächster Erklärtext wird eingeblendet
      * Click auf Back-Button: letzter Erklärtext wird eingeblendet
+     *
      */
     @Override
     public void onClick(View v) {
@@ -101,6 +161,36 @@ public class ExplanationActivity extends Activity implements View.OnClickListene
         }
         explanationText = tutorialTexts[explanationNumber];
         explanationTextView.setText(explanationText);
+        setVisibility();
+
+        questionTextView.setText(currentQuestion.getQuestion());
+        questionFragment.getView().setBackgroundResource(R.color.powder_blue);
+        questionFragment.deleteText();
+
+        //sorgt dafür, dass mit Wechsel des ExplanationTexts auch der Focus vom EditText wieder weggeht
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(questionFragment.getSolutionEditText().getWindowToken(), 0);
+    }
+
+    private void setVisibility(){
+        if(explanationNumber<maxNumExplanations){
+            currentQuestion = new TutorialQuestion(tutorialType, explanationNumber);
+            solutionButton.setVisibility(View.VISIBLE);
+            solutionButton.setEnabled(true);
+            questionFragment.setTextVisible();
+            questionTextView.setVisibility(View.VISIBLE);
+        }else{
+            solutionButton.setVisibility(View.INVISIBLE);
+            solutionButton.setEnabled(false);
+            questionFragment.setTextInvisible();
+            questionTextView.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void showWrongAnswerToast(){
+        String wrongAnswerText = getResources().getString(R.string.wrong_answer_toast_text) +" "+currentQuestion.getRightAnswer() + ".";
+        Toast wrongAnswerToast = Toast.makeText(this, wrongAnswerText, Toast.LENGTH_LONG);
+        wrongAnswerToast.show();
 
     }
 }

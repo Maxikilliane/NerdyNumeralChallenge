@@ -11,10 +11,9 @@ import de.mi.ur.states.MenueState;
 
 public class NerdyNumeralChallenge extends ApplicationAdapter {
 
-	public static final int WIDTH = 1200;
-	public  static final int HEIGHT = 880;
+	public static final int WIDTH = 480;
+	public  static final int HEIGHT = 800;
 	private SpriteBatch batch;
-	private Texture img;
 	private GameStateManager manager;
 
 
@@ -23,7 +22,6 @@ public class NerdyNumeralChallenge extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-
 		manager = new GameStateManager();
 		manager.push(new MenueState(manager));
 		Gdx.gl.glClearColor(1, 0, 0, 1);
@@ -31,11 +29,9 @@ public class NerdyNumeralChallenge extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
      	manager.update(Gdx.graphics.getDeltaTime());
 		manager.render(batch);
-
 	}
 	
 	@Override

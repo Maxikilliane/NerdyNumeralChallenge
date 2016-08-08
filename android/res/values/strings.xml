@@ -9,9 +9,9 @@
 
     //TutorialMain
     <string name="tutorial_intro_button">Einführung</string>
-    <string name="tutorial_from_10_button">anderes System -> Dezimal</string>
-    <string name="tutorial_from_other_button">Dezimal -> anderes System</string>
-    <string name="tutorial_tricks_button">Super Nerdy Tricks</string>
+    <string name="tutorial_from_10_button">Anderes System -> Dezimal</string>
+    <string name="tutorial_from_other_button">Dezimal -> Anderes System</string>
+    <string name="tutorial_tricks_button">Nerdy Tricks</string>
 
     //StartScreen
     <string name="start_tutorial_button">Tutorial</string>
@@ -33,6 +33,9 @@
 
     //Questions
 
+    <string name="wrong_answer_toast_text">Diese Antwort ist leider falsch. Gehen Sie das Tutorial nocheinmal genau durch. \n
+    Die richtige Antwort wäre:</string>
+
     <string-array name="numeral_systems">
         <item>Binärsystem</item>
         <item>Trialsystem</item>
@@ -50,9 +53,12 @@
         <item>Pentadezimalsystem</item>
         <item>Hexadezimalsystem</item>
     </string-array>
+
+
     //Freetext: part1+numeral_systems[x]+part2
     <string name="free_text_question_1">Rechnen Sie die gegebene Zahl in das </string>
     <string name="free_text_question_2"> um.\n</string>
+    <string name="answer_prompt">Antwort eingeben!</string>
 
 
     //MultipleChoice: part1 + numeral_systems[x]+part2
@@ -61,7 +67,8 @@
 
     //True/False:
     <string name="true_false_question_1">Ist der folgende Ausdruck wahr oder falsch?\n</string>
-
+    <string name="true_button_tag">wahr</string>
+    <string name="false_button_tag">falsch</string>
 
     //Explanations
     <string-array name="tutorial_intro">

@@ -11,7 +11,7 @@ import android.widget.EditText;
 /**
  * Created by maxiwindl on 01.08.16.
  */
-public class StartActivity extends Activity implements View.OnClickListener {
+public class StartActivity extends Activity {
 
     private Button buttonTutorial;
     private Button buttonPractice;
@@ -29,37 +29,48 @@ public class StartActivity extends Activity implements View.OnClickListener {
 
     private void setupUI() {
         buttonTutorial = (Button) findViewById(R.id.start_tutorial_button);
-        buttonTutorial.setOnClickListener(this);
+        setOnClickListener (buttonTutorial);
+        buttonTutorial.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent i = new Intent(StartActivity.this, TutorialMainActivity.class);
+                startActivity(i);
+            }
+        });
         buttonPractice = (Button) findViewById(R.id.start_practice_button);
-        buttonPractice.setOnClickListener(this);
+        setOnClickListener(buttonPractice);
         buttonGame = (Button) findViewById(R.id.start_game_button);
-        buttonGame.setOnClickListener(this);
+        buttonGame.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent i = new Intent (StartActivity.this, GameMainActivity.class);
+                startActivity(i);
+            }
+        });
+        setOnClickListener(buttonGame);
         buttonProgress = (Button) findViewById(R.id.start_progress_button);
-        buttonProgress.setOnClickListener(this);
+        setOnClickListener(buttonProgress);
     }
 
-
-    //nicht vollständig implementiert (Practice und Progress fehlen
-    @Override
-    public void onClick(View v) {
-        Intent i = null;
+    public void setOnClickListener(View v) {
+        /*Intent i = null;
         switch (v.getId()){
             case R.id.start_tutorial_button:
                 i = new Intent(StartActivity.this, TutorialMainActivity.class);
                 break;
             case R.id.start_practice_button:
+                   // i = new Intent (StartActivity.this, :
                 break;
             case R.id.start_game_button:
                 i= new Intent (StartActivity.this, GameMainActivity.class);
                 break;
             case R.id.start_progress_button:
+                //i = new Intent (StartActivity.this, )
                 break;
             default:
                 break;
         }
         if(i!=null){
             startActivity(i);
-        }
+        }*/
 
     }
 }
