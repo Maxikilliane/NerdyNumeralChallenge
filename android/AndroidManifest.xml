@@ -30,6 +30,8 @@
 
         <activity android:name=".GameMainActivity">
         </activity>
+        <activity android:name=".SettingsActivity">
+        </activity>
 
         <activity
             android:name="de.mi.ur.AndroidLauncher"

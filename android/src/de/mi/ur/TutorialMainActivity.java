@@ -36,8 +36,7 @@ public class TutorialMainActivity extends Activity implements View.OnClickListen
         tricksButton.setOnClickListener(this);
     }
 
-    //noch nicht implementiert... Da muss ich vermutlich irgendwie ein Bundle mitgeben, dass die ExplanationActivity weiß,
-    //welches Tutorial sie anzeigen soll.
+
     @Override
     public void onClick(View v) {
         Intent i = new Intent (TutorialMainActivity.this, ExplanationActivity.class);

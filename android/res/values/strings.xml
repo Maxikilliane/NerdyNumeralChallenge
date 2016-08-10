@@ -78,7 +78,7 @@
         Bei der Betrachtung einer Dezimalzahl fällt auf, dass nach links jede Stelle 10 mal mehr wert ist als die letzte.
             Die Zehnerstelle ist 10 * 1 wert. Die Hunderterstelle ist 10*10 wert usw.<br/>
             Man kann verallgemeinern:<br/>
-            Einerstelle entspricht 10<sup><small>a</small></sup>-Stelle<br/>
+            Einerstelle entspricht 10<sup><small>0</small></sup>-Stelle<br/>
             Zehnerstelle entspricht 10^1 Stelle<br/>
             Hunderterstelle entspricht 10^2-Stelle  ...<br/>
 
