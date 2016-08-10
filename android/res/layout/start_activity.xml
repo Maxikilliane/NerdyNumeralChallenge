@@ -51,6 +51,11 @@
         android:textSize="@dimen/text_general_size"
         android:background="@drawable/my_button"/>
 
+    <TextView
+        android:id="@+id/testView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
 
 </LinearLayout>

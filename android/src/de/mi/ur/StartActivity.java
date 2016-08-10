@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 /**
  * Created by maxiwindl on 01.08.16.
@@ -17,12 +19,17 @@ public class StartActivity extends Activity {
     private Button buttonPractice;
     private Button buttonGame;
     private Button buttonProgress;
+
+    private TextView test;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_activity);
         setupUI();
+
+        test = (TextView) findViewById(R.id.testView);
+        test.setText(Html.fromHtml(getResources().getString(R.string.testString)));
 
 
     }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="testString">j</string>
 
     <string name="app_name">NerdyNumeralChallenge</string>
     <string name="continue_button_text">-></string>
@@ -71,7 +72,32 @@
     <string name="false_button_tag">falsch</string>
 
     //Explanations
-    <string-array name="tutorial_intro">
+
+    <string name="tutorial_decimal_explanation_1">
+        <![CDATA[
+        Bei der Betrachtung einer Dezimalzahl fällt auf, dass nach links jede Stelle 10 mal mehr wert ist als die letzte.
+            Die Zehnerstelle ist 10 * 1 wert. Die Hunderterstelle ist 10*10 wert usw.<br/>
+            Man kann verallgemeinern:<br/>
+            Einerstelle entspricht 10<sup><small>a</small></sup>-Stelle<br/>
+            Zehnerstelle entspricht 10^1 Stelle<br/>
+            Hunderterstelle entspricht 10^2-Stelle  ...<br/>
+
+            In anderen Zahlensystemen funktioniert dieses System genauso, nur mit einer anderen Basis natürlich.<br/>
+            Beispiel im Binärsystem:<br/>
+
+
+            ___  ___  ___  ___<br/>
+            2^3   2^2  2^1  2^0<br/>
+            <n/>
+
+            Analog zum Dezimalsystem gilt also:<br/>
+            1 an 2^0-Stelle entspricht 1=2^0<br/>
+            1 an 2^1-Stelle entspricht 2=2^1<br/>
+            1 an 2^2-Stelle entspricht 4 =2^2<br/>
+
+
+        ]]></string>
+    <string-array name="tutorial_intro" >
         <item>
             Die Zahlensysteme, um die es hier geht, sind Stellenwertsysteme, d.h. es gibt eine bestimmte Anzahl an Ziffern in einem Zahlensystem.
             Abhängig davon an welcher Stelle in einer Zahl diese stehen, haben sie einen unterschiedlichen Wert.
@@ -79,7 +105,7 @@
             Das im Alltag am meisten verwendete Zahlensystem ist das Dezimalsystem, das auf der Basis 10 basiert.\n
             Man kann bei der Zahl 387 von der Einerstelle, der Zehnerstelle und der Hunderterstelle sprechen.\n
             [Grafik einfügen]\n
-            Die 7 an der Einerstelle hat einen Wert von 7 * 1 = 7\n
+            Die 7 an der Einerstelle hat einen Wert von 7*1 = 7\n
             Die 8 an der Zehnerstelle hat einen Wert von 8 * 10 = 80\n
             Die 3 an der Hunderterstelle hat einen Wert von 3 * 100 = 300\n
             Um den Wert der ganzen Zahl zu bekommen muss man die Werte der einzelnen Stellen addieren:\n
@@ -104,8 +130,21 @@
         </item>
         <item>
             Für die verschiedenen Systeme gibt es auch Namen, die oft aus dem Lateinischen oder Griechischen abeleitet sind:\n
-Liste aus Reischer-Folien
-
+            Binärsystem n
+            Trialsystem\n
+            Quaternalsystem\n
+            Pentalsystem\n
+            Hexalsystem\n
+            Heptalsystem\n
+            Oktalsystem\n
+            Nonalsystem\n
+            Dezimalsystem\n
+            Undezimalsystem\n
+            Duodezimalsystem\n
+            Tridezimalsystem\n
+            Quatridezimalsystem\n
+            Pentadezimalsystem\n
+            Hexadezimalsystem\n
         </item>
         <item>
             Der Anfang ist gemacht. Im nächsten Tutorial geht es um die Umrechnung eines Zahlensystems ins Dezimalsystem.
@@ -113,27 +152,7 @@ Liste aus Reischer-Folien
     </string-array>
 
     <string-array name="tutorial_decimal">
-        <item>
-            Bei der Betrachtung einer Dezimalzahl fällt auf, dass nach links jede Stelle 10 mal mehr wert ist als die letzte.
-            Die Zehnerstelle ist 10 * 1 wert. Die Hunderterstelle ist 10*10 wert usw.\n
-            Man kann verallgemeinern:\n
-            Einerstelle entspricht 10^0-Stelle\n
-            Zehnerstelle entspricht 10^1 Stelle\n
-            Hunderterstelle entspricht 10^2-Stelle  ...\n
-            [Grafik]\n
-            In anderen Zahlensystemen funktioniert dieses System genauso, nur mit einer anderen Basis natürlich.\n
-            Beispiel im Binärsystem:\n
-            [Grafik\n
-            ___  ___  ___  ___\n
-            2^3   2^2  2^1  2^0\n
-            ]\n
-
-            Analog zum Dezimalsystem gilt also:\n
-            1 an 2^0-Stelle entspricht 1=2^0\n
-            1 an 2^1-Stelle entspricht 2=2^1\n
-            1 an 2^2-Stelle entspricht 4 =2^2\n
-
-        </item>
+        <item>@string/tutorial_decimal_explanation_1</item>
         <item>
             Wenn man nun eine Zahl aus einem anderen Zahlensystem ins Dezimalsystem umrechnen will, muss man nur die Werte
             der einzelnen Stellen anschließend addieren, wie man es auch implizit im Dezimalsystem tut (109 = 100 +9).\n

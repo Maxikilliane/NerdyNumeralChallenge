@@ -23,7 +23,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_explanation_size"
                 android:textColor = "@android:color/black"
-                android:layout_marginBottom="@dimen/margin_bottom"/>
+                android:layout_marginBottom="@dimen/margin_bottom"
+                />
 
             <TextView
                 android:id="@+id/revision_question_textview"
