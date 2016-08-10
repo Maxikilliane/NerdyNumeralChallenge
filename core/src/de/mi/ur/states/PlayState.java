@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.Random;
@@ -18,7 +19,7 @@ import de.mi.ur.sprites.Pit;
  */
 public class PlayState extends State {
 
-    private Nerd bird;
+    private Nerd nerd;
     private Texture background;
     private Texture ground;
     private Score score;
@@ -32,14 +33,13 @@ public class PlayState extends State {
 
     protected PlayState(GameStateManager gameManager) {
         super(gameManager);
-        bird = new Nerd(40, 200);
+        nerd = new Nerd(40, 200);
         background = new Texture("background_final.png");
         random = new Random();
         score = new Score();
         pits = new Array<Pit>();
         for (int i = 1; i <= 4; i++) {
-            newInt = generateNewDistance();
-            pits.add(new Pit(i * (newInt + ConstantsGame.PIT_WIDTH)));
+            pits.add(new Pit(i * (180 + ConstantsGame.PIT_WIDTH)));
 
         }
         score.startTimer();
@@ -50,11 +50,11 @@ public class PlayState extends State {
     }
 
     private int generateNewDistance() {
-        int newInt = random.nextInt(180);
-        if (newInt > 130) {
+        int newInt = random.nextInt(200);
+        if (newInt >= 150) {
             return newInt;
         } else {
-            return newInt + generateNewDistance();
+            return generateNewDistance();
         }
     }
 
@@ -62,7 +62,7 @@ public class PlayState extends State {
     protected void handleInput() {
         if (Nerd.jumpFinished) {
             if (Gdx.input.justTouched()) {
-                bird.jump();
+                nerd.jump();
                 Nerd.jumpFinished = false;
 
 
@@ -87,16 +87,15 @@ public class PlayState extends State {
     public void update(float dt) {
         handleInput();
         updateGround();
-        bird.update(dt);
+        nerd.update(dt);
         score.updateScore();
-        cam.position.x = bird.getPosition().x + 80;
+        cam.position.x = nerd.getPosition().x + 80;
         for (int i = 0; i < pits.size; i++) {
             Pit pit = pits.get(i);
-            newInt = generateNewDistance();
             if (cam.position.x - (cam.viewportWidth / 2) > pit.getPitPos1().x + pit.getPit().getWidth()) {
-                pit.reposition(pit.getPitPos1().x + newInt * 4);
+                pit.reposition();
             }
-            if (pit.collides(bird.getBounds()))
+            if (pit.collides(nerd.getBounds()))
                 gameManager.set(new MenueState(gameManager));
         }
         cam.update();
@@ -112,7 +111,7 @@ public class PlayState extends State {
         score.renderScore(spriteBatch, cam);
         spriteBatch.draw(ground, groundPos1.x, groundPos1.y);
         spriteBatch.draw(ground, groundPos2.x, groundPos2.y);
-        spriteBatch.draw(bird.getTexture(), bird.getX(), bird.getY());
+        spriteBatch.draw(nerd.getTexture(), nerd.getX(), nerd.getY());
         for (Pit pit : pits) {
             spriteBatch.draw(pit.getPit(), pit.getPitPos1().x, pit.getPitPos1().y);
         }
@@ -121,7 +120,7 @@ public class PlayState extends State {
 
     @Override
     public void dispose() {
-        bird.dispose();
+        nerd.dispose();
         background.dispose();
         ground.dispose();
 

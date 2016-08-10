@@ -18,7 +18,6 @@ public class Nerd {
     private static final int MOVEMENT = 100;
 
     public static boolean jumpFinished;
-    private enum State {RUNNING, FALLING, JUMPING}
     private Vector3 position;
     private Vector3 velocity;
     private Rectangle bounds;
@@ -69,35 +68,20 @@ public class Nerd {
     public int getWidth () {
         return texture.getWidth()/3;
     }
-    public void updateBounds(){
-        bounds.setPosition(position.x, position.y);
-    }
 
 
-    public State getState () {
-        if (position.y >0) {
-            return State.JUMPING;
-        } else if (position.y < 0) {
-            return State.FALLING;
-        }
-        return State.RUNNING;
 
-    }
 
-    public TextureRegion getBird() {
-        return birdAnimation.getFrame();
-    }
+
 
     public Vector3 getPosition() {
         return position;
     }
 
-    public Vector3 getVelocity() {
-        return velocity;
-    }
+
 
     public void jump() {
-        velocity.y = 600;
+        velocity.y = 500;
     }
 
     public void dispose() {
