@@ -27,7 +27,7 @@ public class Pit {
 
         pit = new Texture("pit_new.png");
         random = new Random();
-        pitPos = new Vector2((x+generateNewDistance() + pit.getWidth()) * 2, 0);
+        pitPos = new Vector2((x + pit.getWidth()) * (1 + generateNewDistance()), 0);
         bounds = new Rectangle(getPitPos1().x, getPitPos1().y, pit.getWidth()- ConstantsGame.PIT_BOUNDS_OFFSET, pit.getHeight());
 
 
@@ -37,7 +37,7 @@ public class Pit {
         return pit;
     }
     private int generateNewDistance() {
-        int newInt = random.nextInt(50);
+        int newInt = random.nextInt(4);
 
             return newInt;
 
@@ -57,7 +57,7 @@ public class Pit {
 
     public void reposition(){
 
-        pitPos.set((pitPos.x+generateNewDistance() + pit.getWidth()) * 2, 0);
+        pitPos.set((ConstantsGame.PIT_OFFSET + pit.getWidth()) * 2, 0);
         bounds.setPosition(pitPos.x,getPitPos1().y);
 
     }
