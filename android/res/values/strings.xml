@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="testString">j</string>
+    <string name="testString"><![CDATA[
+    B<sub><small>x</small></sub>->B<sub><small>10</small></sub>
+    ]]></string>
 
     <string name="app_name">NerdyNumeralChallenge</string>
     <string name="continue_button_text">-></string>
@@ -10,7 +12,9 @@
 
     //TutorialMain
     <string name="tutorial_intro_button">Einführung</string>
-    <string name="tutorial_from_10_button">Anderes System -> Dezimal</string>
+    <string name="tutorial_from_10_button"><![CDATA[
+    B<sub><small>x</small></sub>->B<sub><small>10</small></sub>
+    ]]></string>
     <string name="tutorial_from_other_button">Dezimal -> Anderes System</string>
     <string name="tutorial_tricks_button">Nerdy Tricks</string>
 

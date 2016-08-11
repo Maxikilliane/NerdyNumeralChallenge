@@ -28,10 +28,10 @@ public class StartActivity extends Activity {
         setContentView(R.layout.start_activity);
         setupUI();
 
-        /* // Testing Superscript
+         // Testing Superscript
         test = (TextView) findViewById(R.id.testView);
         test.setText(Html.fromHtml(getResources().getString(R.string.testString)));
-*/
+
 
     }
 
