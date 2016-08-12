@@ -17,7 +17,7 @@ public class WeatherAsyncTask extends AsyncTask<String, Integer, String> {
 
     }
 
-    // Aus Folien kopiert, evtl noch überarbeiten!
+    //überarbeiten!
     @Override
     protected String doInBackground(String[] params) {
         String jsonString = "";

@@ -6,6 +6,7 @@ import de.mi.ur.Constants;
 
 /**
  * Created by Anna-Marie on 11.08.2016.
+ * To-Do: WeatherAsyncTask starten, Json auswerten -> current weather speichern
  */
 public class WeatherManager {
     private int currentWeather;
@@ -38,6 +39,10 @@ public class WeatherManager {
      http://openweathermap.org/weather-conditions
 
      */
+
+    public int getCurrentWeather(){
+        return currentWeather;
+    }
 
 
 
