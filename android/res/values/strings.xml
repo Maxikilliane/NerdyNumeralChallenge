@@ -243,6 +243,13 @@ Liste aus Reischer-Folien
         </item>
     </string-array>
 
+    //Exercise
+    <string name="exercise_headline">Wähle ein Zahlensystem</string>
+    <string name="multiple_choice_button">Multiple Choice</string>
+    <string name="wrong_true_button">Wahr/ Falsch</string>
+    <string name="manual_entry_button">Selbsteingabe</string>
+
+
 
 
 </resources>
