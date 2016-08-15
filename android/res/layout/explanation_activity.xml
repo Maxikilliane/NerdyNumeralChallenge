@@ -1,46 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="@dimen/activity_general_padding">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.92">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation ="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/activity_general_padding"
-            >
+            android:orientation="vertical"
+            android:padding="@dimen/activity_general_padding">
 
             <TextView
                 android:id="@+id/explanation_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_explanation_size"
-                android:textColor = "@android:color/black"
                 android:layout_marginBottom="@dimen/margin_bottom"
-                />
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_explanation_size" />
 
             <TextView
                 android:id="@+id/revision_question_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize ="@dimen/text_explanation_size"
+                android:background="@color/powder_blue"
                 android:textColor="@android:color/black"
-                android:background="@color/powder_blue"/>
+                android:textSize="@dimen/text_explanation_size" />
 
             <FrameLayout
                 android:id="@+id/revision_answer_fragment_placeholder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/activity_general_padding"
+                android:layout_marginBottom="@dimen/margin_bottom"
                 android:background="@color/powder_blue"
-                android:layout_marginBottom="@dimen/margin_bottom">
+                android:padding="@dimen/activity_general_padding">
 
             </FrameLayout>
 
@@ -50,41 +47,42 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/my_button"
-                android:textColor="@color/black"
                 android:text="@string/tutorial_solution_button"
-               />
+                android:textColor="@color/text_white" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+               android:layout_gravity="end">
+
+                <Button
+                    android:id="@+id/explanation_back_button"
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/my_button"
+                    android:text="zurück"
+                    android:textColor="@color/text_white" />
+
+                <Button
+                    android:id="@+id/explanation_continue_button"
+
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/my_button"
+                    android:text="weiter"
+
+                    android:textColor="@color/text_white" />
+
+            </RelativeLayout>
         </LinearLayout>
 
     </ScrollView>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.08"
-        >
-
-        <Button
-            android:id="@+id/explanation_back_button"
-            android:layout_width="70dp"
-            android:layout_height="35dp"
-            android:background="@drawable/my_button"
-            android:drawableLeft="@drawable/arrow_icon_left"
-            android:layout_alignParentBottom="true"
-            />
-
-        <Button
-            android:id="@+id/explanation_continue_button"
-            android:layout_width="70dp"
-            android:layout_height="35dp"
-            android:background="@drawable/my_button"
-            android:drawableRight="@drawable/arrow_icon"
-            android:textColor="@color/text_white"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            />
-
-    </RelativeLayout>
 
 
 </LinearLayout>
