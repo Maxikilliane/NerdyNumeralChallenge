@@ -1,4 +1,4 @@
-package de.mi.ur.HoffentlichNurVorübergehend;
+package de.mi.ur.HoffentlichNurVoruebergehend;
 
 import java.util.ArrayList;
 
