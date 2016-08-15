@@ -24,7 +24,9 @@ public class GameMainActivity extends Activity  implements View.OnClickListener{
         buttonStartGame = (Button) findViewById(R.id.game_start_button);
         buttonStartGame.setOnClickListener(this);
         buttonViewHighscore = (Button) findViewById (R.id.game_highscore_button);
+        buttonViewHighscore.setOnClickListener(this);
         buttonHelp = (Button) findViewById (R.id.game_help_button);
+        buttonHelp.setOnClickListener(this);
 
     }
 
@@ -38,7 +40,7 @@ public class GameMainActivity extends Activity  implements View.OnClickListener{
             case R.id.game_highscore_button:
                 break;
             case R.id.game_help_button:
-                i= new Intent (GameMainActivity.this, GameMainActivity.class);
+                i= new Intent (GameMainActivity.this, GameHelpActivity.class);
                 break;
             default:
                 break;

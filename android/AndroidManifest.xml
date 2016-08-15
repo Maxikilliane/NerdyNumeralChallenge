@@ -25,13 +25,11 @@
         <activity android:name=".ExplanationActivity">
         </activity>
 
-        <activity android:name=".TutorialMainActivity">
-        </activity>
+        <activity android:name=".TutorialMainActivity"></activity>
 
-        <activity android:name=".GameMainActivity">
-        </activity>
-        <activity android:name=".SettingsActivity">
-        </activity>
+        <activity android:name=".GameMainActivity"></activity>
+        <activity android:name=".GameHelpActivity"></activity>
+        <activity android:name=".SettingsActivity"></activity>
 
         <activity
             android:name="de.mi.ur.AndroidLauncher"

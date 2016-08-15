@@ -3,7 +3,7 @@ package de.mi.ur.QuestionLogic;
 /**
  * Created by Anna-Marie on 02.08.2016.
  */
-public class TutorialQuestion  {
+public class TutorialQuestion extends Question {
     private String question;
     private String rightAnswer;
 
@@ -33,6 +33,7 @@ public class TutorialQuestion  {
 
 
     public TutorialQuestion(int tutorialTypeConstant, int questionNumber){
+        super(-1, -1, -1);
         this.question = questions[tutorialTypeConstant][questionNumber];
         this.rightAnswer = answers[tutorialTypeConstant][questionNumber];
     }

@@ -33,6 +33,7 @@ public class TutorialMainActivity extends Activity implements View.OnClickListen
         fromDecimalButton.setText(Html.fromHtml(getResources().getString(R.string.tutorial_from_10_button)));
         fromDecimalButton.setOnClickListener(this);
         fromOtherButton = (Button)findViewById(R.id.tutorial_from_other_numeral_button);
+        fromOtherButton.setText(Html.fromHtml(getResources().getString(R.string.tutorial_from_other_button)));
         fromOtherButton.setOnClickListener(this);
         tricksButton= (Button) findViewById(R.id.tutorial_tricks_button);
         tricksButton.setOnClickListener(this);
