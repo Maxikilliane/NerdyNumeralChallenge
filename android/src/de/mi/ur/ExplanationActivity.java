@@ -100,7 +100,7 @@ public class ExplanationActivity extends Activity implements View.OnClickListene
         explanationTextView = (TextView) findViewById(R.id.explanation_textview);
         explanationTextView.setText(explanationText);
 
-        questionTextView = (TextView) findViewById(R.id.revision_question_textview);
+       questionTextView = (TextView) findViewById(R.id.revision_question_textview);
         questionTextView.setText(currentQuestion.getQuestion());
 
         solutionButton = (Button) findViewById(R.id.tutorial_solution_button);
@@ -133,7 +133,7 @@ public class ExplanationActivity extends Activity implements View.OnClickListene
         questionFragment = new FreeTextQuestionFragment();
         fragmentTransaction.add(R.id.revision_answer_fragment_placeholder, questionFragment);
         fragmentTransaction.commit();
-       // solutionEditText = (EditText) questionFragment.getView().findViewById(R.id.freetext_edit_text);
+       solutionEditText = (EditText) questionFragment.getView().findViewById(R.id.freetext_edit_text);
     }
 
     /*
