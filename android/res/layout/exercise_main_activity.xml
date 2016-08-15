@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/activity_general_padding">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/exercise_headline"
+        android:textSize="@dimen/exercise_headline_size"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/firstNumberPicker"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/margin"
+
+            />
+
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/secondNumberPicker"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/margin"/>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/multiple_choice_button"
+        android:textSize="@dimen/exercise_button_text_size"
+        android:id="@+id/multipleChoiceButton"
+        android:textColor="@color/text_white"
+        android:background="@drawable/my_button"
+        android:layout_marginBottom="@dimen/margin_bottom"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/wrong_true_button"
+        android:textSize="@dimen/exercise_button_text_size"
+        android:id="@+id/wrongTrueButton"
+        android:textColor="@color/text_white"
+        android:background="@drawable/my_button"
+        android:layout_marginBottom="@dimen/margin_bottom"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/manual_entry_button"
+        android:textSize="@dimen/exercise_button_text_size"
+        android:id="@+id/manualEntryButton"
+        android:textColor="@color/text_white"
+        android:background="@drawable/my_button"
+        android:layout_marginBottom="@dimen/margin_bottom"/>
+
+
+
+</LinearLayout>

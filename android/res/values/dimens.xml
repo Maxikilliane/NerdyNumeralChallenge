@@ -21,4 +21,11 @@
     //explanationActivity
     <dimen name="text_explanation_size">17sp</dimen>
 
+    //exerciseActivity
+    <dimen name="exercise_headline_size">30sp</dimen>
+    <dimen name="exercise_button_text_size">30sp</dimen>
+    <dimen name="margin">8dp</dimen>
+
+
+
 </resources>
