@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import de.mi.ur.ConstantsGame;
-import de.mi.ur.HoffentlichNurVorübergehend.MultipleChoiceC;
+import de.mi.ur.HoffentlichNurVoruebergehend.MultipleChoiceC;
 
 
 /**
