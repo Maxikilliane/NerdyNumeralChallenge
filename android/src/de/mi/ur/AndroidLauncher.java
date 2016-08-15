@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import de.mi.ur.NerdyNumeralChallenge;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override
@@ -13,4 +12,9 @@ public class AndroidLauncher extends AndroidApplication {
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		initialize(new NerdyNumeralChallenge(), config);
 	}
+
+	/**
+     * Created by Lydia on 15.08.2016.
+     */
+
 }
