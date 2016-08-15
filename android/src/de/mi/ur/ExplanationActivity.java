@@ -133,7 +133,7 @@ public class ExplanationActivity extends Activity implements View.OnClickListene
         questionFragment = new FreeTextQuestionFragment();
         fragmentTransaction.add(R.id.revision_answer_fragment_placeholder, questionFragment);
         fragmentTransaction.commit();
-       solutionEditText = (EditText) questionFragment.getView().findViewById(R.id.freetext_edit_text);
+
     }
 
     /*

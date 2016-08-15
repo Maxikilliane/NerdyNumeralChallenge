@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:baselineAligned="false"
     android:orientation="vertical"
+    android:background="@color/black"
     android:padding="@dimen/activity_general_padding">
 
     <TextView
@@ -42,6 +43,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/mycheckboxes"
         android:orientation="horizontal"
+
         android:padding="@dimen/activity_general_padding">
 
 
