@@ -6,6 +6,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -99,7 +100,7 @@ public class ExplanationActivity extends Activity implements View.OnClickListene
         explanationTextView = (TextView) findViewById(R.id.explanation_textview);
         explanationTextView.setText(explanationText);
 
-       // questionTextView = (TextView) findViewById(R.id.revision_question_textview);
+       questionTextView = (TextView) findViewById(R.id.revision_question_textview);
         questionTextView.setText(currentQuestion.getQuestion());
 
         solutionButton = (Button) findViewById(R.id.tutorial_solution_button);
@@ -130,9 +131,9 @@ public class ExplanationActivity extends Activity implements View.OnClickListene
         fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         questionFragment = new FreeTextQuestionFragment();
-        //fragmentTransaction.add(R.id.revision_answer_fragment_placeholder, questionFragment);
+        fragmentTransaction.add(R.id.revision_answer_fragment_placeholder, questionFragment);
         fragmentTransaction.commit();
-       // solutionEditText = (EditText) questionFragment.getView().findViewById(R.id.freetext_edit_text);
+
     }
 
     /*

@@ -7,44 +7,67 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="0.92">
 
         <LinearLayout
             android:orientation ="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_general_padding"
+            >
+
             <TextView
                 android:id="@+id/explanation_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_explanation_size"/>
+                android:textSize="@dimen/text_explanation_size"
+                android:textColor = "@android:color/black"
+                android:layout_marginBottom="@dimen/margin_bottom"
+                />
 
             <TextView
-                android:id="@+id/revision_task_textview"
+                android:id="@+id/revision_question_textview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textSize ="@dimen/text_explanation_size"
+                android:textColor="@android:color/black"
+                android:background="@color/powder_blue"/>
+
+            <FrameLayout
+                android:id="@+id/revision_answer_fragment_placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_general_padding"
+                android:background="@color/powder_blue"
+                android:layout_marginBottom="@dimen/margin_bottom">
+
+            </FrameLayout>
 
             <Button
                 android:id="@+id/tutorial_solution_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/mybutton"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/my_button"
                 android:textColor="@color/black"
-                android:text="@string/tutorial_solution_button"/>
+                android:text="@string/tutorial_solution_button"
+               />
         </LinearLayout>
 
     </ScrollView>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.08"
         >
 
         <Button
             android:id="@+id/explanation_back_button"
             android:layout_width="70dp"
             android:layout_height="35dp"
-            android:background="@drawable/mybutton"
+            android:background="@drawable/my_button"
             android:drawableLeft="@drawable/arrow_icon_left"
             android:layout_alignParentBottom="true"
             />
@@ -53,7 +76,7 @@
             android:id="@+id/explanation_continue_button"
             android:layout_width="70dp"
             android:layout_height="35dp"
-            android:background="@drawable/mybutton"
+            android:background="@drawable/my_button"
             android:drawableRight="@drawable/arrow_icon"
             android:textColor="@color/text_white"
             android:layout_alignParentBottom="true"

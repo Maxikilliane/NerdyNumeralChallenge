@@ -29,6 +29,16 @@ public class Constants {
     public static final int MAX_EXPLANATION_NUM_TRICKS = 5;
 
 
+    public static final String API_ID = "50ddb65d4b6d51050e5844a4284d6d46";
+
+
+    public static final int WEATHER_SUNNY = 0;
+    public static final int WEATHER_CLOUDY = 1;
+    public static final int WEATHER_RAINY = 2;
+    public static final int WEATHER_SNOWY = 3;
+
+
+
 
 
 

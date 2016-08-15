@@ -4,11 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.Random;
 
 import de.mi.ur.ConstantsGame;
+import de.mi.ur.gameLogic.GameQuestion;
 import de.mi.ur.gameLogic.Score;
 import de.mi.ur.sprites.Nerd;
 import de.mi.ur.sprites.Pit;
@@ -18,28 +20,27 @@ import de.mi.ur.sprites.Pit;
  */
 public class PlayState extends State {
 
-    private Nerd bird;
+    private Nerd nerd;
     private Texture background;
     private Texture ground;
     private Score score;
-
+    private Random random;
+    private GameQuestion gameQuestion;
 
     private Array<Pit> pits;
     private Vector2 groundPos1, groundPos2;
-    private Random random;
-    private int newInt;
 
 
     protected PlayState(GameStateManager gameManager) {
         super(gameManager);
-        bird = new Nerd(40, 200);
+        nerd = new Nerd(ConstantsGame.NERD_X, ConstantsGame.NERD_Y);
         background = new Texture("background_final.png");
-        random = new Random();
         score = new Score();
+        random = new Random();
+        gameQuestion = new GameQuestion();
         pits = new Array<Pit>();
-        for (int i = 1; i <= 4; i++) {
-            newInt = generateNewDistance();
-            pits.add(new Pit(i * (newInt + ConstantsGame.PIT_WIDTH)));
+        for (int i = 0; i < 4; i++) {
+            pits.add(new Pit(i * (ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH)));
 
         }
         score.startTimer();
@@ -49,20 +50,11 @@ public class PlayState extends State {
 
     }
 
-    private int generateNewDistance() {
-        int newInt = random.nextInt(180);
-        if (newInt > 130) {
-            return newInt;
-        } else {
-            return newInt + generateNewDistance();
-        }
-    }
-
     @Override
     protected void handleInput() {
         if (Nerd.jumpFinished) {
             if (Gdx.input.justTouched()) {
-                bird.jump();
+                nerd.jump();
                 Nerd.jumpFinished = false;
 
 
@@ -82,24 +74,65 @@ public class PlayState extends State {
         }
     }
 
+    private void updatePits() {
+        for (int i = 0; i < pits.size; i++) {
+            Pit pit = pits.get(i);
+            if (cam.position.x - (cam.viewportWidth / 2) > pit.getPitPos1().x + pit.getPit().getWidth()) {
+                pit.reposition(pit.getPitPos1().x + ((pit.getPit().getWidth()) + generateNewDistance()) * 4);
+            }
+            if (pit.collides(nerd.getBounds()))
+                gameManager.set(new MenueState(gameManager));
+        }
+
+    }
+
+    private int generateNewDistance() {
+        int newInt = random.nextInt(270);
+
+        if (newInt >= 190) {
+            return newInt;
+        } else {
+            return generateNewDistance();
+        }
+
+    }
+
     @Override
     //calculations for the render method
     public void update(float dt) {
         handleInput();
         updateGround();
-        bird.update(dt);
+        nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty());
         score.updateScore();
-        cam.position.x = bird.getPosition().x + 80;
-        for (int i = 0; i < pits.size; i++) {
-            Pit pit = pits.get(i);
-            newInt = generateNewDistance();
-            if (cam.position.x - (cam.viewportWidth / 2) > pit.getPitPos1().x + pit.getPit().getWidth()) {
-                pit.reposition(pit.getPitPos1().x + newInt * 4);
-            }
-            if (pit.collides(bird.getBounds()))
-                gameManager.set(new MenueState(gameManager));
-        }
+        gameQuestion.updateQuestions();
+        cam.position.x = nerd.getPosition().x + ConstantsGame.NERD_POSITION_OFFSET;
+        updatePits();
         cam.update();
+    }
+
+    private int increaseDifficulty() {
+        long value = score.getCurrentScore();
+        if (value > 50) {
+            return 130;
+        }
+        if (value > 100) {
+            return 160;
+        }
+        if (value > 150) {
+            return 190;
+        }
+        if (value > 200) {
+            return 220;
+        }
+        if (value > 250) {
+            return 250;
+        }
+        if (value > 300) {
+            return 280;
+
+        } else {
+            return ConstantsGame.NERD_MOVEMENT_DEFAULT;
+        }
     }
 
 
@@ -110,9 +143,10 @@ public class PlayState extends State {
         spriteBatch.begin();
         spriteBatch.draw(background, cam.position.x - (cam.viewportWidth / 2), 0);
         score.renderScore(spriteBatch, cam);
+        gameQuestion.generateTasks(spriteBatch, cam);
         spriteBatch.draw(ground, groundPos1.x, groundPos1.y);
         spriteBatch.draw(ground, groundPos2.x, groundPos2.y);
-        spriteBatch.draw(bird.getTexture(), bird.getX(), bird.getY());
+        spriteBatch.draw(nerd.getTexture(), nerd.getX(), nerd.getY());
         for (Pit pit : pits) {
             spriteBatch.draw(pit.getPit(), pit.getPitPos1().x, pit.getPitPos1().y);
         }
@@ -121,7 +155,7 @@ public class PlayState extends State {
 
     @Override
     public void dispose() {
-        bird.dispose();
+        nerd.dispose();
         background.dispose();
         ground.dispose();
 

@@ -16,32 +16,38 @@ import de.mi.ur.states.State;
 public class Pit {
 
 
-    private Vector3 position;
+
     private Texture pit;
-    private Vector3 velocity;
-    private static final int MOVEMENT = 100;
     private Random random;
     private Rectangle bounds;
-    private Vector2 pitPos1, pitPos2;
+    private Vector2 pitPos;
 
 
     public Pit (float x) {
 
         pit = new Texture("pit_new.png");
-        position = new Vector3(0, 0, 0);
-        velocity = new Vector3(0, 0, 0);
         random = new Random();
-        pitPos1 = new Vector2(x, 0);
-        bounds = new Rectangle(getPitPos1().x, getPitPos1().y, pit.getWidth()- ConstantsGame.PIT_BOUNDS_OFFSET, pit.getHeight());
+        pitPos = new Vector2(x, 0);
+        bounds = new Rectangle(pitPos.x, pitPos.y, pit.getWidth()- ConstantsGame.PIT_BOUNDS_OFFSET, pit.getHeight());
 
 
     }
+
     public Texture getPit () {
         return pit;
     }
+    private int generateNewDistance() {
+        int newInt = random.nextInt(4);
+
+            return newInt;
+
+
+
+
+    }
 
     public Vector2 getPitPos1() {
-        return pitPos1;
+        return pitPos;
     }
 
     public boolean collides(Rectangle player){
@@ -51,8 +57,8 @@ public class Pit {
 
     public void reposition(float x){
 
-        pitPos1.set(x, 0);
-        bounds.setPosition(x,getPitPos1().y);
+        pitPos.set(x, 0);
+        bounds.setPosition(pitPos.x,pitPos.y);
 
     }
 

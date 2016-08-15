@@ -3,6 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     android:padding="@dimen/activity_general_padding">
 
     <Button
@@ -49,6 +50,11 @@
         android:textColor="@color/text_white"
         android:textSize="@dimen/text_general_size"
         android:background="@drawable/my_button"/>
+
+    <TextView
+        android:id="@+id/testView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
 
