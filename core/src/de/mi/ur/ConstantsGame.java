@@ -30,6 +30,8 @@ public class ConstantsGame {
         public static final int SCORE_HEARTS_OFFSET_X = 20;
         public static final int SCORE_HEARTS_OFFSET_Y = 140;
 
+        public static final int QUESTION_OFFSET_X = -55;
+                public static final int QUESTION_OFFSET_Y = 120;
 
 
 

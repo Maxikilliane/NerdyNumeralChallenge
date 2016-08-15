@@ -60,13 +60,13 @@ public class Score {
 
     public void updateScore() {
         if (getTimeElapsed() < 2) {
-            currentScore = "0" + getTimeElapsed() + " point";
+            currentScore = "0" + getTimeElapsed() + " Point";
         }
         if (getTimeElapsed() > 1 && getTimeElapsed() < 10) {
-            currentScore = "0" + getTimeElapsed() + " points";
+            currentScore = "0" + getTimeElapsed() + " Points";
 
         } else {
-            currentScore = "" + getTimeElapsed() + " points";
+            currentScore = "" + getTimeElapsed() + " Points";
         }
 
 

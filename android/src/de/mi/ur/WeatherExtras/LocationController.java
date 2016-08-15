@@ -35,7 +35,7 @@ public class LocationController extends Activity {
     }
 
     // evtl noch ne SupportLibrary einbinden
-    public void setCurrentPosition(){
+    /*public void setCurrentPosition(){
         String provider = getBestProvider();
         int permissionCheck = ContextCompat.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION);
         if(permissionCheck == PackageManager.PERMISSION_GRANTED) {
@@ -43,7 +43,7 @@ public class LocationController extends Activity {
         }else{
             ActivityCompat.requestPermissions(context, new String[]{Manifest.permission_group.LOCATION});
         }
-    }
+    }*/
 
     public String getLatitude(){
         double lat =  currentLocation.getLatitude();

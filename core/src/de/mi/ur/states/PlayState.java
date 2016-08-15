@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Array;
 import java.util.Random;
 
 import de.mi.ur.ConstantsGame;
+import de.mi.ur.gameLogic.GameQuestion;
 import de.mi.ur.gameLogic.Score;
 import de.mi.ur.sprites.Nerd;
 import de.mi.ur.sprites.Pit;
@@ -23,7 +24,8 @@ public class PlayState extends State {
     private Texture background;
     private Texture ground;
     private Score score;
-
+    private Random random;
+    private GameQuestion gameQuestion;
 
     private Array<Pit> pits;
     private Vector2 groundPos1, groundPos2;
@@ -34,8 +36,10 @@ public class PlayState extends State {
         nerd = new Nerd(ConstantsGame.NERD_X, ConstantsGame.NERD_Y);
         background = new Texture("background_final.png");
         score = new Score();
+        random = new Random();
+        gameQuestion = new GameQuestion();
         pits = new Array<Pit>();
-        for (int i = 1; i <= 4; i++) {
+        for (int i = 0; i < 4; i++) {
             pits.add(new Pit(i * (ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH)));
 
         }
@@ -74,10 +78,21 @@ public class PlayState extends State {
         for (int i = 0; i < pits.size; i++) {
             Pit pit = pits.get(i);
             if (cam.position.x - (cam.viewportWidth / 2) > pit.getPitPos1().x + pit.getPit().getWidth()) {
-                pit.reposition();
+                pit.reposition(pit.getPitPos1().x + ((pit.getPit().getWidth()) + generateNewDistance()) * 4);
             }
             if (pit.collides(nerd.getBounds()))
                 gameManager.set(new MenueState(gameManager));
+        }
+
+    }
+
+    private int generateNewDistance() {
+        int newInt = random.nextInt(270);
+
+        if (newInt >= 190) {
+            return newInt;
+        } else {
+            return generateNewDistance();
         }
 
     }
@@ -89,12 +104,13 @@ public class PlayState extends State {
         updateGround();
         nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty());
         score.updateScore();
+        gameQuestion.updateQuestions();
         cam.position.x = nerd.getPosition().x + ConstantsGame.NERD_POSITION_OFFSET;
         updatePits();
         cam.update();
     }
 
-    private int increaseDifficulty () {
+    private int increaseDifficulty() {
         long value = score.getCurrentScore();
         if (value > 50) {
             return 130;
@@ -127,6 +143,7 @@ public class PlayState extends State {
         spriteBatch.begin();
         spriteBatch.draw(background, cam.position.x - (cam.viewportWidth / 2), 0);
         score.renderScore(spriteBatch, cam);
+        gameQuestion.generateTasks(spriteBatch, cam);
         spriteBatch.draw(ground, groundPos1.x, groundPos1.y);
         spriteBatch.draw(ground, groundPos2.x, groundPos2.y);
         spriteBatch.draw(nerd.getTexture(), nerd.getX(), nerd.getY());
