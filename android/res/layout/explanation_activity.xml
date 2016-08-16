@@ -54,8 +54,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
-               android:layout_gravity="end">
+                android:layout_gravity="end">
 
                 <Button
                     android:id="@+id/explanation_back_button"
@@ -63,20 +62,18 @@
                     android:layout_height="35dp"
                     android:layout_alignParentBottom="true"
                     android:background="@drawable/my_button"
-                    android:text="zurück"
+                    android:text="@string/back_button_text"
                     android:textColor="@color/text_white" />
 
                 <Button
                     android:id="@+id/explanation_continue_button"
-
                     android:layout_width="70dp"
                     android:layout_height="35dp"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/my_button"
-                    android:text="weiter"
-
+                    android:text="@string/forward_button_text"
                     android:textColor="@color/text_white" />
 
             </RelativeLayout>
