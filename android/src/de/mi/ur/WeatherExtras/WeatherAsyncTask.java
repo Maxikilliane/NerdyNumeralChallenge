@@ -1,6 +1,11 @@
 package de.mi.ur.WeatherExtras;
 
 import android.os.AsyncTask;
+import android.os.SystemClock;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,8 +18,11 @@ import java.net.URL;
  * Created by Anna-Marie on 11.08.2016.
  */
 public class WeatherAsyncTask extends AsyncTask<String, Integer, String> {
-    public WeatherAsyncTask(){
-
+    private WeatherListener listener;
+    private int currentWeatherId;
+    private long lastUpdateTime;
+    public WeatherAsyncTask(WeatherListener listener){
+        this.listener = listener;
     }
 
     //überarbeiten!
@@ -44,4 +52,26 @@ public class WeatherAsyncTask extends AsyncTask<String, Integer, String> {
         }
         return jsonString;
     }
+
+    protected void onPostExecute (String result){
+        super.onPostExecute(result);
+        currentWeatherId = getWeatherIdFromJson(result);
+        lastUpdateTime = System.currentTimeMillis();
+        listener.onDownloadFinished();
+    }
+
+    private int getWeatherIdFromJson(String text){
+        int weatherId = -1;
+        try {
+            JSONObject jsonObj = new JSONObject(text);
+            JSONArray weatherArray = jsonObj.getJSONArray("weather");
+            JSONObject weatherObj = weatherArray.getJSONObject(0);
+            weatherId = weatherObj.getInt("id");
+        }catch(JSONException e){
+            e.printStackTrace();
+        }
+
+        return weatherId;
+    }
+
 }
