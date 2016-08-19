@@ -11,6 +11,17 @@ public abstract class Question {
     private int numeral2Base;
     private int maxDigits;
 
+    public boolean isCorrectAnswer(String answer){
+        return false;
+    }
+
+    public String getQuestionString(){
+        return "";
+    }
+
+    public String getRightAnswerString(){
+        return "";
+    }
 
     //numeral1Base ist die Basis des Fragesystems, numeral2Base ist die Basis des Antwortsystems
     public Question (int numeral1Base, int numeral2Base, int maxDigits){

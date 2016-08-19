@@ -39,6 +39,7 @@ public class MultipleChoiceQuestion extends Question {
         return rightAnswer;
     }
 
+    @Override
     public boolean isCorrectAnswer(String answer){
         return answer.equals(rightAnswer);
     }
