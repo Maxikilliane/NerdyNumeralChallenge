@@ -30,7 +30,7 @@ public class ExplanationActivity extends Activity implements View.OnClickListene
 
     private FragmentManager fragmentManager;
     private FreeTextQuestionFragment questionFragment;
-    private EditText solutionEditText;
+
 
     private int tutorialType;
     private int explanationNumber;
@@ -97,10 +97,17 @@ public class ExplanationActivity extends Activity implements View.OnClickListene
      *                            roter Hintergrund falls falsche Lösung + Toast mit richtiger Lösung
      */
     private void setUpUI(){
-        explanationTextView = (TextView) findViewById(R.id.explanation_textview);
-        explanationTextView.setText(explanationText);
 
-       questionTextView = (TextView) findViewById(R.id.revision_question_textview);
+        setUpFragment();
+        explanationTextView = (TextView) findViewById(R.id.explanation_textview);
+        explanationTextView.setText(Html.fromHtml(explanationText));
+
+       /* if(currentQuestion.getNumeral1Base()!=-1){
+            questionFragment.setQuestionText(currentQuestion.getNumeral1Base(), currentQuestion.getNumeral2Base());
+        }else{
+            questionFragment.setQuestionTextTutorialQuestion(currentQuestion.getQuestion());
+        }*/
+        questionTextView = (TextView) findViewById(R.id.revision_question_textview);
         questionTextView.setText(currentQuestion.getQuestion());
 
         solutionButton = (Button) findViewById(R.id.tutorial_solution_button);
@@ -124,15 +131,17 @@ public class ExplanationActivity extends Activity implements View.OnClickListene
         backButton.setOnClickListener(this);
         backButton.setEnabled(false);
 
-        setUpFragment();
+
     }
 
     private void setUpFragment(){
         fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        questionFragment = new FreeTextQuestionFragment();
-        fragmentTransaction.add(R.id.revision_answer_fragment_placeholder, questionFragment);
+        FreeTextQuestionFragment questionFrag = new FreeTextQuestionFragment();
+        fragmentTransaction.add(R.id.revision_answer_fragment_placeholder, questionFrag);
         fragmentTransaction.commit();
+
+        questionFragment = questionFrag;
 
     }
 
@@ -161,7 +170,7 @@ public class ExplanationActivity extends Activity implements View.OnClickListene
             default:
         }
         explanationText = tutorialTexts[explanationNumber];
-        explanationTextView.setText(explanationText);
+        explanationTextView.setText(Html.fromHtml(explanationText));
         setVisibility();
 
         questionTextView.setText(currentQuestion.getQuestion());

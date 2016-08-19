@@ -20,6 +20,17 @@ android:padding="@dimen/activity_general_padding">
 
     />
 
+    <Button
+        android:id="@+id/game_update_weather_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_size"
+        android:text="@string/game_weather"
+        android:textColor="@color/text_white"
+        android:textSize="@dimen/text_general_size"
+        android:background="@drawable/my_button"
+        android:layout_marginBottom="@dimen/margin_bottom"
+        />
+
 
 <Button
     android:id="@+id/game_highscore_button"

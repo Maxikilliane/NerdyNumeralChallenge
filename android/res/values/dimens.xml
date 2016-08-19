@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="activity_general_padding">16dp</dimen>
+    <dimen name="padding_small">5dp</dimen>
 
     //startActivity
     <dimen name ="text_general_size">30sp</dimen>
