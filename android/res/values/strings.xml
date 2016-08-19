@@ -14,9 +14,9 @@
     //TutorialMain
     <string name="tutorial_intro_button">Einführung</string>
     <string name="tutorial_from_10_button"><![CDATA[
-    B<sub><small>x</small></sub> > B<sub><small>10</small></sub>
+    B<sub><small>x</small></sub> zu B<sub><small>10</small></sub>
     ]]></string>
-    <string name="tutorial_from_other_button"><![CDATA[B<sub><small>10</small></sub> > B<sub><small>x</small></sub>]]> </string>
+    <string name="tutorial_from_other_button"><![CDATA[B<sub><small>10</small></sub> zu B<sub><small>x</small></sub>]]> </string>
     <string name="tutorial_tricks_button">Nerdy Tricks</string>
 
     //StartScreen
@@ -37,7 +37,7 @@
     <string name="game_highscore">Highscore</string>
     <string name="game_help">Help</string>
     <string name="game_weather">Wie ist das Wetter?</string>
-    
+
     //help
     <string name="game_help_explanation">
         Dem Nerd stellen sich allerlei Hindernisse in den Weg.Gruben müssen übersprungen und weiblichen Wesen muss ausgewichen werden,gleichzeitig gilt es Umrechnungsaufgaben zu lösen.\n\n
@@ -90,7 +90,7 @@ Los geht’s!\n
     <string name="false_button_tag">falsch</string>
 
     //Explanations
-    
+
     <string-array name="tutorial_intro" >
         <item>
             Die Zahlensysteme, um die es hier geht, sind Stellenwertsysteme, d.h. es gibt eine bestimmte Anzahl an Ziffern in einem Zahlensystem.

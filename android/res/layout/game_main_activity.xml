@@ -28,11 +28,10 @@ android:padding="@dimen/activity_general_padding">
         android:textColor="@color/text_white"
         android:textSize="@dimen/text_general_size"
         android:background="@drawable/my_button"
-        android:layout_marginBottom="@dimen/margin_bottom"
-        />
+        android:layout_marginBottom="@dimen/margin_bottom" />
 
 
-<Button
+    <Button
     android:id="@+id/game_highscore_button"
     android:layout_width="match_parent"
     android:layout_height="@dimen/button_size"

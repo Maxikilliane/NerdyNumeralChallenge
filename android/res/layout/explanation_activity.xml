@@ -8,14 +8,12 @@
     <ScrollView
         android:id="@+id/explanation_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/explanation_textview"
@@ -28,7 +26,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:background="@android:color/white"
-                android:padding="@dimen/activity_general_padding"/>
+                android:padding="@dimen/activity_general_padding" />
 
             <TextView
                 android:id="@+id/revision_question_textview"
@@ -40,8 +38,7 @@
                 android:textAlignment="center"
                 android:padding="@dimen/padding_small"
                 android:layout_below="@id/explanation_textview"
-                android:layout_marginTop="@dimen/margin_bottom"
-                />
+                android:layout_marginTop="@dimen/margin_bottom" />
 
             <FrameLayout
                 android:id="@+id/revision_answer_fragment_placeholder"
@@ -49,8 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_bottom"
                 android:background="@color/powder_blue"
-                android:layout_below="@id/revision_question_textview"
-                >
+                android:layout_below="@id/revision_question_textview">
             </FrameLayout>
 
             <Button
@@ -61,7 +57,7 @@
                 android:text="@string/tutorial_solution_button"
                 android:textColor="@color/text_white"
                 android:layout_below="@id/revision_answer_fragment_placeholder"
-                android:layout_centerHorizontal="true"/>
+                android:layout_centerHorizontal="true" />
 
         </RelativeLayout>
 
@@ -77,8 +73,7 @@
         android:background="@drawable/my_button"
         android:text="zurück"
         android:textColor="@color/text_white"
-        android:layout_alignTop="@+id/explanation_continue_button"
-        />
+        android:layout_alignTop="@+id/explanation_continue_button" />
 
     <Button
         android:id="@+id/explanation_continue_button"

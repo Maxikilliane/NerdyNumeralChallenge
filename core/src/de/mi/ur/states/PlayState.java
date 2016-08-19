@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.Random;
@@ -143,7 +142,7 @@ public class PlayState extends State {
         spriteBatch.begin();
         spriteBatch.draw(background, cam.position.x - (cam.viewportWidth / 2), 0);
         score.renderScore(spriteBatch, cam);
-        gameQuestion.generateTasks(spriteBatch, cam);
+        gameQuestion.drawTasks(spriteBatch, cam);
         spriteBatch.draw(ground, groundPos1.x, groundPos1.y);
         spriteBatch.draw(ground, groundPos2.x, groundPos2.y);
         spriteBatch.draw(nerd.getTexture(), nerd.getX(), nerd.getY());

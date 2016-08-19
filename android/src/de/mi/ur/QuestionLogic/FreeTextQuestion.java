@@ -1,7 +1,5 @@
 package de.mi.ur.QuestionLogic;
 
-import android.content.Context;
-
 /**
  * Created by Anna-Marie on 02.08.2016.
  */
@@ -18,12 +16,12 @@ public class FreeTextQuestion extends Question {
 
     }
 
-    public String getQuestionNumber(){
+    public String getQuestionNumber() {
         return questionNumber;
     }
 
     public String getQuestionString(){
-        return "Rechnen Sie die im "+getNumeral1Base()+"er-System gegebene Zahl in das "+getNumeral2Base()+"er-System um: "+questionNumber;
+        return "Rechnen Sie die im " + getNumeral1Base() + "er-System gegebene Zahl in das " + getNumeral2Base() + "er-System um: " + questionNumber;
     }
 
     public String getRightAnswerString(){

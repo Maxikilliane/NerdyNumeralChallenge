@@ -1,13 +1,10 @@
 package de.mi.ur.QuestionFragments;
 
 import android.app.Fragment;
-import android.content.Context;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 

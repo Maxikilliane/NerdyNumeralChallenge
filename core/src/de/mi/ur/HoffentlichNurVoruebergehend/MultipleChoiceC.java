@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class MultipleChoiceC extends QuestionC {
     private String question;
     private String rightAnswer;
+
     private int difficulty;
 
     // difficulty wird derzeit noch nicht genutzt... :(
@@ -19,15 +20,24 @@ public class MultipleChoiceC extends QuestionC {
         this.rightAnswer = convertFromNumeralToNumeral(question, numeral1Base, numeral2Base);
     }
 
-    public String getQuestion () {
+    public String getQuestion() {
         return question;
     }
 
-    public ArrayList<String> generatePossAnswers(){
+    public String generateWrongAnswer() {
+        String wrongAnswer = generateWrongAnswers(getNumeral2Base(), getMaxDigits());
+        if (!wrongAnswer.equals(rightAnswer)) {
+            return wrongAnswer;
+        }
+        return generateWrongAnswer();
+
+    }
+
+    public ArrayList<String> generatePossAnswers() {
         ArrayList<String> possAnswers = new ArrayList<String>();
-        for(int i = 0; i <3; i++){
+        for (int i = 0; i < 3; i++) {
             String possAnswer = generateNumWithMaxDigits(getNumeral1Base(), getMaxDigits());
-            if(!possAnswers.contains(possAnswer)){
+            if (!possAnswers.contains(possAnswer)) {
                 possAnswers.add(possAnswer);
             }
         }
@@ -35,15 +45,15 @@ public class MultipleChoiceC extends QuestionC {
         return possAnswers;
     }
 
-    public String getQuestionNumber(){
+    public String getQuestionNumber() {
         return question;
     }
 
-    public String getRightAnswerNumber(){
+    public String getRightAnswer() {
         return rightAnswer;
     }
 
-    public boolean isCorrectAnswer(String answer){
+    public boolean isCorrectAnswer(String answer) {
         return answer.equals(rightAnswer);
     }
 

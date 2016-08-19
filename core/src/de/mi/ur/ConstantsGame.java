@@ -33,6 +33,9 @@ public class ConstantsGame {
         public static final int QUESTION_OFFSET_X = -55;
                 public static final int QUESTION_OFFSET_Y = 120;
 
+        public static final int QUESTION_ANSWER_OFFSET_X = -5;
+        public static final int QUESTION_ANSWER_OFFSET_Y = -10;
+
 
 
 }

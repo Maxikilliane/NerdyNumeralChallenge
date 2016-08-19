@@ -56,11 +56,29 @@ public abstract class QuestionC {
      */
     public static String generateNumWithMaxDigits(int numeralBase, int maxDigits){
         String number = "";
-        for(int i = 0; i<maxDigits; i++){
+        for (int i = 0; i < maxDigits - 1; i++) {
             int num = randomGen.nextInt(numeralBase);
             number += convertToNumeral(num, numeralBase);
+
         }
+
         return number;
+
+    }
+
+    public static String generateWrongAnswers(int numeralBase, int maxDigits) {
+        String number = "";
+        //for(int i = 0; i<maxDigits-1; i++){
+        int num1 = randomGen.nextInt(numeralBase);
+        int num2 = randomGen.nextInt(4);
+        number += convertToNumeral(num2, numeralBase);
+        number += convertToNumeral(num1, numeralBase);
+
+        //}
+
+        return number;
+
+
     }
 
     public int getNumeral1Base(){

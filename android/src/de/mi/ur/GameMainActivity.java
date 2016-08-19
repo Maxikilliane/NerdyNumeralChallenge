@@ -40,7 +40,7 @@ public class GameMainActivity extends Activity  implements View.OnClickListener{
             case R.id.game_highscore_button:
                 break;
             case R.id.game_help_button:
-                i= new Intent (GameMainActivity.this, GameHelpActivity.class);
+                i = new Intent(GameMainActivity.this, GameHelpActivity.class);
                 break;
             default:
                 break;
