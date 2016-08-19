@@ -11,7 +11,7 @@ import de.mi.ur.ConstantsGame;
 /**
  * Created by Anna-Marie on 19.08.2016.#
  * Hoffe, das ist okay so... Ich bin noch nicht wirklich drin. Habs heut aber mal probiert. V.a mit der y-Position war ich mir nicht sicher,
- * hab aber jetzt mal die vom Nerd genommen, die Dame soll ja auch auf dem Boden sitzen, bzw. ihre Bank soll auf dem Boden stehen. 
+ * hab aber jetzt mal die vom Nerd genommen, die Dame soll ja auch auf dem Boden sitzen, bzw. ihre Bank soll auf dem Boden stehen.
  */
 public class Obstacle {
 

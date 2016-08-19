@@ -50,13 +50,15 @@ public class LocationController extends Activity {
     */
 
     public String getLatitude(){
-        double lat =  currentLocation.getLatitude();
-        return Double.toString(lat);
+        //double lat =  currentLocation.getLatitude();
+        //return Double.toString(lat);
+        return "12";
 
     }
 
     public String getLongitude(){
-        double lon =  currentLocation.getLongitude();
-        return Double.toString(lon);
+        //double lon =  currentLocation.getLongitude();
+        //return Double.toString(lon);
+        return "30";
     }
 }
