@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="testString"><![CDATA[
-    B<sub><small>x</small></sub>->B<sub><small>10</small></sub>
-    ]]></string>
 
     <string name="app_name">NerdyNumeralChallenge</string>
     <string name="continue_button_text">-></string>
@@ -42,7 +39,7 @@
     <string name="game_help_explanation">
         Dem Nerd stellen sich allerlei Hindernisse in den Weg.Gruben müssen übersprungen und weiblichen Wesen muss ausgewichen werden,gleichzeitig gilt es Umrechnungsaufgaben zu lösen.\n\n
 Oben links ist der derzeitige Punktestand zu sehen. Oben rechts wird angezeigt, wie viele Leben der Nerd noch hat. \n
-Wenn oben eine Zahl im Binär oder Hex-System erscheint, muss eine Aufgabe gelöst werden.Lösungen im Dezimalsystem erscheinen und der Nerd muss die richtige Lösung durch Springen einsammeln. \n
+Wenn oben eine Zahl im Binär oder Hex-System erscheint, muss eine Aufgabe gelöst werden. Lösungen im Dezimalsystem erscheinen und der Nerd muss die richtige Lösung durch Springen einsammeln. \n
 Um zu Springen, tippe auf den Bildschirm.\n
 Wenn der Nerd in Gruben fällt, verliert er ein Leben. Beim Zusammenstoß mit weiblichen Wesen kann er eine Aufgabe lösen, um einem Gespräch auszuweichen, falls er sie nicht innerhalb einer vorgegebenen Zeit löst, verliert er auch ein Leben.\n
 Mit Verlieren des letzten Lebens endet das Spiel.\n\n
