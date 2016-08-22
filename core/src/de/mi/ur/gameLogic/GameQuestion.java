@@ -3,11 +3,10 @@ package de.mi.ur.gameLogic;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-
-import java.util.ArrayList;
 
 import de.mi.ur.ConstantsGame;
 import de.mi.ur.HoffentlichNurVoruebergehend.MultipleChoiceC;
@@ -26,19 +25,21 @@ public class GameQuestion extends MultipleChoiceC {
     private String wrongAnswer1;
     private String wrongAnswer2;
     private String rightAnswer;
-    private ArrayList<String> possAnswers;
+
 
     private BitmapFont toSolveBitmap;
     private BitmapFont rightAnswerBitmap;
     private BitmapFont wrongAnswer1Bitmap;
     private BitmapFont wrongAnswer2Bitmap;
 
-    public boolean isSolved = true;
+    private GlyphLayout layout;
+
 
     private Vector2 rightAnswerPos;
 
     public GameQuestion() {
         super(2, 10, 3, 0);
+
         score = new Score();
         toSolve = "";
         wrongAnswer1 = "";
@@ -57,23 +58,30 @@ public class GameQuestion extends MultipleChoiceC {
         wrongAnswer2Bitmap = new BitmapFont();
         wrongAnswer2Bitmap.setUseIntegerPositions(false);
 
-        //rightAnswerPos = new Vector2(x,0);
+        rightAnswerPos = new Vector2(150, 0);
+        layout = new GlyphLayout();
+        layout.setText(rightAnswerBitmap, rightAnswer);
+        bounds = new Rectangle(rightAnswerPos.x, rightAnswerPos.y, layout.width, layout.height);
+    }
 
-        //bounds = new Rectangle(rightAnswerPos.x, rightAnswerPos.y, BitmapFont.getB)
+    public float getRightAnswerWidth() {
+        return layout.width;
     }
 
 
-    public void updateQuestions() {
+    public void updateQuestions(OrthographicCamera cam) {
         if (score.getCurrentScore() % 20==0) {
             questions = new MultipleChoiceC(2, 10, 6, 0);
             toSolve = questions.getQuestion();
-            possAnswers = questions.generatePossAnswers();
             rightAnswer = questions.getRightAnswer();
 
 
             generateWrongAnswers();
 
        }
+        if (cam.position.x - (cam.viewportWidth / 2) > rightAnswerPos.x + getRightAnswerWidth()) {
+            reposition(rightAnswerPos.x + 800);
+        }
     }
 
     private void generateWrongAnswers() {
@@ -82,6 +90,11 @@ public class GameQuestion extends MultipleChoiceC {
         if (wrongAnswer1.equals(wrongAnswer2)) {
             wrongAnswer2 = generateWrongAnswer();
         }
+    }
+
+    public void reposition(float x) {
+        rightAnswerPos.set(x, 0);
+        bounds.setPosition(rightAnswerPos.x, rightAnswerPos.y);
     }
 
     public boolean collides(Rectangle player) {

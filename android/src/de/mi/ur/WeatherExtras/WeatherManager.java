@@ -25,14 +25,14 @@ public class WeatherManager {
         return weatherUrl;
     }
 
-    private void calculateCurrentWeather(int weatherId){
-        if(weatherId >= 200 && weatherId<600){
+    private void calculateCurrentWeather(int weatherId) {
+        if (weatherId >= 200 && weatherId < 600) {
             currentWeather = Constants.WEATHER_RAINY;
-        }else if(weatherId >=600 && weatherId < 700){
+        } else if (weatherId >= 600 && weatherId < 700) {
             currentWeather = Constants.WEATHER_CLOUDY;
-        }else if(weatherId == 800){
+        } else if (weatherId == 800) {
             currentWeather = Constants.WEATHER_SUNNY;
-        }else{
+        } else {
             currentWeather = Constants.WEATHER_CLOUDY;
         }
     }

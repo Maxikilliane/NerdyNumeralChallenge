@@ -85,6 +85,7 @@ public class PlayState extends State {
 
     }
 
+
     private int generateNewDistance() {
         int newInt = random.nextInt(270);
 
@@ -103,7 +104,8 @@ public class PlayState extends State {
         updateGround();
         nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty());
         score.updateScore();
-        gameQuestion.updateQuestions();
+        gameQuestion.updateQuestions(cam);
+
         cam.position.x = nerd.getPosition().x + ConstantsGame.NERD_POSITION_OFFSET;
         updatePits();
         cam.update();

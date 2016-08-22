@@ -1,7 +1,6 @@
 package de.mi.ur.WeatherExtras;
 
 import android.os.AsyncTask;
-import android.os.SystemClock;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,7 +20,8 @@ public class WeatherAsyncTask extends AsyncTask<String, Integer, String> {
     private WeatherListener listener;
     private int currentWeatherId;
     private long lastUpdateTime;
-    public WeatherAsyncTask(WeatherListener listener){
+
+    public WeatherAsyncTask(WeatherListener listener) {
         this.listener = listener;
     }
 
@@ -53,21 +53,21 @@ public class WeatherAsyncTask extends AsyncTask<String, Integer, String> {
         return jsonString;
     }
 
-    protected void onPostExecute (String result){
+    protected void onPostExecute(String result) {
         super.onPostExecute(result);
         currentWeatherId = getWeatherIdFromJson(result);
         lastUpdateTime = System.currentTimeMillis();
         listener.onDownloadFinished();
     }
 
-    private int getWeatherIdFromJson(String text){
+    private int getWeatherIdFromJson(String text) {
         int weatherId = -1;
         try {
             JSONObject jsonObj = new JSONObject(text);
             JSONArray weatherArray = jsonObj.getJSONArray("weather");
             JSONObject weatherObj = weatherArray.getJSONObject(0);
             weatherId = weatherObj.getInt("id");
-        }catch(JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
