@@ -10,10 +10,10 @@
         android:color="@color/black" />
     <gradient
         android:angle="45"
-        android:centerColor="@color/turquoise"
+        android:centerColor="@color/dark_turquoise"
         android:centerX="20%"
-        android:endColor="@color/blue_grey"
-        android:startColor="@color/blue_grey"
+        android:endColor="@color/midnight_blue"
+        android:startColor="@color/midnight_blue"
         android:type="linear" />
 
 

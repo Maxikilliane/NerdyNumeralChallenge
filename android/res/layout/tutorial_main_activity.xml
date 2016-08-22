@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
     android:orientation="vertical"
+    android:background="@color/black"
     android:padding="@dimen/activity_general_padding">
 
     <Button
@@ -27,17 +27,20 @@
         android:background="@drawable/my_button"
         android:text="@string/tutorial_from_10_button"
         android:textColor="@color/text_white"
-        android:textSize="@dimen/text_general_size" />
+        android:textSize="25sp" />
 
     <Button
         android:id="@+id/tutorial_from_other_numeral_button"
         android:layout_width="match_parent"
         android:layout_height="@dimen/button_size"
+
         android:layout_marginBottom="@dimen/margin_bottom"
+
+
         android:background="@drawable/my_button"
         android:text="@string/tutorial_from_other_button"
         android:textColor="@color/text_white"
-        android:textSize="@dimen/text_general_size"></Button>
+        android:textSize="25sp"></Button>
 
     <Button
         android:id="@+id/tutorial_tricks_button"

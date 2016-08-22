@@ -106,7 +106,7 @@ public class ExplanationActivity extends Activity implements View.OnClickListene
             questionFragment.setQuestionTextTutorialQuestion(currentQuestion.getQuestion());
         }*/
         questionTextView = (TextView) findViewById(R.id.revision_question_textview);
-        questionTextView.setText(currentQuestion.getQuestion());
+        questionTextView.setText(Html.fromHtml(currentQuestion.getQuestion()));
 
         solutionButton = (Button) findViewById(R.id.tutorial_solution_button);
         solutionButton.setOnClickListener(new View.OnClickListener() {
@@ -156,6 +156,7 @@ public class ExplanationActivity extends Activity implements View.OnClickListene
             case R.id.explanation_continue_button:
                 if(explanationNumber == maxNumExplanations-1){
                     continueButton.setEnabled(false);
+                    questionFragment.getView().setBackgroundResource(R.color.black);
                 }
                 explanationNumber++;
                 break;
@@ -164,6 +165,7 @@ public class ExplanationActivity extends Activity implements View.OnClickListene
                     backButton.setEnabled(false);
                 }
                 explanationNumber--;
+                questionFragment.getView().setBackgroundResource(R.color.powder_blue);
                 break;
             default:
         }
@@ -172,7 +174,6 @@ public class ExplanationActivity extends Activity implements View.OnClickListene
         setVisibility();
 
         questionTextView.setText(currentQuestion.getQuestion());
-        questionFragment.getView().setBackgroundResource(R.color.powder_blue);
         questionFragment.deleteText();
 
         //sorgt dafür, dass mit Wechsel des ExplanationTexts auch der Focus vom EditText wieder weggeht

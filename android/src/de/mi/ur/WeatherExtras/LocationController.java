@@ -7,6 +7,8 @@ import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 
 /**
  * Created by Anna-Marie on 11.08.2016.
@@ -35,7 +37,7 @@ public class LocationController extends Activity {
     }
 
     // evtl noch ne SupportLibrary einbinden
-    /*public void setCurrentPosition(){
+   /*public void setCurrentPosition(){
         String provider = getBestProvider();
         int permissionCheck = ContextCompat.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION);
         if(permissionCheck == PackageManager.PERMISSION_GRANTED) {
@@ -43,7 +45,9 @@ public class LocationController extends Activity {
         }else{
             ActivityCompat.requestPermissions(context, new String[]{Manifest.permission_group.LOCATION});
         }
-    }*/
+
+    }
+    */
 
     public String getLatitude(){
         double lat =  currentLocation.getLatitude();

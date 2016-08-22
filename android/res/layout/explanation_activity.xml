@@ -3,17 +3,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/activity_general_padding"
-    android:background="@android:color/black">
+    android:background="@color/black">
+
+    <RelativeLayout
+        android:id="@+id/buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/margin">
+
+        <Button
+            android:id="@+id/explanation_back_button"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:background="@drawable/my_button"
+            android:text="zurück"
+            android:textColor="@color/text_white"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+
+            />
+
+        <Button
+            android:id="@+id/explanation_continue_button"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:background="@drawable/my_button"
+            android:text="weiter"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textColor="@color/text_white" />
+
+    </RelativeLayout>
 
     <ScrollView
         android:id="@+id/explanation_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_above="@id/buttons"
+        android:layout_alignParentTop="true"
+        >
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <TextView
                 android:id="@+id/explanation_textview"
@@ -22,11 +58,8 @@
                 android:layout_marginBottom="@dimen/margin_bottom"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/text_explanation_size"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
                 android:background="@android:color/white"
-                android:padding="@dimen/activity_general_padding" />
+                android:padding="@dimen/activity_general_padding"/>
 
             <TextView
                 android:id="@+id/revision_question_textview"
@@ -37,8 +70,8 @@
                 android:textSize="@dimen/text_explanation_size"
                 android:textAlignment="center"
                 android:padding="@dimen/padding_small"
-                android:layout_below="@id/explanation_textview"
-                android:layout_marginTop="@dimen/margin_bottom" />
+                android:layout_marginTop="@dimen/margin_bottom"
+                />
 
             <FrameLayout
                 android:id="@+id/revision_answer_fragment_placeholder"
@@ -46,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_bottom"
                 android:background="@color/powder_blue"
-                android:layout_below="@id/revision_question_textview">
+                >
             </FrameLayout>
 
             <Button
@@ -56,35 +89,11 @@
                 android:background="@drawable/my_button"
                 android:text="@string/tutorial_solution_button"
                 android:textColor="@color/text_white"
-                android:layout_below="@id/revision_answer_fragment_placeholder"
-                android:layout_centerHorizontal="true" />
+                android:layout_gravity="center_horizontal"/>
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </ScrollView>
-
-    <Button
-        android:id="@+id/explanation_back_button"
-        android:layout_width="70dp"
-        android:layout_height="35dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@drawable/my_button"
-        android:text="zurück"
-        android:textColor="@color/text_white"
-        android:layout_alignTop="@+id/explanation_continue_button" />
-
-    <Button
-        android:id="@+id/explanation_continue_button"
-        android:layout_width="70dp"
-        android:layout_height="35dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/my_button"
-        android:text="weiter"
-        android:textColor="@color/text_white" />
 
 
 </RelativeLayout>
