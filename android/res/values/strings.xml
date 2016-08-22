@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="testString"><![CDATA[
-    B<sub><small>x</small></sub>->B<sub><small>10</small></sub>
-    ]]></string>
 
     <string name="app_name">NerdyNumeralChallenge</string>
     <string name="continue_button_text">-></string>
@@ -42,7 +39,7 @@
     <string name="game_help_explanation">
         Dem Nerd stellen sich allerlei Hindernisse in den Weg.Gruben müssen übersprungen und weiblichen Wesen muss ausgewichen werden,gleichzeitig gilt es Umrechnungsaufgaben zu lösen.\n\n
 Oben links ist der derzeitige Punktestand zu sehen. Oben rechts wird angezeigt, wie viele Leben der Nerd noch hat. \n
-Wenn oben eine Zahl im Binär oder Hex-System erscheint, muss eine Aufgabe gelöst werden.Lösungen im Dezimalsystem erscheinen und der Nerd muss die richtige Lösung durch Springen einsammeln. \n
+Wenn oben eine Zahl im Binär oder Hex-System erscheint, muss eine Aufgabe gelöst werden. Lösungen im Dezimalsystem erscheinen und der Nerd muss die richtige Lösung durch Springen einsammeln. \n
 Um zu Springen, tippe auf den Bildschirm.\n
 Wenn der Nerd in Gruben fällt, verliert er ein Leben. Beim Zusammenstoß mit weiblichen Wesen kann er eine Aufgabe lösen, um einem Gespräch auszuweichen, falls er sie nicht innerhalb einer vorgegebenen Zeit löst, verliert er auch ein Leben.\n
 Mit Verlieren des letzten Lebens endet das Spiel.\n\n
@@ -81,8 +78,9 @@ Los geht’s!\n
 
 
     //MultipleChoice: part1 + numeral_systems[x]+part2
-    <string name="multiple_choice_question_1">Wählen Sie für die gegebene Zahl die richtige Entsprechung im </string>
-    <string name="multiple_choice_question_2"> aus.\n</string>
+    <string name="multiple_choice_question_1">Wählen Sie für die gegebene Zahl im </string>
+    <string name="multiple_choice_question_2"> die richtige Entsprechung im </string>
+    <string name="multiple_choice_question_3"> aus.\n</string>
 
     //True/False:
     <string name="true_false_question_1">Ist der folgende Ausdruck wahr oder falsch?\n</string>
@@ -101,14 +99,14 @@ Los geht’s!\n
             Man kann bei der Zahl 387 von der Einerstelle, der Zehnerstelle und der Hunderterstelle sprechen.<br/><br/>
             Die 7 an der Einerstelle hat einen Wert von 7*1 = 7<br/>
             Die 8 an der Zehnerstelle hat einen Wert von 8*10 = 80<br/>
-            Die 3 an der Hunderterstelle hat einen Wert von 3*100 = 300<br/>
+            Die 3 an der Hunderterstelle hat einen Wert von 3*100 = 300<br/><br/>
             Um den Wert der ganzen Zahl zu bekommen muss man die Werte der einzelnen Stellen addieren:<br/>
             7+80+300 = 387
             ]]>
         </item>
         <item><![CDATA[
 
-            In der Informatik gibt es noch weitere Zahlensysteme, die auf das Binärsystem, dem Zahlensystem zur Basis 2, zurückgehen.
+            In der Informatik gibt es noch weitere relevante Zahlensysteme, die auf das Binärsystem, das Zahlensystem zur Basis 2, zurückgehen.
             Das hat den Grund, dass ein Computer auf der Hardware-Ebene nur zwei Zustände kennt: An/Aus, Geladen/Ungeladen…<br/>
             Im Binärsystem gibt es daher auch nur zwei Ziffern: 0 und 1. Auch das Binärsystem und alle weiteren hier behandelten Zahlensysteme
             sind stellenwertbasierte Systeme, d.h. je weiter links eine Ziffer in einer Zahl steht, desto höher ist ihr Wert.
@@ -131,21 +129,21 @@ Los geht’s!\n
         <item>
         <![CDATA[
             Für die verschiedenen Systeme gibt es auch Namen, die oft aus dem Lateinischen oder Griechischen abeleitet sind:<br/><br/>
-            Binärsystem<br/>
-            Trialsystem<br/>
-            Quaternalsystem<br/>
-            Pentalsystem<br/>
-            Hexalsystem<br/>
-            Heptalsystem<br/>
-            Oktalsystem<br/>
-            Nonalsystem<br/>
-            Dezimalsystem<br/>
-            Undezimalsystem<br/>
-            Duodezimalsystem<br/>
-            Tridezimalsystem<br/>
-            Quatridezimalsystem<br/>
-            Pentadezimalsystem<br/>
-            Hexadezimalsystem<br/>
+            Basis 2: Binärsystem<br/>
+            Basis 3: Trialsystem<br/>
+            Basis 4: Quaternalsystem<br/>
+            Basis 5: Pentalsystem<br/>
+            Basis 6: Hexalsystem<br/>
+            Basis 7: Heptalsystem<br/>
+            Basis 8: Oktalsystem<br/>
+            Basis 9: Nonalsystem<br/>
+            Basis 10: Dezimalsystem<br/>
+            Basis 11: Undezimalsystem<br/>
+            Basis 12: Duodezimalsystem<br/>
+            Basis 13: Tridezimalsystem<br/>
+            Basis 14: Quatridezimalsystem<br/>
+            Basis 15: Pentadezimalsystem<br/>
+            Basis 16: Hexadezimalsystem<br/>
             ]]>
         </item>
         <item>
@@ -156,17 +154,17 @@ Los geht’s!\n
     <string-array name="tutorial_decimal">
         <item><![CDATA[
         Bei der Betrachtung einer Dezimalzahl fällt auf, dass nach links jede Stelle 10 mal mehr wert ist als die letzte.
-            Die Zehnerstelle ist 10 * 1 wert. Die Hunderterstelle ist 10*10 wert usw.<br/>
+            Die Zehnerstelle ist 10*1 wert. Die Hunderterstelle ist 10*10 wert usw.<br/><br/>
             Man kann verallgemeinern:<br/>
             Einerstelle entspricht 10<sup><small>0</small></sup>-Stelle<br/>
             Zehnerstelle entspricht 10<sup><small>1</small></sup>-Stelle<br/>
             Hunderterstelle entspricht 10<sup><small>2</small></sup>-Stelle  …<br/>
-
-            In anderen Zahlensystemen funktioniert dieses System genauso, nur mit einer anderen Basis natürlich.<br/>
+            <br/>
+            In anderen Zahlensystemen funktioniert dieses System genauso, nur mit einer anderen Basis natürlich.<br/><br/>
             Beispiel im Binärsystem:<br/>
             __   __   __   __<br/>
             2<sup><small>3</small></sup>   2<sup><small>2</small></sup>  2<sup><small>1</small></sup>  2<sup><small>0</small></sup><br/>
-            <n/>
+            <br/>
             Analog zum Dezimalsystem gilt also:<br/>
             1 an 2<sup><small>0</small></sup>-Stelle entspricht 1=2<sup><small>0</small></sup><br/>
             1 an 2<sup><small>1</small></sup>-Stelle entspricht 2=2<sup><small>1</small></sup><br/>
@@ -176,9 +174,9 @@ Los geht’s!\n
         <item>
             <![CDATA[
             Wenn man nun eine Zahl aus einem anderen Zahlensystem ins Dezimalsystem umrechnen will, muss man nur die Werte
-            der einzelnen Stellen anschließend addieren, wie man es auch implizit im Dezimalsystem tut:<br/> (109 = 100 +9).<br/>
+            der einzelnen Stellen anschließend addieren, wie man es auch implizit im Dezimalsystem tut:<br/> 109 = 100+9<br/><br/>
 
-            Beispiel im Binärsystem:<br/><br/>
+            Beispiel im Binärsystem:<br/>
             1010 = 2<sup><small>3</small></sup>*1 + 2<sup><small>2</small></sup>*0 + 2<sup><small>1</small></sup>*1 +2<sup><small>0</small></sup>*0 = 10 im Dezimalsystem <br/>
             oder kürzer, da eine Null an einer Stelle keinen Wert hat:<br/>
             2<sup><small>3</small></sup>*1 + 2<sup><small>1</small></sup>*1 = 10 im Dezimalsystem
@@ -202,15 +200,15 @@ Los geht’s!\n
         <item><![CDATA[
             Um eine Dezimalzahl in ein anderes  Zahlensystem umzurechnen, hilft es, wenn man ungefähr die Stellenwerte
             in diesem Zahlensystem kennt. Also im Binärsystem 1 = 2<sup><small>0</small></sup>, 2 = 2<sup><small>1</small></sup>, 4 = 2<sup><small>2</small></sup>, 8 = 2<sup><small>3</small></sup>, 16 = 2<sup><small>4</small></sup>…
-            Dann kann man schauen, welche dieser Stellenwerte der Größte ist, der in die Dezimalzahl hineinpasst.<br/>
+            Dann kann man schauen, welche dieser Stellenwerte der Größte ist, der in die Dezimalzahl hineinpasst.<br/><br/>
             Beispiel:<br/>
             Dezimal 21: Der größte Stellenwert aus dem Binärsystem, der in 21 passt, ist 2<sup><small>4</small></sup> = 16.<br/>
         ]]></item>
         <item><![CDATA[
-            Dann kann man diesen Stellenwert von der Dezimalzahl abziehen und beim Rest analog verfahren.<br/>
+            Dann kann man diesen Stellenwert von der Dezimalzahl abziehen und beim Rest analog verfahren.<br/><br/>
             Beispiel:<br/>
-            Dezimal 21 - 16 = 5 Der größte Binärstellenwert der in 5 passt, ist 2<sup><small>2</small></sup> =4. <br/>
-            5-4=1 Der größte Binärstellenwert der in 1 passt, ist 2<sup><small>0</small></sup> = 1.<br/>
+            Dezimal 21-2<sup><small>4</small></sup> = 5 Der größte Binärstellenwert der in 5 passt, ist 2<sup><small>2</small></sup> = 4. <br/>
+            5-4 = 1 Der größte Binärstellenwert der in 1 passt, ist 2<sup><small>0</small></sup> = 1.<br/>
             Damit weiß man, dass an der 2<sup><small>4</small></sup>-Stelle (16er-Stelle), an der 2<sup><small>2</small></sup>-Stelle (4er-Stelle) und an der 2<sup><small>0</small></sup>-Stelle (1er-Stelle) Einser stehen müssen.
             Die restlichen Stellenwerte kommen nicht vor und werden daher mit Nullern aufgefüllt, die ja keinen Wert haben.
          ]]>
@@ -222,15 +220,16 @@ Los geht’s!\n
             Stelle stehen soll. Deswegen gibt es eine Vorgehensweise, die für alle Zahlensysteme funktioniert.<br/><br/>
 
             Am Anfang steht die Zahl, die man umrechnen will:<br/>
-            Beispiel: 27<br/>
-            Diese teilt man durch die Basis des Systems, in das man umrechnen will.<br/>
+            27<br/>
+            Diese teilt man durch die Basis des Systems, in das man umrechnen will. (Hier Binärsystem, also durch 2.)<br/>
             27 : 2 = 13 R:1<br/>
             Der Rest entspricht später der Ziffer im Zielsystem.<br/>
             Das Ergebnis teilt man wiederholt durch die Basis des Zielsystems, solange bis das Ergebnis 0 ist.<br/>
             13 : 2 = 6 R: 1<br/>
-            6 : 2 = 3 R: 0<br/>
-            3 : 2 = 1 R: 1<br/>
-            1 : 2 = 0 R: 1<br/>
+             6 : 2 = 3 R: 0<br/>
+             3 : 2 = 1 R: 1<br/>
+             1 : 2 = 0 R: 1<br/>
+             <br/>
             Die Zahl im Zielsystem erhält man nun, indem man die Reste von unten nach oben liest. <br/>
             27 ist also im Binärsystem 11011.<br/>
             Man kann im Arbeitsfluss den Rest, den man zuerst erhält, ganz rechts hinschreiben und dann immer eins weiter links
@@ -253,7 +252,7 @@ Los geht’s!\n
     <string-array name="tutorial_tricks">
         <item><![CDATA[
             Vorher wurde ja schon erwähnt, dass die Umrechnung zwischen Hexadezimalsystem, Oktalsystem und Binärsystem relativ einfach ist.
-            Das liegt daran, dass diese Systeme, Zahlensysteme mit Basis 2<sup><small>n</small></sup> sind.2<sup><small>2</small></sup> ist 4, 2<sup><small>3</small></sup> ist 8, 2<sup><small>4</small></sup> ist 16…
+            Das liegt daran, dass diese Systeme Zahlensysteme mit Basis 2<sup><small>n</small></sup> sind. 2<sup><small>2</small></sup> ist 4, 2<sup><small>3</small></sup> ist 8, 2<sup><small>4</small></sup> ist 16…
             Diese Zahlensysteme kann man ohne zu rechnen ineinander umwandeln.
             ]]>
         </item>
@@ -264,17 +263,33 @@ Los geht’s!\n
             Man kann also Blöcke von (je nach System) 2, 3 oder 4 Stellen auf einmal umrechnen und diese einfach aneinanderhängen.<br/><br/>
             Beispiel:<br/>
             Quartärzahl:<br/>
-            3 0 1 2<br/>
-            11000110<br/>
+             3 0 1 2<br/>
             Binärzahl:  <br/>
+            11000110<br/>
+            <br/>
             11 entspricht 3, 00 entspricht 0, 01 entspricht 1, 10 entspricht 2<br/>
         ]]>
         </item>
         <item>
             <![CDATA[
             Im Hexadezimalsystem wird das Ganze dadurch etwas komplizierter, dass die gewohnten arabischen Ziffern durch Buchstaben
-            ergänzt werden. Mit einer Tabelle kann man sich aber die Entsprechungen der Buchstaben relativ leicht einprägen.<br/>
-            [Grafik Tabelle]<br/>
+            ergänzt werden. Mit einer Tabelle, der Dezimal-, Hexadezimal- und Binärzahlen kann man sich aber die Entsprechungen der Buchstaben relativ leicht einprägen.<br/>
+            0 = 0 = 0000<br/>
+            1 = 1 = 0001<br/>
+            2 = 2 = 0010<br/>
+            3 = 3 = 0011<br/>
+            4 = 4 = 0100<br/>
+            5 = 5 = 0101<br/>
+            6 = 6 = 0110<br/>
+            7 = 7 = 0111<br/>
+            8 = 8 = 1000<br/>
+            9 = 9 = 1001<br/>
+            10 = A = 1010<br/>
+            11 = B = 1011<br/>
+            12 = C = 1100<br/>
+            13 = D = 1101<br/>
+            14 = E = 1110<br/>
+            15 = F = 1111<br/><br/>
             Aber Vorsicht! Während man direkt vom Binär ins Hexadezimalsystem umschreiben kann, ist dies vom Oktalsystem aus nicht
             möglich. Hier muss ein Umweg über das Binärsystem gegangen werden, da sich die Blöcke an Ziffern, die gleichzeitig
             transkribiert werden, überschneiden.<br/>
@@ -286,8 +301,8 @@ Los geht’s!\n
             schnell ein Taschenrechner und ein Schmierblatt sehr hilfreich.
         </item>
         <item><![CDATA[
-        Das gilt auch für die Umrechnung zwischen nicht dezimalen Zahlensystemen, die nicht Basen 2<sup><small>n</small></sup> haben.
-            Hierfür müsste man im Ausgangszahlensystem dividieren , was relativ aufwendig ist.
+        Das gilt auch für die Umrechnung zwischen nicht dezimalen Zahlensystemen, die keine Basis 2<sup><small>n</small></sup> haben.
+            Hierfür müsste man im Ausgangszahlensystem dividieren, was relativ aufwendig ist.
             Es ist in diesem Fall einfacher, jeweils die entsprechende Zahl ins Dezimalsystem umzurechnen und dann zu teilen.
         ]]>
         </item>

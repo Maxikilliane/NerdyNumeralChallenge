@@ -6,14 +6,16 @@ import de.mi.ur.Constants;
 
 /**
  * Created by Anna-Marie on 11.08.2016.
- * To-Do: WeatherAsyncTask starten, Json auswerten -> current weather speichern
+ * Diese Klasse wird derzeit nicht genutzt. Ist als private Klasse in die GameMainActivity ausgelagert.
+ *
  */
-public class WeatherManager {
+public class WeatherManager  {
     private int currentWeather;
     private String weatherUrlPart1 = "http://api.openweathermap.org/data/2.5/weather?";
     private String weatherUrlPart2Lat = "lat=";
     private String weatherUrlPart3Lon = "&lon=";
     private String weatherUrlPart4AppId = "&appid="+Constants.API_ID;
+    private WeatherAsyncTask weatherTask;
     private LocationController locationController;
 
     public WeatherManager(Context context){

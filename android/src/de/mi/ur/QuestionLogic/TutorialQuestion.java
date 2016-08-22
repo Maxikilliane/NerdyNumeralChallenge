@@ -16,7 +16,7 @@ public class TutorialQuestion extends Question {
     private FreeTextQuestion question7 = new FreeTextQuestion(8, 10, 5);
     private FreeTextQuestion question8 = new FreeTextQuestion(5, 3, 3);
 
-    // 2. Tutorial, 1. Frage noch anpassen.
+// 2. Tutorial, 1. Frage noch anpassen.
     private String[][] questions = {
             {"Welchen Wert hat die Ziffer 4 in der Zahl 9482?", "Welche Zahl ist größer: 001 oder 100?", "Wie viele Ziffern hat das Trinärsystem (zur Basis 3)?", "Was sind die Ziffern des Duodezimalsystems (Basis 12)?", "Welche Basis hat das Quaternalsystem?" },
             {"Welchem Wert entspricht die 1 an der 4<sup><small>2</small></sup>-Stelle?", question1.getQuestionString(), question2.getQuestionString()},
