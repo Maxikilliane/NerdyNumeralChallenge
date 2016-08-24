@@ -1,6 +1,7 @@
 package de.mi.ur;
 
 import de.mi.ur.sprites.Nerd;
+import de.mi.ur.states.PlayState;
 
 /**
  * Created by Anna-Marie on 05.08.2016.
@@ -16,8 +17,10 @@ public class ConstantsGame {
         public static final int NERD_Y = 200;
 
 
+        public static final int BOUNDS_OFFSET = -50;
+
         public static final int PIT_WIDTH = 52;
-        public static final int PIT_BOUNDS_OFFSET = nerd.getWidth()/2;
+        public static final int PIT_BOUNDS_OFFSET = 0;
         public static final int PIT_OFFSET = 180;
         public static final int PIT_NUM = 4;
 
@@ -35,6 +38,8 @@ public class ConstantsGame {
 
         public static final int QUESTION_ANSWER_OFFSET_X = -5;
         public static final int QUESTION_ANSWER_OFFSET_Y = -10;
+
+        public static final int WOMAN_Y = PlayState.ground.getHeight() + GROUND_Y_OFFSET;
 
 
 

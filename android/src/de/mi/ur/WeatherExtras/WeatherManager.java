@@ -9,7 +9,7 @@ import de.mi.ur.Constants;
  * Diese Klasse wird derzeit nicht genutzt. Ist als private Klasse in die GameMainActivity ausgelagert.
  *
  */
-public class WeatherManager  {
+public class WeatherManager {
     private int currentWeather;
     private String weatherUrlPart1 = "http://api.openweathermap.org/data/2.5/weather?";
     private String weatherUrlPart2Lat = "lat=";

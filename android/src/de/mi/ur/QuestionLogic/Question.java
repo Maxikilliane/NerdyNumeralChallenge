@@ -11,15 +11,15 @@ public abstract class Question {
     private int numeral2Base;
     private int maxDigits;
 
-    public boolean isCorrectAnswer(String answer){
+    public boolean isCorrectAnswer(String answer) {
         return false;
     }
 
-    public String getQuestionString(){
+    public String getQuestionString() {
         return "";
     }
 
-    public String getRightAnswerString(){
+    public String getRightAnswerString() {
         return "";
     }
 

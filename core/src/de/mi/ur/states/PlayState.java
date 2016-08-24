@@ -13,6 +13,7 @@ import de.mi.ur.gameLogic.GameQuestion;
 import de.mi.ur.gameLogic.Score;
 import de.mi.ur.sprites.Nerd;
 import de.mi.ur.sprites.Pit;
+import de.mi.ur.sprites.Woman;
 
 /**
  * Created by maxiwindl on 31.07.16.
@@ -21,10 +22,15 @@ public class PlayState extends State {
 
     private Nerd nerd;
     private Texture background;
-    private Texture ground;
+    public static Texture ground;
     private Score score;
     private Random random;
     private GameQuestion gameQuestion;
+    private Woman woman;
+    public static boolean hasHit = false;
+    private Array<Woman> women;
+
+    private Texture heartEmpty;
 
     private Array<Pit> pits;
     private Vector2 groundPos1, groundPos2;
@@ -32,18 +38,23 @@ public class PlayState extends State {
 
     protected PlayState(GameStateManager gameManager) {
         super(gameManager);
+        ground = new Texture("ground.png");
         nerd = new Nerd(ConstantsGame.NERD_X, ConstantsGame.NERD_Y);
         background = new Texture("background_final.png");
         score = new Score();
         random = new Random();
         gameQuestion = new GameQuestion();
+        women = new Array<Woman>();
+        heartEmpty = new Texture("heartempty.png");
+        for (int i = 0; i < 4; i++) {
+            women.add(new Woman(i * (400)));
+        }
         pits = new Array<Pit>();
         for (int i = 0; i < 4; i++) {
             pits.add(new Pit(i * (ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH)));
 
         }
         score.startTimer();
-        ground = new Texture("ground.png");
         groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, ConstantsGame.GROUND_Y_OFFSET);
         groundPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2) + ground.getWidth(), ConstantsGame.GROUND_Y_OFFSET);
 
@@ -73,23 +84,41 @@ public class PlayState extends State {
         }
     }
 
+    private void updateWomen() {
+        for (int i = 0; i < women.size; i++) {
+            Woman woman = women.get(i);
+            if (cam.position.x - (cam.viewportWidth / 2) > woman.getWomanPos().x + woman.getWoman().getWidth()) {
+                woman.reposition(woman.getWomanPos().x + ((woman.getWoman().getWidth()) + generateNewDistance() + 400 * 4));
+            }
+            if (woman.collides(nerd.getBounds())) {
+
+                hasHit = true;
+            } else {
+                hasHit = false;
+                //gameManager.set(new MenueState(gameManager));
+            }
+        }
+
+    }
+
     private void updatePits() {
         for (int i = 0; i < pits.size; i++) {
             Pit pit = pits.get(i);
-            if (cam.position.x - (cam.viewportWidth / 2) > pit.getPitPos1().x + pit.getPit().getWidth()) {
-                pit.reposition(pit.getPitPos1().x + ((pit.getPit().getWidth()) + generateNewDistance()) * 4);
+            if (cam.position.x - (cam.viewportWidth / 2) > pit.getPitPos().x + pit.getPit().getWidth()) {
+                pit.reposition(pit.getPitPos().x + ((pit.getPit().getWidth()) + generateNewDistance() + 800 * 4));
             }
-            if (pit.collides(nerd.getBounds()))
+            if (pit.collides(nerd.getBounds())) {
                 gameManager.set(new MenueState(gameManager));
+            }
         }
 
     }
 
 
     private int generateNewDistance() {
-        int newInt = random.nextInt(270);
+        int newInt = random.nextInt(300);
 
-        if (newInt >= 190) {
+        if (newInt >= 150) {
             return newInt;
         } else {
             return generateNewDistance();
@@ -105,7 +134,7 @@ public class PlayState extends State {
         nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty());
         score.updateScore();
         gameQuestion.updateQuestions(cam);
-
+        updateWomen();
         cam.position.x = nerd.getPosition().x + ConstantsGame.NERD_POSITION_OFFSET;
         updatePits();
         cam.update();
@@ -149,7 +178,10 @@ public class PlayState extends State {
         spriteBatch.draw(ground, groundPos2.x, groundPos2.y);
         spriteBatch.draw(nerd.getTexture(), nerd.getX(), nerd.getY());
         for (Pit pit : pits) {
-            spriteBatch.draw(pit.getPit(), pit.getPitPos1().x, pit.getPitPos1().y);
+            spriteBatch.draw(pit.getPit(), pit.getPitPos().x, pit.getPitPos().y);
+        }
+        for (Woman woman : women) {
+            spriteBatch.draw(woman.getWoman(), woman.getWomanPos().x, woman.getWomanPos().y);
         }
         spriteBatch.end();
     }
@@ -159,6 +191,13 @@ public class PlayState extends State {
         nerd.dispose();
         background.dispose();
         ground.dispose();
+        for (Pit pit : pits) {
+            pit.dispose();
+        }
+        for (Woman woman : women) {
+            woman.dispose();
+        }
+
 
     }
 }

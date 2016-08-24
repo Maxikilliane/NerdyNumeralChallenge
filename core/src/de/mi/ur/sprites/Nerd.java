@@ -4,10 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import com.sun.org.apache.bcel.internal.Constants;
 
 import de.mi.ur.ConstantsGame;
-import de.mi.ur.states.PlayState;
 
 /**
  * Created by maxiwindl on 31.07.16.
@@ -32,13 +30,13 @@ public class Nerd {
     //private Texture bird;
 
     public Nerd(int x, int y) {
-        texture = new Texture("birdanimation.png");
+        texture = new Texture("nerd_nr_langsammagichnichtmehr.png");
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
         ground = new Texture("ground.png");
-        bounds = new Rectangle(x, y, texture.getWidth() / 3 - ConstantsGame.NERD_BOUNDS_OFFSET, texture.getHeight());
+        bounds = new Rectangle(x, y, texture.getWidth() / 7 + ConstantsGame.BOUNDS_OFFSET, texture.getHeight());
 
-        birdAnimation = new Animation(new TextureRegion(texture), 3, 0.5f);
+        birdAnimation = new Animation(new TextureRegion(texture), 7, 0.6f);
     }
 
 
@@ -74,7 +72,7 @@ public class Nerd {
 
 
     public void jump() {
-        velocity.y = 500;
+        velocity.y = 650;
     }
 
     public void dispose() {

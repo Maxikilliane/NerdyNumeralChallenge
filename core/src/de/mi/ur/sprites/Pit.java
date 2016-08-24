@@ -26,7 +26,7 @@ public class Pit {
         pit = new Texture("pit_new.png");
         random = new Random();
         pitPos = new Vector2(x, 0);
-        bounds = new Rectangle(pitPos.x, pitPos.y, pit.getWidth()- ConstantsGame.PIT_BOUNDS_OFFSET, pit.getHeight());
+        bounds = new Rectangle(pitPos.x, pitPos.y, pit.getWidth() + ConstantsGame.BOUNDS_OFFSET, pit.getHeight());
 
 
     }
@@ -35,12 +35,16 @@ public class Pit {
         return pit;
     }
 
-    public Vector2 getPitPos1() {
+    public Vector2 getPitPos() {
         return pitPos;
     }
 
     public boolean collides(Rectangle player){
         return player.overlaps(bounds);
+    }
+
+    public void dispose() {
+        pit.dispose();
     }
 
 

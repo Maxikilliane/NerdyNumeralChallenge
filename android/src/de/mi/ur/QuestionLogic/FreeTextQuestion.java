@@ -35,12 +35,12 @@ public class FreeTextQuestion extends Question {
         return trimLeadingZeros(answer).equals(rightAnswer);
     }
 
-    private String trimLeadingZeros(String string){
+    private String trimLeadingZeros(String string) {
         String trimmed = string.trim();
-        for(int i = 0; i<string.length()-1; i++){
-            if(string.charAt(i)=='0'){
+        for (int i = 0; i < string.length() - 1; i++) {
+            if (string.charAt(i) == '0') {
                 trimmed = trimmed.substring(1);
-            }else{
+            } else {
                 break;
             }
         }

@@ -21,18 +21,19 @@ public class Obstacle {
     private Vector2 obstaclePos;
 
 
-    public Obstacle (float x) {
+    public Obstacle(float x) {
 
         obstacle = new Texture("obstacle.png");
         random = new Random();
         obstaclePos = new Vector2(x, ConstantsGame.NERD_Y);
-        bounds = new Rectangle(obstaclePos.x, obstaclePos.y, obstacle.getWidth()- ConstantsGame.PIT_BOUNDS_OFFSET, obstacle.getHeight());
+        bounds = new Rectangle(obstaclePos.x, obstaclePos.y, obstacle.getWidth() - ConstantsGame.PIT_BOUNDS_OFFSET, obstacle.getHeight());
 
     }
 
-    public Texture getObstacle () {
+    public Texture getObstacle() {
         return obstacle;
     }
+
     private int generateNewDistance() {
         int newInt = random.nextInt(4);
 
@@ -43,24 +44,16 @@ public class Obstacle {
         return obstaclePos;
     }
 
-    public boolean collides(Rectangle player){
+    public boolean collides(Rectangle player) {
         return player.overlaps(bounds);
     }
 
-    public void reposition(float x){
+    public void reposition(float x) {
 
         obstaclePos.set(x, 0);
         bounds.setPosition(obstaclePos.x, obstaclePos.y);
 
     }
-
-
-
-
-
-
-
-
 
 
 }

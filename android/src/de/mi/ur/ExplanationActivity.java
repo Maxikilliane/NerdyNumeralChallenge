@@ -113,7 +113,7 @@ public class ExplanationActivity extends Activity implements View.OnClickListene
             @Override
             public void onClick(View v) {
                 String solution = questionFragment.getTextFromSolutionEditText();
-                if(currentQuestion.isCorrectAnswer(solution)){
+                if (currentQuestion.isCorrectAnswer(solution)) {
                     questionFragment.getView().setBackgroundResource(R.color.correct_solution_green);
                 }else{
                     questionFragment.getView().setBackgroundResource(R.color.wrong_solution_red);
@@ -157,7 +157,7 @@ public class ExplanationActivity extends Activity implements View.OnClickListene
                 if(explanationNumber == maxNumExplanations-1){
                     continueButton.setEnabled(false);
                     questionFragment.getView().setBackgroundResource(R.color.black);
-                }else{
+                } else {
                     questionFragment.getView().setBackgroundResource(R.color.powder_blue);
                 }
                 explanationNumber++;
