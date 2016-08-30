@@ -7,9 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import de.mi.ur.AndroidCommunication.WeatherDataListener;
 import de.mi.ur.WeatherExtras.WeatherManager;
 
-public class GameMainActivity extends Activity  implements View.OnClickListener{
+public class GameMainActivity extends Activity  implements View.OnClickListener, WeatherDataListener {
 
     private Button buttonStartGame;
     private Button buttonWeather;
@@ -45,10 +46,11 @@ public class GameMainActivity extends Activity  implements View.OnClickListener{
         switch (v.getId()){
             case R.id.game_start_button:
                 i = new Intent(GameMainActivity.this, AndroidLauncher.class);
+                i.putExtra(Constants.CURRENT_WEATHER, weatherManager.getCurrentWeather());
                 break;
             case R.id.game_update_weather_button:
                 String weather = convertToWeatherName(weatherManager.getCurrentWeather());
-                toastMessage = "Wetter aktualisiert! /nGerade " + weather + ".";
+                toastMessage = "Wetter aktualisiert! Gerade " + weather + ".";
                 break;
             case R.id.game_highscore_button:
                 break;
@@ -82,5 +84,10 @@ public class GameMainActivity extends Activity  implements View.OnClickListener{
             default:
                 return "ist es wolkig";
         }
+    }
+
+    @Override
+    public int getCurrentWeather() {
+        return weatherManager.getCurrentWeather();
     }
 }

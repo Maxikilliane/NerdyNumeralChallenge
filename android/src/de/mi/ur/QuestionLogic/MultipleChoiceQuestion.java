@@ -43,4 +43,5 @@ public class MultipleChoiceQuestion extends Question {
     public boolean isCorrectAnswer(String answer){
         return answer.equals(rightAnswer);
     }
+
 }

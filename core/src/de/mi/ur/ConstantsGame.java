@@ -43,4 +43,17 @@ public class ConstantsGame {
 
 
 
+        // Damit kann man später erfahren, welcher Hintergrund verwendet werden soll. Zugriff in der NerdyNumeralChallenge-Klasse
+        //möglich
+        public static final int WEATHER_SUNNY = 0;
+        public static final int WEATHER_CLOUDY = 1;
+        public static final int WEATHER_RAINY = 2;
+        public static final int WEATHER_SNOWY = 3;
+
+        //Array-Positionen für Frage und Antwort
+        public static final int QUESTION_POS = 0;
+        public static final int RIGHT_ANSWER_POS = 1;
+
+
+
 }

@@ -36,7 +36,7 @@ public class MultipleChoiceC extends QuestionC {
     public ArrayList<String> generatePossAnswers() {
         ArrayList<String> possAnswers = new ArrayList<String>();
         for (int i = 0; i < 3; i++) {
-            String possAnswer = generateNumWithMaxDigits(getNumeral1Base(), getMaxDigits());
+            String possAnswer = generateNumWithMaxDigits(getNumeral2Base(), getMaxDigits());
             if (!possAnswers.contains(possAnswer)) {
                 possAnswers.add(possAnswer);
             }

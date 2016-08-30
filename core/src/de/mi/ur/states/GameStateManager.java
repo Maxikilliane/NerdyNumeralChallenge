@@ -4,6 +4,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.Stack;
 
+import de.mi.ur.AndroidCommunication.MultipleChoiceListener;
+import de.mi.ur.AndroidCommunication.WeatherDataListener;
+
 /**
  * Created by maxiwindl on 31.07.16.
  */
@@ -11,8 +14,13 @@ public class GameStateManager {
     //manages the states of the game. E.g. the player hits pause and a new state is put ontop. WHen the player presses
     //play again the pause state gets removed and the playstate is back.
     private Stack<State> states;
+    private MultipleChoiceListener multipleChoiceListener;
+    private WeatherDataListener weatherDataListener;
 
-    public GameStateManager() {
+    public GameStateManager(MultipleChoiceListener multipleChoiceListener, WeatherDataListener weatherDataListener) {
+        this.multipleChoiceListener = multipleChoiceListener;
+        this.weatherDataListener = weatherDataListener;
+
         states = new Stack <State>();
 
     }
@@ -35,6 +43,14 @@ public class GameStateManager {
     }
     public void render (SpriteBatch batch) {
         states.peek().render(batch);
+    }
+
+    public MultipleChoiceListener getMultipleChoiceListener(){
+        return multipleChoiceListener;
+    }
+
+    public WeatherDataListener getWeatherDataListener(){
+        return weatherDataListener;
     }
 
 }
