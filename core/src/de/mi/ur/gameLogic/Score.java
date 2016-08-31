@@ -67,6 +67,7 @@ public class Score {
         return TimeUtils.timeSinceMillis(startTime) / 1000;
     }
 
+
     private void updateHeart() {
         if (PlayState.hasHit) {
             thisCounter++;

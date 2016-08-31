@@ -7,10 +7,12 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
 import de.mi.ur.AndroidCommunication.MultipleChoiceListener;
 import de.mi.ur.AndroidCommunication.WeatherDataListener;
+import de.mi.ur.DataBase.NNCDatabase;
 import de.mi.ur.QuestionLogic.MultipleChoiceQuestion;
 
 public class AndroidLauncher extends AndroidApplication implements MultipleChoiceListener, WeatherDataListener {
 	private int currentWeather;
+	private NNCDatabase db;
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
@@ -19,8 +21,9 @@ public class AndroidLauncher extends AndroidApplication implements MultipleChoic
 		if(extras != null){
 			currentWeather = extras.getInt(Constants.CURRENT_WEATHER);
 		}
+		db = new NNCDatabase(this);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		initialize(new NerdyNumeralChallenge(this, this), config);
+		initialize(new NerdyNumeralChallenge(this, this, db), config);
 	}
 
 	@Override

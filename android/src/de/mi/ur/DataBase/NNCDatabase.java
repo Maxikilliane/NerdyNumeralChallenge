@@ -9,10 +9,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 
+import de.mi.ur.AndroidCommunication.HighscoreListener;
+
 /**
  * Created by Anna-Marie on 09.08.2016.
  */
-public class NNCDatabase {
+public class NNCDatabase implements HighscoreListener{
     private static final String DATABASE_NAME = "NNC Database";
     private static final int DATABASE_VERSION = 1;
 
@@ -37,7 +39,10 @@ public class NNCDatabase {
 
     public NNCDatabase(Context context) {
         dbHelper = new NncDBOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
+
     }
+
+
 
     public void open() throws SQLException {
         try {
@@ -72,8 +77,10 @@ public class NNCDatabase {
     *in activity: nach Spielende checken, ob neuer Highscore, in dem Fall: Toast (Name eingeben Aufforderung), dann damit einen neuen Highscore machen
     * und einfügen, falls nichts passiert nichts
     *
+    *
+    * Jetzt als Interface-Methode verwendet!
     */
-    public int checkIfNewHighscore(int points){
+    /*public int checkIfNewHighscore(int points){
         if(getHighscoreWithCertainRank(1).getPoints() < points){
             return 1;
         }else if(getHighscoreWithCertainRank(2).getPoints() < points){
@@ -84,6 +91,7 @@ public class NNCDatabase {
             return -1;
         }
     }
+    */
 
     public Highscore getHighscoreWithCertainRank(int rank) {
 
@@ -116,8 +124,29 @@ public class NNCDatabase {
         return highscores;
     }
 
+    @Override
+    public int checkIfNewHighscore(int points) {
+        if(getAllHighscores().size()== 0 || getHighscoreWithCertainRank(1).getPoints() < points){
+            return 1;
+        }else if(getAllHighscores().size()== 1 || getHighscoreWithCertainRank(2).getPoints() < points){
+            return 2;
+        }else if(getAllHighscores().size()== 2 || getHighscoreWithCertainRank(3).getPoints() < points){
+            return 3;
+        }else{
+            return -1;
+        }
+    }
 
-        private class NncDBOpenHelper extends SQLiteOpenHelper {
+    @Override
+    public void saveHighscoreToDatabase(int rank, int points) {
+        removeHighscoreData(rank);
+        // Evtl im Spiel den Player zum Namen-Eingeben prompten und den dann noch übergeben.
+        insertHighscoreData(new Highscore(rank, points, ""));
+
+    }
+
+
+    private class NncDBOpenHelper extends SQLiteOpenHelper {
             private static final String INTEGER_NOT_NULL = " integer not null, ";
 
             public static final String CREATE_HIGHSCORE_TABLE = "create table " + TABLE_HIGHSCORE

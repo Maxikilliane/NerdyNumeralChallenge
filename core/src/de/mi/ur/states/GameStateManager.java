@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.Stack;
 
+import de.mi.ur.AndroidCommunication.HighscoreListener;
 import de.mi.ur.AndroidCommunication.MultipleChoiceListener;
 import de.mi.ur.AndroidCommunication.WeatherDataListener;
 
@@ -16,10 +17,12 @@ public class GameStateManager {
     private Stack<State> states;
     private MultipleChoiceListener multipleChoiceListener;
     private WeatherDataListener weatherDataListener;
+    private HighscoreListener highscoreListener;
 
-    public GameStateManager(MultipleChoiceListener multipleChoiceListener, WeatherDataListener weatherDataListener) {
+    public GameStateManager(MultipleChoiceListener multipleChoiceListener, WeatherDataListener weatherDataListener, HighscoreListener highscoreListener) {
         this.multipleChoiceListener = multipleChoiceListener;
         this.weatherDataListener = weatherDataListener;
+        this.highscoreListener = highscoreListener;
 
         states = new Stack <State>();
 
@@ -51,6 +54,10 @@ public class GameStateManager {
 
     public WeatherDataListener getWeatherDataListener(){
         return weatherDataListener;
+    }
+
+    public HighscoreListener getHighscoreListener(){
+        return highscoreListener;
     }
 
 }

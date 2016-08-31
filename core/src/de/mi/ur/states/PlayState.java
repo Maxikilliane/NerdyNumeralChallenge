@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Array;
 
 import java.util.Random;
 
+import de.mi.ur.AndroidCommunication.HighscoreListener;
 import de.mi.ur.ConstantsGame;
 import de.mi.ur.gameLogic.GameQuestion1;
 import de.mi.ur.gameLogic.GameQuestion2;
@@ -18,6 +19,8 @@ import de.mi.ur.sprites.Woman;
 
 /**
  * Created by maxiwindl on 31.07.16.
+ *
+ * Vor Abgeben noch GameQuestion1 und das HoffentlichNurVoruebergehend-Package löschen!
  */
 public class PlayState extends State {
 
@@ -39,9 +42,11 @@ public class PlayState extends State {
     private Array<Pit> pits;
     private Vector2 groundPos1, groundPos2;
 
+    private HighscoreListener highscoreListener;
 
     protected PlayState(GameStateManager gameManager) {
         super(gameManager);
+        this.highscoreListener = gameManager.getHighscoreListener();
         ground = new Texture("ground.png");
         nerd = new Nerd(ConstantsGame.NERD_X, ConstantsGame.NERD_Y);
         background = new Texture("background_final.png");
@@ -97,7 +102,6 @@ public class PlayState extends State {
                 nerd.jump();
                 Nerd.jumpFinished = false;
 
-
             }
 
         }
@@ -124,6 +128,7 @@ public class PlayState extends State {
             if (woman.collides(nerd.getBounds())) {
                 if (Score.thisCounter >= 14) {
                     Score.thisCounter = 0;
+                    saveScore();
                     gameManager.set(new MenueState(gameManager));
                 }
                 hasHit = true;
@@ -156,6 +161,7 @@ public class PlayState extends State {
             }
             if (pit.collides(nerd.getBounds())) {
                 counter = -1;
+                saveScore();
                 gameManager.set(new MenueState(gameManager));
             }
         }
@@ -210,6 +216,13 @@ public class PlayState extends State {
 
         } else {
             return ConstantsGame.NERD_MOVEMENT_DEFAULT;
+        }
+    }
+
+    private void saveScore(){
+        int rank = highscoreListener.checkIfNewHighscore((int) score.getCurrentScore());
+        if(rank != -1){
+            highscoreListener.saveHighscoreToDatabase(rank, (int) score.getCurrentScore());
         }
     }
 
