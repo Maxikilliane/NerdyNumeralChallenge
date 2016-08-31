@@ -37,6 +37,9 @@ public class Constants {
     public static final int WEATHER_SNOWY = 3;
     public static final int WEATHER_DEFAULT = 0;
 
+    //Extra für AndroidLauncher
+    public static final String CURRENT_WEATHER = "current weather";
+
 
 
 

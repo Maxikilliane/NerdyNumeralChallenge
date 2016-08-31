@@ -9,7 +9,8 @@ import com.badlogic.gdx.utils.Array;
 import java.util.Random;
 
 import de.mi.ur.ConstantsGame;
-import de.mi.ur.gameLogic.GameQuestion;
+import de.mi.ur.gameLogic.GameQuestion1;
+import de.mi.ur.gameLogic.GameQuestion2;
 import de.mi.ur.gameLogic.Score;
 import de.mi.ur.sprites.Nerd;
 import de.mi.ur.sprites.Pit;
@@ -25,7 +26,9 @@ public class PlayState extends State {
     public static Texture ground;
     private Score score;
     private Random random;
-    private GameQuestion gameQuestion;
+    //private GameQuestion gameQuestion;
+    private GameQuestion2 gameQuestion;
+
     private Woman woman;
     public static boolean hasHit;
     private Array<Woman> women;
@@ -42,9 +45,12 @@ public class PlayState extends State {
         ground = new Texture("ground.png");
         nerd = new Nerd(ConstantsGame.NERD_X, ConstantsGame.NERD_Y);
         background = new Texture("background_final.png");
+        //background = getBackgroundWeather(gameManager);
         score = new Score();
         random = new Random();
-        gameQuestion = new GameQuestion();
+        //gameQuestion = new GameQuestion1();
+        gameQuestion = new GameQuestion2(gameManager.getMultipleChoiceListener());
+
         women = new Array<Woman>();
         heartEmpty = new Texture("heartempty.png");
         for (int i = 0; i < 4; i++) {
@@ -59,6 +65,29 @@ public class PlayState extends State {
         groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, ConstantsGame.GROUND_Y_OFFSET);
         groundPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2) + ground.getWidth(), ConstantsGame.GROUND_Y_OFFSET);
 
+    }
+
+    // Wenn Anton mit den Hintergründen fertig ist, kann man hier die Pfade dazu ablegen, damit der Hintergrund sich dem Wetter anpasst.
+    private Texture getBackgroundWeather(GameStateManager gameManager){
+        int currentWeather = gameManager.getWeatherDataListener().getCurrentWeather();
+        String texturePath;
+        switch (currentWeather){
+            case ConstantsGame.WEATHER_SUNNY:
+                texturePath ="";
+                break;
+            case ConstantsGame.WEATHER_RAINY:
+                texturePath ="";
+                break;
+            case ConstantsGame.WEATHER_CLOUDY:
+                texturePath ="";
+                break;
+            case ConstantsGame.WEATHER_SNOWY:
+                texturePath ="";
+                break;
+            default:
+                texturePath = "";
+        }
+        return new Texture(texturePath);
     }
 
     @Override

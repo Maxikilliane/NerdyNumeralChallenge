@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
+import de.mi.ur.AndroidCommunication.MultipleChoiceListener;
 import de.mi.ur.ConstantsGame;
 import de.mi.ur.HoffentlichNurVoruebergehend.MultipleChoiceC;
 
@@ -17,7 +18,7 @@ import de.mi.ur.HoffentlichNurVoruebergehend.MultipleChoiceC;
 /**
  * Created by maxiwindl on 09.08.16.
  */
-public class GameQuestion extends MultipleChoiceC {
+public class GameQuestion1 extends MultipleChoiceC {
 
     private Rectangle bounds;
     private Score score;
@@ -41,7 +42,9 @@ public class GameQuestion extends MultipleChoiceC {
 
     private Vector2 rightAnswerPos;
 
-    public GameQuestion() {
+    //evtl Enum übergeben ob Hex oder Binär... Random-Gen...
+    public GameQuestion1() {
+
         super(2, 10, 3, 0);
 
         score = new Score();
