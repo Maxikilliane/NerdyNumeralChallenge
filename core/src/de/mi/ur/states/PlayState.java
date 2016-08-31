@@ -30,8 +30,9 @@ public class PlayState extends State {
     private GameQuestion2 gameQuestion;
 
     private Woman woman;
-    public static boolean hasHit = false;
+    public static boolean hasHit;
     private Array<Woman> women;
+    public static int counter = -1;
 
     private Texture heartEmpty;
 
@@ -119,16 +120,33 @@ public class PlayState extends State {
             if (cam.position.x - (cam.viewportWidth / 2) > woman.getWomanPos().x + woman.getWoman().getWidth()) {
                 woman.reposition(woman.getWomanPos().x + ((woman.getWoman().getWidth()) + generateNewDistance() + 400 * 4));
             }
+            checkIfWomanIsInPit(woman);
             if (woman.collides(nerd.getBounds())) {
-
+                if (Score.thisCounter >= 14) {
+                    Score.thisCounter = 0;
+                    gameManager.set(new MenueState(gameManager));
+                }
                 hasHit = true;
-            } else {
-                hasHit = false;
-                //gameManager.set(new MenueState(gameManager));
+                counter++;
+
+
+
+
+
             }
         }
 
     }
+
+    private void checkIfWomanIsInPit(Woman woman) {
+        for (int i = 0; i < pits.size; i++) {
+            Pit pit = pits.get(i);
+            if (woman.getWomanPos().x == pit.getPitPos().x) {
+                woman.getWomanPos().x += pit.getPit().getWidth() + 150;
+            }
+        }
+    }
+
 
     private void updatePits() {
         for (int i = 0; i < pits.size; i++) {
@@ -137,6 +155,7 @@ public class PlayState extends State {
                 pit.reposition(pit.getPitPos().x + ((pit.getPit().getWidth()) + generateNewDistance() + 800 * 4));
             }
             if (pit.collides(nerd.getBounds())) {
+                counter = -1;
                 gameManager.set(new MenueState(gameManager));
             }
         }
