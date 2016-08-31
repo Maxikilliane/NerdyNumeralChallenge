@@ -53,6 +53,8 @@ project(":core") {
 
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+        compile group: 'com.badlogicgames.gdx', name: 'gdx-tools', version: '1.9.3'
+
     }
 }
 

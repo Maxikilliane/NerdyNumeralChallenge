@@ -1,5 +1,6 @@
 package de.mi.ur.gameLogic;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -7,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 import de.mi.ur.ConstantsGame;
 import de.mi.ur.HoffentlichNurVoruebergehend.MultipleChoiceC;
@@ -34,6 +36,8 @@ public class GameQuestion extends MultipleChoiceC {
 
     private GlyphLayout layout;
 
+    private Label label;
+
 
     private Vector2 rightAnswerPos;
 
@@ -45,18 +49,21 @@ public class GameQuestion extends MultipleChoiceC {
         wrongAnswer1 = "";
         rightAnswer = "";
         wrongAnswer2 = "";
-        toSolveBitmap = new BitmapFont();
+        toSolveBitmap = new BitmapFont(Gdx.files.internal("goodTimes4Question.fnt"));
         toSolveBitmap.setUseIntegerPositions(false);
-        toSolveBitmap.getData().scale(1);
 
-        rightAnswerBitmap = new BitmapFont();
+
+        rightAnswerBitmap = new BitmapFont(Gdx.files.internal("goodTimesNew.fnt"));
         rightAnswerBitmap.setUseIntegerPositions(false);
 
-        wrongAnswer1Bitmap = new BitmapFont();
+        wrongAnswer1Bitmap = new BitmapFont(Gdx.files.internal("goodTimesNew.fnt"));
         wrongAnswer1Bitmap.setUseIntegerPositions(false);
 
-        wrongAnswer2Bitmap = new BitmapFont();
+        wrongAnswer2Bitmap = new BitmapFont(Gdx.files.internal("goodTimesNew.fnt"));
         wrongAnswer2Bitmap.setUseIntegerPositions(false);
+
+        //label = new Label(wrongAnswer1,)
+
 
         rightAnswerPos = new Vector2(150, 0);
         layout = new GlyphLayout();
@@ -73,6 +80,7 @@ public class GameQuestion extends MultipleChoiceC {
         if (score.getCurrentScore() % 20==0) {
             questions = new MultipleChoiceC(2, 10, 6, 0);
             toSolve = questions.getQuestion();
+
             rightAnswer = questions.getRightAnswer();
 
 
@@ -104,12 +112,11 @@ public class GameQuestion extends MultipleChoiceC {
     public void drawTasks(SpriteBatch batch, OrthographicCamera cam) {
 
         toSolveBitmap.draw(batch, toSolve, cam.position.x + ConstantsGame.QUESTION_OFFSET_X, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
-        toSolveBitmap.setColor(Color.GRAY);
         wrongAnswer1Bitmap.draw(batch, wrongAnswer1, cam.position.x + ConstantsGame.QUESTION_ANSWER_OFFSET_X, cam.position.y + ConstantsGame.QUESTION_ANSWER_OFFSET_Y);
         wrongAnswer1Bitmap.setColor(Color.BLACK);
-        wrongAnswer2Bitmap.draw(batch, wrongAnswer2, cam.position.x + ConstantsGame.QUESTION_ANSWER_OFFSET_X + 20, cam.position.y + ConstantsGame.QUESTION_ANSWER_OFFSET_Y);
+        wrongAnswer2Bitmap.draw(batch, wrongAnswer2, cam.position.x + ConstantsGame.QUESTION_ANSWER_OFFSET_X + 40, cam.position.y + ConstantsGame.QUESTION_ANSWER_OFFSET_Y);
         wrongAnswer2Bitmap.setColor(Color.BLACK);
-        rightAnswerBitmap.draw(batch, rightAnswer, cam.position.x + ConstantsGame.QUESTION_ANSWER_OFFSET_X + 40, cam.position.y + ConstantsGame.QUESTION_ANSWER_OFFSET_Y);
+        rightAnswerBitmap.draw(batch, rightAnswer, cam.position.x + ConstantsGame.QUESTION_ANSWER_OFFSET_X + 80, cam.position.y + ConstantsGame.QUESTION_ANSWER_OFFSET_Y);
         rightAnswerBitmap.setColor(Color.BLACK);
 
 
