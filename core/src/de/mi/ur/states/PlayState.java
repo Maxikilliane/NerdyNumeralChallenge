@@ -9,7 +9,6 @@ import com.badlogic.gdx.utils.Array;
 import java.util.Random;
 
 import de.mi.ur.ConstantsGame;
-import de.mi.ur.gameLogic.GameQuestion1;
 import de.mi.ur.gameLogic.GameQuestion2;
 import de.mi.ur.gameLogic.Score;
 import de.mi.ur.sprites.Nerd;
@@ -47,12 +46,14 @@ public class PlayState extends State {
         background = new Texture("background_final.png");
         //background = getBackgroundWeather(gameManager);
         score = new Score();
+        score.startTimer();
         random = new Random();
         //gameQuestion = new GameQuestion1();
         gameQuestion = new GameQuestion2(gameManager.getMultipleChoiceListener());
 
         women = new Array<Woman>();
         heartEmpty = new Texture("heartempty.png");
+
         for (int i = 0; i < 4; i++) {
             women.add(new Woman(i * (400)));
         }
@@ -61,28 +62,28 @@ public class PlayState extends State {
             pits.add(new Pit(i * (ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH)));
 
         }
-        score.startTimer();
+
         groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, ConstantsGame.GROUND_Y_OFFSET);
         groundPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2) + ground.getWidth(), ConstantsGame.GROUND_Y_OFFSET);
 
     }
 
     // Wenn Anton mit den Hintergründen fertig ist, kann man hier die Pfade dazu ablegen, damit der Hintergrund sich dem Wetter anpasst.
-    private Texture getBackgroundWeather(GameStateManager gameManager){
+    private Texture getBackgroundWeather(GameStateManager gameManager) {
         int currentWeather = gameManager.getWeatherDataListener().getCurrentWeather();
         String texturePath;
-        switch (currentWeather){
+        switch (currentWeather) {
             case ConstantsGame.WEATHER_SUNNY:
-                texturePath ="";
+                texturePath = "";
                 break;
             case ConstantsGame.WEATHER_RAINY:
-                texturePath ="";
+                texturePath = "";
                 break;
             case ConstantsGame.WEATHER_CLOUDY:
-                texturePath ="";
+                texturePath = "";
                 break;
             case ConstantsGame.WEATHER_SNOWY:
-                texturePath ="";
+                texturePath = "";
                 break;
             default:
                 texturePath = "";
@@ -128,9 +129,6 @@ public class PlayState extends State {
                 }
                 hasHit = true;
                 counter++;
-
-
-
 
 
             }
@@ -182,9 +180,11 @@ public class PlayState extends State {
         nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty());
         score.updateScore();
         gameQuestion.updateQuestions(cam);
+
         updateWomen();
-        cam.position.x = nerd.getPosition().x + ConstantsGame.NERD_POSITION_OFFSET;
         updatePits();
+
+        cam.position.x = nerd.getPosition().x + ConstantsGame.NERD_POSITION_OFFSET;
         cam.update();
     }
 
