@@ -18,13 +18,13 @@ public class NNCDatabase implements HighscoreListener{
     private static final String DATABASE_NAME = "NNC Database";
     private static final int DATABASE_VERSION = 1;
 
-    private static final String TABLE_HIGHSCORE = "nnc game highscores";
+    private static final String TABLE_HIGHSCORE = "nncGameHighscores";
     private static final String KEY_ID = "id";
     private static final String KEY_RANK = "rank";
     private static final String KEY_POINTS = "points";
     private static final String KEY_NAME = "name";
 
-    private static final String TABLE_LEVEL = "nnc level";
+    private static final String TABLE_LEVEL = "nnc _level";
 
 
     private static final int COLUMN_RANK_INDEX = 1;
@@ -126,7 +126,7 @@ public class NNCDatabase implements HighscoreListener{
 
     @Override
     public int checkIfNewHighscore(int points) {
-        if(getAllHighscores().size()== 0 || getHighscoreWithCertainRank(1).getPoints() < points){
+        if(getAllHighscores().size() == 0 || getHighscoreWithCertainRank(1).getPoints() < points){
             return 1;
         }else if(getAllHighscores().size()== 1 || getHighscoreWithCertainRank(2).getPoints() < points){
             return 2;

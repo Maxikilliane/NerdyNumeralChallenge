@@ -158,7 +158,7 @@ public class PlayState extends State {
             }
             if (pit.collides(nerd.getBounds())) {
                 counter = -1;
-                //saveScore();
+                saveScore();
                 gameManager.set(new MenueState(gameManager));
             }
         }

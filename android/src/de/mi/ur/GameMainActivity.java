@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import de.mi.ur.AndroidCommunication.WeatherDataListener;
+import de.mi.ur.DataBase.Highscore;
 import de.mi.ur.WeatherExtras.WeatherManager;
 
 public class GameMainActivity extends Activity  implements View.OnClickListener, WeatherDataListener {
@@ -63,6 +64,7 @@ public class GameMainActivity extends Activity  implements View.OnClickListener,
                 }
                 break;
             case R.id.game_highscore_button:
+                i = new Intent(GameMainActivity.this, HighscoreActivity.class);
                 break;
             case R.id.game_help_button:
                 i = new Intent(GameMainActivity.this, GameHelpActivity.class);

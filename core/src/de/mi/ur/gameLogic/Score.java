@@ -20,13 +20,14 @@ public class Score {
 
 
     private String currentScore;
+    private long currentScorePoints;
     private Texture heartFilled;
     public static Array<Texture> hearts;
     private long startTime;
     BitmapFont scoreFont;
     private Texture heartEmpty;
     public static int thisCounter = 0;
-    private Label testLabel;
+
 
     public Score() {
         hearts = new Array<Texture>();
@@ -55,7 +56,7 @@ public class Score {
     }
 
     public long getCurrentScore() {
-        return getTimeElapsed();
+        return currentScorePoints;
     }
 
     public long startTimer() {
@@ -99,6 +100,7 @@ public class Score {
         } else {
             currentScore = "" + getTimeElapsed() + "   Points";
         }
+        currentScorePoints = getTimeElapsed();
         if (PlayState.hasHit) {
 
             updateHeart();
