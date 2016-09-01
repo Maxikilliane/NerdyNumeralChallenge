@@ -34,6 +34,7 @@
         <activity android:name=".GameHelpActivity"></activity>
         <activity android:name=".SettingsActivity"></activity>
         <activity android:name=".ProgressActivity"></activity>
+        <activity android:name=".PracticeMainActivity"></activity>
 
         <activity
             android:name="de.mi.ur.AndroidLauncher"

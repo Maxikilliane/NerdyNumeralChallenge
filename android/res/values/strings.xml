@@ -22,6 +22,7 @@
     <string name="start_game_button">Spielmodus</string>
     <string name="start_progress_button">Fortschritt</string>
 
+
     //Settings
     <string name="settings_sound_textView">Sounds</string>
     <string name="settings_soundEffects">Soundeffekte</string>
@@ -39,13 +40,16 @@
 
     //help
     <string name="game_help_explanation">
-        Dem Nerd stellen sich allerlei Hindernisse in den Weg. Gruben müssen übersprungen und weiblichen Wesen muss ausgewichen werden,gleichzeitig gilt es Umrechnungsaufgaben zu lösen.\n\n
-Oben links ist der derzeitige Punktestand zu sehen. Oben rechts wird angezeigt, wie viele Leben der Nerd noch hat. \n
-Wenn oben eine Zahl im Binär oder Hex-System erscheint, muss eine Aufgabe gelöst werden. Lösungen im Dezimalsystem erscheinen und der Nerd muss die richtige Lösung durch Springen einsammeln. \n
-Um zu Springen, tippe auf den Bildschirm.\n
-Wenn der Nerd in Gruben fällt, verliert er ein Leben. Beim Zusammenstoß mit weiblichen Wesen kann er eine Aufgabe lösen, um einem Gespräch auszuweichen, falls er sie nicht innerhalb einer vorgegebenen Zeit löst, verliert er auch ein Leben.\n
-Mit Verlieren des letzten Lebens endet das Spiel.\n\n
-Los geht’s!\n
+        Dem Nerd stellen sich allerlei Hindernisse in den Weg. Gruben müssen übersprungen und weiblichen Wesen muss ausgewichen werden,
+        gleichzeitig gilt es Umrechnungsaufgaben zu lösen. \n\n
+        Oben links ist der derzeitige Punktestand zu sehen. Oben rechts wird angezeigt, wie viele Leben der Nerd noch hat. \n
+        Wenn oben eine Zahl im Binär oder Hex-System erscheint, muss eine Aufgabe gelöst werden. Lösungen im Dezimalsystem erscheinen und der Nerd muss die richtige Lösung durch Springen einsammeln. \n
+        Um zu Springen, tippe auf den Bildschirm. \n
+        Wenn der Nerd in Gruben fällt, verliert er ein Leben. Beim Zusammenstoß mit weiblichen Wesen kann er eine Aufgabe lösen, um einem Gespräch auszuweichen.
+        Falls er diese nicht innerhalb einer vorgegebenen Zeit löst, verliert er auch hier ein Leben.\n
+        Mit Verlieren des letzten Lebens endet das Spiel. \n\n
+        Bei Klick auf die Wettersonne oben links über dem Startknopf passt sich der Hintergrund des Spiels an das aktuelle Wetter an. \n\n
+        Los geht’s!\n
 </string>
 
     //Questions
@@ -315,8 +319,9 @@ Los geht’s!\n
 
     //Exercise
     <string name="exercise_headline">Wähle ein Zahlensystem</string>
+    <string name="exercisetype_choice">Wähle einen Aufgabentyp</string>
     <string name="multiple_choice_button">Multiple Choice</string>
-    <string name="wrong_true_button">Wahr/ Falsch</string>
+    <string name="wrong_true_button">Wahr/Falsch</string>
     <string name="manual_entry_button">Selbsteingabe</string>
 
 

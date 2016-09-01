@@ -88,7 +88,7 @@ public class StartActivity extends Activity implements View.OnClickListener {
                 i = new Intent(StartActivity.this, TutorialMainActivity.class);
                 break;
             case R.id.start_practice_button:
-
+                i = new Intent (StartActivity.this, PracticeMainActivity.class);
                 break;
             case R.id.start_game_button:
                 i = new Intent (StartActivity.this, GameMainActivity.class);
