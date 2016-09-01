@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    //tutorial
     <dimen name="activity_general_padding">16dp</dimen>
     <dimen name="padding_small">5dp</dimen>
+    <dimen name="tutorial_question_size">20sp</dimen>
+    <dimen name="tutorial_question_padding">20dp</dimen>
+    <dimen name="tutorial_back_button_width">70dp</dimen>
+    <dimen name="tutorail_back_button_height">35dp</dimen>
+
 
     //startActivity
     <dimen name ="text_general_size">30sp</dimen>

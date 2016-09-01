@@ -27,7 +27,7 @@ public class myCustomTextView extends TextView {
     }
 
     private void utilizeMyFont(Context context) {
-        Typeface myFont = FontSaver.getTypeface("good_times.ttf", context);
+        Typeface myFont = FontSaver.getTypeface("cantarell_font.ttf", context);
         setTypeface(myFont);
 
     }
