@@ -35,9 +35,11 @@
     <string name="game_help">Help</string>
     <string name="game_weather">Wie ist das Wetter?</string>
 
+    <string name="location_permission_explanation">"Der Zugriff auf Ortsdaten wird benötigt, um den Hintergrund des Spiels an Ihre lokale Wettersituation anzupassen. Falls keine Verwendung von Ortsdaten erwünscht ist, wird der Default-Hintergrund genutzt.";</string>
+
     //help
     <string name="game_help_explanation">
-        Dem Nerd stellen sich allerlei Hindernisse in den Weg.Gruben müssen übersprungen und weiblichen Wesen muss ausgewichen werden,gleichzeitig gilt es Umrechnungsaufgaben zu lösen.\n\n
+        Dem Nerd stellen sich allerlei Hindernisse in den Weg. Gruben müssen übersprungen und weiblichen Wesen muss ausgewichen werden,gleichzeitig gilt es Umrechnungsaufgaben zu lösen.\n\n
 Oben links ist der derzeitige Punktestand zu sehen. Oben rechts wird angezeigt, wie viele Leben der Nerd noch hat. \n
 Wenn oben eine Zahl im Binär oder Hex-System erscheint, muss eine Aufgabe gelöst werden. Lösungen im Dezimalsystem erscheinen und der Nerd muss die richtige Lösung durch Springen einsammeln. \n
 Um zu Springen, tippe auf den Bildschirm.\n

@@ -21,8 +21,8 @@ public class WeatherAsyncTask extends AsyncTask<String, Integer, String> {
     private int currentWeatherId;
     private long lastUpdateTime;
 
-    public WeatherAsyncTask(WeatherListener listener) {
-        this.listener = listener;
+    public WeatherAsyncTask(/*WeatherListener listener*/) {
+       /* this.listener = listener;*/
     }
 
     //überarbeiten!
@@ -57,7 +57,7 @@ public class WeatherAsyncTask extends AsyncTask<String, Integer, String> {
         super.onPostExecute(result);
         currentWeatherId = getWeatherIdFromJson(result);
         lastUpdateTime = System.currentTimeMillis();
-        listener.onDownloadFinished();
+        //listener.onDownloadFinished();
     }
 
     private int getWeatherIdFromJson(String text) {
