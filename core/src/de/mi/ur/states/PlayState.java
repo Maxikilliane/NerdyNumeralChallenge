@@ -52,21 +52,20 @@ public class PlayState extends State {
         gameQuestion = new GameQuestion2(gameManager.getMultipleChoiceListener());
 
         women = new Array<Woman>();
-        heartEmpty = new Texture("heartempty.png");
+
+        pits = new Array<Pit>();
+
 
         for (int i = 0; i < 4; i++) {
-            women.add(new Woman(i * (400)));
-        }
-        pits = new Array<Pit>();
-        for (int i = 0; i < 4; i++) {
+            women.add(new Woman(i * (500)));
             pits.add(new Pit(i * (ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH)));
 
         }
-
         groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, ConstantsGame.GROUND_Y_OFFSET);
         groundPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2) + ground.getWidth(), ConstantsGame.GROUND_Y_OFFSET);
 
     }
+
 
     // Wenn Anton mit den Hintergründen fertig ist, kann man hier die Pfade dazu ablegen, damit der Hintergrund sich dem Wetter anpasst.
     private Texture getBackgroundWeather(GameStateManager gameManager) {

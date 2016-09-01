@@ -30,7 +30,7 @@ public class Nerd {
     //private Texture bird;
 
     public Nerd(int x, int y) {
-        texture = new Texture("nerd_nr_langsammagichnichtmehr.png");
+        texture = new Texture("nerd.png");
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
         ground = new Texture("ground.png");
@@ -62,7 +62,7 @@ public class Nerd {
     }
 
     public int getWidth() {
-        return texture.getWidth() / 3;
+        return texture.getWidth() / 7;
     }
 
 
