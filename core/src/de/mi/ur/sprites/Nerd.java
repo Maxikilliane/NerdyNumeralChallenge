@@ -22,7 +22,10 @@ public class Nerd {
     private Texture ground;
 
 
-    private Animation birdAnimation;
+    private Animation nerdAnimation;
+
+    private Animation jumpAnimation;
+    private Texture nerdJump;
 
     public boolean colliding;
 
@@ -36,12 +39,26 @@ public class Nerd {
         ground = new Texture("ground.png");
         bounds = new Rectangle(x, y, texture.getWidth() / 7 + ConstantsGame.BOUNDS_OFFSET, texture.getHeight());
 
-        birdAnimation = new Animation(new TextureRegion(texture), 7, 0.6f);
+
+        nerdAnimation = new Animation(new TextureRegion(texture), 7, 0.6f);
+    }
+
+    public void checkIfJumping() {
+
+        if (!jumpFinished) {
+            nerdAnimation = new Animation(new TextureRegion(texture), 7, 0.6f);
+
+        }
+
+
     }
 
 
     public void update(float dt, int gravity, int movement) {
-        birdAnimation.update(dt);
+        checkIfJumping();
+        nerdAnimation.update(dt);
+
+
         if (!colliding) {
             if (position.y > 0) {
                 //nur auf der y-Achse brauchen wir Schwerkraft
@@ -92,7 +109,7 @@ public class Nerd {
     }
 
     public TextureRegion getTexture() {
-        return birdAnimation.getFrame();
+        return nerdAnimation.getFrame();
     }
 
 }

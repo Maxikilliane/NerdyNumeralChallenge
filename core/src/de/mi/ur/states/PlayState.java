@@ -122,7 +122,7 @@ public class PlayState extends State {
             }
             checkIfWomanIsInPit(woman);
             if (woman.collides(nerd.getBounds())) {
-                if (Score.thisCounter >= 14) {
+                if (Score.thisCounter >= 35) {
                     Score.thisCounter = 0;
                     gameManager.set(new MenueState(gameManager));
                 }
