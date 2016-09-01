@@ -128,7 +128,7 @@ public class PlayState extends State {
             if (woman.collides(nerd.getBounds())) {
                 if (Score.thisCounter >= 35) {
                     Score.thisCounter = 0;
-                    //saveScore();
+                    saveScore();
                     gameManager.set(new MenueState(gameManager));
                 }
                 hasHit = true;
