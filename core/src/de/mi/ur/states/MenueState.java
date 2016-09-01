@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import de.mi.ur.NerdyNumeralChallenge;
+import de.mi.ur.gameLogic.Score;
 
 /**
  * Created by maxiwindl on 31.07.16.
@@ -17,6 +18,7 @@ public class MenueState extends State {
 
     public MenueState(GameStateManager gameManager) {
         super(gameManager);
+        Score.thisCounter = 0;
         cam.setToOrtho(false, NerdyNumeralChallenge.WIDTH/2, NerdyNumeralChallenge.HEIGHT/2);
         background = new Texture("background_final.png");
         playButton = new Texture("playbtn.png");

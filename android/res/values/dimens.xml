@@ -13,7 +13,10 @@
     //buttonLayout
     <dimen name="stroke_width">1dp</dimen>
     <dimen name="corner_radius">10dp</dimen>
-
+    //gameMain
+    <dimen name="sun_button_height">140dp</dimen>
+    <dimen name="sun_button_width">140dp</dimen>
+    <dimen name="sun_button_textsize">17sp</dimen>
 
 
 
