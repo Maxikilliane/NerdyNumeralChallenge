@@ -71,13 +71,16 @@ public class Score {
     private void updateHeart() {
         if (PlayState.hasHit) {
             thisCounter++;
-            if (thisCounter == 6) {
+            System.out.println(thisCounter);
+            System.out.println("counter geteilt: " + thisCounter / 10);
+            if (thisCounter / 10 == 1) {
                 hearts.set(0, heartEmpty);
+
             }
-            if (thisCounter == 12) {
+            if (thisCounter / 10 == 2) {
                 hearts.set(1, heartEmpty);
             }
-            if (thisCounter == 18) {
+            if (thisCounter / 10 == 3) {
                 hearts.set(2, heartEmpty);
             }
             System.out.println(thisCounter);

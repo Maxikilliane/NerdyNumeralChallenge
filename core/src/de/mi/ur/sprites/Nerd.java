@@ -22,7 +22,10 @@ public class Nerd {
     private Texture ground;
 
 
-    private Animation birdAnimation;
+    private Animation nerdAnimation;
+
+    private Animation jumpAnimation;
+    private Texture nerdJump;
 
     public boolean colliding;
 
@@ -30,18 +33,32 @@ public class Nerd {
     //private Texture bird;
 
     public Nerd(int x, int y) {
-        texture = new Texture("nerd_nr_langsammagichnichtmehr.png");
+        texture = new Texture("nerd.png");
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
         ground = new Texture("ground.png");
         bounds = new Rectangle(x, y, texture.getWidth() / 7 + ConstantsGame.BOUNDS_OFFSET, texture.getHeight());
 
-        birdAnimation = new Animation(new TextureRegion(texture), 7, 0.6f);
+
+        nerdAnimation = new Animation(new TextureRegion(texture), 7, 0.6f);
+    }
+
+    public void checkIfJumping() {
+
+        if (!jumpFinished) {
+            nerdAnimation = new Animation(new TextureRegion(texture), 7, 0.6f);
+
+        }
+
+
     }
 
 
     public void update(float dt, int gravity, int movement) {
-        birdAnimation.update(dt);
+        checkIfJumping();
+        nerdAnimation.update(dt);
+
+
         if (!colliding) {
             if (position.y > 0) {
                 //nur auf der y-Achse brauchen wir Schwerkraft
@@ -62,7 +79,7 @@ public class Nerd {
     }
 
     public int getWidth() {
-        return texture.getWidth() / 3;
+        return texture.getWidth() / 7;
     }
 
 
@@ -92,7 +109,7 @@ public class Nerd {
     }
 
     public TextureRegion getTexture() {
-        return birdAnimation.getFrame();
+        return nerdAnimation.getFrame();
     }
 
 }

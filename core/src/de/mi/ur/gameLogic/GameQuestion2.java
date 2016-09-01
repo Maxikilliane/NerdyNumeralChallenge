@@ -1,5 +1,6 @@
 package de.mi.ur.gameLogic;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -12,7 +13,6 @@ import java.util.Random;
 
 import de.mi.ur.AndroidCommunication.MultipleChoiceListener;
 import de.mi.ur.ConstantsGame;
-import de.mi.ur.HoffentlichNurVoruebergehend.MultipleChoiceC;
 
 /**
  * Created by Anna-Marie on 30.08.2016.
@@ -65,17 +65,17 @@ public class GameQuestion2 {
         wrongAnswer1 = "";
         rightAnswer = "";
         wrongAnswer2 = "";
-        toSolveBitmap = new BitmapFont();
+        toSolveBitmap = new BitmapFont(Gdx.files.internal("goodTimes4Question.fnt"));
         toSolveBitmap.setUseIntegerPositions(false);
-        toSolveBitmap.getData().scale(1);
 
-        rightAnswerBitmap = new BitmapFont();
+
+        rightAnswerBitmap = new BitmapFont(Gdx.files.internal("goodTimesNew.fnt"));
         rightAnswerBitmap.setUseIntegerPositions(false);
 
-        wrongAnswer1Bitmap = new BitmapFont();
+        wrongAnswer1Bitmap = new BitmapFont(Gdx.files.internal("goodTimesNew.fnt"));
         wrongAnswer1Bitmap.setUseIntegerPositions(false);
 
-        wrongAnswer2Bitmap = new BitmapFont();
+        wrongAnswer2Bitmap = new BitmapFont(Gdx.files.internal("goodTimesNew.fnt"));
         wrongAnswer2Bitmap.setUseIntegerPositions(false);
 
         rightAnswerPos = new Vector2(150, 0);
@@ -134,12 +134,11 @@ public class GameQuestion2 {
     public void drawTasks(SpriteBatch batch, OrthographicCamera cam) {
 
         toSolveBitmap.draw(batch, toSolve, cam.position.x + ConstantsGame.QUESTION_OFFSET_X, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
-        toSolveBitmap.setColor(Color.GRAY);
         wrongAnswer1Bitmap.draw(batch, wrongAnswer1, cam.position.x + ConstantsGame.QUESTION_ANSWER_OFFSET_X, cam.position.y + ConstantsGame.QUESTION_ANSWER_OFFSET_Y);
         wrongAnswer1Bitmap.setColor(Color.BLACK);
-        wrongAnswer2Bitmap.draw(batch, wrongAnswer2, cam.position.x + ConstantsGame.QUESTION_ANSWER_OFFSET_X + 20, cam.position.y + ConstantsGame.QUESTION_ANSWER_OFFSET_Y);
+        wrongAnswer2Bitmap.draw(batch, wrongAnswer2, cam.position.x + ConstantsGame.QUESTION_ANSWER_OFFSET_X + 40, cam.position.y + ConstantsGame.QUESTION_ANSWER_OFFSET_Y);
         wrongAnswer2Bitmap.setColor(Color.BLACK);
-        rightAnswerBitmap.draw(batch, rightAnswer, cam.position.x + ConstantsGame.QUESTION_ANSWER_OFFSET_X + 40, cam.position.y + ConstantsGame.QUESTION_ANSWER_OFFSET_Y);
+        rightAnswerBitmap.draw(batch, rightAnswer, cam.position.x + ConstantsGame.QUESTION_ANSWER_OFFSET_X + 80, cam.position.y + ConstantsGame.QUESTION_ANSWER_OFFSET_Y);
         rightAnswerBitmap.setColor(Color.BLACK);
 
 
