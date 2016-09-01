@@ -2,6 +2,8 @@ package de.mi.ur;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
@@ -9,7 +11,7 @@ import android.widget.NumberPicker;
 /**
  * Created by Lydia on 15.08.2016.
  */
-public class PracticeMainActivity extends Activity implements View.OnClickListener {
+public class PracticeMainActivity extends AppCompatActivity implements View.OnClickListener {
     private NumberPicker firstNumberSystem;
     private NumberPicker secondNumberSystem;
 
@@ -23,6 +25,8 @@ public class PracticeMainActivity extends Activity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.exercise_main_activity);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
         setUpNumberPickers();
         setupUI();
     }
