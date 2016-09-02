@@ -37,6 +37,9 @@
     <dimen name="exercise_button_text_size">30sp</dimen>
     <dimen name="margin">8dp</dimen>
 
+    // highscore
+    <dimen name="list_text_size">20sp</dimen>
+
 
 
 

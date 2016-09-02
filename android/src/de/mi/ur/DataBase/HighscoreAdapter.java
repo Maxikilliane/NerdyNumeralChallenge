@@ -21,7 +21,9 @@ public class HighscoreAdapter extends CursorAdapter {
 
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        return inflater.inflate(R.layout.highscore_listitem, parent, false);
+        View view  =  inflater.inflate(R.layout.highscore_listitem, parent, false);
+        bindView(view, context, cursor);
+        return view;
     }
 
     public void bindView(View view, Context context, Cursor cursor) {
@@ -33,8 +35,8 @@ public class HighscoreAdapter extends CursorAdapter {
         int points = cursor.getInt(cursor.getColumnIndexOrThrow("points"));
         String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
 
-        rankTextView.setText(rank);
-        pointsTextView.setText(points);
+        rankTextView.setText(String.valueOf(rank));
+        pointsTextView.setText(String.valueOf(points));
         nameTextView.setText(name);
 
     }
