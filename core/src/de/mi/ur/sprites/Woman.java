@@ -21,7 +21,7 @@ public class Woman extends Obstacle {
 
 
     public Woman(float x) {
-        super(x, ConstantsGame.WOMAN_Y, new Texture("obstacle_small.png"));
+        super(x, ConstantsGame.WOMAN_Y, new Texture("obstacle_small.png"), ConstantsGame.WOMAN_TYPE);
 
         woman = new Texture("obstacle_small.png");
         random = new Random();
@@ -33,6 +33,14 @@ public class Woman extends Obstacle {
 
     public Texture getWoman() {
         return woman;
+    }
+
+    public Vector2 getObstaclePos(){
+        return getWomanPos();
+    }
+
+    public Texture getTexture(){
+        return getWoman();
     }
 
     public Vector2 getWomanPos() {

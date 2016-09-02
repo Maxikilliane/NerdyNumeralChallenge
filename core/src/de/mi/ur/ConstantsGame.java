@@ -56,8 +56,8 @@ public class ConstantsGame {
 
 
         // für Random-Generator
-        public static final int PIT = 0;
-        public static final int WOMAN = 1;
+        public static final int PIT_TYPE = 0;
+        public static final int WOMAN_TYPE = 1;
 
 
 

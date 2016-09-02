@@ -21,6 +21,8 @@ import de.mi.ur.sprites.Woman;
  * Created by maxiwindl on 31.07.16.
  *
  * Vor Abgeben noch GameQuestion1 und das HoffentlichNurVoruebergehend-Package löschen!
+ *
+ * Obstacle funktioniert jetzt. 
  */
 public class PlayState extends State {
 
@@ -59,22 +61,22 @@ public class PlayState extends State {
         //gameQuestion = new GameQuestion1();
         gameQuestion = new GameQuestion2(gameManager.getMultipleChoiceListener());
 
-        women = new Array<Woman>();
+        //women = new Array<Woman>();
 
-        pits = new Array<Pit>();
+        //pits = new Array<Pit>();
 
-        //obstacles = new Array<Obstacle>();
+        obstacles = new Array<Obstacle>();
 
 
 
         for (int i = 0; i < 4; i++) {
-            /*if(random.nextInt(1)==ConstantsGame.PIT){
+            if(random.nextInt(2)==ConstantsGame.PIT_TYPE){
                 obstacles.add(new Pit(i * ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH));
             }else{
                 obstacles.add(new Woman(i *(500)));
-            }*/
-            women.add(new Woman(i * (500)));
-            pits.add(new Pit(i * (ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH)));
+            }
+            //women.add(new Woman(i * (500)));
+            //pits.add(new Pit(i * (ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH)));
 
         }
         groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, ConstantsGame.GROUND_Y_OFFSET);
@@ -83,28 +85,7 @@ public class PlayState extends State {
     }
 
 
-    // Wenn Anton mit den Hintergründen fertig ist, kann man hier die Pfade dazu ablegen, damit der Hintergrund sich dem Wetter anpasst.
-    private Texture getBackgroundWeather(GameStateManager gameManager) {
-        int currentWeather = gameManager.getWeatherDataListener().getCurrentWeather();
-        String texturePath;
-        switch (currentWeather) {
-            case ConstantsGame.WEATHER_SUNNY:
-                texturePath = "";
-                break;
-            case ConstantsGame.WEATHER_RAINY:
-                texturePath = "";
-                break;
-            case ConstantsGame.WEATHER_CLOUDY:
-                texturePath = "";
-                break;
-            case ConstantsGame.WEATHER_SNOWY:
-                texturePath = "";
-                break;
-            default:
-                texturePath = "";
-        }
-        return new Texture(texturePath);
-    }
+
 
     @Override
     protected void handleInput() {
@@ -138,15 +119,13 @@ public class PlayState extends State {
             checkIfWomanIsInPit(woman);
             if (woman.collides(nerd.getBounds())) {
                 if (Score.thisCounter >= 35) {
-                    Score.thisCounter = 0;
-                    saveScore();
-                    gameManager.set(new MenueState(gameManager));
-                }
-                hasHit = true;
-                counter++;
-
-
+                Score.thisCounter = 0;
+                saveScore();
+                gameManager.set(new MenueState(gameManager));
             }
+            hasHit = true;
+            counter++;
+        }
         }
 
     }
@@ -177,6 +156,37 @@ public class PlayState extends State {
     }
 
 
+    private void updateObstacles() {
+        for (int i = 0; i < obstacles.size; i++) {
+            Obstacle obstacle = obstacles.get(i);
+            if (cam.position.x - (cam.viewportWidth / 2) > obstacle.getObstaclePos().x + obstacle.getTexture().getWidth()) {
+                obstacle.reposition(obstacle.getObstaclePos().x + ((obstacle.getTexture().getWidth()) + generateNewDistance() + 800 * 4));
+            }
+            if (obstacle.collides(nerd.getBounds())) {
+                switch (obstacle.getType()) {
+                    case ConstantsGame.PIT_TYPE:
+                        counter = -1;
+                        saveScore();
+                        gameManager.set(new MenueState(gameManager));
+                        break;
+                    case ConstantsGame.WOMAN_TYPE:
+                            if (Score.thisCounter >= 35) {
+                                Score.thisCounter = 0;
+                                saveScore();
+                                gameManager.set(new MenueState(gameManager));
+                            }
+                            hasHit = true;
+                            counter++;
+
+                        score.updateScore();
+                        break;
+                    default:
+                }
+            }
+        }
+    }
+
+
     private int generateNewDistance() {
         int newInt = random.nextInt(300);
 
@@ -197,8 +207,9 @@ public class PlayState extends State {
         score.updateScore();
         gameQuestion.updateQuestions(cam);
 
-        updateWomen();
-        updatePits();
+        //updateWomen();
+        //updatePits();
+        updateObstacles();
 
         cam.position.x = nerd.getPosition().x + ConstantsGame.NERD_POSITION_OFFSET;
         cam.update();
@@ -230,9 +241,9 @@ public class PlayState extends State {
     }
 
     private void saveScore(){
-        int rank = highscoreListener.checkIfNewHighscore((int) score.getCurrentScore());
+        int rank = highscoreListener.checkIfNewHighscore((int) score.getCurrentScorePoints());
         if(rank != -1){
-            highscoreListener.saveHighscoreToDatabase(rank, (int) score.getCurrentScore());
+            highscoreListener.saveHighscoreToDatabase(rank, (int) score.getCurrentScorePoints());
         }
     }
 
@@ -248,12 +259,17 @@ public class PlayState extends State {
         spriteBatch.draw(ground, groundPos1.x, groundPos1.y);
         spriteBatch.draw(ground, groundPos2.x, groundPos2.y);
         spriteBatch.draw(nerd.getTexture(), nerd.getX(), nerd.getY());
-        for (Pit pit : pits) {
+        /*for (Pit pit : pits) {
             spriteBatch.draw(pit.getPit(), pit.getPitPos().x, pit.getPitPos().y);
         }
         for (Woman woman : women) {
             spriteBatch.draw(woman.getWoman(), woman.getWomanPos().x, woman.getWomanPos().y);
         }
+        */
+        for(Obstacle obstacle: obstacles){
+            spriteBatch.draw(obstacle.getTexture(), obstacle.getObstaclePos().x, obstacle.getObstaclePos().y);
+        }
+
         spriteBatch.end();
     }
 
@@ -262,13 +278,41 @@ public class PlayState extends State {
         nerd.dispose();
         background.dispose();
         ground.dispose();
+        /*
         for (Pit pit : pits) {
             pit.dispose();
         }
         for (Woman woman : women) {
             woman.dispose();
         }
+        */
+        for(Obstacle obstacle: obstacles){
+            obstacle.dispose();
+        }
 
 
+    }
+
+    // Wenn Anton mit den Hintergründen fertig ist, kann man hier die Pfade dazu ablegen, damit der Hintergrund sich dem Wetter anpasst.
+    private Texture getBackgroundWeather(GameStateManager gameManager) {
+        int currentWeather = gameManager.getWeatherDataListener().getCurrentWeather();
+        String texturePath;
+        switch (currentWeather) {
+            case ConstantsGame.WEATHER_SUNNY:
+                texturePath = "";
+                break;
+            case ConstantsGame.WEATHER_RAINY:
+                texturePath = "";
+                break;
+            case ConstantsGame.WEATHER_CLOUDY:
+                texturePath = "";
+                break;
+            case ConstantsGame.WEATHER_SNOWY:
+                texturePath = "";
+                break;
+            default:
+                texturePath = "";
+        }
+        return new Texture(texturePath);
     }
 }
