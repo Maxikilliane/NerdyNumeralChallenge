@@ -23,7 +23,9 @@ public class HighscoreAdapter extends CursorAdapter {
 
     public View newView(Context context, Cursor cursor, ViewGroup parent){
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        return inflater.inflate(R.layout.highscore_listitem, parent, false);
+        View view  =  inflater.inflate(R.layout.highscore_listitem, parent, false);
+        bindView(view, context, cursor);
+        return view;
     }
 
     public void bindView(View view, Context context, Cursor cursor){

@@ -48,7 +48,7 @@ public class Pit extends Obstacle {
     }
 
     public void dispose() {
-        //super.dispose();
+       // super.dispose();
         pit.dispose();
     }
 

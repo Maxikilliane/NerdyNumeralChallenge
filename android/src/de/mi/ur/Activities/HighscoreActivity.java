@@ -1,6 +1,7 @@
 package de.mi.ur.Activities;
 
 import android.app.Activity;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -34,22 +35,11 @@ public class HighscoreActivity extends Activity {
     }
 
     private void setUpUI(){
+        Cursor cursor;
         highscoreListView = (ListView) findViewById(R.id.highscore_list);
-        HighscoreAdapter adapter = new HighscoreAdapter(this, db.getAllHighscoresCursor() );
+        HighscoreAdapter adapter = new HighscoreAdapter(this, cursor = db.getAllHighscoresCursor() );
         highscoreListView.setAdapter(adapter);
-        adapter.bindView(highscoreListView, this, db.getAllHighscoresCursor());
 
-       /* TextView rankTextView = (TextView) findViewById(R.id.highscore_rank_view);
-        TextView pointsTextView = (TextView) findViewById(R.id.highscore_points_view);
-        TextView nameTextView = (TextView) findViewById(R.id.highscore_name_view);
-
-        int rank = cursor.getInt(cursor.getColumnIndexOrThrow("rank"));
-        int points = cursor.getInt(cursor.getColumnIndexOrThrow("points"));
-        String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
-
-        rankTextView.setText(rank);
-        pointsTextView.setText(points);
-        nameTextView.setText(name)*/
     }
 
     @Override

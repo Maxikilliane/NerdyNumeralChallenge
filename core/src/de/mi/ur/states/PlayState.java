@@ -63,18 +63,18 @@ public class PlayState extends State {
 
         pits = new Array<Pit>();
 
-        obstacles = new Array<Obstacle>();
+        //obstacles = new Array<Obstacle>();
 
 
 
         for (int i = 0; i < 4; i++) {
-            if(random.nextInt(1)==ConstantsGame.PIT){
+            /*if(random.nextInt(1)==ConstantsGame.PIT){
                 obstacles.add(new Pit(i * ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH));
             }else{
                 obstacles.add(new Woman(i *(500)));
-            }
-            //women.add(new Woman(i * (500)));
-            //pits.add(new Pit(i * (ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH)));
+            }*/
+            women.add(new Woman(i * (500)));
+            pits.add(new Pit(i * (ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH)));
 
         }
         groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, ConstantsGame.GROUND_Y_OFFSET);
