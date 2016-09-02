@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -23,6 +24,7 @@ public class GameMainActivity extends Activity  implements View.OnClickListener,
     private Button buttonWeather;
     private Button buttonViewHighscore;
     private Button buttonHelp;
+
 
     private WeatherManager weatherManager;
 

@@ -1,7 +1,10 @@
 package de.mi.ur.QuestionFragments;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,4 +49,26 @@ public class MultipleChoiceQuestionFragment extends Fragment implements View.OnC
     public void onClick(View v) {
        // Text auf Button mit richtiger Lösung vergleichen -> irgendwo speichern
     }
+
+
+
+    // Container Activity must implement this interface
+    public interface OnButtonPressedListener {
+        public void onButtonPressed(int position);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            OnButtonPressedListener b = (OnButtonPressedListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
+    }
+
 }
