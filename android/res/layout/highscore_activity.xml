@@ -9,7 +9,7 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/trophy"/>
+        android:background="@drawable/trophy" />
 
     <ListView
         android:id="@+id/highscore_list"

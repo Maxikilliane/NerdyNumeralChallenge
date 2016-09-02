@@ -20,7 +20,7 @@ public class HighscoreActivity extends Activity {
     private ArrayList<Highscore> highscores;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.highscore_activity);
         db = new NNCDatabase(this);
@@ -29,10 +29,10 @@ public class HighscoreActivity extends Activity {
         setUpUI();
     }
 
-    private void setUpUI(){
+    private void setUpUI() {
         highscoreList = (ListView) findViewById(R.id.highscore_list);
         highscores = db.getAllHighscores();
-        ArrayAdapter<Highscore> adapter = new ArrayAdapter<Highscore>(this, R.layout.highscore_listitem, highscores );
+        ArrayAdapter<Highscore> adapter = new ArrayAdapter<Highscore>(this, R.layout.highscore_listitem, highscores);
         highscoreList.setAdapter(adapter);
     }
 }

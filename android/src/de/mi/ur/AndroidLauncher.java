@@ -22,7 +22,7 @@ public class AndroidLauncher extends AndroidApplication implements MultipleChoic
 			currentWeather = extras.getInt(Constants.CURRENT_WEATHER);
 		}
 		db = new NNCDatabase(this);
-        db.open();
+		db.open();
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		initialize(new NerdyNumeralChallenge(this, this, db), config);
 	}

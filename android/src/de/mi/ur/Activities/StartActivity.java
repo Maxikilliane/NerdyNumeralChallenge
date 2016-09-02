@@ -20,7 +20,7 @@ public class StartActivity extends Activity implements View.OnClickListener {
     private Button buttonProgress;
 
     private TextView test;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +30,6 @@ public class StartActivity extends Activity implements View.OnClickListener {
          /* Testing Superscript - needs to be deleted
         test = (TextView) findViewById(R.id.testView);
         */
-
 
 
     }
@@ -66,12 +65,11 @@ public class StartActivity extends Activity implements View.OnClickListener {
 */
 
 
-
- // Meiner Meinung nach elegantere Lösung für das Verbinden der Buttons mit Click Listener, man
+    // Meiner Meinung nach elegantere Lösung für das Verbinden der Buttons mit Click Listener, man
     // müsste nur oben noch implements OnClickListener schreiben
 
 
-    private void setUpUI(){
+    private void setUpUI() {
         buttonTutorial = (Button) findViewById(R.id.start_tutorial_button);
         buttonTutorial.setOnClickListener(this);
         buttonPractice = (Button) findViewById(R.id.start_practice_button);
@@ -85,15 +83,15 @@ public class StartActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Intent i = null;
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.start_tutorial_button:
                 i = new Intent(StartActivity.this, TutorialMainActivity.class);
                 break;
             case R.id.start_practice_button:
-                i = new Intent (StartActivity.this, PracticeMainActivity.class);
+                i = new Intent(StartActivity.this, PracticeMainActivity.class);
                 break;
             case R.id.start_game_button:
-                i = new Intent (StartActivity.this, GameMainActivity.class);
+                i = new Intent(StartActivity.this, GameMainActivity.class);
                 break;
             case R.id.start_progress_button:
                 i = new Intent(StartActivity.this, ProgressActivity.class);
@@ -102,7 +100,7 @@ public class StartActivity extends Activity implements View.OnClickListener {
                 break;
         }
 
-        if(i!= null){
+        if (i != null) {
             startActivity(i);
         }
     }

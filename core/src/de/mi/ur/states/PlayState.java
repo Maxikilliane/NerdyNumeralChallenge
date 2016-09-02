@@ -218,9 +218,9 @@ public class PlayState extends State {
         }
     }
 
-    private void saveScore(){
+    private void saveScore() {
         int rank = highscoreListener.checkIfNewHighscore((int) score.getCurrentScore());
-        if(rank != -1){
+        if (rank != -1) {
             highscoreListener.saveHighscoreToDatabase(rank, (int) score.getCurrentScore());
         }
     }

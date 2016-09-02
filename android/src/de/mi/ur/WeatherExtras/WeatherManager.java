@@ -19,7 +19,7 @@ public class WeatherManager {
     private WeatherAsyncTask weatherTask;
     private LocationController locationController;
 
-    public WeatherManager(Context context, Activity activity){
+    public WeatherManager(Context context, Activity activity) {
         locationController = new LocationController(context, activity);
         locationController.setCurrentPosition();
     }

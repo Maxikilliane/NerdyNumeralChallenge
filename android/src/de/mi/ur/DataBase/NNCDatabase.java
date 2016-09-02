@@ -14,7 +14,7 @@ import de.mi.ur.AndroidCommunication.HighscoreListener;
 /**
  * Created by Anna-Marie on 09.08.2016.
  */
-public class NNCDatabase implements HighscoreListener{
+public class NNCDatabase implements HighscoreListener {
     private static final String DATABASE_NAME = "NNC Database";
     private static final int DATABASE_VERSION = 1;
 
@@ -41,7 +41,6 @@ public class NNCDatabase implements HighscoreListener{
         dbHelper = new NncDBOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION);
 
     }
-
 
 
     public void open() throws SQLException {
@@ -126,13 +125,13 @@ public class NNCDatabase implements HighscoreListener{
 
     @Override
     public int checkIfNewHighscore(int points) {
-        if(getAllHighscores().size() == 0 || getHighscoreWithCertainRank(1).getPoints() < points){
+        if (getAllHighscores().size() == 0 || getHighscoreWithCertainRank(1).getPoints() < points) {
             return 1;
-        }else if(getAllHighscores().size()== 1 || getHighscoreWithCertainRank(2).getPoints() < points){
+        } else if (getAllHighscores().size() == 1 || getHighscoreWithCertainRank(2).getPoints() < points) {
             return 2;
-        }else if(getAllHighscores().size()== 2 || getHighscoreWithCertainRank(3).getPoints() < points){
+        } else if (getAllHighscores().size() == 2 || getHighscoreWithCertainRank(3).getPoints() < points) {
             return 3;
-        }else{
+        } else {
             return -1;
         }
     }

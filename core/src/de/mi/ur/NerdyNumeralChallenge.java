@@ -24,7 +24,7 @@ public class NerdyNumeralChallenge extends ApplicationAdapter {
 	private HighscoreListener highscoreListener;
 
 
-	public NerdyNumeralChallenge(MultipleChoiceListener multipleChoiceListener, WeatherDataListener weatherDataListener, HighscoreListener highscoreListener){
+	public NerdyNumeralChallenge(MultipleChoiceListener multipleChoiceListener, WeatherDataListener weatherDataListener, HighscoreListener highscoreListener) {
 		questionGenerator = multipleChoiceListener;
 		this.weatherDataListener = weatherDataListener;
 		this.highscoreListener = highscoreListener;
@@ -35,7 +35,7 @@ public class NerdyNumeralChallenge extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		manager = new GameStateManager(questionGenerator, weatherDataListener, highscoreListener );
+		manager = new GameStateManager(questionGenerator, weatherDataListener, highscoreListener);
 		manager.push(new MenueState(manager));
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 	}

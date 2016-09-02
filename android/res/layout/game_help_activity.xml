@@ -9,6 +9,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <TextView
             android:padding="@dimen/activity_general_padding"
             android:layout_width="match_parent"
@@ -17,7 +18,6 @@
             android:text="@string/game_help_explanation" />
 
     </ScrollView>
-
 
 
 </LinearLayout>
