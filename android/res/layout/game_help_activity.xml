@@ -10,12 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <de.mi.ur.CustomFont.myCustomTextView
             android:padding="@dimen/activity_general_padding"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
-            android:text="@string/game_help_explanation" />
+            android:background="@android:color/black"
+            android:text="@string/game_help_explanation"
+            android:textColor="@color/text_white" />
 
     </ScrollView>
 

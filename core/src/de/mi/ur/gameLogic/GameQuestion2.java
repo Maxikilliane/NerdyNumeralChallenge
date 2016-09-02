@@ -13,7 +13,6 @@ import java.util.Random;
 
 import de.mi.ur.AndroidCommunication.MultipleChoiceListener;
 import de.mi.ur.ConstantsGame;
-import de.mi.ur.HoffentlichNurVoruebergehend.MultipleChoiceC;
 
 /**
  * Created by Anna-Marie on 30.08.2016.

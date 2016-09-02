@@ -14,8 +14,7 @@
         android:textColor="@color/white"
         android:textSize="@dimen/list_text_size"
         android:text="@string/highscore_rank"
-        android:layout_marginBottom="@dimen/margin_bottom"
-        />
+        android:layout_marginBottom="@dimen/margin_bottom" />
 
     <TextView
         android:id="@+id/highscore_points_view"
@@ -25,18 +24,16 @@
         android:textColor="@color/white"
         android:textSize="@dimen/list_text_size"
         android:text="@string/highscore_points"
-        android:layout_marginBottom="@dimen/margin_bottom"
-        />
+        android:layout_marginBottom="@dimen/margin_bottom" />
 
     <TextView
         android:id="@+id/highscore_name_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight = "0.5"
+        android:layout_weight="0.5"
         android:textColor="@color/white"
         android:textSize="@dimen/list_text_size"
         android:text="@string/highscore_name"
-        android:layout_marginBottom="@dimen/margin_bottom"
-        />
+        android:layout_marginBottom="@dimen/margin_bottom" />
 
 </LinearLayout>

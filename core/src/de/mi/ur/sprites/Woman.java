@@ -35,11 +35,11 @@ public class Woman extends Obstacle {
         return woman;
     }
 
-    public Vector2 getObstaclePos(){
+    public Vector2 getObstaclePos() {
         return getWomanPos();
     }
 
-    public Texture getTexture(){
+    public Texture getTexture() {
         return getWoman();
     }
 

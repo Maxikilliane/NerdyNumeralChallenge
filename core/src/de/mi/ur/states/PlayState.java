@@ -70,10 +70,10 @@ public class PlayState extends State {
 
 
         for (int i = 0; i < 4; i++) {
-            if(random.nextInt(2)==ConstantsGame.PIT_TYPE){
+            if (random.nextInt(2) == ConstantsGame.PIT_TYPE) {
                 obstacles.add(new Pit(i * ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH));
-            }else{
-                obstacles.add(new Woman(i *(500)));
+            } else {
+                obstacles.add(new Woman(i * (500)));
             }
             //women.add(new Woman(i * (500)));
             //pits.add(new Pit(i * (ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH)));
@@ -119,12 +119,12 @@ public class PlayState extends State {
             checkIfWomanIsInPit(woman);
             if (woman.collides(nerd.getBounds())) {
                 if (Score.thisCounter >= 35) {
-                Score.thisCounter = 0;
-                saveScore();
-                gameManager.set(new MenueState(gameManager));
+                    Score.thisCounter = 0;
+                    saveScore();
+                    gameManager.set(new MenueState(gameManager));
             }
-            hasHit = true;
-            counter++;
+                hasHit = true;
+                counter++;
         }
         }
 
@@ -170,13 +170,13 @@ public class PlayState extends State {
                         gameManager.set(new MenueState(gameManager));
                         break;
                     case ConstantsGame.WOMAN_TYPE:
-                            if (Score.thisCounter >= 35) {
-                                Score.thisCounter = 0;
-                                saveScore();
-                                gameManager.set(new MenueState(gameManager));
-                            }
-                            hasHit = true;
-                            counter++;
+                        if (Score.thisCounter >= 35) {
+                            Score.thisCounter = 0;
+                            saveScore();
+                            gameManager.set(new MenueState(gameManager));
+                        }
+                        hasHit = true;
+                        counter++;
 
                         score.updateScore();
                         break;
@@ -235,15 +235,14 @@ public class PlayState extends State {
         if (value > 300) {
             return 280;
 
-        }
-        else {
+        } else {
             return ConstantsGame.NERD_MOVEMENT_DEFAULT;
         }
     }
 
-    private void saveScore(){
+    private void saveScore() {
         int rank = highscoreListener.checkIfNewHighscore((int) score.getCurrentScorePoints());
-        if(rank != -1){
+        if (rank != -1) {
             highscoreListener.saveHighscoreToDatabase(rank, (int) score.getCurrentScorePoints());
         }
     }
@@ -267,7 +266,7 @@ public class PlayState extends State {
             spriteBatch.draw(woman.getWoman(), woman.getWomanPos().x, woman.getWomanPos().y);
         }
         */
-        for(Obstacle obstacle: obstacles){
+        for (Obstacle obstacle : obstacles) {
             spriteBatch.draw(obstacle.getTexture(), obstacle.getObstaclePos().x, obstacle.getObstaclePos().y);
         }
 
@@ -287,7 +286,7 @@ public class PlayState extends State {
             woman.dispose();
         }
         */
-        for(Obstacle obstacle: obstacles){
+        for (Obstacle obstacle : obstacles) {
             obstacle.dispose();
         }
 

@@ -3,9 +3,6 @@ package de.mi.ur.sprites;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.sun.corba.se.impl.orbutil.closure.Constant;
-
-import java.util.Random;
 
 import de.mi.ur.ConstantsGame;
 
@@ -23,9 +20,9 @@ public abstract class Obstacle {
 
 
     public Obstacle(float x, int obstacleY, Texture texture, int type) {
-        if(type == ConstantsGame.PIT_TYPE || type == ConstantsGame.WOMAN_TYPE){
+        if (type == ConstantsGame.PIT_TYPE || type == ConstantsGame.WOMAN_TYPE) {
             this.type = type;
-        }else{
+        } else {
             this.type = ConstantsGame.PIT_TYPE;
         }
         this.texture = texture;
@@ -39,7 +36,7 @@ public abstract class Obstacle {
         return texture;
     }
 
-    public int getType(){
+    public int getType() {
         return type;
     }
 

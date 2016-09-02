@@ -58,7 +58,7 @@ public class Score {
         return getTimeElapsed();
     }
 
-    public long getCurrentScorePoints(){
+    public long getCurrentScorePoints() {
         return currentScorePoints;
     }
 

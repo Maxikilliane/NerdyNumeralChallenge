@@ -1,6 +1,5 @@
 package de.mi.ur.Activities;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -33,7 +32,7 @@ public class PracticeMainActivity extends AppCompatActivity implements View.OnCl
         setupUI();
     }
 
-    private void setupToolbar(){
+    private void setupToolbar() {
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setTitle(R.string.app_name);
