@@ -107,7 +107,7 @@ public class NNCDatabase implements HighscoreListener {
         return buildHighscoresFromCursor(cursor);
     }
 
-    public Cursor getAllHighscoresCursor(){
+    public Cursor getAllHighscoresCursor() {
         return database.query(TABLE_HIGHSCORE, ALL_COLUMNS_HIGHSCORE, null, null, null, null, null);
     }
 

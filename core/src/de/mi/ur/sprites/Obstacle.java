@@ -56,7 +56,7 @@ public class Obstacle {
 
     }
 
-    public void dispose(){
+    public void dispose() {
         texture.dispose();
     }
 

@@ -6,8 +6,6 @@ import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import de.mi.ur.R;
@@ -17,16 +15,16 @@ import de.mi.ur.R;
  */
 public class HighscoreAdapter extends CursorAdapter {
 
-    public HighscoreAdapter(Context context, Cursor cursor){
+    public HighscoreAdapter(Context context, Cursor cursor) {
         super(context, cursor, 0);
     }
 
-    public View newView(Context context, Cursor cursor, ViewGroup parent){
+    public View newView(Context context, Cursor cursor, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         return inflater.inflate(R.layout.highscore_listitem, parent, false);
     }
 
-    public void bindView(View view, Context context, Cursor cursor){
+    public void bindView(View view, Context context, Cursor cursor) {
         TextView rankTextView = (TextView) view.findViewById(R.id.highscore_rank_view);
         TextView pointsTextView = (TextView) view.findViewById(R.id.highscore_points_view);
         TextView nameTextView = (TextView) view.findViewById(R.id.highscore_name_view);

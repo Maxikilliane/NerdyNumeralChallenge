@@ -66,15 +66,14 @@ public class PlayState extends State {
         obstacles = new Array<Obstacle>();
 
 
-
         for (int i = 0; i < 4; i++) {
-            if(random.nextInt(1)==ConstantsGame.PIT){
+            if (random.nextInt(1) == ConstantsGame.PIT) {
                 obstacles.add(new Pit(i * ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH));
-            }else{
-                obstacles.add(new Woman(i *(500)));
+            } else {
+                obstacles.add(new Woman(i * (500)));
             }
-            //women.add(new Woman(i * (500)));
-            //pits.add(new Pit(i * (ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH)));
+            women.add(new Woman(i * (500)));
+            pits.add(new Pit(i * (ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH)));
 
         }
         groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, ConstantsGame.GROUND_Y_OFFSET);
@@ -195,7 +194,7 @@ public class PlayState extends State {
         updateGround();
         nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty());
         score.updateScore();
-        gameQuestion.updateQuestions(cam);
+        //gameQuestion.updateQuestions(cam);
 
         updateWomen();
         updatePits();

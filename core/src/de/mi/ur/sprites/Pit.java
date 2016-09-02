@@ -33,7 +33,7 @@ public class Pit extends Obstacle {
 
     public Texture getPit () {
         return pit;
-        //return super.getObstacle();
+        // return super.getObstacle();
     }
 
     public Vector2 getPitPos() {
@@ -43,20 +43,20 @@ public class Pit extends Obstacle {
     }
 
     public boolean collides(Rectangle player){
-       // return super.collides(player);
+        //return super.collides(bounds);
         return player.overlaps(bounds);
     }
 
     public void dispose() {
-        //super.dispose();
+        // super.dispose();
         pit.dispose();
     }
 
 
     public void reposition(float x){
-       //super.reposition(x);
+        //super.reposition(x);
         pitPos.set(x, 0);
-        bounds.setPosition(pitPos.x,pitPos.y);
+        bounds.setPosition(pitPos.x, pitPos.y);
 
     }
 

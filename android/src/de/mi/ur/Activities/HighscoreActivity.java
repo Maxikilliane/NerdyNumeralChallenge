@@ -2,13 +2,8 @@ package de.mi.ur.Activities;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import java.util.ArrayList;
-
-import de.mi.ur.DataBase.Highscore;
 import de.mi.ur.DataBase.HighscoreAdapter;
 import de.mi.ur.DataBase.NNCDatabase;
 import de.mi.ur.R;
@@ -21,10 +16,8 @@ public class HighscoreActivity extends Activity {
     private NNCDatabase db;
 
 
-
-
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.highscore_activity);
         db = new NNCDatabase(this);
@@ -33,9 +26,9 @@ public class HighscoreActivity extends Activity {
         setUpUI();
     }
 
-    private void setUpUI(){
+    private void setUpUI() {
         highscoreListView = (ListView) findViewById(R.id.highscore_list);
-        HighscoreAdapter adapter = new HighscoreAdapter(this, db.getAllHighscoresCursor() );
+        HighscoreAdapter adapter = new HighscoreAdapter(this, db.getAllHighscoresCursor());
         highscoreListView.setAdapter(adapter);
         adapter.bindView(highscoreListView, this, db.getAllHighscoresCursor());
 
@@ -53,7 +46,7 @@ public class HighscoreActivity extends Activity {
     }
 
     @Override
-    protected void onStop(){
+    protected void onStop() {
         super.onStop();
         db.close();
     }
