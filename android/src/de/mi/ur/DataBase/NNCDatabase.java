@@ -19,7 +19,7 @@ public class NNCDatabase implements HighscoreListener{
     private static final int DATABASE_VERSION = 1;
 
     private static final String TABLE_HIGHSCORE = "nncGameHighscores";
-    private static final String KEY_ID = "id";
+    private static final String KEY_ID = "_id";
     private static final String KEY_RANK = "rank";
     private static final String KEY_POINTS = "points";
     private static final String KEY_NAME = "name";
@@ -104,8 +104,12 @@ public class NNCDatabase implements HighscoreListener{
 
     public ArrayList<Highscore> getAllHighscores() {
         ArrayList<Highscore> highscores = new ArrayList<>();
-        Cursor cursor = database.query(TABLE_HIGHSCORE, ALL_COLUMNS_HIGHSCORE, null, null, null, null, null);
+        Cursor cursor = getAllHighscoresCursor();
         return buildHighscoresFromCursor(cursor);
+    }
+
+    public Cursor getAllHighscoresCursor(){
+        return database.query(TABLE_HIGHSCORE, ALL_COLUMNS_HIGHSCORE, null, null, null, null, null);
     }
 
     //um duplicate code zu vermeiden wird das "Zusammenbauen" der Highscores in diese Methode ausgelagert

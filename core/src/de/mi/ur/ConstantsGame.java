@@ -55,5 +55,10 @@ public class ConstantsGame {
         public static final int RIGHT_ANSWER_POS = 1;
 
 
+        // für Random-Generator
+        public static final int PIT = 0;
+        public static final int WOMAN = 1;
+
+
 
 }

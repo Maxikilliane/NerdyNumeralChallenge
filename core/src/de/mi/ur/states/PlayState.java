@@ -13,6 +13,7 @@ import de.mi.ur.ConstantsGame;
 import de.mi.ur.gameLogic.GameQuestion2;
 import de.mi.ur.gameLogic.Score;
 import de.mi.ur.sprites.Nerd;
+import de.mi.ur.sprites.Obstacle;
 import de.mi.ur.sprites.Pit;
 import de.mi.ur.sprites.Woman;
 
@@ -41,6 +42,8 @@ public class PlayState extends State {
     private Array<Pit> pits;
     private Vector2 groundPos1, groundPos2;
 
+    private Array<Obstacle> obstacles;
+
     private HighscoreListener highscoreListener;
 
     protected PlayState(GameStateManager gameManager) {
@@ -60,10 +63,18 @@ public class PlayState extends State {
 
         pits = new Array<Pit>();
 
+        obstacles = new Array<Obstacle>();
+
+
 
         for (int i = 0; i < 4; i++) {
-            women.add(new Woman(i * (500)));
-            pits.add(new Pit(i * (ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH)));
+            if(random.nextInt(1)==ConstantsGame.PIT){
+                obstacles.add(new Pit(i * ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH));
+            }else{
+                obstacles.add(new Woman(i *(500)));
+            }
+            //women.add(new Woman(i * (500)));
+            //pits.add(new Pit(i * (ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH)));
 
         }
         groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, ConstantsGame.GROUND_Y_OFFSET);

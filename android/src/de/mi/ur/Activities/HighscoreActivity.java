@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import de.mi.ur.DataBase.Highscore;
+import de.mi.ur.DataBase.HighscoreAdapter;
 import de.mi.ur.DataBase.NNCDatabase;
 import de.mi.ur.R;
 
@@ -15,9 +17,11 @@ import de.mi.ur.R;
  * Created by Anna-Marie on 01.09.2016.
  */
 public class HighscoreActivity extends Activity {
-    private ListView highscoreList;
+    private ListView highscoreListView;
     private NNCDatabase db;
-    private ArrayList<Highscore> highscores;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -30,9 +34,27 @@ public class HighscoreActivity extends Activity {
     }
 
     private void setUpUI(){
-        highscoreList = (ListView) findViewById(R.id.highscore_list);
-        highscores = db.getAllHighscores();
-        ArrayAdapter<Highscore> adapter = new ArrayAdapter<Highscore>(this, R.layout.highscore_listitem, highscores );
-        highscoreList.setAdapter(adapter);
+        highscoreListView = (ListView) findViewById(R.id.highscore_list);
+        HighscoreAdapter adapter = new HighscoreAdapter(this, db.getAllHighscoresCursor() );
+        highscoreListView.setAdapter(adapter);
+        adapter.bindView(highscoreListView, this, db.getAllHighscoresCursor());
+
+       /* TextView rankTextView = (TextView) findViewById(R.id.highscore_rank_view);
+        TextView pointsTextView = (TextView) findViewById(R.id.highscore_points_view);
+        TextView nameTextView = (TextView) findViewById(R.id.highscore_name_view);
+
+        int rank = cursor.getInt(cursor.getColumnIndexOrThrow("rank"));
+        int points = cursor.getInt(cursor.getColumnIndexOrThrow("points"));
+        String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+
+        rankTextView.setText(rank);
+        pointsTextView.setText(points);
+        nameTextView.setText(name)*/
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        db.close();
     }
 }
