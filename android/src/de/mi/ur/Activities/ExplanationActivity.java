@@ -1,4 +1,4 @@
-package de.mi.ur;
+package de.mi.ur.Activities;
 
 import android.app.Activity;
 import android.app.FragmentManager;
@@ -13,8 +13,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import de.mi.ur.Constants;
 import de.mi.ur.QuestionFragments.FreeTextQuestionFragment;
 import de.mi.ur.QuestionLogic.TutorialQuestion;
+import de.mi.ur.R;
 
 /**
  * Created by Anna-Marie on 01.08.2016.

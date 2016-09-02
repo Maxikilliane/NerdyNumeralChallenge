@@ -1,8 +1,7 @@
-package de.mi.ur;
+package de.mi.ur.Activities;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -13,7 +12,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import de.mi.ur.AndroidCommunication.WeatherDataListener;
-import de.mi.ur.DataBase.Highscore;
+import de.mi.ur.AndroidLauncher;
+import de.mi.ur.Constants;
+import de.mi.ur.R;
 import de.mi.ur.WeatherExtras.WeatherManager;
 
 public class GameMainActivity extends Activity  implements View.OnClickListener, WeatherDataListener {

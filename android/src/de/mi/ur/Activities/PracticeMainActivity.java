@@ -1,8 +1,10 @@
-package de.mi.ur;
+package de.mi.ur.Activities;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+
+import de.mi.ur.R;
 
 /**
  * Created by Lydia on 15.08.2016.

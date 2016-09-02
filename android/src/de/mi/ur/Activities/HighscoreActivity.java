@@ -1,4 +1,4 @@
-package de.mi.ur;
+package de.mi.ur.Activities;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import de.mi.ur.DataBase.Highscore;
 import de.mi.ur.DataBase.NNCDatabase;
+import de.mi.ur.R;
 
 /**
  * Created by Anna-Marie on 01.09.2016.

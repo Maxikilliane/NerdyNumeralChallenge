@@ -1,7 +1,9 @@
-package de.mi.ur;
+package de.mi.ur.Activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import de.mi.ur.R;
 
 /**
  * Created by Anna-Marie on 15.08.2016.

@@ -9,10 +9,9 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
-import de.mi.ur.GameMainActivity;
+import de.mi.ur.Activities.GameMainActivity;
 
 /**
  * Created by Anna-Marie on 11.08.2016.
