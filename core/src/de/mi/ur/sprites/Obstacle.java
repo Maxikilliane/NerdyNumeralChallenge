@@ -15,23 +15,24 @@ import de.mi.ur.ConstantsGame;
  */
 public class Obstacle {
 
-    private Texture obstacle;
+    private Texture texture;
     private Random random;
     private Rectangle bounds;
     private Vector2 obstaclePos;
+    private int obstacleY;
 
 
-    public Obstacle(float x) {
-
-        obstacle = new Texture("obstacle.png");
+    public Obstacle(float x, int obstacleY, Texture texture) {
         random = new Random();
-        obstaclePos = new Vector2(x, ConstantsGame.NERD_Y);
-        bounds = new Rectangle(obstaclePos.x, obstaclePos.y, obstacle.getWidth() - ConstantsGame.PIT_BOUNDS_OFFSET, obstacle.getHeight());
+        this.texture = texture;
+        this.obstacleY = obstacleY;
+        obstaclePos = new Vector2(x, obstacleY);
+        bounds = new Rectangle(obstaclePos.x, obstaclePos.y, texture.getWidth() - ConstantsGame.PIT_BOUNDS_OFFSET, texture.getHeight());
 
     }
 
     public Texture getObstacle() {
-        return obstacle;
+        return texture;
     }
 
     private int generateNewDistance() {
@@ -40,7 +41,7 @@ public class Obstacle {
         return newInt;
     }
 
-    public Vector2 getObstaclePos1() {
+    public Vector2 getObstaclePos() {
         return obstaclePos;
     }
 
@@ -50,9 +51,13 @@ public class Obstacle {
 
     public void reposition(float x) {
 
-        obstaclePos.set(x, 0);
+        obstaclePos.set(x, obstacleY);
         bounds.setPosition(obstaclePos.x, obstaclePos.y);
 
+    }
+
+    public void dispose(){
+        texture.dispose();
     }
 
 

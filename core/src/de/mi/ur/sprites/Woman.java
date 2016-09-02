@@ -11,7 +11,7 @@ import de.mi.ur.ConstantsGame;
 /**
  * Created by maxiwindl on 23.08.16.
  */
-public class Woman {
+public class Woman extends Obstacle {
 
 
     private Texture woman;
@@ -21,6 +21,7 @@ public class Woman {
 
 
     public Woman(float x) {
+        super(x, ConstantsGame.WOMAN_Y, new Texture("obstacle_small.png"));
 
         woman = new Texture("obstacle_small.png");
         random = new Random();
@@ -48,7 +49,6 @@ public class Woman {
 
 
     public void reposition(float x) {
-
         womanPos.set(x, ConstantsGame.WOMAN_Y);
         bounds.setPosition(womanPos.x, womanPos.y);
 

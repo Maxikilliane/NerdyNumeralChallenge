@@ -11,7 +11,7 @@ import de.mi.ur.ConstantsGame;
 /**
  * Created by maxiwindl on 01.08.16.
  */
-public class Pit {
+public class Pit extends Obstacle {
 
 
 
@@ -22,7 +22,7 @@ public class Pit {
 
 
     public Pit (float x) {
-
+        super(x, 0, new Texture("pit_new.png"));
         pit = new Texture("pit_new.png");
         random = new Random();
         pitPos = new Vector2(x, 0);
@@ -33,23 +33,28 @@ public class Pit {
 
     public Texture getPit () {
         return pit;
+        //return super.getObstacle();
     }
 
     public Vector2 getPitPos() {
+
+        //return super.getObstaclePos();
         return pitPos;
     }
 
     public boolean collides(Rectangle player){
+       // return super.collides(player);
         return player.overlaps(bounds);
     }
 
     public void dispose() {
+        //super.dispose();
         pit.dispose();
     }
 
 
     public void reposition(float x){
-
+       //super.reposition(x);
         pitPos.set(x, 0);
         bounds.setPosition(pitPos.x,pitPos.y);
 

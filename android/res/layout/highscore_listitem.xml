@@ -6,21 +6,21 @@
     android:padding="@dimen/padding_small">
 
     <TextView
-        android:id="@+id/rank_view"
+        android:id="@+id/highscore_rank_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.2"
         android:textColor="@color/white" />
 
     <TextView
-        android:id="@+id/points_view"
+        android:id="@+id/highscore_points_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.3"
         android:textColor="@color/white" />
 
     <TextView
-        android:id="@+id/name_view"
+        android:id="@+id/highscore_name_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.5"
