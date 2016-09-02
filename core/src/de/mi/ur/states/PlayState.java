@@ -22,7 +22,7 @@ import de.mi.ur.sprites.Woman;
  *
  * Vor Abgeben noch GameQuestion1 und das HoffentlichNurVoruebergehend-Package löschen!
  *
- * Obstacle funktioniert jetzt. 
+ * Obstacle funktioniert jetzt.
  */
 public class PlayState extends State {
 
@@ -235,7 +235,8 @@ public class PlayState extends State {
         if (value > 300) {
             return 280;
 
-        } else {
+        }
+        else {
             return ConstantsGame.NERD_MOVEMENT_DEFAULT;
         }
     }

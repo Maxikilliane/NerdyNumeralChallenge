@@ -37,8 +37,8 @@ public class HighscoreAdapter extends CursorAdapter {
         int points = cursor.getInt(cursor.getColumnIndexOrThrow("points"));
         String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
 
-        rankTextView.setText(rank);
-        pointsTextView.setText(points);
+        rankTextView.setText(String.valueOf(rank));
+        pointsTextView.setText(String.valueOf(points));
         nameTextView.setText(name);
 
     }

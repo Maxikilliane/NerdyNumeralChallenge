@@ -109,7 +109,7 @@ public class NNCDatabase implements HighscoreListener{
     }
 
     public Cursor getAllHighscoresCursor(){
-        return database.query(TABLE_HIGHSCORE, ALL_COLUMNS_HIGHSCORE, null, null, null, null, null);
+        return database.query(TABLE_HIGHSCORE, ALL_COLUMNS_HIGHSCORE, null, null, null, null, KEY_RANK+" ASC");
     }
 
     //um duplicate code zu vermeiden wird das "Zusammenbauen" der Highscores in diese Methode ausgelagert

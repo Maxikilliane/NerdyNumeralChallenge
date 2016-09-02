@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
+    android:padding="@dimen/activity_general_padding"
+    android:gravity="center"
+
     >
+
+
+    <ImageView
+        android:id="@+id/trophy_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/trophy"
+        android:layout_alignParentRight="true"
+        android:padding="@dimen/padding_small"
+        android:layout_alignParentTop="true"
+        />
 
 
     <ListView
         android:id="@+id/highscore_list"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_small"
+        android:background="@drawable/my_button"
+        android:layout_below="@id/trophy_image"
+        android:layout_gravity="center_vertical">
 
     </ListView>
 
 
-</RelativeLayout>
+</FrameLayout>

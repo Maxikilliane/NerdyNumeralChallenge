@@ -7,6 +7,10 @@
     <string name="forward_button_text">weiter</string>
     <string name="tutorial_solution_button">Lösen</string>
 
+    //Highscore
+    <string name="highscore_points">Punkte</string>
+    <string name="highscore_rank">Platz</string>
+    <string name="highscore_name">Name</string>
 
     //TutorialMain
     <string name="tutorial_intro_button">Einführung</string>
