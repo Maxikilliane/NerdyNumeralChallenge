@@ -1,9 +1,11 @@
-package de.mi.ur;
+package de.mi.ur.Activities;
 
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+
+import de.mi.ur.SettingsFragment;
 
 /**
  * Created by Anna-Marie on 10.08.2016.

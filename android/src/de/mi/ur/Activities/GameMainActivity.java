@@ -1,13 +1,20 @@
-package de.mi.ur;
+package de.mi.ur.Activities;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import de.mi.ur.AndroidCommunication.WeatherDataListener;
+import de.mi.ur.AndroidLauncher;
+import de.mi.ur.Constants;
+import de.mi.ur.R;
 import de.mi.ur.WeatherExtras.WeatherManager;
 
 public class GameMainActivity extends Activity  implements View.OnClickListener, WeatherDataListener {
@@ -23,7 +30,7 @@ public class GameMainActivity extends Activity  implements View.OnClickListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_main_activity);
         setupUI();
-        weatherManager = new WeatherManager(this);
+        weatherManager = new WeatherManager(this, this);
 
     }
 
@@ -49,10 +56,16 @@ public class GameMainActivity extends Activity  implements View.OnClickListener,
                 i.putExtra(Constants.CURRENT_WEATHER, weatherManager.getCurrentWeather());
                 break;
             case R.id.game_update_weather_button:
+                if( ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED){
                 String weather = convertToWeatherName(weatherManager.getCurrentWeather());
-                toastMessage = "Wetter aktualisiert! Gerade " + weather + ".";
+                toastMessage = "Wetter aktualisiert! Gerade " + weather + ". Der Spielhintergrund wurde angepasst.";}
+                else{
+                    requestWeatherPermission(this);
+                    toastMessage = "Default-Wetter: Die Sonne scheint!";
+                }
                 break;
             case R.id.game_highscore_button:
+                i = new Intent(GameMainActivity.this, HighscoreActivity.class);
                 break;
             case R.id.game_help_button:
                 i = new Intent(GameMainActivity.this, GameHelpActivity.class);
@@ -90,4 +103,28 @@ public class GameMainActivity extends Activity  implements View.OnClickListener,
     public int getCurrentWeather() {
         return weatherManager.getCurrentWeather();
     }
+
+    public static void requestWeatherPermission(Activity activity){
+        if(ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.ACCESS_COARSE_LOCATION)){
+            String toastMessage = activity.getResources().getString(R.string.location_permission_explanation);
+            Toast.makeText(activity, toastMessage, Toast.LENGTH_LONG ).show();
+        }
+        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, Constants.MY_PERMISSION_REQUEST_ACCESS_COARSE_LOCATION);
+
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults){
+        switch(requestCode){
+            case Constants.MY_PERMISSION_REQUEST_ACCESS_COARSE_LOCATION:{
+                if (grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    weatherManager.getCurrentWeather();
+                }
+                break;
+            }
+        }
+    }
+
+
+
 }
+

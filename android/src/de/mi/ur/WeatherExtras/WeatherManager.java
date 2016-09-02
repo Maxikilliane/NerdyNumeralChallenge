@@ -1,5 +1,6 @@
 package de.mi.ur.WeatherExtras;
 
+import android.app.Activity;
 import android.content.Context;
 
 import de.mi.ur.Constants;
@@ -18,8 +19,9 @@ public class WeatherManager {
     private WeatherAsyncTask weatherTask;
     private LocationController locationController;
 
-    public WeatherManager(Context context){
-        locationController = new LocationController(context);
+    public WeatherManager(Context context, Activity activity){
+        locationController = new LocationController(context, activity);
+        locationController.setCurrentPosition();
     }
 
     private String generateUrl(){
@@ -39,21 +41,11 @@ public class WeatherManager {
         }
     }
 
-
-
-    /*
-     Weather id -> 200 - kleiner 600: Regen
-     600-kleiner 700: Schnee
-     800 -> Sonne
-     else -> Wolken
-     falls ausgeschaltet: Sonne
-
-     siehe:
-     http://openweathermap.org/weather-conditions
-
-     */
-
     public int getCurrentWeather(){
+        String Url = generateUrl();
+        weatherTask = new WeatherAsyncTask();
+        weatherTask.execute(Url);
+        calculateCurrentWeather(weatherTask.getWeatherId());
         return currentWeather;
     }
 
