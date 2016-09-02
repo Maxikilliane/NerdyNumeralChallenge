@@ -14,9 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/trophy"
-        android:layout_alignParentRight="true"
         android:padding="@dimen/padding_small"
-        android:layout_alignParentTop="true"
+
         />
 
 
@@ -26,7 +25,6 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/padding_small"
         android:background="@drawable/my_button"
-        android:layout_below="@id/trophy_image"
         android:layout_gravity="center_vertical">
 
     </ListView>
