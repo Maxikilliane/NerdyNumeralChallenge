@@ -18,6 +18,7 @@ public class PracticeMainActivity extends AppCompatActivity implements View.OnCl
     private Button multipleChoice;
     private Button trueFalse;
     private Button freeText;
+    private Toolbar myToolbar;
 
 
 
@@ -25,10 +26,22 @@ public class PracticeMainActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.exercise_main_activity);
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
-        setUpNumberPickers();
+        setupToolbar();
+        setupNumberPickers();
         setupUI();
+    }
+
+    private void setupToolbar(){
+        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setTitle(R.string.app_name);
+        myToolbar.setNavigationIcon(R.mipmap.toolbar_back);
+        myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void setupUI() {
@@ -57,7 +70,7 @@ public class PracticeMainActivity extends AppCompatActivity implements View.OnCl
         });
     }
 
-    private void setUpNumberPickers() {
+    private void setupNumberPickers() {
         firstNumberSystem = (NumberPicker) findViewById(R.id.firstNumberPicker);
         secondNumberSystem = (NumberPicker) findViewById(R.id.secondNumberPicker);
         firstNumberSystem.setMinValue(2);
