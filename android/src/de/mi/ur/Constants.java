@@ -4,6 +4,14 @@ package de.mi.ur;
  * Created by Anna-Marie on 01.08.2016.
  */
 public class Constants {
+    //
+    public static final int MULTIPLE_CHOICE = 0;
+    public static final int TRUE_FALSE = 1;
+    public static final int FREETEXT = 2;
+
+    public static final String KEY_TYPE_QUESTION = "type of practise question";
+
+
     // Abfrage in ExplanationActivity, welches Tutorial angezeigt werden soll
     public static final String KEY_TYPE_TUTORIAL = "type of tutorial";
 

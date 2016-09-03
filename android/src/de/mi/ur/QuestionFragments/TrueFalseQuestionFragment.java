@@ -22,6 +22,6 @@ public class TrueFalseQuestionFragment extends Fragment {
     }
 
     private void setUpUI(View fragmentView){
-        
+
     }
 }

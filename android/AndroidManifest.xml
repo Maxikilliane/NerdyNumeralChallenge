@@ -38,6 +38,7 @@
         <activity android:name=".Activities.ProgressActivity"></activity>
         <activity android:name=".Activities.PracticeMainActivity"></activity>
         <activity android:name=".Activities.HighscoreActivity"></activity>
+        <activity android:name=".Activities.PracticeActivity"></activity>
 
 
         <activity
