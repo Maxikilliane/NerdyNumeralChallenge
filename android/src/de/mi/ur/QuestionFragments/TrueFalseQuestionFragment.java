@@ -11,8 +11,10 @@ import de.mi.ur.R;
 /**
  * Created by Anna-Marie on 02.09.2016.
  */
-public class TrueFalseQuestionFragment extends Fragment {
-    public TrueFalseQuestionFragment(){}
+public class TrueFalseQuestionFragment extends QuestionFragment {
+    public TrueFalseQuestionFragment(){
+        super();
+    }
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){

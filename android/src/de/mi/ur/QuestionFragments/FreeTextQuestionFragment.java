@@ -13,13 +13,15 @@ import de.mi.ur.R;
 /**
  * Created by Anna-Marie on 05.08.2016.
  */
-public class FreeTextQuestionFragment extends Fragment {
+public class FreeTextQuestionFragment extends QuestionFragment {
     private TextView questionTextView;
     private EditText solutionEditText;
     // gehört da unten mit dazu
     //private String[] numeralSystems = getResources().getStringArray(R.array.numeral_systems);
 
-    public FreeTextQuestionFragment(){}
+    public FreeTextQuestionFragment(){
+        super();
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View fragmentView = inflater.inflate(R.layout.free_text_question_fragment, container, false);

@@ -18,14 +18,16 @@ import de.mi.ur.R;
 /**
  * Created by Anna-Marie on 02.09.2016.
  */
-public class MultipleChoiceQuestionFragment extends Fragment implements View.OnClickListener{
+public class MultipleChoiceQuestionFragment extends QuestionFragment implements View.OnClickListener{
     Button choice1;
     Button choice2;
     Button choice3;
     Button choice4;
 
 
-    public MultipleChoiceQuestionFragment(){}
+    public MultipleChoiceQuestionFragment(){
+        super();
+    }
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){

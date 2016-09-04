@@ -6,18 +6,18 @@
     >
     <Row>
         <Key android:codes='0' android:keyLabel="0" android:horizontalGap="4%p"/>
+        <Key android:codes='1' android:keyLabel="1" android:horizontalGap="4%p"/>
         <Key android:codes="-1" android:keyLabel="back" android:keyWidth ="20%p" android:horizontalGap="20%p"/>
     </Row>
     <Row>
-        <Key android:codes='1' android:keyLabel="1" android:horizontalGap="4%p"/>
+        <Key android:codes='2' android:keyLabel="2" android:horizontalGap="18%p"/>
         <Key
             android:codes="100"
             android:keyLabel = "Enter"
             android:keyWidth  = "20%p"
             android:horizontalGap = "20%p"
 
-        />
+            />
     </Row>
-
 
 </Keyboard>

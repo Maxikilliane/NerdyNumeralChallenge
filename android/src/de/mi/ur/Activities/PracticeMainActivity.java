@@ -76,6 +76,10 @@ public class PracticeMainActivity extends AppCompatActivity implements View.OnCl
         */
         multipleChoice = (Button) findViewById(R.id.multipleChoiceButton);
         multipleChoice.setOnClickListener(this);
+        freeText = (Button) findViewById(R.id.manualEntryButton);
+        freeText.setOnClickListener(this);
+        trueFalse = (Button) findViewById(R.id.wrongTrueButton);
+        trueFalse.setOnClickListener(this);
     }
 
     private void setupNumberPickers() {
@@ -85,8 +89,8 @@ public class PracticeMainActivity extends AppCompatActivity implements View.OnCl
         firstNumberSystem.setMaxValue(16);
         secondNumberSystem.setMinValue(2);
         secondNumberSystem.setMaxValue(16);
-
     }
+
     @Override
     public void onClick(View v) {
         Intent i = null;
@@ -96,12 +100,20 @@ public class PracticeMainActivity extends AppCompatActivity implements View.OnCl
                 i.putExtra(Constants.KEY_TYPE_QUESTION, Constants.MULTIPLE_CHOICE);
                 break;
             case R.id.wrongTrueButton:
+                i = new Intent (PracticeMainActivity.this, PracticeActivity.class);
+                i.putExtra(Constants.KEY_TYPE_QUESTION, Constants.TRUE_FALSE);
                 break;
             case R.id.manualEntryButton:
+                i = new Intent (PracticeMainActivity.this, PracticeActivity.class);
+                i.putExtra(Constants.KEY_TYPE_QUESTION, Constants.FREETEXT);
                 break;
         }
 
         if(i!= null){
+            int numeral1Base = firstNumberSystem.getValue();
+            int numeral2Base = secondNumberSystem.getValue();
+            i.putExtra(Constants.KEY_NUMERAL_1_BASE, numeral1Base);
+            i.putExtra(Constants.KEY_NUMERAL_2_BASE, numeral2Base);
             startActivity(i);
         }
     }
