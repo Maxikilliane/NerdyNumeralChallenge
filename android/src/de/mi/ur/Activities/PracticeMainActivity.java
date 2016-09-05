@@ -1,5 +1,7 @@
 package de.mi.ur.Activities;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -7,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
 
+import de.mi.ur.Constants;
 import de.mi.ur.R;
 
 /**
@@ -32,7 +35,7 @@ public class PracticeMainActivity extends AppCompatActivity implements View.OnCl
         setupUI();
     }
 
-    private void setupToolbar() {
+    private void setupToolbar(){
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setTitle(R.string.app_name);
@@ -46,7 +49,7 @@ public class PracticeMainActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void setupUI() {
-        multipleChoice = (Button) findViewById(R.id.multipleChoiceButton);
+       /* multipleChoice = (Button) findViewById(R.id.multipleChoiceButton);
         multipleChoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,9 +69,17 @@ public class PracticeMainActivity extends AppCompatActivity implements View.OnCl
         freeText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 setContentView(R.layout.free_text_question_fragment);
             }
         });
+        */
+        multipleChoice = (Button) findViewById(R.id.multipleChoiceButton);
+        multipleChoice.setOnClickListener(this);
+        freeText = (Button) findViewById(R.id.manualEntryButton);
+        freeText.setOnClickListener(this);
+        trueFalse = (Button) findViewById(R.id.wrongTrueButton);
+        trueFalse.setOnClickListener(this);
     }
 
     private void setupNumberPickers() {
@@ -79,8 +90,31 @@ public class PracticeMainActivity extends AppCompatActivity implements View.OnCl
         secondNumberSystem.setMinValue(2);
         secondNumberSystem.setMaxValue(16);
     }
+
     @Override
     public void onClick(View v) {
+        Intent i = null;
+        switch(v.getId()){
+            case R.id.multipleChoiceButton:
+                i = new Intent (PracticeMainActivity.this, PracticeActivity.class);
+                i.putExtra(Constants.KEY_TYPE_QUESTION, Constants.MULTIPLE_CHOICE);
+                break;
+            case R.id.wrongTrueButton:
+                i = new Intent (PracticeMainActivity.this, PracticeActivity.class);
+                i.putExtra(Constants.KEY_TYPE_QUESTION, Constants.TRUE_FALSE);
+                break;
+            case R.id.manualEntryButton:
+                i = new Intent (PracticeMainActivity.this, PracticeActivity.class);
+                i.putExtra(Constants.KEY_TYPE_QUESTION, Constants.FREETEXT);
+                break;
+        }
 
+        if(i!= null){
+            int numeral1Base = firstNumberSystem.getValue();
+            int numeral2Base = secondNumberSystem.getValue();
+            i.putExtra(Constants.KEY_NUMERAL_1_BASE, numeral1Base);
+            i.putExtra(Constants.KEY_NUMERAL_2_BASE, numeral2Base);
+            startActivity(i);
+        }
     }
 }

@@ -4,6 +4,16 @@ package de.mi.ur;
  * Created by Anna-Marie on 01.08.2016.
  */
 public class Constants {
+    //communication between PracticeMain and PractiseActivities
+    public static final String KEY_TYPE_QUESTION = "type of practise question";
+    public static final int MULTIPLE_CHOICE = 0;
+    public static final int TRUE_FALSE = 1;
+    public static final int FREETEXT = 2;
+
+    public static final String KEY_NUMERAL_1_BASE = "numeral1 base";
+    public static final String KEY_NUMERAL_2_BASE = "numeral2 base";
+
+
     // Abfrage in ExplanationActivity, welches Tutorial angezeigt werden soll
     public static final String KEY_TYPE_TUTORIAL = "type of tutorial";
 

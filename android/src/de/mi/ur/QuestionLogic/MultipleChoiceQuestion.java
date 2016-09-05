@@ -11,7 +11,7 @@ public class MultipleChoiceQuestion extends Question {
     private int difficulty;
 
     // difficulty wird derzeit noch nicht genutzt... :(
-    public MultipleChoiceQuestion(int numeral1Base, int numeral2Base, int maxDigits, int difficulty) {
+    public MultipleChoiceQuestion(int numeral1Base, int numeral2Base, int maxDigits) {
         super(numeral1Base, numeral2Base, maxDigits);
         this.difficulty = difficulty;
 
