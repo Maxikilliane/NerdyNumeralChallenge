@@ -2,32 +2,87 @@
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
     android:keyWidth="10%p"
     android:keyHeight="7.5%p"
-    android:verticalGap="2%p"
-    >
+    android:verticalGap="2%p">
     <Row>
-        <Key android:codes='0' android:keyLabel="0" android:horizontalGap="4%p"/>
-        <Key android:codes='1' android:keyLabel="1" android:horizontalGap="4%p"/>
-        <Key android:codes='2' android:keyLabel="2" android:horizontalGap="4%p"/>
-        <Key android:codes='3' android:keyLabel="3" android:horizontalGap="4%p"/>
-        <Key android:codes="-1" android:keyLabel="back" android:keyWidth ="20%p" android:horizontalGap="20%p"/>
+        <Key
+            android:codes='0'
+            android:keyLabel="0"
+            android:horizontalGap="4%p" />
+        <Key
+            android:codes='1'
+            android:keyLabel="1"
+            android:horizontalGap="4%p" />
+        <Key
+            android:codes='2'
+            android:keyLabel="2"
+            android:horizontalGap="4%p" />
+        <Key
+            android:codes='3'
+            android:keyLabel="3"
+            android:horizontalGap="4%p" />
+        <Key
+            android:codes="-1"
+            android:keyLabel="back"
+            android:keyWidth="20%p"
+            android:horizontalGap="20%p" />
     </Row>
     <Row>
-        <Key android:codes='4' android:keyLabel="4" android:horizontalGap="4%p"/>
-        <Key android:codes='5' android:keyLabel="5" android:horizontalGap="4%p"/>
-        <Key android:codes='6' android:keyLabel="6" android:horizontalGap="4%p"/>
-        <Key android:codes='7' android:keyLabel="7" android:horizontalGap="4%p"/>
-        <Key android:codes="100" android:keyLabel = "Enter" android:keyWidth  = "20%p" android:horizontalGap = "20%p" />
+        <Key
+            android:codes='4'
+            android:keyLabel="4"
+            android:horizontalGap="4%p" />
+        <Key
+            android:codes='5'
+            android:keyLabel="5"
+            android:horizontalGap="4%p" />
+        <Key
+            android:codes='6'
+            android:keyLabel="6"
+            android:horizontalGap="4%p" />
+        <Key
+            android:codes='7'
+            android:keyLabel="7"
+            android:horizontalGap="4%p" />
+        <Key
+            android:codes="100"
+            android:keyLabel="Enter"
+            android:keyWidth="20%p"
+            android:horizontalGap="20%p" />
     </Row>
     <Row>
-        <Key android:codes="8" android:keyLabel="8" android:horizontalGap="4%p"/>
-        <Key android:codes="9" android:keyLabel="9" android:horizontalGap="4%p"/>
-        <Key android:codes="A" android:keyLabel="A" android:horizontalGap="4%p"/>
-        <Key android:codes="B" android:keyLabel="B" android:horizontalGap="4%p"/>
+        <Key
+            android:codes="8"
+            android:keyLabel="8"
+            android:horizontalGap="4%p" />
+        <Key
+            android:codes="9"
+            android:keyLabel="9"
+            android:horizontalGap="4%p" />
+        <Key
+            android:codes="A"
+            android:keyLabel="A"
+            android:horizontalGap="4%p" />
+        <Key
+            android:codes="B"
+            android:keyLabel="B"
+            android:horizontalGap="4%p" />
     </Row>
     <Row>
-        <Key android:codes="C" android:keyLabel="C" android:horizontalGap="4%p"/>
-        <Key android:codes="D" android:keyLabel="D" android:horizontalGap="4%p"/>
-        <Key android:codes="E" android:keyLabel="E" android:horizontalGap="4%p"/>
-        <Key android:codes="F" android:keyLabel="F" android:horizontalGap="4%p"/>
+        <Key
+            android:codes="C"
+            android:keyLabel="C"
+            android:horizontalGap="4%p" />
+        <Key
+            android:codes="D"
+            android:keyLabel="D"
+            android:horizontalGap="4%p" />
+        <Key
+            android:codes="E"
+            android:keyLabel="E"
+            android:horizontalGap="4%p" />
+        <Key
+            android:codes="F"
+            android:keyLabel="F"
+            android:horizontalGap="4%p" />
     </Row>
 </Keyboard>

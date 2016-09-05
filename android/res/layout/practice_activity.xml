@@ -9,8 +9,7 @@
     <EditText
         android:id="@+id/testEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="wrap_content" />
 
     <ProgressBar
         android:id="@+id/question_progressbar"
@@ -26,7 +25,7 @@
         android:id="@+id/question_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/question_progressbar"/>
+        android:layout_below="@id/question_progressbar" />
 
     <FrameLayout
         android:id="@+id/question_fragment_placeholder"
@@ -34,8 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_bottom"
         android:background="@drawable/mybackground"
-        android:layout_below="@id/question_textView">
-    </FrameLayout>
+        android:layout_below="@id/question_textView"></FrameLayout>
 
     <android.inputmethodservice.KeyboardView
         android:id="@+id/custom_keyboard"

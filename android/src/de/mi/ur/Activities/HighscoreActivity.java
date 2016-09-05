@@ -35,7 +35,7 @@ public class HighscoreActivity extends Activity {
         HighscoreAdapter adapter = new HighscoreAdapter(this, db.getAllHighscoresCursor());
         highscoreListView.setAdapter(adapter);
         View v = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.highscore_listitem, null);
-        highscoreListView.addHeaderView(v);
+        // highscoreListView.addHeaderView(v);
     }
 
     @Override

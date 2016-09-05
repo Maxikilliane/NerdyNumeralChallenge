@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/activity_general_padding"
-    android:background="@android:color/black">
 
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="@drawable/mybackground"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:paddingBottom="20dp"
         android:id="@+id/my_toolbar">
 
 
     </android.support.v7.widget.Toolbar>
 
-    <TextView
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/activity_general_padding"
+        android:background="@android:color/black">
+
+
+        <TextView
+            android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/exercise_headline"
         android:textSize="@dimen/exercise_headline_size"
@@ -29,6 +33,7 @@
         android:gravity="center" />
 
     <LinearLayout
+        android:padding="@dimen/activity_general_padding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -106,3 +111,4 @@
 
 
 </LinearLayout>
+</RelativeLayout>

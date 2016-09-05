@@ -22,10 +22,14 @@ public class GameQuestion2 {
     private Score score;
 
 
+
     private String toSolve;
+    private Rectangle rect;
     private String wrongAnswer1;
     private String wrongAnswer2;
     private String rightAnswer;
+
+    private int movementValue = ConstantsGame.QUESTION_ANSWER_OFFSET_X;
 
 
     private BitmapFont toSolveBitmap;
@@ -34,6 +38,10 @@ public class GameQuestion2 {
     private BitmapFont wrongAnswer2Bitmap;
 
     private GlyphLayout layout;
+
+    private int wrongPos1;
+    private int wrongPos2;
+    private int rightPos;
 
     private MultipleChoiceListener multipleChoiceGenerator;
     private int numeral1Base;
@@ -47,6 +55,7 @@ public class GameQuestion2 {
     //evtl Enum übergeben ob Hex oder Binär... Random-Gen...
     public GameQuestion2(MultipleChoiceListener multipleChoiceGenerator) {
         randomGen = new Random();
+
 
         this.multipleChoiceGenerator = multipleChoiceGenerator;
 
@@ -65,17 +74,17 @@ public class GameQuestion2 {
         wrongAnswer1 = "";
         rightAnswer = "";
         wrongAnswer2 = "";
-        toSolveBitmap = new BitmapFont(Gdx.files.internal("goodTimes4Question.fnt"));
+        toSolveBitmap = new BitmapFont(Gdx.files.internal("good_times4question.fnt"));
         toSolveBitmap.setUseIntegerPositions(false);
 
 
-        rightAnswerBitmap = new BitmapFont(Gdx.files.internal("goodTimesNew.fnt"));
+        rightAnswerBitmap = new BitmapFont(Gdx.files.internal("cantarrell4question.fnt"));
         rightAnswerBitmap.setUseIntegerPositions(false);
 
-        wrongAnswer1Bitmap = new BitmapFont(Gdx.files.internal("goodTimesNew.fnt"));
+        wrongAnswer1Bitmap = new BitmapFont(Gdx.files.internal("cantarrell4question.fnt"));
         wrongAnswer1Bitmap.setUseIntegerPositions(false);
 
-        wrongAnswer2Bitmap = new BitmapFont(Gdx.files.internal("goodTimesNew.fnt"));
+        wrongAnswer2Bitmap = new BitmapFont(Gdx.files.internal("cantarrell4question.fnt"));
         wrongAnswer2Bitmap.setUseIntegerPositions(false);
 
         rightAnswerPos = new Vector2(150, 0);
@@ -92,8 +101,8 @@ public class GameQuestion2 {
     public void updateQuestions(OrthographicCamera cam) {
         if (score.getCurrentScore() % 20==0) {
             String[] question = multipleChoiceGenerator.getQuestionInfos(2, 10, 6, 0);
-            toSolve = question[ConstantsGame.QUESTION_POS];
-            rightAnswer = question[ConstantsGame.RIGHT_ANSWER_POS];
+            toSolve = question[ConstantsGame.QUESTION_POS] + "?";
+            rightAnswer = "3= " + question[ConstantsGame.RIGHT_ANSWER_POS];
 
             generateWrongAnswers();
 
@@ -103,10 +112,23 @@ public class GameQuestion2 {
         }
     }
 
+    private void generatePos() {
+        wrongPos1 = randomGen.nextInt(2);
+        wrongPos2 = randomGen.nextInt(2);
+        if (wrongPos2 == wrongPos1) {
+            wrongPos2 = randomGen.nextInt(2);
+        }
+        rightPos = randomGen.nextInt(2);
+        if (wrongPos1 == rightPos || wrongPos2 == rightPos) {
+            rightPos = randomGen.nextInt(2);
+
+        }
+    }
+
 
     private void generateWrongAnswers() {
-        wrongAnswer1 = generateWrongAnswer();
-        wrongAnswer2 = generateWrongAnswer();
+        wrongAnswer1 = "1= " + generateWrongAnswer();
+        wrongAnswer2 = "2= " + generateWrongAnswer();
         if (wrongAnswer1.equals(wrongAnswer2)) {
             wrongAnswer2 = generateWrongAnswer();
         }
@@ -134,12 +156,13 @@ public class GameQuestion2 {
 
     public void drawTasks(SpriteBatch batch, OrthographicCamera cam) {
 
-        toSolveBitmap.draw(batch, toSolve, cam.position.x + ConstantsGame.QUESTION_OFFSET_X, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
-        wrongAnswer1Bitmap.draw(batch, wrongAnswer1, cam.position.x + ConstantsGame.QUESTION_ANSWER_OFFSET_X, cam.position.y + ConstantsGame.QUESTION_ANSWER_OFFSET_Y);
+
+        toSolveBitmap.draw(batch, toSolve, cam.position.x - 100, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
+        wrongAnswer1Bitmap.draw(batch, wrongAnswer1, cam.position.x - 30, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
         wrongAnswer1Bitmap.setColor(Color.BLACK);
-        wrongAnswer2Bitmap.draw(batch, wrongAnswer2, cam.position.x + ConstantsGame.QUESTION_ANSWER_OFFSET_X + 40, cam.position.y + ConstantsGame.QUESTION_ANSWER_OFFSET_Y);
+        wrongAnswer2Bitmap.draw(batch, wrongAnswer2, cam.position.x + 20, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
         wrongAnswer2Bitmap.setColor(Color.BLACK);
-        rightAnswerBitmap.draw(batch, rightAnswer, cam.position.x + ConstantsGame.QUESTION_ANSWER_OFFSET_X + 80, cam.position.y + ConstantsGame.QUESTION_ANSWER_OFFSET_Y);
+        rightAnswerBitmap.draw(batch, rightAnswer, cam.position.x + 70, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
         rightAnswerBitmap.setColor(Color.BLACK);
 
 

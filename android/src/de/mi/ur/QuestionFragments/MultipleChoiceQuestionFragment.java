@@ -1,31 +1,25 @@
 package de.mi.ur.QuestionFragments;
 
-import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
-import de.mi.ur.AndroidCommunication.MultipleChoiceListener;
 import de.mi.ur.R;
 
 /**
  * Created by Anna-Marie on 02.09.2016.
  */
-public class MultipleChoiceQuestionFragment extends QuestionFragment implements View.OnClickListener{
+public class MultipleChoiceQuestionFragment extends QuestionFragment implements View.OnClickListener {
     Button choice1;
     Button choice2;
     Button choice3;
     Button choice4;
 
 
-    public MultipleChoiceQuestionFragment(){
+    public MultipleChoiceQuestionFragment() {
         super();
     }
 
@@ -51,7 +45,6 @@ public class MultipleChoiceQuestionFragment extends QuestionFragment implements 
     public void onClick(View v) {
        // Text auf Button mit richtiger Lösung vergleichen -> irgendwo speichern
     }
-
 
 
     // Container Activity must implement this interface

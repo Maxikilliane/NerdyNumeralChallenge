@@ -1,6 +1,5 @@
 package de.mi.ur.QuestionFragments;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,7 @@ public class FreeTextQuestionFragment extends QuestionFragment {
     // gehört da unten mit dazu
     //private String[] numeralSystems = getResources().getStringArray(R.array.numeral_systems);
 
-    public FreeTextQuestionFragment(){
+    public FreeTextQuestionFragment() {
         super();
     }
 
