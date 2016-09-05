@@ -14,8 +14,9 @@ public class TrueFalseQuestion extends Question {
         this.question = generateQuestion(numeral1Base, numeral2Base, maxDigits);
     }
 
+    // noch dran arbeiten - wenn num1Base kleiner als num2Base, sollte die zweite Zahl weniger Ziffern haben
     private String generateQuestion(int numeral1Base, int numeral2Base, int maxDigits){
-        String num1 = generateNumWithMaxDigits(numeral1Base, maxDigits);
+        String num1 = generateNumWithMaxDigits(numeral1Base, maxDigits) + "(Basis "+numeral1Base+")";
         int numInt1 = convertFromNumeral(num1, numeral1Base);
         String comparator = comparators[getRandomGenerator().nextInt(4)];
         this.rightAnswer = getRandomGenerator().nextBoolean();
@@ -69,18 +70,18 @@ public class TrueFalseQuestion extends Question {
 
         }
 
-        return num1+" "+comparator+" "+num2;
+        return num1+" "+comparator+" "+num2+"(Basis "+numeral2Base+")";
     }
 
     public String getQuestion(){
         return question;
     }
 
-    public String getRightAnswer(){
+    public String getRightAnswerString(){
         if(rightAnswer){
-            return "true";
+            return "wahr";
         }else{
-            return "false";
+            return "falsch";
         }
     }
 

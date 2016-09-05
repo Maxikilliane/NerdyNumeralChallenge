@@ -5,13 +5,13 @@
     android:verticalGap="2%p"
     >
     <Row>
-        <Key android:codes='0' android:keyLabel="0" android:horizontalGap="4%p"/>
+        <Key android:codes="48" android:keyLabel="0" android:horizontalGap="4%p"/>
         <Key android:codes="-1" android:keyLabel="back" android:keyWidth ="20%p" android:horizontalGap="20%p"/>
     </Row>
     <Row>
-        <Key android:codes='1' android:keyLabel="1" android:horizontalGap="4%p"/>
+        <Key android:codes="49" android:keyLabel="1" android:horizontalGap="4%p"/>
         <Key
-            android:codes="100"
+            android:codes="500000"
             android:keyLabel = "Enter"
             android:keyWidth  = "20%p"
             android:horizontalGap = "20%p"

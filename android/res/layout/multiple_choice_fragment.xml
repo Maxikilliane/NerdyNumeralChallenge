@@ -5,6 +5,31 @@
     android:layout_height="match_parent"
     android:padding="@dimen/activity_general_padding">
 
+    <RadioGroup
+        android:id="@+id/multiple_choices"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/choice1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RadioButton
+            android:id="@+id/choice2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RadioButton
+            android:id="@+id/choice3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <RadioButton
+            android:id="@+id/choice4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RadioGroup>
+
+
+<!--
     <Button
         android:id="@+id/choice1"
         android:layout_width="match_parent"
@@ -38,6 +63,8 @@
         android:background="@drawable/my_button"
         android:textColor="@color/black"
         android:layout_marginBottom="@dimen/margin_bottom"/>
+
+        -->
 
 
 </LinearLayout>

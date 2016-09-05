@@ -81,9 +81,9 @@
 
 
     //Freetext: part1+numeral_systems[x]+part2
-    <string name="free_text_question_1">Rechnen Sie die im </string>
-    <string name="free_text_question_2"> gegebene Zahl in das </string>
-    <string name="free_text_question_3"> um.\n</string>
+    <string name="freetext_question_1">Rechnen Sie die im </string>
+    <string name="freetext_question_2"> gegebene Zahl in das </string>
+    <string name="freetext_question_3"> um.\n</string>
     <string name="answer_prompt">Antwort eingeben!</string>
 
 

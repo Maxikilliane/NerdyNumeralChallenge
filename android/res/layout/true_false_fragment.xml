@@ -6,6 +6,7 @@
     android:padding="@dimen/activity_general_padding">
 
     <RadioGroup
+        android:id="@+id/true_false_choices"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"

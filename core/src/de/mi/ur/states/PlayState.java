@@ -43,6 +43,7 @@ public class PlayState extends State {
 
     private Array<Pit> pits;
     private Vector2 groundPos1, groundPos2;
+    private Vector2 backgroundPos1, backgroundPos2;
 
     private Array<Obstacle> obstacles;
 
@@ -53,7 +54,7 @@ public class PlayState extends State {
         this.highscoreListener = gameManager.getHighscoreListener();
         ground = new Texture("ground.png");
         nerd = new Nerd(ConstantsGame.NERD_X, ConstantsGame.NERD_Y);
-        background = new Texture("background_final.png");
+        background = new Texture("background_sunny.png");
         //background = getBackgroundWeather(gameManager);
         score = new Score();
         score.startTimer();
@@ -66,9 +67,6 @@ public class PlayState extends State {
         //pits = new Array<Pit>();
 
         obstacles = new Array<Obstacle>();
-
-
-
         for (int i = 0; i < 4; i++) {
             if(random.nextInt(2)==ConstantsGame.PIT_TYPE){
                 obstacles.add(new Pit(i * ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH));
@@ -81,6 +79,9 @@ public class PlayState extends State {
         }
         groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, ConstantsGame.GROUND_Y_OFFSET);
         groundPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2) + ground.getWidth(), ConstantsGame.GROUND_Y_OFFSET);
+
+        backgroundPos1 =  new Vector2(cam.position.x - cam.viewportWidth / 2, ConstantsGame.GROUND_Y_OFFSET) ;
+        backgroundPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2) + background.getWidth(), ConstantsGame.GROUND_Y_OFFSET);
 
     }
 
@@ -107,6 +108,15 @@ public class PlayState extends State {
         }
         if (cam.position.x - (cam.viewportWidth / 2) > groundPos2.x + ground.getWidth()) {
             groundPos2.add(ground.getWidth() * 2, 0);
+        }
+    }
+
+    private void updateBackground(){
+        if(cam.position.x -(cam.viewportWidth / 2) > backgroundPos1.x + ground.getWidth()){
+            backgroundPos1.add(ground.getWidth()*2, 0);
+        }
+        if(cam.position.x - (cam.viewportWidth / 2) > groundPos2.x + background.getWidth()){
+            backgroundPos2.add(background.getWidth() * 2, 0);
         }
     }
 
@@ -203,6 +213,7 @@ public class PlayState extends State {
     public void update(float dt) {
         handleInput();
         updateGround();
+        updateBackground();
         nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty());
         score.updateScore();
         gameQuestion.updateQuestions(cam);

@@ -2,6 +2,8 @@ package de.mi.ur.Activities;
 
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.res.Resources;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
@@ -11,10 +13,17 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import de.mi.ur.Constants;
 import de.mi.ur.QuestionFragments.FreeTextQuestionFragment;
+import de.mi.ur.QuestionFragments.MultipleChoiceQuestionFragment;
+import de.mi.ur.QuestionFragments.QuestionFragment;
+import de.mi.ur.QuestionFragments.TrueFalseQuestionFragment;
 import de.mi.ur.QuestionLogic.FreeTextQuestion;
 import de.mi.ur.QuestionLogic.MultipleChoiceQuestion;
 import de.mi.ur.QuestionLogic.Question;
@@ -24,11 +33,14 @@ import de.mi.ur.R;
 /**
  * Created by Anna-Marie on 03.09.2016.
  */
-public class PracticeActivity extends Activity {
+public class PracticeActivity extends Activity implements FreeTextQuestionFragment.OnKeyboardListener{
     private Keyboard myKeyboard;
     private KeyboardView myKeyboardView;
 
     private EditText test;
+    private TextView questionTextView;
+    private ProgressBar practiseProgressBar;
+    private Button solutionButton;
 
     private int numeral1Base;
     private int numeral2Base;
@@ -38,7 +50,11 @@ public class PracticeActivity extends Activity {
     private int questionLength = 2;
 
     private FragmentManager fragmentManager;
-    private FreeTextQuestionFragment questionFragment;
+    private QuestionFragment questionFragment;
+
+
+    // case multiple choice
+    String [] buttonTexts;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +68,17 @@ public class PracticeActivity extends Activity {
         }
         setUpUI();
         setUpKeyboard();
-        setUpQuestion();
+        setUpQuestionTypeSpecificStuff();
 
+
+    }
+
+    protected void onStart(){
+        super.onStart();
+        switch (typeOfQuestion){
+            case Constants.MULTIPLE_CHOICE:
+
+        }
     }
 
     private void setUpKeyboard(){
@@ -119,8 +144,22 @@ public class PracticeActivity extends Activity {
 
     private void setUpUI(){
         test = (EditText) findViewById(R.id.testEditText);
-
         test.setInputType(InputType.TYPE_NULL);
+        questionTextView = (TextView) findViewById(R.id.question_textView);
+        practiseProgressBar = (ProgressBar) findViewById(R.id.question_progressbar);
+        solutionButton = (Button) findViewById(R.id.question_solution_button);
+        solutionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text;
+                if(questionFragment.isCorrectAnswer(currentQuestion.getRightAnswerString())){
+                     text = "correct";
+                }else{
+                     text ="wrong";
+                }
+                Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void openKeyboard(View v){
@@ -131,19 +170,50 @@ public class PracticeActivity extends Activity {
         }
     }
 
-    private void setUpQuestion(){
+    public void hideCustomKeyboard() {
+        myKeyboardView.setVisibility(View.GONE);
+        myKeyboardView.setEnabled(false);
+    }
+
+    private void setUpQuestionTypeSpecificStuff(){
+        Resources StringRes = getResources();
+        String questionText = null ;
         switch (typeOfQuestion){
             case Constants.MULTIPLE_CHOICE:
-                currentQuestion = new MultipleChoiceQuestion(numeral1Base, numeral2Base, questionLength);
+                MultipleChoiceQuestion currentQuestion1 = new MultipleChoiceQuestion(numeral1Base, numeral2Base, questionLength);
+                this.currentQuestion = currentQuestion1;
+                MultipleChoiceQuestionFragment questionFragment1 = new MultipleChoiceQuestionFragment();
+                questionFragment1.setButtonTexts(currentQuestion1.generatePossAnswers());
+                setUpFragment(questionFragment1);
+                questionText = StringRes.getString(R.string.multiple_choice_question_1)+numeral1Base+StringRes.getString(R.string.multiple_choice_question_2)+numeral2Base + StringRes.getString(R.string.multiple_choice_question_3) ;
                 break;
             case Constants.TRUE_FALSE:
-                currentQuestion = new TrueFalseQuestion(numeral1Base, numeral2Base, questionLength);
+                TrueFalseQuestionFragment questionFragment2 = new TrueFalseQuestionFragment();
+                TrueFalseQuestion currentQuestion2 = new TrueFalseQuestion(numeral1Base, numeral2Base, questionLength);
+                this.currentQuestion = currentQuestion2;
+                setUpFragment(questionFragment2);
+                questionText = StringRes.getString(R.string.true_false_question_1)+currentQuestion2.getQuestion();
                 break;
             case Constants.FREETEXT :
-                currentQuestion = new FreeTextQuestion(numeral1Base, numeral2Base, questionLength);
+                FreeTextQuestionFragment questionFragment3 = new FreeTextQuestionFragment();
+                FreeTextQuestion currentQuestion3 = new FreeTextQuestion(numeral1Base, numeral2Base, questionLength);
+                this.currentQuestion = currentQuestion3;
+                setUpFragment(questionFragment3);
+                questionText = StringRes.getString(R.string.freetext_question_1)+numeral1Base+StringRes.getString(R.string.freetext_question_2)+numeral2Base + StringRes.getString(R.string.freetext_question_3)+" "+ currentQuestion3.getQuestionNumber();
             default:
                 currentQuestion = new MultipleChoiceQuestion(numeral1Base, numeral2Base, questionLength);
         }
+
+        questionTextView.setText(questionText);
+    }
+
+    private void setUpFragment(QuestionFragment questionFragment){
+        fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.question_fragment_placeholder, questionFragment);
+        fragmentTransaction.commit();
+        this.questionFragment = questionFragment;
+
     }
 
     private KeyboardView.OnKeyboardActionListener mOnKeyboardActionListener = new KeyboardView.OnKeyboardActionListener() {
@@ -171,15 +241,16 @@ public class PracticeActivity extends Activity {
             // bis hier: Code von Marten Pennings, in stackoverflow nicht enthalten
 
             switch(primaryCode){
-
-                case 1:
-                    Log.i("Key", "You just pressed 1 button");
-                    // editable.insert(start, Character.toString((char) primaryCode));
-                    editable.insert(start, "1");
+                case -1:
+                    if(editable != null && start >0){
+                        editable.delete(start -1, start);
+                    }
                     break;
-                case 0:
-                    editable.insert(start, "0");
-                    // editable.insert(start, Character.toString((char) primaryCode));
+                case 500000:
+                    hideCustomKeyboard();
+                    break;
+                default:
+                    editable.insert(start, Character.toString((char) primaryCode));
             }
         }
 
@@ -209,4 +280,8 @@ public class PracticeActivity extends Activity {
         }
     };
 
+    @Override
+    public void onOpen() {
+        //openKeyboard(context.getView());
+    }
 }

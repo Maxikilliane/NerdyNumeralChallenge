@@ -20,8 +20,10 @@ import de.mi.ur.R;
 
 /**
  * Created by Anna-Marie on 01.08.2016.
+ *
+ * InputType muss noch geändert werden!
  */
-public class ExplanationActivity extends Activity implements View.OnClickListener{
+public class ExplanationActivity extends Activity implements View.OnClickListener, FreeTextQuestionFragment.OnKeyboardListener{
     private TextView explanationTextView;
     private TextView questionTextView;
     private Button solutionButton;
@@ -204,6 +206,11 @@ public class ExplanationActivity extends Activity implements View.OnClickListene
         String wrongAnswerText = getResources().getString(R.string.wrong_answer_toast_text) +" "+currentQuestion.getRightAnswer() + ".";
         Toast wrongAnswerToast = Toast.makeText(this, wrongAnswerText, Toast.LENGTH_LONG);
         wrongAnswerToast.show();
+
+    }
+
+    @Override
+    public void onOpen() {
 
     }
 }
