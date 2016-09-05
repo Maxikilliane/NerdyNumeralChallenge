@@ -16,13 +16,13 @@ public class TrueFalseQuestion extends Question {
 
     // noch dran arbeiten - wenn num1Base kleiner als num2Base, sollte die zweite Zahl weniger Ziffern haben
     private String generateQuestion(int numeral1Base, int numeral2Base, int maxDigits){
-        String num1 = generateNumWithMaxDigits(numeral1Base, maxDigits) + "(Basis "+numeral1Base+")";
+        String num1 = generateNumWithMaxDigits(numeral1Base, maxDigits);
         int numInt1 = convertFromNumeral(num1, numeral1Base);
         String comparator = comparators[getRandomGenerator().nextInt(4)];
         this.rightAnswer = getRandomGenerator().nextBoolean();
         String num2;
         int numInt2 ;
-        if(rightAnswer){
+        if(this.rightAnswer){
             switch(comparator){
                 case"=":
                     num2 = convertFromNumeralToNumeral(num1, numeral1Base, numeral2Base);
@@ -56,11 +56,11 @@ public class TrueFalseQuestion extends Question {
                     num2 = convertFromNumeralToNumeral(num1, numeral1Base, numeral2Base);
                     break;
                 case"<":
-                    numInt2 = numInt1 - getRandomGenerator().nextInt(20);
+                    numInt2 = numInt1 - getRandomGenerator().nextInt(10);
                     num2 = convertToNumeral(numInt2, numeral2Base);
                     break;
                 case ">":
-                    numInt2 = numInt1 + getRandomGenerator().nextInt(20);
+                    numInt2 = numInt1 + getRandomGenerator().nextInt(10);
                     num2 = convertToNumeral(numInt2, numeral2Base);
                     break;
                 default:
@@ -70,7 +70,7 @@ public class TrueFalseQuestion extends Question {
 
         }
 
-        return num1+" "+comparator+" "+num2+"(Basis "+numeral2Base+")";
+        return num1+" (Basis "+numeral1Base+") "+comparator+" "+num2+" (Basis "+numeral2Base+")";
     }
 
     public String getQuestion(){
@@ -84,5 +84,6 @@ public class TrueFalseQuestion extends Question {
             return "falsch";
         }
     }
+
 
 }

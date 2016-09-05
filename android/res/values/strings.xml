@@ -62,35 +62,35 @@
     Die richtige Antwort wäre:</string>
 
     <string-array name="numeral_systems">
-        <item>Binärsystem</item>
-        <item>Trialsystem</item>
-        <item>Quaternalsystem</item>
-        <item>Pentalsystem</item>
-        <item>Hexalsystem</item>
-        <item>Heptalsystem</item>
-        <item>Oktalsystem</item>
-        <item>Nonalsystem</item>
-        <item>Dezimalsystem</item>
-        <item>Undezimalsystem</item>
-        <item>Duodezimalsystem</item>
-        <item>Tridezimalsystem</item>
-        <item>Quatridezimalsystem</item>
-        <item>Pentadezimalsystem</item>
-        <item>Hexadezimalsystem</item>
+        <item> Binärsystem </item>
+        <item> Trialsystem </item>
+        <item> Quaternalsystem </item>
+        <item> Pentalsystem </item>
+        <item> Hexalsystem </item>
+        <item> Heptalsystem </item>
+        <item> Oktalsystem </item>
+        <item> Nonalsystem </item>
+        <item> Dezimalsystem </item>
+        <item> Undezimalsystem </item>
+        <item> Duodezimalsystem </item>
+        <item> Tridezimalsystem </item>
+        <item> Quatridezimalsystem </item>
+        <item> Pentadezimalsystem </item>
+        <item> Hexadezimalsystem </item>
     </string-array>
 
 
     //Freetext: part1+numeral_systems[x]+part2
-    <string name="freetext_question_1">Rechnen Sie die im </string>
-    <string name="freetext_question_2"> gegebene Zahl in das </string>
-    <string name="freetext_question_3"> um.\n</string>
+    <string name="freetext_question_1">Rechnen Sie die im\u0020</string>
+    <string name="freetext_question_2">\u0020 gegebene Zahl in das\u0020</string>
+    <string name="freetext_question_3"> \u0020um.\n</string>
     <string name="answer_prompt">Antwort eingeben!</string>
 
 
     //MultipleChoice: part1 + numeral_systems[x]+part2
-    <string name="multiple_choice_question_1">Wählen Sie für die gegebene Zahl im </string>
-    <string name="multiple_choice_question_2"> die richtige Entsprechung im </string>
-    <string name="multiple_choice_question_3"> aus.\n</string>
+    <string name="multiple_choice_question_1">Wählen Sie für die gegebene Zahl im \u0020</string>
+    <string name="multiple_choice_question_2">\u0020 die richtige Entsprechung im\u0020 </string>
+    <string name="multiple_choice_question_3"> \u0020 aus.\n</string>
 
     //True/False:
     <string name="true_false_question_1">Ist der folgende Ausdruck wahr oder falsch?\n</string>

@@ -21,4 +21,7 @@ public abstract class QuestionFragment extends Fragment {
         return false;
     }
 
+    //für MultipleChoice
+    public void setButtonTexts(String[] texts){}
 }
+

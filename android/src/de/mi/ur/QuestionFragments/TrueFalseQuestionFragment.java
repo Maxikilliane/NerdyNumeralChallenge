@@ -22,6 +22,10 @@ public class TrueFalseQuestionFragment extends QuestionFragment {
         super();
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View fragmentView = inflater.inflate(R.layout.true_false_fragment, container, false);

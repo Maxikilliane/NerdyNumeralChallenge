@@ -73,6 +73,12 @@ public abstract class Question {
         return number;
     }
 
+    public static String generateNumBelowMax(int destinationNumeralBase, int maxDecimal){
+        int num = randomGen.nextInt(maxDecimal);
+        return convertToNumeral(num, destinationNumeralBase);
+    }
+
+
     public int getNumeral1Base(){
         return this.numeral1Base;
     }

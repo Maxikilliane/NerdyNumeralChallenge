@@ -30,7 +30,7 @@ public class AndroidLauncher extends AndroidApplication implements MultipleChoic
 	@Override
 	public String[] getQuestionInfos(int numeral1Base, int numeral2Base, int maxDigits, int difficulty) {
 		MultipleChoiceQuestion question = new MultipleChoiceQuestion(numeral1Base, numeral2Base, maxDigits);
-		String[] multipleChoiceQuestionInfos = {question.getQuestionNumber(), question.getRightAnswerNumber()};
+		String[] multipleChoiceQuestionInfos = {question.getQuestionNumber(), question.getRightAnswerString()};
 		return multipleChoiceQuestionInfos;
 	}
 

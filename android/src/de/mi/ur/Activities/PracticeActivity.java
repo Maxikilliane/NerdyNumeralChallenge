@@ -47,10 +47,13 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
     private int typeOfQuestion;
     private Question currentQuestion;
     private String currentQuestionText;
+    private String[] numeralSystems;
+
     private int questionLength = 2;
 
     private FragmentManager fragmentManager;
     private QuestionFragment questionFragment;
+
 
 
     // case multiple choice
@@ -66,6 +69,8 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
             numeral1Base = extras.getInt(Constants.KEY_NUMERAL_1_BASE);
             numeral2Base = extras.getInt(Constants.KEY_NUMERAL_2_BASE);
         }
+
+        numeralSystems = getResources().getStringArray(R.array.numeral_systems);
         setUpUI();
         setUpKeyboard();
         setUpQuestionTypeSpecificStuff();
@@ -77,6 +82,7 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
         super.onStart();
         switch (typeOfQuestion){
             case Constants.MULTIPLE_CHOICE:
+                questionFragment.setButtonTexts(buttonTexts);
 
         }
     }
@@ -119,24 +125,11 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
             myKeyboardView = (KeyboardView) findViewById(R.id.custom_keyboard);
             myKeyboardView.setKeyboard(myKeyboard);
             //Do not show the preview balloons
-            //myKeyboardView.setPreviewEnabled(false);
+            myKeyboardView.setPreviewEnabled(false);
             //Key Handler
             myKeyboardView.setOnKeyboardActionListener(mOnKeyboardActionListener);
            // getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-            test.setOnFocusChangeListener(new View.OnFocusChangeListener(){
-
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if(hasFocus) openKeyboard(v);
-                }
-            });
-            test.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    openKeyboard(v);
-                }
-            });
         }
 
 
@@ -180,12 +173,12 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
         String questionText = null ;
         switch (typeOfQuestion){
             case Constants.MULTIPLE_CHOICE:
+                MultipleChoiceQuestionFragment questionFragment1 = new MultipleChoiceQuestionFragment();
                 MultipleChoiceQuestion currentQuestion1 = new MultipleChoiceQuestion(numeral1Base, numeral2Base, questionLength);
                 this.currentQuestion = currentQuestion1;
-                MultipleChoiceQuestionFragment questionFragment1 = new MultipleChoiceQuestionFragment();
-                questionFragment1.setButtonTexts(currentQuestion1.generatePossAnswers());
+                buttonTexts = currentQuestion1.generatePossAnswers();
                 setUpFragment(questionFragment1);
-                questionText = StringRes.getString(R.string.multiple_choice_question_1)+numeral1Base+StringRes.getString(R.string.multiple_choice_question_2)+numeral2Base + StringRes.getString(R.string.multiple_choice_question_3) ;
+                questionText = StringRes.getString(R.string.multiple_choice_question_1)+numeralSystems[numeral1Base]+StringRes.getString(R.string.multiple_choice_question_2)+numeralSystems[numeral2Base] + StringRes.getString(R.string.multiple_choice_question_3)+currentQuestion1.getQuestionNumber() ;
                 break;
             case Constants.TRUE_FALSE:
                 TrueFalseQuestionFragment questionFragment2 = new TrueFalseQuestionFragment();
@@ -199,7 +192,7 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
                 FreeTextQuestion currentQuestion3 = new FreeTextQuestion(numeral1Base, numeral2Base, questionLength);
                 this.currentQuestion = currentQuestion3;
                 setUpFragment(questionFragment3);
-                questionText = StringRes.getString(R.string.freetext_question_1)+numeral1Base+StringRes.getString(R.string.freetext_question_2)+numeral2Base + StringRes.getString(R.string.freetext_question_3)+" "+ currentQuestion3.getQuestionNumber();
+                questionText = StringRes.getString(R.string.freetext_question_1)+numeralSystems[numeral1Base-2]+StringRes.getString(R.string.freetext_question_2)+numeralSystems[numeral2Base] + StringRes.getString(R.string.freetext_question_3)+" "+ currentQuestion3.getQuestionNumber();
             default:
                 currentQuestion = new MultipleChoiceQuestion(numeral1Base, numeral2Base, questionLength);
         }
@@ -230,7 +223,7 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
         @Override
         public void onKey(int primaryCode, int[] keyCodes) {
 
-            //von hier
+
             View focusCurrent = PracticeActivity.this.getWindow().getCurrentFocus();
             if(focusCurrent == null || focusCurrent.getClass()!=EditText.class){
                 return;
@@ -238,7 +231,6 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
             EditText editText = (EditText) focusCurrent;
             Editable editable = editText.getText();
             int start = editText.getSelectionStart();
-            // bis hier: Code von Marten Pennings, in stackoverflow nicht enthalten
 
             switch(primaryCode){
                 case -1:

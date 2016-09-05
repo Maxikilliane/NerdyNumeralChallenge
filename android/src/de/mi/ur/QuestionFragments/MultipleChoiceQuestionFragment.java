@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,48 +23,54 @@ import de.mi.ur.R;
  * Created by Anna-Marie on 02.09.2016.
  */
 public class MultipleChoiceQuestionFragment extends QuestionFragment{
-    private MultipleChoiceQuestion question;
-
-    Button choice1;
-    Button choice2;
-    Button choice3;
-    Button choice4;
-
-    private RadioGroup choices;
-    private View thisFragmentView;
+    private RadioGroup multipleChoices;
+    private RadioButton button1;
+    private TextView useless;
+    private View fragmentView;
 
 
     public MultipleChoiceQuestionFragment(){
         super();
     }
 
-
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View fragmentView = inflater.inflate(R.layout.free_text_question_fragment, container, false);
-        setUpUI(fragmentView);
-        thisFragmentView = fragmentView;
-        return fragmentView;
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
     }
 
-    private void setUpUI(View fragmentView){
-        choices = (RadioGroup) fragmentView.findViewById(R.id.multiple_choices);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        View fragmentView = inflater.inflate(R.layout.multiple_choice_fragment, container, false);
+        this.fragmentView = fragmentView;
+        multipleChoices = (RadioGroup) fragmentView.findViewById(R.id.multiple_choices);
+        button1 = (RadioButton) fragmentView.findViewById(R.id.choice1);
+        useless = (TextView) fragmentView.findViewById(R.id.useless);
+
+        setUpUI();
+        return fragmentView;
+
+    }
+
+    private void setUpUI(){
+        multipleChoices = (RadioGroup) fragmentView.findViewById(R.id.multiple_choices);
+        useless = (TextView) fragmentView.findViewById(R.id.useless);
+
     }
 
 
     public void setButtonTexts(String[] texts){
 
-        for (int i = 0; i < choices.getChildCount(); i++) {
-            ((RadioButton) choices.getChildAt(i)).setText(texts[i]);
+        for (int i = 0; i < multipleChoices.getChildCount(); i++) {
+            ((RadioButton) multipleChoices.getChildAt(i)).setText(texts[i]);
 
         }
     }
 
     public boolean isCorrectAnswer(String rightAnswer){
-        int checkedButtonId = choices.getCheckedRadioButtonId();
+        int checkedButtonId = multipleChoices.getCheckedRadioButtonId();
         if(checkedButtonId == -1){
             return false;
         }else{
-            RadioButton checkedButton = (RadioButton)thisFragmentView.findViewById(checkedButtonId);
+            RadioButton checkedButton = (RadioButton)fragmentView.findViewById(checkedButtonId);
             if(checkedButton.getText().toString().equals(rightAnswer)){
                 return true;
             }else{

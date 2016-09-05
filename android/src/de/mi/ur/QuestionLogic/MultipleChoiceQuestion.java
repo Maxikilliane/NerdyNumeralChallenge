@@ -1,6 +1,7 @@
 package de.mi.ur.QuestionLogic;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by Anna-Marie on 02.08.2016.
@@ -19,23 +20,28 @@ public class MultipleChoiceQuestion extends Question {
         this.rightAnswer = convertFromNumeralToNumeral(question, numeral1Base, numeral2Base);
     }
 
-    public String[] generatePossAnswers(){
+    public String[] generatePossAnswers() {
         ArrayList<String> possAnswers = new ArrayList<String>();
-        for(int i = 0; i <3; i++){
-            String possAnswer = generateNumWithMaxDigits(getNumeral1Base(), getMaxDigits());
-            if(!possAnswers.contains(possAnswer)){
+        for (int i = 0; i < 3; i++) {
+            String possAnswer = generateNumBelowMax(getNumeral2Base(), (int) Math.pow(getNumeral1Base(), getMaxDigits()));
+            while (possAnswers.contains(possAnswer) || possAnswer.equals(rightAnswer)) {
+                possAnswer = generateNumBelowMax(getNumeral2Base(), (int) Math.pow(getNumeral1Base(), getMaxDigits()));
+            }
+            if (!possAnswers.contains(possAnswer)) {
                 possAnswers.add(possAnswer);
             }
         }
-        possAnswers.add(rightAnswer);
-        return possAnswers.toArray(new String[4]);
+            possAnswers.add(rightAnswer);
+            Collections.shuffle(possAnswers);
+            return possAnswers.toArray(new String[4]);
+
     }
 
     public String getQuestionNumber(){
         return question;
     }
 
-    public String getRightAnswerNumber(){
+    public String getRightAnswerString(){
         return rightAnswer;
     }
 
