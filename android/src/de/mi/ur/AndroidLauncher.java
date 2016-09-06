@@ -31,7 +31,7 @@ public class AndroidLauncher extends AndroidApplication implements MultipleChoic
 	public String[] getQuestionInfos(int numeral1Base, int numeral2Base, int maxDigits, int difficulty) {
 		MultipleChoiceQuestion question = new MultipleChoiceQuestion(numeral1Base, numeral2Base, maxDigits);
 		String[] possAnswers = question.generatePossAnswers();
-		String[] multipleChoiceQuestionInfos = {question.getQuestionNumber(), question.getRightAnswerString(), possAnswers[0], possAnswers[1], possAnswers[2], possAnswers[3]};
+		String[] multipleChoiceQuestionInfos = {question.getQuestion(), question.getRightAnswerString(), possAnswers[0], possAnswers[1], possAnswers[2], possAnswers[3]};
 		return multipleChoiceQuestionInfos;
 	}
 

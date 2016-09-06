@@ -16,8 +16,8 @@ public class TrueFalseQuestion extends Question {
 
     // noch dran arbeiten - wenn num1Base kleiner als num2Base, sollte die zweite Zahl weniger Ziffern haben
     private String generateQuestion(int numeral1Base, int numeral2Base, int maxDigits){
-        String num1 = generateNumWithMaxDigits(numeral1Base, maxDigits);
-        int numInt1 = convertFromNumeral(num1, numeral1Base);
+        String num1 = NumeralConverter.generateNumWithMaxDigits(numeral1Base, maxDigits);
+        int numInt1 = NumeralConverter.convertFromNumeral(num1, numeral1Base);
         String comparator = comparators[getRandomGenerator().nextInt(4)];
         this.rightAnswer = getRandomGenerator().nextBoolean();
         String num2;
@@ -25,21 +25,21 @@ public class TrueFalseQuestion extends Question {
         if(this.rightAnswer){
             switch(comparator){
                 case"=":
-                    num2 = convertFromNumeralToNumeral(num1, numeral1Base, numeral2Base);
+                    num2 = NumeralConverter.convertFromNumeralToNumeral(num1, numeral1Base, numeral2Base);
                     break;
                 case"≠":
-                    num2 = generateNumWithMaxDigits(numeral2Base, maxDigits);
-                    if(convertFromNumeral(num2, numeral2Base) == convertFromNumeral(num1, numeral1Base)){
+                    num2 = NumeralConverter.generateNumWithMaxDigits(numeral2Base, maxDigits);
+                    if(NumeralConverter.convertFromNumeral(num2, numeral2Base) == NumeralConverter.convertFromNumeral(num1, numeral1Base)){
                         num2 = num2 +"1"; // nicht so ganz ideale Lösung, da dann längere Zahl
                     }
                     break;
                 case"<":
                     numInt2 = numInt1 + getRandomGenerator().nextInt(20);
-                    num2 = convertToNumeral(numInt2, numeral2Base);
+                    num2 = NumeralConverter.convertToNumeral(numInt2, numeral2Base);
                     break;
                 case ">":
                     numInt2 = numInt1 - getRandomGenerator().nextInt(20);
-                    num2 = convertToNumeral(numInt2, numeral2Base);
+                    num2 = NumeralConverter.convertToNumeral(numInt2, numeral2Base);
                     break;
                 default:
                     num2 = "-1";
@@ -47,21 +47,21 @@ public class TrueFalseQuestion extends Question {
         }else{
             switch(comparator){
                 case"=":
-                    num2 = generateNumWithMaxDigits(numeral2Base, maxDigits);
-                    if(convertFromNumeral(num2, numeral2Base) == convertFromNumeral(num1, numeral1Base)){
+                    num2 = NumeralConverter.generateNumWithMaxDigits(numeral2Base, maxDigits);
+                    if(NumeralConverter.convertFromNumeral(num2, numeral2Base) == NumeralConverter.convertFromNumeral(num1, numeral1Base)){
                         num2 = num2 +"1"; // nicht so ganz ideale Lösung, da dann längere Zahl
                     }
                     break;
                 case"≠":
-                    num2 = convertFromNumeralToNumeral(num1, numeral1Base, numeral2Base);
+                    num2 = NumeralConverter.convertFromNumeralToNumeral(num1, numeral1Base, numeral2Base);
                     break;
                 case"<":
                     numInt2 = numInt1 - getRandomGenerator().nextInt(10);
-                    num2 = convertToNumeral(numInt2, numeral2Base);
+                    num2 = NumeralConverter.convertToNumeral(numInt2, numeral2Base);
                     break;
                 case ">":
                     numInt2 = numInt1 + getRandomGenerator().nextInt(10);
-                    num2 = convertToNumeral(numInt2, numeral2Base);
+                    num2 = NumeralConverter.convertToNumeral(numInt2, numeral2Base);
                     break;
                 default:
                     num2 = "-1";

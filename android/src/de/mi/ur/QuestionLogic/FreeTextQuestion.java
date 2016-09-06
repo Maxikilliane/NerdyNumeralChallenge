@@ -10,13 +10,13 @@ public class FreeTextQuestion extends Question {
     public FreeTextQuestion(int numeral1Base, int numeral2Base, int maxDigits) {
         super(numeral1Base, numeral2Base, maxDigits);
 
-        this.questionNumber = generateNumWithMaxDigits(numeral1Base, maxDigits);
+        this.questionNumber = NumeralConverter.generateNumWithMaxDigits(numeral1Base, maxDigits);
 
-        this.rightAnswer = convertFromNumeralToNumeral(questionNumber, numeral1Base, numeral2Base);
+        this.rightAnswer = NumeralConverter.convertFromNumeralToNumeral(questionNumber, numeral1Base, numeral2Base);
 
     }
 
-    public String getQuestionNumber() {
+    public String getQuestion() {
         return questionNumber;
     }
 
