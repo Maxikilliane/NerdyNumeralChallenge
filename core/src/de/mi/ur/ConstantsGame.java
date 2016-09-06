@@ -53,6 +53,10 @@ public class ConstantsGame {
         //Array-Positionen für Frage und Antwort
         public static final int QUESTION_POS = 0;
         public static final int RIGHT_ANSWER_POS = 1;
+        public static final int POSS_ANSWER1_POS = 2;
+        public static final int POSS_ANSWER2_POS = 3;
+        public static final int POSS_ANSWER3_POS = 4;
+        public static final int POSS_ANSWER4_POS = 5;
 
 
         // für Random-Generator

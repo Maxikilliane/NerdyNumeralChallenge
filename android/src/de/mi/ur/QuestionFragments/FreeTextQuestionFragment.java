@@ -35,6 +35,19 @@ public class FreeTextQuestionFragment extends QuestionFragment {
         View fragmentView = inflater.inflate(R.layout.free_text_question_fragment, container, false);
         this.solutionEditText = (EditText) fragmentView.findViewById(R.id.freetext_edit_text);
         this.solutionEditText.setInputType(InputType.TYPE_NULL);
+        this.solutionEditText.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus) mCallback.onOpen();
+            }
+        });
+        solutionEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCallback.onOpen();
+            }
+        });
         return fragmentView;
     }
 
@@ -50,21 +63,23 @@ public class FreeTextQuestionFragment extends QuestionFragment {
         // the callback interface. If not, it throws an exception
         try {
             mCallback = (OnKeyboardListener) context;
-            this.solutionEditText.setOnFocusChangeListener(new View.OnFocusChangeListener(){
-
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    if(hasFocus) mCallback.onOpen();
-                }
-            });
-            solutionEditText.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mCallback.onOpen();
-                }
-            });
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString()
+                    + " must implement OnKeyboardListener");
+        }
+    }
+
+
+    public void onAttach(Activity activity){
+        super.onAttach(activity);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            this.mCallback = (OnKeyboardListener) activity;
+
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
                     + " must implement OnKeyboardListener");
         }
     }
