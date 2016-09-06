@@ -178,7 +178,7 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
                 this.currentQuestion = currentQuestion1;
                 buttonTexts = currentQuestion1.generatePossAnswers();
                 setUpFragment(questionFragment1);
-                questionText = StringRes.getString(R.string.multiple_choice_question_1)+numeralSystems[numeral1Base]+StringRes.getString(R.string.multiple_choice_question_2)+numeralSystems[numeral2Base] + StringRes.getString(R.string.multiple_choice_question_3)+currentQuestion1.getQuestionNumber() ;
+                questionText = StringRes.getString(R.string.multiple_choice_question_1)+numeralSystems[numeral1Base-2]+StringRes.getString(R.string.multiple_choice_question_2)+numeralSystems[numeral2Base-2] + StringRes.getString(R.string.multiple_choice_question_3)+currentQuestion1.getQuestionNumber() ;
                 break;
             case Constants.TRUE_FALSE:
                 TrueFalseQuestionFragment questionFragment2 = new TrueFalseQuestionFragment();
@@ -192,7 +192,7 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
                 FreeTextQuestion currentQuestion3 = new FreeTextQuestion(numeral1Base, numeral2Base, questionLength);
                 this.currentQuestion = currentQuestion3;
                 setUpFragment(questionFragment3);
-                questionText = StringRes.getString(R.string.freetext_question_1)+numeralSystems[numeral1Base-2]+StringRes.getString(R.string.freetext_question_2)+numeralSystems[numeral2Base] + StringRes.getString(R.string.freetext_question_3)+" "+ currentQuestion3.getQuestionNumber();
+                questionText = StringRes.getString(R.string.freetext_question_1)+numeralSystems[numeral1Base-2]+StringRes.getString(R.string.freetext_question_2)+numeralSystems[numeral2Base-2] + StringRes.getString(R.string.freetext_question_3)+" "+ currentQuestion3.getQuestionNumber();
             default:
                 currentQuestion = new MultipleChoiceQuestion(numeral1Base, numeral2Base, questionLength);
         }
@@ -274,6 +274,6 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
 
     @Override
     public void onOpen() {
-        //openKeyboard(context.getView());
+        openKeyboard(findViewById(android.R.id.content));
     }
 }

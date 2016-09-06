@@ -33,9 +33,9 @@ public class FreeTextQuestionFragment extends QuestionFragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View fragmentView = inflater.inflate(R.layout.free_text_question_fragment, container, false);
-        solutionEditText = (EditText) fragmentView.findViewById(R.id.freetext_edit_text);
-        solutionEditText.setInputType(InputType.TYPE_NULL);
-        solutionEditText.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+        this.solutionEditText = (EditText) fragmentView.findViewById(R.id.freetext_edit_text);
+        this.solutionEditText.setInputType(InputType.TYPE_NULL);
+        this.solutionEditText.setOnFocusChangeListener(new View.OnFocusChangeListener(){
 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
