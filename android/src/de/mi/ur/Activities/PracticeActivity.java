@@ -3,6 +3,7 @@ package de.mi.ur.Activities;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
@@ -34,7 +35,7 @@ import de.mi.ur.R;
  * Created by Anna-Marie on 03.09.2016.
  */
 public class PracticeActivity extends Activity implements FreeTextQuestionFragment.OnKeyboardListener{
-    private TextView questionTextView;
+    private TextView questionTextView, questionChangeableView;
     private ProgressBar practiseProgressBar;
     private Button solutionButton;
 
@@ -45,13 +46,13 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
     private KeyboardView myKeyboardView;
     private KeyboardView.OnKeyboardActionListener mOnKeyboardActionListener;
 
-    private int numeral1Base;
-    private int numeral2Base;
+    private int numeral1Base, numeral2Base;
     private int questionLength = 2;
 
     private int typeOfQuestion;
     private Question currentQuestion;
     private String questionTypeText;
+    private boolean currentQuestionSolved = false;
 
     private String[] numeralSystems;
     String [] buttonTexts;
@@ -92,7 +93,8 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
     }
 
     private void setUpUI(){
-        questionTextView = (TextView) findViewById(R.id.question_textView);
+        questionTextView = (TextView) findViewById(R.id.question_textview);
+        questionChangeableView = (TextView) findViewById(R.id.question_changeable_textview);
         practiseProgressBar = (ProgressBar) findViewById(R.id.question_progressbar);
         solutionButton = (Button) findViewById(R.id.question_solution_button);
         solutionButton.setOnClickListener(new View.OnClickListener() {
@@ -101,15 +103,33 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
                 String text;
                 if(questionFragment.isCorrectAnswer(currentQuestion.getRightAnswerString())){
                     text = "correct";
+                    currentQuestionSolved = true;
                 }else{
                     text ="wrong";
+                    currentQuestionSolved = false;
                 }
                 Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+                updateProgress();
             }
         });
     }
 
-    private void moreQuestions(){
+    private void updateProgress(){
+        if(currentQuestionSolved){
+            practiseProgressBar.incrementProgressBy(10);
+            currentQuestionSolved = false;
+
+            if(practiseProgressBar.getProgress() == 100 ){
+                // an dieser Stelle müssten dann noch die geschafften Aufgaben (Punkte) in die Datenbank gespeichert werden
+                startActivity(new Intent(PracticeActivity.this, PracticeMainActivity.class));
+            }
+        }
+        updateQuestion();
+    }
+
+    private void updateQuestion(){
+        setUpQuestion();
+        questionChangeableView.setText(currentQuestion.getQuestion());
 
     }
 
@@ -235,8 +255,25 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
         }
 
         setUpFragment(questionFragment);
-        questionText = questionTypeText + currentQuestion.getQuestion();
-        questionTextView.setText(questionText);
+        //setUpQuestion();
+        questionTextView.setText(questionTypeText);
+        questionChangeableView.setText(currentQuestion.getQuestion());
+    }
+
+    private void setUpQuestion(){
+        switch (typeOfQuestion){
+            case Constants.MULTIPLE_CHOICE:
+                currentQuestion = new MultipleChoiceQuestion(numeral1Base, numeral2Base, questionLength);
+                buttonTexts = currentQuestion.generatePossAnswers();
+                questionFragment.setButtonTexts(buttonTexts);
+                break;
+            case Constants.TRUE_FALSE:
+                currentQuestion = new TrueFalseQuestion(numeral1Base,numeral2Base, questionLength);
+                break;
+            default:
+                currentQuestion = new FreeTextQuestion(numeral1Base, numeral2Base, questionLength);
+
+        }
     }
 
     private void setUpFragment(QuestionFragment questionFragment){
