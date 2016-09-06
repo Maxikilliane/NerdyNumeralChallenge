@@ -13,20 +13,22 @@ public class AnswerPhones {
 
     private Vector2 position;
 
+
     private Rectangle bounds;
-    private Texture texture;
+
 
     private Animation phoneAnimation;
+    private Animation phoneAnimation2;
 
 
     public boolean colliding;
 
 
-    public AnswerPhones(int x, int y) {
+    public AnswerPhones(int x, int y, Texture texture) {
         position = new Vector2(x, y);
 
 
-        texture = new Texture("phone_answer_new_1.png");
+
         phoneAnimation = new Animation(new TextureRegion(texture), 3, 0.8f);
 
         bounds = new Rectangle(x, y, texture.getWidth() / 3, texture.getHeight());
@@ -40,6 +42,8 @@ public class AnswerPhones {
 
     public void update(float dt) {
         phoneAnimation.update(dt);
+        bounds.setPosition(position.x, position.y);
+
 
     }
 
@@ -53,17 +57,11 @@ public class AnswerPhones {
         return position.x;
     }
 
+
     public float getY() {
         return position.y;
     }
 
-    public float getWidth() {
-        return texture.getWidth();
-    }
-
-    public float getHeight() {
-        return texture.getHeight();
-    }
 
     public TextureRegion getTexture() {
         return phoneAnimation.getFrame();

@@ -10,7 +10,7 @@ import java.util.Random;
 
 import de.mi.ur.AndroidCommunication.HighscoreListener;
 import de.mi.ur.ConstantsGame;
-import de.mi.ur.gameLogic.GameQuestion2;
+import de.mi.ur.gameLogic.GameQuestion;
 import de.mi.ur.gameLogic.Score;
 import de.mi.ur.sprites.AnswerPhones;
 import de.mi.ur.sprites.Nerd;
@@ -20,21 +20,28 @@ import de.mi.ur.sprites.Woman;
 
 /**
  * Created by maxiwindl on 31.07.16.
- *
+ * <p>
  * Vor Abgeben noch GameQuestion1 und das HoffentlichNurVoruebergehend-Package löschen!
- *
+ * <p>
  * Obstacle funktioniert jetzt.
  */
 public class PlayState extends State {
 
     private Nerd nerd;
-    private AnswerPhones phones;
     private Texture background;
     public static Texture ground;
     private Score score;
     private Random random;
     //private GameQuestion gameQuestion;
-    private GameQuestion2 gameQuestion;
+    private GameQuestion gameQuestion;
+
+    private Texture answerPhone1;
+    private Texture answerPhone2;
+    private Texture answerPhone3;
+
+    private AnswerPhones phones;
+    private AnswerPhones phones2;
+    private AnswerPhones phones3;
 
     private Woman woman;
     public static boolean hasHit;
@@ -55,21 +62,27 @@ public class PlayState extends State {
         this.highscoreListener = gameManager.getHighscoreListener();
         ground = new Texture("ground.png");
         nerd = new Nerd(ConstantsGame.NERD_X, ConstantsGame.NERD_Y);
-        phones = new AnswerPhones(400, 200);
+        answerPhone1 = new Texture("phone_answer_new_1.png");
+        answerPhone2 = new Texture("phone_different_animation_2.png");
+        answerPhone3 = new Texture("phone_answer_new_3.png");
+
+        phones = new AnswerPhones(400, 200, answerPhone1);
+        phones2 = new AnswerPhones(450, 200, answerPhone2);
+        phones3 = new AnswerPhones(500, 200, answerPhone3);
+
         background = new Texture("background_final.png");
         //background = getBackgroundWeather(gameManager);
         score = new Score();
         score.startTimer();
         random = new Random();
-        //gameQuestion = new GameQuestion1();
-        gameQuestion = new GameQuestion2(gameManager.getMultipleChoiceListener());
+
+        gameQuestion = new GameQuestion(gameManager.getMultipleChoiceListener());
 
         //women = new Array<Woman>();
 
         //pits = new Array<Pit>();
 
         obstacles = new Array<Obstacle>();
-
 
 
         for (int i = 0; i < 4; i++) {
@@ -88,8 +101,6 @@ public class PlayState extends State {
     }
 
 
-
-
     @Override
     protected void handleInput() {
         if (Nerd.jumpFinished) {
@@ -104,8 +115,6 @@ public class PlayState extends State {
     }
 
 
-
-
     private void updateWomen() {
         for (int i = 0; i < women.size; i++) {
             Woman woman = women.get(i);
@@ -118,10 +127,10 @@ public class PlayState extends State {
                     Score.thisCounter = 0;
                     saveScore();
                     gameManager.set(new MenueState(gameManager));
-            }
+                }
                 hasHit = true;
                 counter++;
-        }
+            }
         }
 
     }
@@ -145,16 +154,23 @@ public class PlayState extends State {
     }
 
     private void updatePhones() {
-        for (int i = 0; i < 3; i++) {
-            if (cam.position.x - (cam.viewportWidth / 2) > phones.getPosition().x + phones.getWidth()) {
-                phones.getPosition().add(phones.getWidth() * 4, 0);
-            }
-            if (phones.collides(nerd.getBounds())) {
-                counter = -1;
-                saveScore();
-                gameManager.set(new MenueState(gameManager));
-            }
+
+        if (cam.position.x - (cam.viewportWidth / 2) > phones.getPosition().x + answerPhone1.getWidth()) {
+            phones.getPosition().add(answerPhone1.getWidth() * 4, 0);
         }
+        if (cam.position.x - (cam.viewportWidth / 2) > phones2.getPosition().x + answerPhone2.getWidth()) {
+            phones2.getPosition().add(answerPhone2.getWidth() * 4, 0);
+        }
+        if (cam.position.x - (cam.viewportWidth / 2) > phones3.getPosition().x + answerPhone3.getWidth()) {
+            phones3.getPosition().add(answerPhone3.getWidth() * 4, 0);
+        }
+
+
+       /* if (phones.collides(nerd.getBounds())) {
+            counter = -1;
+            saveScore();
+            gameManager.set(new MenueState(gameManager));
+        }*/
 
 
     }
@@ -214,6 +230,8 @@ public class PlayState extends State {
         }*/
         updatePhones();
         phones.update(dt);
+        phones2.update(dt);
+        phones3.update(dt);
         score.updateScore();
         gameQuestion.updateQuestions(cam);
 
@@ -270,6 +288,8 @@ public class PlayState extends State {
         spriteBatch.draw(ground, groundPos2.x, groundPos2.y);
         spriteBatch.draw(nerd.getTexture(), nerd.getX(), nerd.getY());
         spriteBatch.draw(phones.getTexture(), phones.getX(), phones.getY());
+        spriteBatch.draw(phones2.getTexture(), phones2.getX(), phones2.getY());
+        spriteBatch.draw(phones3.getTexture(), phones3.getX(), phones3.getY());
         /*for (Pit pit : pits) {
             spriteBatch.draw(pit.getPit(), pit.getPitPos().x, pit.getPitPos().y);
         }

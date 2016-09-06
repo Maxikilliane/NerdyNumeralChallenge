@@ -4,11 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import de.mi.ur.AndroidCommunication.MultipleChoiceListener;
@@ -17,31 +15,25 @@ import de.mi.ur.ConstantsGame;
 /**
  * Created by Anna-Marie on 30.08.2016.
  */
-public class GameQuestion2 {
-    private Rectangle bounds;
+public class GameQuestion {
     private Score score;
 
 
-
     private String toSolve;
-    private Rectangle rect;
     private String wrongAnswer1;
     private String wrongAnswer2;
     private String rightAnswer;
 
-    private int movementValue = ConstantsGame.QUESTION_ANSWER_OFFSET_X;
-
+    private String[] question;
+    private ArrayList<String> answers;
+    private ArrayList<Integer> used;
+    private ArrayList<Integer> remaining;
 
     private BitmapFont toSolveBitmap;
     private BitmapFont rightAnswerBitmap;
     private BitmapFont wrongAnswer1Bitmap;
     private BitmapFont wrongAnswer2Bitmap;
 
-    private GlyphLayout layout;
-
-    private int wrongPos1;
-    private int wrongPos2;
-    private int rightPos;
 
     private MultipleChoiceListener multipleChoiceGenerator;
     private int numeral1Base;
@@ -50,20 +42,19 @@ public class GameQuestion2 {
 
     private Random randomGen;
 
-    private Vector2 rightAnswerPos;
 
     //evtl Enum übergeben ob Hex oder Binär... Random-Gen...
-    public GameQuestion2(MultipleChoiceListener multipleChoiceGenerator) {
+    public GameQuestion(MultipleChoiceListener multipleChoiceGenerator) {
         randomGen = new Random();
 
 
         this.multipleChoiceGenerator = multipleChoiceGenerator;
 
         //binär oder Hex-Abfrage
-        if(true){
+        if (true) {
             numeral1Base = 2;
             maxDigits = 6;
-        }else{
+        } else {
             numeral1Base = 16;
             maxDigits = 2;
         }
@@ -74,6 +65,7 @@ public class GameQuestion2 {
         wrongAnswer1 = "";
         rightAnswer = "";
         wrongAnswer2 = "";
+
         toSolveBitmap = new BitmapFont(Gdx.files.internal("good_times4question.fnt"));
         toSolveBitmap.setUseIntegerPositions(false);
 
@@ -87,57 +79,84 @@ public class GameQuestion2 {
         wrongAnswer2Bitmap = new BitmapFont(Gdx.files.internal("cantarrell4question.fnt"));
         wrongAnswer2Bitmap.setUseIntegerPositions(false);
 
-        rightAnswerPos = new Vector2(150, 0);
-        layout = new GlyphLayout();
-        layout.setText(rightAnswerBitmap, rightAnswer);
-        bounds = new Rectangle(rightAnswerPos.x, rightAnswerPos.y, layout.width, layout.height);
+
     }
 
-    public float getRightAnswerWidth() {
-        return layout.width;
+    public ArrayList<String> generatePossAnswers() {
+        ArrayList<String> possAnswers = new ArrayList<String>();
+
+
+        for (int i = 0; i < 2; i++) {
+            String possAnswer = generateWrongAnswer();
+            if (!possAnswers.contains(possAnswer)) {
+                possAnswers.add(possAnswer);
+            }
+        }
+        rightAnswer = question[ConstantsGame.RIGHT_ANSWER_POS];
+        System.out.println("richtige Lösung: " + rightAnswer);
+        possAnswers.add(rightAnswer);
+
+        for (String answers : possAnswers) {
+            System.out.println("antwort: " + answers);
+        }
+
+        return possAnswers;
     }
 
 
     public void updateQuestions(OrthographicCamera cam) {
-        if (score.getCurrentScore() % 20==0) {
-            String[] question = multipleChoiceGenerator.getQuestionInfos(2, 10, 6, 0);
+        if (score.getCurrentScore() % 20 == 0) {
+            question = multipleChoiceGenerator.getQuestionInfos(2, 10, 6, 0);
             toSolve = question[ConstantsGame.QUESTION_POS] + "?";
-            rightAnswer = "3= " + question[ConstantsGame.RIGHT_ANSWER_POS];
+            answers = generatePossAnswers();
+            for (String answer : answers) {
+                System.out.println("Antworten 2: " + answer);
+            }
+            remaining = new ArrayList<Integer>();
+
+            int pos1 = randomGen.nextInt(answers.size());
+            System.out.println(" 1!!!!: " + pos1);
+            remaining.add(0);
+            remaining.add(1);
+            remaining.add(2);
+            if (remaining.contains(pos1)) {
+                rightAnswer = answers.get(pos1);
+
+                remaining.remove(pos1);
+            }
+
 
             generateWrongAnswers();
 
         }
-        if (cam.position.x - (cam.viewportWidth / 2) > rightAnswerPos.x + getRightAnswerWidth()) {
-            reposition(rightAnswerPos.x + 800);
-        }
+
     }
-
-    private void generatePos() {
-        wrongPos1 = randomGen.nextInt(2);
-        wrongPos2 = randomGen.nextInt(2);
-        if (wrongPos2 == wrongPos1) {
-            wrongPos2 = randomGen.nextInt(2);
-        }
-        rightPos = randomGen.nextInt(2);
-        if (wrongPos1 == rightPos || wrongPos2 == rightPos) {
-            rightPos = randomGen.nextInt(2);
-
-        }
-    }
-
 
     private void generateWrongAnswers() {
-        wrongAnswer1 = "1= " + generateWrongAnswer();
-        wrongAnswer2 = "2= " + generateWrongAnswer();
-        if (wrongAnswer1.equals(wrongAnswer2)) {
-            wrongAnswer2 = generateWrongAnswer();
+        int pos2 = randomGen.nextInt(remaining.size());
+        for (Integer nochÜbrig : remaining) {
+
         }
+
+        if (remaining.contains(pos2)) {
+            wrongAnswer1 = answers.get(pos2);
+            System.out.println("2!!!!:" + pos2);
+            remaining.remove(pos2);
+        }
+        int pos3 = randomGen.nextInt(remaining.size());
+        System.out.println(" 3!!!!:" + pos3);
+        if (remaining.contains(pos3)) {
+            wrongAnswer2 = answers.get(pos3);
+        }
+
+
     }
 
 
     public String generateWrongAnswer() {
         int randomLimit = (int) Math.pow(numeral1Base, maxDigits);
-        String wrongAnswer = Integer.toString(randomGen.nextInt(randomLimit));;
+        String wrongAnswer = Integer.toString(randomGen.nextInt(randomLimit));
+        ;
         if (!wrongAnswer.equals(rightAnswer)) {
             return wrongAnswer;
         }
@@ -145,28 +164,17 @@ public class GameQuestion2 {
 
     }
 
-    public void reposition(float x) {
-        rightAnswerPos.set(x, 0);
-        bounds.setPosition(rightAnswerPos.x, rightAnswerPos.y);
-    }
-
-    public boolean collides(Rectangle player) {
-        return player.overlaps(bounds);
-    }
 
     public void drawTasks(SpriteBatch batch, OrthographicCamera cam) {
 
 
         toSolveBitmap.draw(batch, toSolve, cam.position.x - 100, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
-        wrongAnswer1Bitmap.draw(batch, wrongAnswer1, cam.position.x - 30, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
+        wrongAnswer1Bitmap.draw(batch, "1:" + wrongAnswer1, cam.position.x - 30, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
         wrongAnswer1Bitmap.setColor(Color.BLACK);
-        wrongAnswer2Bitmap.draw(batch, wrongAnswer2, cam.position.x + 20, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
+        wrongAnswer2Bitmap.draw(batch, "2:" + wrongAnswer2, cam.position.x + 20, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
         wrongAnswer2Bitmap.setColor(Color.BLACK);
-        rightAnswerBitmap.draw(batch, rightAnswer, cam.position.x + 70, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
+        rightAnswerBitmap.draw(batch, "3:" + rightAnswer, cam.position.x + 70, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
         rightAnswerBitmap.setColor(Color.BLACK);
-
-
-
 
 
     }
