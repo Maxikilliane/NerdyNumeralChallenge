@@ -73,11 +73,11 @@ public class PracticeMainActivity extends AppCompatActivity implements View.OnCl
             }
         });
         */
-        multipleChoice = (Button) findViewById(R.id.multipleChoiceButton);
+        multipleChoice = (Button) findViewById(R.id.multiple_choice_button);
         multipleChoice.setOnClickListener(this);
-        freeText = (Button) findViewById(R.id.manualEntryButton);
+        freeText = (Button) findViewById(R.id.manual_entry_button);
         freeText.setOnClickListener(this);
-        trueFalse = (Button) findViewById(R.id.wrongTrueButton);
+        trueFalse = (Button) findViewById(R.id.wrong_true_button);
         trueFalse.setOnClickListener(this);
     }
 
@@ -94,15 +94,15 @@ public class PracticeMainActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         Intent i = null;
         switch (v.getId()) {
-            case R.id.multipleChoiceButton:
+            case R.id.multiple_choice_button:
                 i = new Intent(PracticeMainActivity.this, PracticeActivity.class);
                 i.putExtra(Constants.KEY_TYPE_QUESTION, Constants.MULTIPLE_CHOICE);
                 break;
-            case R.id.wrongTrueButton:
+            case R.id.wrong_true_button:
                 i = new Intent(PracticeMainActivity.this, PracticeActivity.class);
                 i.putExtra(Constants.KEY_TYPE_QUESTION, Constants.TRUE_FALSE);
                 break;
-            case R.id.manualEntryButton:
+            case R.id.manual_entry_button:
                 i = new Intent(PracticeMainActivity.this, PracticeActivity.class);
                 i.putExtra(Constants.KEY_TYPE_QUESTION, Constants.FREETEXT);
                 break;

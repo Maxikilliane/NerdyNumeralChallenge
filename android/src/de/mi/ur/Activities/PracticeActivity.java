@@ -136,8 +136,6 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
     }
 
     private void setUpUI(){
-        test = (EditText) findViewById(R.id.testEditText);
-        test.setInputType(InputType.TYPE_NULL);
         questionTextView = (TextView) findViewById(R.id.question_textView);
         practiseProgressBar = (ProgressBar) findViewById(R.id.question_progressbar);
         solutionButton = (Button) findViewById(R.id.question_solution_button);
@@ -274,6 +272,8 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
 
     @Override
     public void onOpen() {
+        myKeyboardView.setVisibility(View.VISIBLE);
+        myKeyboardView.setEnabled(true);
         openKeyboard(findViewById(android.R.id.content));
     }
 }

@@ -2,17 +2,17 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    android:background="@color/black">
 
     <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@drawable/mybackground"
         android:elevation="4dp"
         android:paddingBottom="20dp"
-        android:id="@+id/my_toolbar">
-
-
+        >
     </android.support.v7.widget.Toolbar>
 <!--
     <ScrollView
@@ -39,20 +39,25 @@
 numberpicker-height in dimen-file schreiben
 -->
     <TextView
+        android:id="@+id/choose_numeral_system_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/exercise_headline"
         android:textSize="@dimen/exercise_headline_size"
+        android:layout_marginTop="@dimen/margin"
         android:textColor="@android:color/white"
-        android:gravity="center" />
+        android:gravity="center"
+        android:layout_below="@id/my_toolbar"/>
 
     <LinearLayout
+        android:id="@+id/numberpicker_layout"
         android:padding="@dimen/activity_general_padding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/margin_bottom">
+        android:layout_marginBottom="@dimen/margin_bottom"
+        android:layout_below="@id/choose_numeral_system_textview">
 
         <de.mi.ur.NumberPicker.NumeralNumberPicker
             android:id="@+id/firstNumberPicker"
@@ -93,34 +98,38 @@ numberpicker-height in dimen-file schreiben
         android:textColor="@color/white"
         android:gravity="center"
         android:textSize="@dimen/exercise_headline_size"
-        android:layout_marginBottom="@dimen/margin_bottom" />
+        android:layout_marginBottom="@dimen/margin_bottom"
+        android:layout_below="@id/numberpicker_layout"/>
 
     <Button
+        android:id="@+id/multiple_choice_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below ="@id/exercisetype_choice_textview"
         android:text="@string/multiple_choice_button"
         android:textSize="@dimen/exercise_button_text_size"
-        android:id="@+id/multipleChoiceButton"
         android:textColor="@color/text_white"
         android:background="@drawable/my_button"
         android:layout_marginBottom="@dimen/margin_bottom"/>
 
     <Button
+        android:id="@+id/wrong_true_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/multiple_choice_button"
         android:text="@string/wrong_true_button"
         android:textSize="@dimen/exercise_button_text_size"
-        android:id="@+id/wrongTrueButton"
         android:textColor="@color/text_white"
         android:background="@drawable/my_button"
         android:layout_marginBottom="@dimen/margin_bottom"/>
 
     <Button
+        android:id="@+id/manual_entry_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/wrong_true_button"
         android:text="@string/manual_entry_button"
         android:textSize="@dimen/exercise_button_text_size"
-        android:id="@+id/manualEntryButton"
         android:textColor="@color/text_white"
         android:background="@drawable/my_button"
         android:layout_marginBottom="@dimen/margin_bottom"/>
@@ -134,5 +143,5 @@ numberpicker-height in dimen-file schreiben
 
 
 
-</LinearLayout>
+
 </RelativeLayout>
