@@ -48,6 +48,7 @@ public class MultipleChoiceQuestionFragment extends QuestionFragment{
         setUpUI();
         return fragmentView;
 
+
     }
 
     private void setUpUI(){

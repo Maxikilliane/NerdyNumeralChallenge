@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -58,10 +57,10 @@ public class GameMainActivity extends Activity  implements View.OnClickListener,
                 i.putExtra(Constants.CURRENT_WEATHER, weatherManager.getCurrentWeather());
                 break;
             case R.id.game_update_weather_button:
-                if( ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)== PackageManager.PERMISSION_GRANTED){
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 String weather = convertToWeatherName(weatherManager.getCurrentWeather());
-                toastMessage = "Wetter aktualisiert! Gerade " + weather + ". Der Spielhintergrund wurde angepasst.";}
-                else{
+                    toastMessage = "Wetter aktualisiert! Gerade " + weather + ". Der Spielhintergrund wurde angepasst.";
+                } else {
                     requestWeatherPermission(this);
                     toastMessage = "Default-Wetter: Die Sonne scheint!";
                 }
@@ -106,19 +105,19 @@ public class GameMainActivity extends Activity  implements View.OnClickListener,
         return weatherManager.getCurrentWeather();
     }
 
-    public static void requestWeatherPermission(Activity activity){
-        if(ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.ACCESS_COARSE_LOCATION)){
+    public static void requestWeatherPermission(Activity activity) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.ACCESS_COARSE_LOCATION)) {
             String toastMessage = activity.getResources().getString(R.string.location_permission_explanation);
-            Toast.makeText(activity, toastMessage, Toast.LENGTH_LONG ).show();
+            Toast.makeText(activity, toastMessage, Toast.LENGTH_LONG).show();
         }
         ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, Constants.MY_PERMISSION_REQUEST_ACCESS_COARSE_LOCATION);
 
     }
 
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults){
-        switch(requestCode){
-            case Constants.MY_PERMISSION_REQUEST_ACCESS_COARSE_LOCATION:{
-                if (grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case Constants.MY_PERMISSION_REQUEST_ACCESS_COARSE_LOCATION: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     weatherManager.getCurrentWeather();
                 }
                 break;

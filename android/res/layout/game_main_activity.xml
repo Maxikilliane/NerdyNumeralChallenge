@@ -19,7 +19,7 @@
         android:textColor="@color/black"
         android:textSize="@dimen/sun_button_textsize"
 
-        android:background="@drawable/sonni_button_new"
+        android:background="@drawable/weather_button"
         android:layout_marginBottom="@dimen/margin_bottom" />
 
 <Button

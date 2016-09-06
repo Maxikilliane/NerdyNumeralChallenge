@@ -28,7 +28,7 @@ public class LocationController implements LocationListener {
     Location currentLocation;
     private Activity currentActivity;
 
-    public LocationController(Context context, Activity activity){
+    public LocationController(Context context, Activity activity) {
         this.context = context;
         this.locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         currentActivity = activity;
@@ -46,11 +46,11 @@ public class LocationController implements LocationListener {
     }
 
     //momentan provider immer null
-   public void setCurrentPosition(){
+    public void setCurrentPosition() {
         String provider = getBestProvider();
-       if(provider == null){
-           provider = LocationManager.NETWORK_PROVIDER;
-       }
+        if (provider == null) {
+            provider = LocationManager.NETWORK_PROVIDER;
+        }
         int permissionCheck = ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION);
         if(permissionCheck == PackageManager.PERMISSION_GRANTED) {
             currentLocation = locationManager.getLastKnownLocation(provider);
@@ -63,9 +63,9 @@ public class LocationController implements LocationListener {
 
     // Momentan immer null :(
     public String getLatitude(){
-        if(currentLocation == null){
+        if (currentLocation == null) {
             return "0";
-        }else {
+        } else {
             double lat = currentLocation.getLatitude();
             return Double.toString(lat);
         }
@@ -73,9 +73,9 @@ public class LocationController implements LocationListener {
     }
 
     public String getLongitude(){
-        if(currentLocation == null){
+        if (currentLocation == null) {
             return "0";
-        }else {
+        } else {
             double lon = currentLocation.getLongitude();
             return Double.toString(lon);
         }

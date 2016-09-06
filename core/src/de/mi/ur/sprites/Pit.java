@@ -4,10 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-import java.util.Random;
-
 import de.mi.ur.ConstantsGame;
-import de.mi.ur.gameLogic.GameQuestion1;
 
 /**
  * Created by maxiwindl on 01.08.16.
@@ -41,29 +38,29 @@ public class Pit extends Obstacle {
         return pitPos;
     }
 
-    public Vector2 getObstaclePos(){
+    public Vector2 getObstaclePos() {
         return getPitPos();
     }
 
-    public Texture getTexture(){
+    public Texture getTexture() {
         return pit;
     }
 
     public boolean collides(Rectangle player){
-       // return super.collides(player);
+        // return super.collides(player);
         return player.overlaps(bounds);
     }
 
     public void dispose() {
-       // super.dispose();
+        // super.dispose();
         pit.dispose();
     }
 
 
     public void reposition(float x){
-       //super.reposition(x);
+        //super.reposition(x);
         pitPos.set(x, 0);
-        bounds.setPosition(pitPos.x,pitPos.y);
+        bounds.setPosition(pitPos.x, pitPos.y);
 
     }
 

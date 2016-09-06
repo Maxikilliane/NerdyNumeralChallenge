@@ -1,6 +1,5 @@
 package de.mi.ur.Activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -35,7 +34,7 @@ public class PracticeMainActivity extends AppCompatActivity implements View.OnCl
         setupUI();
     }
 
-    private void setupToolbar(){
+    private void setupToolbar() {
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setTitle(R.string.app_name);
@@ -94,22 +93,22 @@ public class PracticeMainActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         Intent i = null;
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.multipleChoiceButton:
-                i = new Intent (PracticeMainActivity.this, PracticeActivity.class);
+                i = new Intent(PracticeMainActivity.this, PracticeActivity.class);
                 i.putExtra(Constants.KEY_TYPE_QUESTION, Constants.MULTIPLE_CHOICE);
                 break;
             case R.id.wrongTrueButton:
-                i = new Intent (PracticeMainActivity.this, PracticeActivity.class);
+                i = new Intent(PracticeMainActivity.this, PracticeActivity.class);
                 i.putExtra(Constants.KEY_TYPE_QUESTION, Constants.TRUE_FALSE);
                 break;
             case R.id.manualEntryButton:
-                i = new Intent (PracticeMainActivity.this, PracticeActivity.class);
+                i = new Intent(PracticeMainActivity.this, PracticeActivity.class);
                 i.putExtra(Constants.KEY_TYPE_QUESTION, Constants.FREETEXT);
                 break;
         }
 
-        if(i!= null){
+        if (i != null) {
             int numeral1Base = firstNumberSystem.getValue();
             int numeral2Base = secondNumberSystem.getValue();
             i.putExtra(Constants.KEY_NUMERAL_1_BASE, numeral1Base);

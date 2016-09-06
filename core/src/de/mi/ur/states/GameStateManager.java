@@ -56,7 +56,7 @@ public class GameStateManager {
         return weatherDataListener;
     }
 
-    public HighscoreListener getHighscoreListener(){
+    public HighscoreListener getHighscoreListener() {
         return highscoreListener;
     }
 

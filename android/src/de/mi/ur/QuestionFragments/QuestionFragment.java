@@ -9,11 +9,12 @@ import android.view.ViewGroup;
 /**
  * Created by Anna-Marie on 04.09.2016.
  */
-public abstract class QuestionFragment extends Fragment {
-    public QuestionFragment(){}
+public class QuestionFragment extends Fragment {
+    public QuestionFragment() {
+    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
