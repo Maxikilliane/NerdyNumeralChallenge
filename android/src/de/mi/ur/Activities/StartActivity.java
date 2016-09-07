@@ -3,6 +3,7 @@ package de.mi.ur.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,7 +13,7 @@ import de.mi.ur.R;
 /**
  * Created by maxiwindl on 01.08.16.
  */
-public class StartActivity extends Activity implements View.OnClickListener {
+public class StartActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button buttonTutorial;
     private Button buttonPractice;

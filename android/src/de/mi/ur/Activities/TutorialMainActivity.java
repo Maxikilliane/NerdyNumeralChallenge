@@ -3,6 +3,8 @@ package de.mi.ur.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
@@ -13,13 +15,14 @@ import de.mi.ur.R;
 /**
  * Created by Anna-Marie on 01.08.2016.
  */
-public class TutorialMainActivity extends Activity implements View.OnClickListener {
+public class TutorialMainActivity extends AppCompatActivity implements View.OnClickListener {
     //ich weiß nicht, ob man die Buttons hier überhaupt braucht. ;) Bin aber jetzt mal vorsichtig
     private Button introButton;
     private Button fromDecimalButton;
     private Button fromOtherButton;
     private Button tricksButton;
 
+    private Toolbar myToolbar;
 
 
     @Override
@@ -27,6 +30,20 @@ public class TutorialMainActivity extends Activity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tutorial_main_activity);
         setUpUI();
+        setupToolbar();
+    }
+
+    private void setupToolbar() {
+        myToolbar = (Toolbar) findViewById(R.id.tutorial_main_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setTitle(R.string.tutorial_toolbar_headline);
+        myToolbar.setNavigationIcon(R.drawable.toolbar_back);
+        myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void setUpUI(){
