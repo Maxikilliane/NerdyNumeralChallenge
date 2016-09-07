@@ -2,6 +2,7 @@ package de.mi.ur.QuestionFragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,7 @@ import android.view.ViewGroup;
 /**
  * Created by Anna-Marie on 04.09.2016.
  */
-public class QuestionFragment extends Fragment {
+public abstract class QuestionFragment extends Fragment {
     public QuestionFragment() {
     }
 
@@ -24,5 +25,8 @@ public class QuestionFragment extends Fragment {
 
     //für MultipleChoice
     public void setButtonTexts(String[] texts){}
+
+    //für FreeText
+    public void setSolutionEditTextInputType(int inputType){}
 }
 

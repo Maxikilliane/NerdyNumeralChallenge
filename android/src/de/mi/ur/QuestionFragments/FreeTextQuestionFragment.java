@@ -34,7 +34,7 @@ public class FreeTextQuestionFragment extends QuestionFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View fragmentView = inflater.inflate(R.layout.free_text_question_fragment, container, false);
         this.solutionEditText = (EditText) fragmentView.findViewById(R.id.freetext_edit_text);
-        this.solutionEditText.setInputType(InputType.TYPE_NULL);
+       // this.solutionEditText.setInputType(InputType.TYPE_NULL);
         this.solutionEditText.setOnFocusChangeListener(new View.OnFocusChangeListener(){
 
             @Override
@@ -122,7 +122,7 @@ public class FreeTextQuestionFragment extends QuestionFragment {
     }
 
     public boolean isCorrectAnswer(String rightAnswer){
-        if(solutionEditText.getText().toString().equals(trimLeadingZeros(rightAnswer))){
+        if((solutionEditText.getText().toString()).equals(trimLeadingZeros(rightAnswer))){
             return true;
         }else{
             return false;

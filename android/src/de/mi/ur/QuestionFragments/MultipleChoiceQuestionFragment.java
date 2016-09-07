@@ -61,7 +61,8 @@ public class MultipleChoiceQuestionFragment extends QuestionFragment{
     public void setButtonTexts(String[] texts){
 
         for (int i = 0; i < multipleChoices.getChildCount(); i++) {
-            ((RadioButton) multipleChoices.getChildAt(i)).setText(texts[i]);
+            RadioButton button = ((RadioButton) multipleChoices.getChildAt(i));
+            button.setText(texts[i]);
 
         }
     }
@@ -73,7 +74,9 @@ public class MultipleChoiceQuestionFragment extends QuestionFragment{
         }else{
             RadioButton checkedButton = (RadioButton)fragmentView.findViewById(checkedButtonId);
             if(checkedButton.getText().toString().equals(rightAnswer)){
+                checkedButton.setChecked(false);
                 return true;
+
             }else{
                 return false;
             }

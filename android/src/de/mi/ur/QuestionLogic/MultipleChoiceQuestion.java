@@ -16,16 +16,16 @@ public class MultipleChoiceQuestion extends Question {
         super(numeral1Base, numeral2Base, maxDigits);
         this.difficulty = difficulty;
 
-        this.question = generateNumWithMaxDigits(numeral1Base, maxDigits);
-        this.rightAnswer = convertFromNumeralToNumeral(question, numeral1Base, numeral2Base);
+        this.question = NumeralConverter.generateNumWithMaxDigits(numeral1Base, maxDigits);
+        this.rightAnswer = NumeralConverter.convertFromNumeralToNumeral(question, numeral1Base, numeral2Base);
     }
 
     public String[] generatePossAnswers() {
         ArrayList<String> possAnswers = new ArrayList<String>();
         for (int i = 0; i < 3; i++) {
-            String possAnswer = generateNumBelowMax(getNumeral2Base(), (int) Math.pow(getNumeral1Base(), getMaxDigits()));
+            String possAnswer = NumeralConverter.generateNumBelowMax(getNumeral2Base(), (int) Math.pow(getNumeral1Base(), getMaxDigits()));
             while (possAnswers.contains(possAnswer) || possAnswer.equals(rightAnswer)) {
-                possAnswer = generateNumBelowMax(getNumeral2Base(), (int) Math.pow(getNumeral1Base(), getMaxDigits()));
+                possAnswer = NumeralConverter.generateNumBelowMax(getNumeral2Base(), (int) Math.pow(getNumeral1Base(), getMaxDigits()));
             }
             if (!possAnswers.contains(possAnswer)) {
                 possAnswers.add(possAnswer);
@@ -37,7 +37,7 @@ public class MultipleChoiceQuestion extends Question {
 
     }
 
-    public String getQuestionNumber(){
+    public String getQuestion(){
         return question;
     }
 
