@@ -156,41 +156,41 @@ public class PlayState extends State {
         }
     }
 
-    /*public void handleUserAnswers() {
+    public void handleUserAnswers() {
         //System.out.println ("State of heart: " + Score.getStateOfHearts());
         if (GameQuestion.getRightAnswer() == 1) {
 
             if (phone1.collides(nerd.getBounds())) {
-                //phone1.reactToCollision();
+                phone1.reactToCollision();
             } else if (phone2.collides(nerd.getBounds()) || phone3.collides(nerd.getBounds()) || phone4.collides(nerd.getBounds())) {
                 //phone1.reactToWrongCollision(gameManager);
             }
 
-        }*/
-        /*if (GameQuestion.getRightAnswer() == 2) {
-            if (phones2.collides(nerd.getBounds())) {
-                phones2.reactToCollision();
-            } else if ((phones.collides(nerd.getBounds())) || (phones3.collides(nerd.getBounds())) || (phones4.collides(nerd.getBounds()))) {
-                phones2.reactToWrongCollision(gameManager);
+        }
+        if (GameQuestion.getRightAnswer() == 2) {
+            if (phone2.collides(nerd.getBounds())) {
+                phone2.reactToCollision();
+            } else if ((phone1.collides(nerd.getBounds())) || (phone3.collides(nerd.getBounds())) || (phone4.collides(nerd.getBounds()))) {
+                // phone2.reactToWrongCollision(gameManager);
             }
         }
 
         if (GameQuestion.getRightAnswer() == 3) {
-            if (phones3.collides(nerd.getBounds())) {
-                phones3.reactToCollision();
-            } else if ((phones.collides(nerd.getBounds())) || (phones2.collides(nerd.getBounds())) || (phones4.collides(nerd.getBounds()))) {
-                phones3.reactToWrongCollision(gameManager);
+            if (phone3.collides(nerd.getBounds())) {
+                phone3.reactToCollision();
+            } else if ((phone1.collides(nerd.getBounds())) || (phone2.collides(nerd.getBounds())) || (phone4.collides(nerd.getBounds()))) {
+                // phone3.reactToWrongCollision(gameManager);
             }
         }
         if (GameQuestion.getRightAnswer() == 4) {
-            if (phones4.collides(nerd.getBounds())) {
-                phones4.reactToCollision();
-            } else if ((phones.collides(nerd.getBounds())) || (phones2.collides(nerd.getBounds())) || (phones3.collides(nerd.getBounds()))) {
-                phones3.reactToWrongCollision(gameManager);
+            if (phone4.collides(nerd.getBounds())) {
+                phone4.reactToCollision();
+            } else if ((phone1.collides(nerd.getBounds())) || (phone2.collides(nerd.getBounds())) || (phone3.collides(nerd.getBounds()))) {
+                //phones3.reactToWrongCollision(gameManager);
             }
-        }*/
+        }
 
-    //  }
+    }
 
 
     private void updatePhones() {
@@ -207,9 +207,9 @@ public class PlayState extends State {
         if (cam.position.x - (cam.viewportWidth / 2) > phone4.getPosition().x + flyingPhone4.getWidth()) {
             phone4.getPosition().add(flyingPhone4.getWidth() * 4, 0);
         }
-        // if (GameQuestion.answerGenerated) {
+        if (GameQuestion.answerGenerated) {
 
-        // handleUserAnswers();
+            handleUserAnswers();
     }
 
        /* if (phones.collides(nerd.getBounds())) {
@@ -219,7 +219,7 @@ public class PlayState extends State {
         }*/
 
 
-    ///   }
+    }
 
 
     private void updateObstacles() {

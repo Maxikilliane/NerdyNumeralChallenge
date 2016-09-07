@@ -98,7 +98,7 @@ public class Score {
         }
     }
 
-   /* private void updateHeart() {
+    private void updateHeart() {
         if (PlayState.hasHit) {
             thisCounter++;
             System.out.println(thisCounter);
@@ -116,7 +116,7 @@ public class Score {
             System.out.println(thisCounter);
         }
         PlayState.hasHit = false;
-    }*/
+    }
 
     public static void addPoints() {
         pointUpdate = 10;
@@ -133,10 +133,10 @@ public class Score {
             currentScore = "" + getTimeElapsed() + pointUpdate + "   Points";
         }
         currentScorePoints = getTimeElapsed();
-        /*if (PlayState.hasHit) {
+        if (PlayState.hasHit) {
 
             updateHeart();
-        }*/
+        }
         PlayState.hasHit = false;
 
 

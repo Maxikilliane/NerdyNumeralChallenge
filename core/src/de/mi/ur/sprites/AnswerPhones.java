@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import de.mi.ur.ConstantsGame;
+import de.mi.ur.gameLogic.Score;
 
 /**
  * Created by maxiwindl on 05.09.16.
@@ -52,6 +53,21 @@ public class AnswerPhones {
 
     public Vector2 getPosition() {
         return position;
+    }
+
+    public void reactToCollision() {
+        if (Score.getStateOfHearts() == 4) {
+            //Score.addPoints();
+        }
+        if (Score.getStateOfHearts() == 3) {
+            Score.refillHeart(false, Score.getStateOfHearts() - 1);
+        }
+        if (Score.getStateOfHearts() == 2) {
+            Score.refillHeart(false, Score.getStateOfHearts() - 1);
+        }
+        if (Score.getStateOfHearts() == 1) {
+            Score.refillHeart(false, Score.getStateOfHearts() - 1);
+        }
     }
 
     
