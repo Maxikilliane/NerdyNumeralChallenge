@@ -157,13 +157,13 @@ public class PlayState extends State {
     }
 
     public void handleUserAnswers() {
-        //System.out.println ("State of heart: " + Score.getStateOfHearts());
+        System.out.println("State of heart: " + Score.getStateOfHearts());
         if (GameQuestion.getRightAnswer() == 1) {
 
             if (phone1.collides(nerd.getBounds())) {
                 phone1.reactToCollision();
             } else if (phone2.collides(nerd.getBounds()) || phone3.collides(nerd.getBounds()) || phone4.collides(nerd.getBounds())) {
-                //phone1.reactToWrongCollision(gameManager);
+                phone1.reactToWrongCollision(gameManager);
             }
 
         }
@@ -171,7 +171,7 @@ public class PlayState extends State {
             if (phone2.collides(nerd.getBounds())) {
                 phone2.reactToCollision();
             } else if ((phone1.collides(nerd.getBounds())) || (phone3.collides(nerd.getBounds())) || (phone4.collides(nerd.getBounds()))) {
-                // phone2.reactToWrongCollision(gameManager);
+                phone2.reactToWrongCollision(gameManager);
             }
         }
 
@@ -179,14 +179,14 @@ public class PlayState extends State {
             if (phone3.collides(nerd.getBounds())) {
                 phone3.reactToCollision();
             } else if ((phone1.collides(nerd.getBounds())) || (phone2.collides(nerd.getBounds())) || (phone4.collides(nerd.getBounds()))) {
-                // phone3.reactToWrongCollision(gameManager);
+                phone3.reactToWrongCollision(gameManager);
             }
         }
         if (GameQuestion.getRightAnswer() == 4) {
             if (phone4.collides(nerd.getBounds())) {
                 phone4.reactToCollision();
             } else if ((phone1.collides(nerd.getBounds())) || (phone2.collides(nerd.getBounds())) || (phone3.collides(nerd.getBounds()))) {
-                //phones3.reactToWrongCollision(gameManager);
+                phone3.reactToWrongCollision(gameManager);
             }
         }
 
@@ -236,15 +236,19 @@ public class PlayState extends State {
                         gameManager.set(new MenueState(gameManager));
                         break;
                     case ConstantsGame.WOMAN_TYPE:
-                        if (Score.thisCounter >= 35) {
+                        hasHit = true;
+                        if (hasHit) {
+                            Score.updateHeart(gameManager);
+                        }
+                      /*  if (Score.thisCounter >= 35) {
                             Score.thisCounter = 0;
                             saveScore();
                             gameManager.set(new MenueState(gameManager));
                         }
                         hasHit = true;
-                        counter++;
+                        counter++;*/
 
-                        score.updateScore();
+                        //score.updateScore(gameManager);
                         break;
                     default:
                 }
@@ -275,7 +279,7 @@ public class PlayState extends State {
         phone2.update(dt);
         phone3.update(dt);
         phone4.update(dt);
-        score.updateScore();
+        score.updateScore(gameManager);
         gameQuestion.updateQuestions();
 
         //updateWomen();
