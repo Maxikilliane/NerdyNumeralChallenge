@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,17 +22,26 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     private Button buttonProgress;
 
     private TextView test;
+    private Toolbar myToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_activity);
         setUpUI();
+        setupToolbar();
 
          /* Testing Superscript - needs to be deleted
         test = (TextView) findViewById(R.id.testView);
         */
 
+
+    }
+
+    private void setupToolbar() {
+        myToolbar = (Toolbar) findViewById(R.id.start_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setTitle(R.string.app_name);
 
     }
 

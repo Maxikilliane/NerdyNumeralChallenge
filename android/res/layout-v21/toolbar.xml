@@ -3,6 +3,7 @@
     android:background="@drawable/mybackground"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:elevation="4dp">
+    android:elevation="4dp"
+   >
 
 </android.support.v7.widget.Toolbar>
