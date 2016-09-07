@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+import de.mi.ur.ConstantsGame;
+
 /**
  * Created by maxiwindl on 05.09.16.
  */
@@ -31,7 +33,7 @@ public class AnswerPhones {
 
         phoneAnimation = new Animation(new TextureRegion(texture), 3, 0.8f);
 
-        bounds = new Rectangle(x, y, texture.getWidth() / 3, texture.getHeight());
+        bounds = new Rectangle(x, y, texture.getWidth() / 3 + ConstantsGame.BOUNDS_OFFSET, texture.getHeight());
         colliding = false;
     }
 
@@ -52,7 +54,7 @@ public class AnswerPhones {
         return position;
     }
 
-
+    
     public float getX() {
         return position.x;
     }

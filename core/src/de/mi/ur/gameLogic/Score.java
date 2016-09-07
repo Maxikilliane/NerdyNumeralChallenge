@@ -12,19 +12,21 @@ import com.badlogic.gdx.utils.TimeUtils;
 import de.mi.ur.ConstantsGame;
 import de.mi.ur.states.PlayState;
 
+
 /**
  * Created by maxiwindl on 07.08.16.
  */
 public class Score {
 
 
-    private String currentScore;
+    private static String currentScore;
     private long currentScorePoints;
-    private Texture heartFilled;
+    private static Texture heartFilled;
     public static Array<Texture> hearts;
     private long startTime;
+    private static int pointUpdate;
     BitmapFont scoreFont;
-    private Texture heartEmpty;
+    private static Texture heartEmpty;
     public static int thisCounter = 0;
 
 
@@ -39,6 +41,18 @@ public class Score {
 
     }
 
+    public static void refillHeart(Boolean dead, int position) {
+        if (dead) {
+            hearts.set(position, heartEmpty);
+        } else {
+            hearts.set(position, heartFilled);
+        }
+    }
+
+    public static Texture getHeartFilled() {
+        return heartFilled;
+    }
+
     public void renderScore(SpriteBatch batch, OrthographicCamera cam) {
         for (int i = 0; i < 3; i++) {
             hearts.add(heartFilled);
@@ -46,7 +60,6 @@ public class Score {
 
             batch.draw(hearts.get(i), cam.position.x + ConstantsGame.SCORE_HEARTS_OFFSET_X + i * hearts.get(i).getWidth(), cam.position.y + ConstantsGame.SCORE_HEARTS_OFFSET_Y);
         }
-
 
 
         scoreFont.draw(batch, currentScore, cam.position.x + ConstantsGame.SCORE_OFFSET_X, cam.position.y + ConstantsGame.SCORE_OFFSET_Y);
@@ -71,8 +84,21 @@ public class Score {
         return TimeUtils.timeSinceMillis(startTime) / 1000;
     }
 
+    public static int getStateOfHearts() {
+        if (hearts.get(0) == heartEmpty) {
+            return 1;
+        }
+        if (hearts.get(1) == heartEmpty) {
+            return 2;
+        }
+        if (hearts.get(2) == heartEmpty) {
+            return 3;
+        } else {
+            return 4;
+        }
+    }
 
-    private void updateHeart() {
+   /* private void updateHeart() {
         if (PlayState.hasHit) {
             thisCounter++;
             System.out.println(thisCounter);
@@ -90,8 +116,11 @@ public class Score {
             System.out.println(thisCounter);
         }
         PlayState.hasHit = false;
-    }
+    }*/
 
+    public static void addPoints() {
+        pointUpdate = 10;
+    }
 
     public void updateScore() {
         if (getTimeElapsed() < 2) {
@@ -101,16 +130,18 @@ public class Score {
             currentScore = "0" + getTimeElapsed() + "   Points";
 
         } else {
-            currentScore = "" + getTimeElapsed() + "   Points";
+            currentScore = "" + getTimeElapsed() + pointUpdate + "   Points";
         }
         currentScorePoints = getTimeElapsed();
-        if (PlayState.hasHit) {
+        /*if (PlayState.hasHit) {
 
             updateHeart();
-        }
+        }*/
         PlayState.hasHit = false;
 
-        }
+
+    }
 
 
 }
+
