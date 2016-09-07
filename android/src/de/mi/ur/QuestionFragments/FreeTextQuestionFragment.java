@@ -123,6 +123,7 @@ public class FreeTextQuestionFragment extends QuestionFragment {
 
     public boolean isCorrectAnswer(String rightAnswer){
         if((solutionEditText.getText().toString()).equals(trimLeadingZeros(rightAnswer))){
+            solutionEditText.setText("");
             return true;
         }else{
             return false;

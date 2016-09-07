@@ -53,7 +53,8 @@ public class Constants {
     //
     public static final int MY_PERMISSION_REQUEST_ACCESS_COARSE_LOCATION = 1111;
 
-
+    //Practice
+    public static final int NUM_QUESTIONS_PER_PRACTICE = 10;
 
 
 }
