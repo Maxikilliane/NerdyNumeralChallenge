@@ -3,6 +3,8 @@ package de.mi.ur.Activities;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
@@ -15,9 +17,11 @@ import de.mi.ur.R;
  * Created by Anna-Marie on 01.09.2016.
  * Evtl CursorLoader verwenden um den Main-Thread nicht zu blockieren!
  */
-public class HighscoreActivity extends Activity {
+public class HighscoreActivity extends AppCompatActivity {
     private ListView highscoreListView;
     private NNCDatabase db;
+
+    private Toolbar myToolbar;
 
 
     @Override
@@ -28,6 +32,20 @@ public class HighscoreActivity extends Activity {
         db.open();
 
         setUpUI();
+        setupToolbar();
+    }
+
+    private void setupToolbar() {
+        myToolbar = (Toolbar) findViewById(R.id.game_highscore_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setTitle(R.string.game_highscore_toolbar_headline);
+        myToolbar.setNavigationIcon(R.drawable.toolbar_back);
+        myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void setUpUI() {

@@ -332,7 +332,7 @@
     <string name="tutorial_toolbar_headline">Tutorial</string>
     <string name="practice_main_toolbar_headline">Übung</string>
     <string name="game_main_toolbar_headline">Spiel</string>
-    <string name="game_highscore_tutorial_toolbar_headline">Highscore</string>
+    <string name="game_highscore_toolbar_headline">Highscore</string>
     <string name="game_help_toolbar_headline">Hilfe</string>
     <string name="progress_toolbar_headline">Fortschritt</string>
     <string name="settings_toolbar_headline">Einstellungen</string>
