@@ -17,11 +17,12 @@ import de.mi.ur.sprites.Nerd;
 import de.mi.ur.sprites.Obstacle;
 import de.mi.ur.sprites.Pit;
 import de.mi.ur.sprites.Woman;
+
 /**
  * Created by maxiwindl on 31.07.16.
- * <p>
+ * <p/>
  * Vor Abgeben noch GameQuestion1 und das HoffentlichNurVoruebergehend-Package löschen!
- * <p>
+ * <p/>
  * Obstacle funktioniert jetzt.
  */
 public class PlayState extends State {
@@ -33,6 +34,8 @@ public class PlayState extends State {
     private Random random;
     //private GameQuestion gameQuestion;
     private GameQuestion gameQuestion;
+
+    public static boolean alreadChanged = false;
 
     private Texture flyingPhone1;
     private Texture flyingPhone2;
@@ -47,7 +50,6 @@ public class PlayState extends State {
     private Woman woman;
     public static boolean hasHit;
     private Array<Woman> women;
-    public static int counter = -1;
 
     private Texture heartEmpty;
 
@@ -132,7 +134,7 @@ public class PlayState extends State {
                     gameManager.set(new MenueState(gameManager));
                 }
                 hasHit = true;
-                counter++;
+
             }
         }
 
@@ -157,7 +159,6 @@ public class PlayState extends State {
     }
 
     public void handleUserAnswers() {
-        System.out.println("State of heart: " + Score.getStateOfHearts());
         if (GameQuestion.getRightAnswer() == 1) {
 
             if (phone1.collides(nerd.getBounds())) {
@@ -210,7 +211,7 @@ public class PlayState extends State {
         if (GameQuestion.answerGenerated) {
 
             handleUserAnswers();
-    }
+        }
 
        /* if (phones.collides(nerd.getBounds())) {
             counter = -1;
@@ -231,24 +232,31 @@ public class PlayState extends State {
             if (obstacle.collides(nerd.getBounds())) {
                 switch (obstacle.getType()) {
                     case ConstantsGame.PIT_TYPE:
-                        counter = -1;
                         saveScore();
                         gameManager.set(new MenueState(gameManager));
                         break;
                     case ConstantsGame.WOMAN_TYPE:
-                        hasHit = true;
-                        if (hasHit) {
+                        System.out.println("boolean direkt vor hit: " + alreadChanged);
+                        alreadChanged = false;
+                        System.out.println("boolean direkt nach hit: " + alreadChanged);
+                        if (!alreadChanged) {
                             Score.updateHeart(gameManager);
                         }
-                      /*  if (Score.thisCounter >= 35) {
+
+
+                      /*  hasHit = true;
+                       if (hasHit) {
+                            Score.updateHeart(gameManager);
+                        }
+                       if (Score.thisCounter /20 > 3) {
                             Score.thisCounter = 0;
                             saveScore();
                             gameManager.set(new MenueState(gameManager));
                         }
                         hasHit = true;
-                        counter++;*/
-
-                        //score.updateScore(gameManager);
+                        counter++;
+                        System.out.println (counter);
+                        //score.updateScore(gameManager);*/
                         break;
                     default:
                 }
@@ -271,6 +279,8 @@ public class PlayState extends State {
     @Override
     //calculations for the render method
     public void update(float dt) {
+
+
         handleInput();
         updateGround();
         nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty());

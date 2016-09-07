@@ -30,6 +30,7 @@ public class Score {
     private static Texture heartEmpty;
     public static int thisCounter = 0;
 
+    public static int state;
 
     public Score() {
         hearts = new Array<Texture>();
@@ -86,22 +87,57 @@ public class Score {
     }
 
     public static int getStateOfHearts() {
-        if ((hearts.get(0) == heartEmpty) && (hearts.get(1) == heartFilled) && hearts.get(2) == heartFilled) {
+       /* if (thisCounter/20 < 1) {
             return 1;
         }
-        if (hearts.get(1) == heartEmpty && hearts.get(2) == heartFilled && hearts.get(0) == heartEmpty) {
+        if (thisCounter/20 <2 && thisCounter/20 >1) {
             return 2;
         }
-        if (hearts.get(2) == heartEmpty && hearts.get(0) == heartEmpty && hearts.get(1) == heartEmpty) {
+        if (thisCounter/20 > 2 && thisCounter <3 ) {
             return 3;
-        } else if ((hearts.get(0) == heartFilled) && (hearts.get(1) == heartFilled) && (hearts.get(2) == heartFilled)) {
+        } else {
             return 4;
+        }*/
+        if (!PlayState.alreadChanged) {
+            if ((hearts.get(0) == heartEmpty) && (hearts.get(1) == heartFilled) && hearts.get(2) == heartFilled) {
+                PlayState.alreadChanged = true;
+                state = 1;
+                return 1;
+
+            }
+
         }
-        return 5;
+        if (!PlayState.alreadChanged) {
+            if (hearts.get(1) == heartEmpty && hearts.get(2) == heartFilled && hearts.get(0) == heartEmpty) {
+                PlayState.alreadChanged = true;
+                state = 2;
+                return 2;
+            }
+
+        }
+        if (!PlayState.alreadChanged) {
+            if (hearts.get(2) == heartEmpty && hearts.get(0) == heartEmpty && hearts.get(1) == heartEmpty) {
+                PlayState.alreadChanged = true;
+                state = 3;
+                return 3;
+            }
+        }
+        if (!PlayState.alreadChanged) {
+
+            if ((hearts.get(0) == heartFilled) && (hearts.get(1) == heartFilled) && (hearts.get(2) == heartFilled)) {
+                PlayState.alreadChanged = true;
+                state = 4;
+                return 4;
+            }
+
+        }
+        return state;
     }
 
+
     public static void updateHeart(GameStateManager manager) {
-        if (getStateOfHearts() == 4) {
+        /*if (getStateOfHearts() == 4) {
+
             changeHeart(true, 0);
         }
         if (getStateOfHearts() == 3) {
@@ -113,21 +149,21 @@ public class Score {
         }
         if (getStateOfHearts() == 1) {
             changeHeart(true, 1);
-        }
-            /*thisCounter++;
-            System.out.println(thisCounter);
-            System.out.println("counter geteilt: " + thisCounter / 10);
-            if (thisCounter / 10 == 1) {
-                hearts.set(0, heartEmpty);
+        }*/
+        thisCounter++;
+        System.out.println(thisCounter);
+        System.out.println("counter geteilt: " + thisCounter / 20);
+        if (thisCounter / 10 == 1) {
+            hearts.set(0, heartEmpty);
 
-            }
-            if (thisCounter / 10 == 2) {
-                hearts.set(1, heartEmpty);
-            }
-            if (thisCounter / 10 == 3) {
-                hearts.set(2, heartEmpty);
-            }
-            System.out.println(thisCounter);*/
+        }
+        if (thisCounter / 10 == 2) {
+            hearts.set(1, heartEmpty);
+        }
+        if (thisCounter / 10 == 3) {
+            hearts.set(2, heartEmpty);
+        }
+        System.out.println(thisCounter);
 
     }
 

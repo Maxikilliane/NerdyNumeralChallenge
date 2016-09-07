@@ -62,17 +62,70 @@ public class AnswerPhones {
             Score.addPoints();
         }
         if (Score.getStateOfHearts() == 3) {
-            Score.changeHeart(false, Score.getStateOfHearts() - 1);
+            Score.changeHeart(false, 2);
         }
         if (Score.getStateOfHearts() == 2) {
-            Score.changeHeart(false, Score.getStateOfHearts() - 1);
+            Score.changeHeart(false, 1);
         }
         if (Score.getStateOfHearts() == 1) {
-            Score.changeHeart(false, Score.getStateOfHearts() - 1);
+            Score.changeHeart(false, 0);
         }
+       /* if (Score.thisCounter/20 < 1) {
+            Score.addPoints();
+        }
+        if (Score.thisCounter/20 > 1 && Score.thisCounter/10 < 2) {
+            Score.changeHeart(false, 0);
+        }
+        if (Score.thisCounter/20 > 2 && Score.thisCounter/10 <3 ) {
+            Score.changeHeart(false, 1);
+
+        }
+        if (Score.thisCounter/20 >3) {
+            Score.changeHeart(false, 2);
+        }*/
     }
 
     public void reactToWrongCollision(GameStateManager manager) {
+       /* if (Score.thisCounter/20 < 1) {
+            Score.addPoints();
+        }
+        if (Score.thisCounter/20 > 1 && Score.thisCounter/20 < 2) {
+            Score.changeHeart(false, 0);
+        }
+        if (Score.thisCounter/20 > 2 && Score.thisCounter/20 <3 ) {
+            Score.changeHeart(false, 1);
+
+        }
+        if (Score.thisCounter/20 >3) {
+            Score.changeHeart(false, 2);
+        }*/
+       /* PlayState.hasHit = false;
+        switch (Score.getStateOfHearts()) {
+            case 4:
+
+                Score.changeHeart(true, 0);
+
+                break;
+            case 3:
+
+                manager.set(new MenueState(manager));
+
+
+                break;
+            case 2:
+
+                Score.changeHeart(true, 2);
+
+                break;
+            case 1:
+
+
+                Score.changeHeart(true, 1);
+
+                break;
+            default:
+                break;
+        }*/
         if (Score.getStateOfHearts() == 4) {
             Score.changeHeart(true, 0);
         }
