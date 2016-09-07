@@ -7,6 +7,8 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -17,7 +19,7 @@ import de.mi.ur.Constants;
 import de.mi.ur.R;
 import de.mi.ur.WeatherExtras.WeatherManager;
 
-public class GameMainActivity extends Activity  implements View.OnClickListener, WeatherDataListener {
+public class GameMainActivity extends AppCompatActivity implements View.OnClickListener, WeatherDataListener {
 
     private Button buttonStartGame;
     private Button buttonWeather;
@@ -27,12 +29,27 @@ public class GameMainActivity extends Activity  implements View.OnClickListener,
 
     private WeatherManager weatherManager;
 
+    private Toolbar myToolbar;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_main_activity);
         setupUI();
+        setupToolbar();
         weatherManager = new WeatherManager(this, this);
+    }
 
+    private void setupToolbar() {
+        myToolbar = (Toolbar) findViewById(R.id.game_main_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setTitle(R.string.game_main_toolbar_headline);
+        myToolbar.setNavigationIcon(R.drawable.toolbar_back);
+        myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void setupUI() {

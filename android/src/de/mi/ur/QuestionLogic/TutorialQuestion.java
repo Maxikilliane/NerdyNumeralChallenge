@@ -21,7 +21,7 @@ public class TutorialQuestion extends Question {
             {"Welchen Wert hat die Ziffer 4 in der Zahl 9482?", "Welche Zahl ist größer: 001 oder 100?", "Wie viele Ziffern hat das Trinärsystem (zur Basis 3)?", "Was sind die Ziffern des Duodezimalsystems (Basis 12)?", "Welche Basis hat das Quaternalsystem?" },
             {"Welchem Wert entspricht die 1 an der 4<sup><small>2</small></sup>-Stelle?", question1.getQuestionString(), question2.getQuestionString()},
             {"Was ist der größte Stellenwert aus dem Trinärsystem, der in 30 passt?", question3.getQuestionString(),question4.getQuestionString(), question5.getQuestionString(), "Für welche Dezimalzahl steht 'D'?"  },
-            {"Was ist die Basis des nächsthöheren Zahlensystem mit einer Basis von 2^n", question6.getQuestionString(), "Kann zwischen dem 4er und dem 16er System direkt umgerechnet werden?", question7.getQuestionString(), question8.getQuestionString() }
+            {"Was ist die Basis des nächsthöheren Zahlensystem mit einer Basis von 2<sup><small>n</small></sup>", question6.getQuestionString(), "Kann zwischen dem 4er und dem 16er System direkt umgerechnet werden?", question7.getQuestionString(), question8.getQuestionString() }
     };
 
     private String[][] answers = {
