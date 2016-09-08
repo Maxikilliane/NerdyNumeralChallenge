@@ -10,7 +10,7 @@ public class Level {
     private int pointsNeededForThisLevel;
     private int questionLength;
 
-    public Level(int id, int levelNum, String levelName, int pointsNeededForThisLevel, int questionLength) {
+    public Level(int id, int levelNum, String levelName, int pointsNeededForThisLevel, int questionLength){
         this.id = id;
         this.levelNum = levelNum;
         this.levelName = levelName;
@@ -18,7 +18,7 @@ public class Level {
         this.questionLength = questionLength;
     }
 
-    public int getId() {
+    public int getId(){
         return id;
     }
 

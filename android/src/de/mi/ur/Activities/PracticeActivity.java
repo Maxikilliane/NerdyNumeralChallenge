@@ -10,6 +10,7 @@ import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -57,7 +58,7 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
     private boolean currentQuestionSolved = false;
 
     private String[] numeralSystems;
-    private String[] buttonTexts;
+    private String [] buttonTexts;
 
     private NNCDatabase db;
 
@@ -127,7 +128,7 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
             currentQuestionSolved = false;
 
             if(practiseProgressBar.getProgress() == 100 ){
-                //  savePointsToDatabase();
+              //  savePointsToDatabase();
                 // an dieser Stelle müssten dann noch die geschafften Aufgaben (Punkte) in die Datenbank gespeichert werden
                 startActivity(new Intent(PracticeActivity.this, PracticeMainActivity.class));
             }
@@ -135,13 +136,13 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
         updateQuestion();
     }
 
-    private void savePointsToDatabase() {
+    private void savePointsToDatabase(){
         db.open();
         Level currentLevel = db.getCurrentLevel();
         int currentPoints = currentLevel.getPointsNeededForThisLevel();
         int pointsToAdd = DifficultyCalculator.getPointsPerQuestion(typeOfQuestion, numeral1Base, numeral2Base) * Constants.NUM_QUESTIONS_PER_PRACTICE;
         db.insertCurrentLevelPoints(currentPoints + pointsToAdd);
-        if (db.checkIfNextLevel()) {
+        if (db.checkIfNextLevel()){
             Toast.makeText(this, "next Level", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(PracticeActivity.this, ProgressActivity.class));
         }

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -118,10 +119,10 @@ public class NNCDatabase implements HighscoreListener {
     }
 
 
-    private ArrayList<Level> buildLevelFromCursor(Cursor cursor) {
+    private ArrayList<Level> buildLevelFromCursor(Cursor cursor){
         ArrayList<Level> levels = new ArrayList<Level>();
-        if (cursor.moveToFirst()) {
-            do {
+        if(cursor.moveToFirst()){
+            do{
                 int levelId = cursor.getInt(COLUMN_LEVEL_ID_INDEX);
                 int levelNum = cursor.getInt(COLUMN_LEVEL_NUM_INDEX);
                 String levelName = cursor.getString(COLUMN_LEVEL_NAME_INDEX);
@@ -129,18 +130,18 @@ public class NNCDatabase implements HighscoreListener {
                 int questionLength = cursor.getInt(COLUMN_QUESTION_LENGTH_INDEX);
                 levels.add(new Level(levelId, levelNum, levelName, pointsNeeded, questionLength));
 
-            } while (cursor.moveToNext());
+            }while(cursor.moveToNext());
         }
         return levels;
     }
 
-    public void initLevelDatabase() {
+    public void initLevelDatabase(){
         Level[] levels = {new Level(0, 0, "Unwissender", 0, 0),
-                new Level(1, 1, "Initiant", 100, 0),
-                new Level(2, 2, "Padawan", 300, 0),
-                new Level(3, 3, "Nullen-Nerd", 600, 0),
-                new Level(4, 4, "edler Einsen-Verehrer", 1000, 1),
-                new Level(5, 5, "Quaternal-Kenner", 1500, 1),
+                        new Level(1, 1, "Initiant", 100, 0),
+                        new Level(2, 2, "Padawan", 300, 0),
+                        new Level(3, 3, "Nullen-Nerd", 600, 0),
+                        new Level(4, 4, "edler Einsen-Verehrer", 1000, 1),
+                        new Level(5, 5, "Quaternal-Kenner", 1500, 1),
                 new Level(6, 6, "Oktal-Jongleur", 2100, 1),
                 new Level(7, 7, "Hex-Beherrscher", 2800, 2),
                 new Level(8, 8, "Meister der Systeme", 3600, 2),
@@ -148,12 +149,12 @@ public class NNCDatabase implements HighscoreListener {
                 new Level(-1, 0, "Unwissender", 0, 0)
         };
 
-        for (Level level : levels) {
+        for(Level level: levels){
             insertLevelData(level);
         }
     }
 
-    private long insertLevelData(Level level) {
+    private long insertLevelData (Level level){
         ContentValues levelValues = new ContentValues();
         levelValues.put(KEY_LEVEL_ID, level.getId());
         levelValues.put(KEY_LEVEL_NUM, level.getLevelNum());
@@ -164,18 +165,17 @@ public class NNCDatabase implements HighscoreListener {
         return database.insert(TABLE_LEVEL, null, levelValues);
     }
 
-    public Level getCurrentLevel() {
+    public Level getCurrentLevel(){
         String whereClause = KEY_LEVEL_ID + " = " + -1;
         Cursor cursor = database.query(TABLE_LEVEL, ALL_COLUMNS_LEVEL, whereClause, null, null, null, null);
         return buildLevelFromCursor(cursor).get(0);
     }
 
-    private void removeCurrentLevel() {
+    private void removeCurrentLevel(){
         String whereClause = KEY_LEVEL_ID + " = " + -1;
         database.delete(TABLE_LEVEL, whereClause, null);
     }
-
-    public void insertCurrentLevelPoints(int points) {
+    public void insertCurrentLevelPoints(int points){
         Level currentLevel = getCurrentLevel();
         removeCurrentLevel();
         ContentValues levelValues = new ContentValues();
@@ -188,7 +188,7 @@ public class NNCDatabase implements HighscoreListener {
         database.insert(TABLE_LEVEL, null, levelValues);
     }
 
-    private Level getLevel(int levelNum) {
+    private Level getLevel(int levelNum){
         String whereClause = KEY_LEVEL_NUM + " = " + levelNum;
         Cursor cursor = database.query(TABLE_LEVEL, ALL_COLUMNS_LEVEL, whereClause, null, null, null, null);
         return buildLevelFromCursor(cursor).get(0);
@@ -196,10 +196,10 @@ public class NNCDatabase implements HighscoreListener {
     }
 
 
-    public boolean checkIfNextLevel() {
+    public boolean checkIfNextLevel(){
         Level currentLevel = getCurrentLevel();
         int currentLevelNum = currentLevel.getLevelNum();
-        if (currentLevelNum < 9) {
+        if(currentLevelNum < 9) {
             Level nextLevel = getLevel(currentLevelNum + 1);
 
             if (currentLevel.getPointsNeededForThisLevel() >= nextLevel.getPointsNeededForThisLevel()) {
@@ -214,7 +214,7 @@ public class NNCDatabase implements HighscoreListener {
                 database.insert(TABLE_LEVEL, null, levelValues);
 
                 return true;
-            } else {
+            }else{
                 return false;
             }
         }
@@ -253,7 +253,7 @@ public class NNCDatabase implements HighscoreListener {
                 + KEY_POINTS + INTEGER_NOT_NULL + KEY_NAME + " text);";
 
         public static final String CREATE_LEVEL_TABLE = CREATE_TABLE + TABLE_LEVEL
-                + " (" + KEY_ID + INTEGER_NOT_NULL + KEY_LEVEL_NUM + INTEGER_NOT_NULL
+                + " ("+ KEY_ID + INTEGER_NOT_NULL + KEY_LEVEL_NUM + INTEGER_NOT_NULL
                 + KEY_LEVEL_NAME + " text, " + KEY_POINTS_FOR_NEXT_LEVEL + INTEGER_NOT_NULL
                 + KEY_QUESTION_LENGTH + " integer not null);";
 

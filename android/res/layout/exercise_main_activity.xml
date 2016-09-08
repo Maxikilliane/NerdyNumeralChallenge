@@ -5,24 +5,16 @@
     android:layout_width="match_parent"
     android:background="@color/black">
 
-    <include layout="@layout/toolbar"
-        android:id="@+id/practice_main_toolbar"/>
-
-  <!--  <android.support.v7.widget.Toolbar
+    <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@drawable/mybackground"
         android:elevation="4dp"
-
+        android:paddingBottom="20dp"
         >
     </android.support.v7.widget.Toolbar>
-<<<<<<< .merge_file_wiFSUw
-    -->
-<!--
-=======
 
->>>>>>> .merge_file_rhF71q
     <ScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -47,7 +39,7 @@ numberpicker-height in dimen-file schreiben
         android:layout_marginTop="@dimen/margin"
         android:textColor="@android:color/white"
         android:gravity="center"
-        android:layout_below="@id/practice_main_toolbar"/>
+        android:layout_below="@id/my_toolbar"/>
 
     <LinearLayout
         android:id="@+id/numberpicker_layout"
@@ -66,8 +58,7 @@ numberpicker-height in dimen-file schreiben
             android:orientation="horizontal"
             android:layout_weight="1"
             android:layout_margin="@dimen/margin"
-            android:background="@color/turquoise"
-            android:solidColor="@color/blue_grey"
+            android:background="@android:color/white"
             android:descendantFocusability="blocksDescendants"
 
             min="2"
@@ -83,8 +74,7 @@ numberpicker-height in dimen-file schreiben
             android:orientation="horizontal"
             android:layout_weight="1"
             android:layout_margin="@dimen/margin"
-            android:background="@color/turquoise"
-            android:solidColor="@color/blue_grey"
+            android:background="@color/white"
             android:descendantFocusability="blocksDescendants"
             min="2"
             max="16"
@@ -136,7 +126,7 @@ numberpicker-height in dimen-file schreiben
         android:background="@drawable/my_button"
         android:layout_marginBottom="@dimen/margin_bottom"/>
 
-</LinearLayout>
+    </LinearLayout>
 
 
 </ScrollView>
