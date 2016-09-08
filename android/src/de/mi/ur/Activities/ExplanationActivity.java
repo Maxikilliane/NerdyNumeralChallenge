@@ -5,6 +5,8 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.View;
 import android.view.WindowManager;
@@ -23,7 +25,7 @@ import de.mi.ur.R;
  *
  * InputType muss noch geändert werden!
  */
-public class ExplanationActivity extends Activity implements View.OnClickListener, FreeTextQuestionFragment.OnKeyboardListener{
+public class ExplanationActivity extends AppCompatActivity implements View.OnClickListener, FreeTextQuestionFragment.OnKeyboardListener{
     private TextView explanationTextView;
     private TextView questionTextView;
     private Button solutionButton;
@@ -42,6 +44,8 @@ public class ExplanationActivity extends Activity implements View.OnClickListene
 
     private TutorialQuestion currentQuestion;
 
+    private Toolbar myToolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +61,21 @@ public class ExplanationActivity extends Activity implements View.OnClickListene
         setUpTexts();
         setUpQuestions();
         setUpUI();
+        setupToolbar();
+    }
+
+
+    private void setupToolbar() {
+        myToolbar = (Toolbar) findViewById(R.id.explanation_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setTitle(R.string.app_name);
+        myToolbar.setNavigationIcon(R.drawable.toolbar_back);
+        myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     // Welches Tutorial wurde angeklickt? Auswählen der richtigen Konstante für dieses Tutorial

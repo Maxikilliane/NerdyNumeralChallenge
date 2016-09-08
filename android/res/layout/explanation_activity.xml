@@ -2,8 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/activity_general_padding"
+
     android:background="@color/black">
+
+    <include layout="@layout/toolbar"
+        android:id="@+id/explanation_toolbar"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/activity_general_padding">
 
     <RelativeLayout
         android:id="@+id/buttons"
@@ -92,6 +100,6 @@
         </LinearLayout>
 
     </ScrollView>
-
+</RelativeLayout>
 
 </RelativeLayout>
