@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 
 import de.mi.ur.ConstantsGame;
 import de.mi.ur.states.GameStateManager;
+import de.mi.ur.states.MenueState;
 import de.mi.ur.states.PlayState;
 
 
@@ -104,9 +105,23 @@ public class Score {
                 state = 1;
                 return 1;
 
+            }else if(hearts.get(1) == heartEmpty && hearts.get(2) == heartFilled && hearts.get(0) == heartEmpty) {
+                PlayState.alreadChanged = true;
+                state = 2;
+                return 2;
+            }else if (hearts.get(2) == heartEmpty && hearts.get(0) == heartEmpty && hearts.get(1) == heartEmpty) {
+                PlayState.alreadChanged = true;
+                state = 3;
+                return 3;
+        } else{
+                PlayState.alreadChanged = true;
+                state = 4;
+                return 4;
             }
-
+        }else{
+            return 0;
         }
+            /*
         if (!PlayState.alreadChanged) {
             if (hearts.get(1) == heartEmpty && hearts.get(2) == heartFilled && hearts.get(0) == heartEmpty) {
                 PlayState.alreadChanged = true;
@@ -130,26 +145,30 @@ public class Score {
                 return 4;
             }
 
-        }
-        return state;
+        }*/
+        //return state;
     }
 
 
     public static void updateHeart(GameStateManager manager) {
-        /*if (getStateOfHearts() == 4) {
+        if (getStateOfHearts() == 4) {
+            System.out.println(4);
 
             changeHeart(true, 0);
-        }
-        if (getStateOfHearts() == 3) {
-            //manager.set(new MenueState(manager));
+        }else if (getStateOfHearts() == 3) {
+            manager.set(new MenueState(manager));
             System.out.println("Ätschi");
-        }
-        if (getStateOfHearts() == 2) {
+        } else if (getStateOfHearts() == 2) {
             changeHeart(true, 2);
-        }
-        if (getStateOfHearts() == 1) {
+            System.out.println(2);
+        } else if (getStateOfHearts() == 1) {
             changeHeart(true, 1);
-        }*/
+            System.out.println(1);
+        } else{
+           // dieses else tritt ziemlich oft auf! :)
+        }
+
+
         thisCounter++;
         System.out.println(thisCounter);
         System.out.println("counter geteilt: " + thisCounter / 20);

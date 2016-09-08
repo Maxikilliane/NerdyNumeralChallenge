@@ -24,7 +24,7 @@ public class GameHelpActivity extends AppCompatActivity {
         myToolbar = (Toolbar) findViewById(R.id.game_help_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setTitle(R.string.game_help_toolbar_headline);
-        myToolbar.setNavigationIcon(R.drawable.toolbar_back);
+       // myToolbar.setNavigationIcon(R.drawable.toolbar_back);
         myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
