@@ -1,6 +1,5 @@
 package de.mi.ur.QuestionFragments;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +44,7 @@ public class TrueFalseQuestionFragment extends QuestionFragment {
         }else{
             RadioButton checkedButton = (RadioButton)fragmentView.findViewById(checkedButtonId);
             if(checkedButton.getText().toString().equals(rightAnswer)){
+                checkedButton.setChecked(false);
                 return true;
             }else{
                 return false;

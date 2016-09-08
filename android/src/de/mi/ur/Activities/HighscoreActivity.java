@@ -39,7 +39,7 @@ public class HighscoreActivity extends AppCompatActivity {
         myToolbar = (Toolbar) findViewById(R.id.game_highscore_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setTitle(R.string.game_highscore_toolbar_headline);
-        myToolbar.setNavigationIcon(R.drawable.toolbar_back);
+        //myToolbar.setNavigationIcon(R.drawable.toolbar_back);
         myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -123,11 +123,6 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
         explanationTextView = (TextView) findViewById(R.id.explanation_textview);
         explanationTextView.setText(Html.fromHtml(explanationText));
 
-       /* if(currentQuestion.getNumeral1Base()!=-1){
-            questionFragment.setQuestionText(currentQuestion.getNumeral1Base(), currentQuestion.getNumeral2Base());
-        }else{
-            questionFragment.setQuestionTextTutorialQuestion(currentQuestion.getQuestion());
-        }*/
         questionTextView = (TextView) findViewById(R.id.revision_question_textview);
         questionTextView.setText(Html.fromHtml(currentQuestion.getQuestion()));
 
@@ -181,7 +176,7 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
                     continueButton.setEnabled(false);
                     questionFragment.getView().setBackgroundResource(R.color.black);
                 } else {
-                    questionFragment.getView().setBackgroundResource(R.color.powder_blue);
+                    questionFragment.getView().setBackgroundResource(R.drawable.mybackground);
                 }
                 explanationNumber++;
                 break;
@@ -190,7 +185,7 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
                     backButton.setEnabled(false);
                 }
                 explanationNumber--;
-                questionFragment.getView().setBackgroundResource(R.color.powder_blue);
+                questionFragment.getView().setBackgroundResource(R.drawable.mybackground);
                 break;
             default:
         }

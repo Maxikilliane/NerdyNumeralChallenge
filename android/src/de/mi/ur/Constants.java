@@ -51,9 +51,10 @@ public class Constants {
     public static final String CURRENT_WEATHER = "current weather";
 
     //
-    public static final int MY_PERMISSION_REQUEST_ACCESS_COARSE_LOCATION = 1111;
+    public static final int MY_PERMISSION_REQUEST_ACCESS_COARSE_LOCATION = 111;
 
-
+    //Practice
+    public static final int NUM_QUESTIONS_PER_PRACTICE = 10;
 
 
 }

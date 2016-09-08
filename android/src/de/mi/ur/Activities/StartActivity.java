@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import de.mi.ur.DataBase.NNCDatabase;
 import de.mi.ur.R;
 
 /**
@@ -21,20 +22,24 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     private Button buttonGame;
     private Button buttonProgress;
 
-    private TextView test;
     private Toolbar myToolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_activity);
         setUpUI();
+        initDatabase();
         setupToolbar();
+    }
 
-         /* Testing Superscript - needs to be deleted
-        test = (TextView) findViewById(R.id.testView);
-        */
 
+    private void initDatabase(){
+        NNCDatabase db = new NNCDatabase(this);
+        db.open();
+        db.initLevelDatabase();
+        db.close();
 
     }
 
