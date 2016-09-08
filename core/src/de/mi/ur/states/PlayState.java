@@ -106,8 +106,8 @@ public class PlayState extends State {
         }
         groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, ConstantsGame.GROUND_Y_OFFSET);
         groundPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2) + ground.getWidth(), ConstantsGame.GROUND_Y_OFFSET);
-        bgPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, 80);
-        bgPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2) + background.getWidth(), 80);
+        bgPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, ConstantsGame.BACKGROUND_Y_POS);
+        bgPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2) + background.getWidth(), ConstantsGame.BACKGROUND_Y_POS);
     }
 
 
@@ -355,9 +355,9 @@ public class PlayState extends State {
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.setProjectionMatrix(cam.combined);
         spriteBatch.begin();
-        spriteBatch.draw(background, bgPos1.x, 80);
-        spriteBatch.draw(background, bgPos2.x, 80);
-        spriteBatch.draw(sun, cam.position.x + ConstantsGame.SCORE_HEARTS_OFFSET_X, cam.position.y + ConstantsGame.SCORE_OFFSET_Y - 70);
+        spriteBatch.draw(background, bgPos1.x, ConstantsGame.BACKGROUND_Y_POS);
+        spriteBatch.draw(background, bgPos2.x, ConstantsGame.BACKGROUND_Y_POS);
+        spriteBatch.draw(sun, cam.position.x + ConstantsGame.SCORE_HEARTS_OFFSET_X, cam.position.y + ConstantsGame.SUN_Y_POS);
         score.renderScore(spriteBatch, cam);
         gameQuestion.drawTasks(spriteBatch, cam);
         spriteBatch.draw(ground, groundPos1.x, groundPos1.y);

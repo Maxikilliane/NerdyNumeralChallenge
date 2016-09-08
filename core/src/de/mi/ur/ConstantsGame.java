@@ -41,6 +41,10 @@ public class ConstantsGame {
 
         public static final int WOMAN_Y = PlayState.ground.getHeight() + GROUND_Y_OFFSET;
 
+        public static final int BACKGROUND_Y_POS = 80;
+
+        public static final int SUN_Y_POS = 90;
+
 
 
         // Damit kann man später erfahren, welcher Hintergrund verwendet werden soll. Zugriff in der NerdyNumeralChallenge-Klasse
