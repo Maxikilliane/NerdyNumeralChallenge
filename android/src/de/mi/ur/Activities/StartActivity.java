@@ -38,7 +38,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     private void initDatabase(){
         NNCDatabase db = new NNCDatabase(this);
         db.open();
-        db.initLevelDatabase();
         db.close();
 
     }

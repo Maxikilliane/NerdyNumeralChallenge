@@ -128,9 +128,9 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
             currentQuestionSolved = false;
 
             if(practiseProgressBar.getProgress() == 100 ){
-              //  savePointsToDatabase();
+                savePointsToDatabase();
                 // an dieser Stelle müssten dann noch die geschafften Aufgaben (Punkte) in die Datenbank gespeichert werden
-                startActivity(new Intent(PracticeActivity.this, PracticeMainActivity.class));
+                finish();
             }
         }
         updateQuestion();
@@ -144,8 +144,10 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
         db.insertCurrentLevelPoints(currentPoints + pointsToAdd);
         if (db.checkIfNextLevel()){
             Toast.makeText(this, "next Level", Toast.LENGTH_SHORT).show();
+            finish();
             startActivity(new Intent(PracticeActivity.this, ProgressActivity.class));
         }
+        db.close();
     }
 
 
