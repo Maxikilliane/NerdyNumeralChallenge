@@ -329,19 +329,19 @@ public class PlayState extends State {
     private float increaseDifficulty(float dt) {
         long value = score.getCurrentScore();
         if (value > 50) {
-            this.limitCounter = (int) (500*dt);
+            this.limitCounter = (int) ((8/dt)*dt);
             return 130;
         }
         if (value > 100) {
-            this.limitCounter = (int) (375*dt);
+            this.limitCounter = (int) ((6/dt)*dt);
             return 160;
         }
         if (value > 150) {
-            this.limitCounter = (int) (250*dt);
+            this.limitCounter = (int) ((4/dt)*dt);
             return 190;
         }
         if (value > 200) {
-            this.limitCounter = (int) (125*dt);
+            this.limitCounter = (int) ((2/dt)*dt);
             return 220;
         }
         if (value > 250) {
@@ -353,7 +353,7 @@ public class PlayState extends State {
             return 280;
 
         } else {
-            this.limitCounter = (int) (625*dt);
+            this.limitCounter = (int) ((10/dt)*dt);
             return ConstantsGame.NERD_MOVEMENT_DEFAULT;
         }
     }
