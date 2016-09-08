@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -149,12 +148,12 @@ public class NNCDatabase implements HighscoreListener {
                 new Level(-1, 0, "Unwissender", 0, 0)
         };
 
-        for(Level level: levels){
+      /*  for(Level level: levels){
             insertLevelData(level);
-        }
+        }*/
     }
 
-    private long insertLevelData (Level level){
+   /* private long insertLevelData (Level level){
         ContentValues levelValues = new ContentValues();
         levelValues.put(KEY_LEVEL_ID, level.getId());
         levelValues.put(KEY_LEVEL_NUM, level.getLevelNum());
@@ -163,7 +162,7 @@ public class NNCDatabase implements HighscoreListener {
         levelValues.put(KEY_QUESTION_LENGTH, level.getQuestionLength());
 
         return database.insert(TABLE_LEVEL, null, levelValues);
-    }
+    }*/
 
     public Level getCurrentLevel(){
         String whereClause = KEY_LEVEL_ID + " = " + -1;

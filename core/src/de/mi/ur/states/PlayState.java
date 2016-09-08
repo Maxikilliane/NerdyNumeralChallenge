@@ -31,6 +31,7 @@ public class PlayState extends State {
     private Texture background;
     public static Texture ground;
     private Score score;
+    private Texture sun;
     private Random random;
     //private GameQuestion gameQuestion;
     private GameQuestion gameQuestion;
@@ -55,7 +56,7 @@ public class PlayState extends State {
 
     private Array<Pit> pits;
     private Vector2 groundPos1, groundPos2;
-
+    private Vector2 bgPos1, bgPos2;
     private Array<Obstacle> obstacles;
 
     private HighscoreListener highscoreListener;
@@ -70,12 +71,15 @@ public class PlayState extends State {
         flyingPhone3 = new Texture("phone_answer_new_3.png");
         flyingPhone4 = new Texture("phone_answer_new_4.png");
 
+        sun = new Texture("sun4sunnybg.png");
+
         phone1 = new AnswerPhones(400, 200, flyingPhone1);
         phone2 = new AnswerPhones(450, 200, flyingPhone2);
         phone3 = new AnswerPhones(500, 200, flyingPhone3);
         phone4 = new AnswerPhones(550, 200, flyingPhone4);
 
-        background = new Texture("background_final.png");
+        background = new Texture("bg_sunny.png");
+
         //background = getBackgroundWeather(gameManager);
         score = new Score();
         score.startTimer();
@@ -102,7 +106,8 @@ public class PlayState extends State {
         }
         groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, ConstantsGame.GROUND_Y_OFFSET);
         groundPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2) + ground.getWidth(), ConstantsGame.GROUND_Y_OFFSET);
-
+        bgPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, 80);
+        bgPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2) + background.getWidth(), 80);
     }
 
 
@@ -157,6 +162,17 @@ public class PlayState extends State {
             groundPos2.add(ground.getWidth() * 2, 0);
         }
     }
+
+    private void updateBG() {
+        if (cam.position.x - (cam.viewportWidth / 2) > bgPos1.x + background.getWidth()) {
+            bgPos1.add(background.getWidth() * 2, 0);
+        }
+        if (cam.position.x - (cam.viewportWidth / 2) > bgPos2.x + background.getWidth()) {
+            bgPos2.add(background.getWidth() * 2, 0);
+        }
+    }
+
+
 
     public void handleUserAnswers() {
         if (GameQuestion.getRightAnswer() == 1) {
@@ -283,6 +299,7 @@ public class PlayState extends State {
 
         handleInput();
         updateGround();
+        updateBG();
         nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty());
         updatePhones();
         phone1.update(dt);
@@ -338,7 +355,9 @@ public class PlayState extends State {
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.setProjectionMatrix(cam.combined);
         spriteBatch.begin();
-        spriteBatch.draw(background, cam.position.x - (cam.viewportWidth / 2), 0);
+        spriteBatch.draw(background, bgPos1.x, 80);
+        spriteBatch.draw(background, bgPos2.x, 80);
+        spriteBatch.draw(sun, cam.position.x + ConstantsGame.SCORE_HEARTS_OFFSET_X, cam.position.y + ConstantsGame.SCORE_OFFSET_Y - 70);
         score.renderScore(spriteBatch, cam);
         gameQuestion.drawTasks(spriteBatch, cam);
         spriteBatch.draw(ground, groundPos1.x, groundPos1.y);
@@ -348,6 +367,8 @@ public class PlayState extends State {
         spriteBatch.draw(phone2.getTexture(), phone2.getX(), phone2.getY());
         spriteBatch.draw(phone3.getTexture(), phone3.getX(), phone3.getY());
         spriteBatch.draw(phone4.getTexture(), phone4.getX(), phone4.getY());
+
+
         /*for (Pit pit : pits) {
             spriteBatch.draw(pit.getPit(), pit.getPitPos().x, pit.getPitPos().y);
         }
