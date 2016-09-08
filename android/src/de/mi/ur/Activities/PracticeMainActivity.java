@@ -35,10 +35,10 @@ public class PracticeMainActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void setupToolbar() {
-        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        myToolbar = (Toolbar) findViewById(R.id.practice_main_toolbar);
         setSupportActionBar(myToolbar);
-        getSupportActionBar().setTitle(R.string.app_name);
-        myToolbar.setNavigationIcon(R.mipmap.toolbar_back);
+        getSupportActionBar().setTitle(R.string.practice_main_toolbar_headline);
+        myToolbar.setNavigationIcon(R.drawable.toolbar_back);
         myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

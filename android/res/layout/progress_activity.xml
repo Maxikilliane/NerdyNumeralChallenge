@@ -4,8 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    android:gravity="center_vertical"
-    android:padding="@dimen/activity_general_padding">
+    >
+
+    <include layout="@layout/toolbar"
+        android:id="@+id/progress_toolbar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:padding="@dimen/activity_general_padding" >
 
     <TextView
         android:id="@+id/level_number"
@@ -28,5 +37,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@android:style/Widget.ProgressBar.Horizontal" />
-
+</LinearLayout>
 </LinearLayout>

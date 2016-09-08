@@ -19,6 +19,7 @@ public class MenueState extends State {
     public MenueState(GameStateManager gameManager) {
         super(gameManager);
         Score.thisCounter = 0;
+        Score.state = 0;
         cam.setToOrtho(false, NerdyNumeralChallenge.WIDTH/2, NerdyNumeralChallenge.HEIGHT/2);
         background = new Texture("background_final.png");
         playButton = new Texture("playbtn.png");

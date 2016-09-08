@@ -321,12 +321,23 @@
         </item>
     </string-array>
 
-    //Exercise
+    //Practice
     <string name="exercise_headline">Wähle ein Zahlensystem</string>
     <string name="exercisetype_choice">Wähle einen Aufgabentyp</string>
     <string name="multiple_choice_button">Multiple Choice</string>
     <string name="wrong_true_button">Wahr/Falsch</string>
     <string name="manual_entry_button">Selbsteingabe</string>
+
+    //Toolbar
+    <string name="tutorial_toolbar_headline">Tutorial</string>
+    <string name="practice_main_toolbar_headline">Übung</string>
+    <string name="game_main_toolbar_headline">Spiel</string>
+    <string name="game_highscore_toolbar_headline">Highscore</string>
+    <string name="game_help_toolbar_headline">Hilfe</string>
+    <string name="progress_toolbar_headline">Fortschritt</string>
+    <string name="settings_toolbar_headline">Einstellungen</string>
+
+
 
 
 

@@ -20,14 +20,14 @@ import de.mi.ur.sprites.Woman;
 
 /**
  * Created by maxiwindl on 31.07.16.
- * <p>
+ * <p/>
  * Vor Abgeben noch GameQuestion1 und das HoffentlichNurVoruebergehend-Package löschen!
- * <p>
+ * <p/>
  * Obstacle funktioniert jetzt.
  */
 public class PlayState extends State {
 
-    private Nerd nerd;
+    private static Nerd nerd;
     private Texture background;
     public static Texture ground;
     private Score score;
@@ -35,18 +35,21 @@ public class PlayState extends State {
     //private GameQuestion gameQuestion;
     private GameQuestion gameQuestion;
 
-    private Texture answerPhone1;
-    private Texture answerPhone2;
-    private Texture answerPhone3;
+    public static boolean alreadChanged = false;
 
-    private AnswerPhones phones;
-    private AnswerPhones phones2;
-    private AnswerPhones phones3;
+    private Texture flyingPhone1;
+    private Texture flyingPhone2;
+    private Texture flyingPhone3;
+    private Texture flyingPhone4;
+
+    private AnswerPhones phone1;
+    private AnswerPhones phone2;
+    private AnswerPhones phone3;
+    private AnswerPhones phone4;
 
     private Woman woman;
     public static boolean hasHit;
     private Array<Woman> women;
-    public static int counter = -1;
 
     private Texture heartEmpty;
 
@@ -62,13 +65,15 @@ public class PlayState extends State {
         this.highscoreListener = gameManager.getHighscoreListener();
         ground = new Texture("ground.png");
         nerd = new Nerd(ConstantsGame.NERD_X, ConstantsGame.NERD_Y);
-        answerPhone1 = new Texture("phone_answer_new_1.png");
-        answerPhone2 = new Texture("phone_different_animation_2.png");
-        answerPhone3 = new Texture("phone_answer_new_3.png");
+        flyingPhone1 = new Texture("phone_answer_new_1.png");
+        flyingPhone2 = new Texture("phone_different_animation_2.png");
+        flyingPhone3 = new Texture("phone_answer_new_3.png");
+        flyingPhone4 = new Texture("phone_answer_new_4.png");
 
-        phones = new AnswerPhones(400, 200, answerPhone1);
-        phones2 = new AnswerPhones(450, 200, answerPhone2);
-        phones3 = new AnswerPhones(500, 200, answerPhone3);
+        phone1 = new AnswerPhones(400, 200, flyingPhone1);
+        phone2 = new AnswerPhones(450, 200, flyingPhone2);
+        phone3 = new AnswerPhones(500, 200, flyingPhone3);
+        phone4 = new AnswerPhones(550, 200, flyingPhone4);
 
         background = new Texture("background_final.png");
         //background = getBackgroundWeather(gameManager);
@@ -129,7 +134,7 @@ public class PlayState extends State {
                     gameManager.set(new MenueState(gameManager));
                 }
                 hasHit = true;
-                counter++;
+
             }
         }
 
@@ -153,18 +158,60 @@ public class PlayState extends State {
         }
     }
 
+    public void handleUserAnswers() {
+        if (GameQuestion.getRightAnswer() == 1) {
+
+            if (phone1.collides(nerd.getBounds())) {
+                phone1.reactToCollision();
+            } else if (phone2.collides(nerd.getBounds()) || phone3.collides(nerd.getBounds()) || phone4.collides(nerd.getBounds())) {
+                phone1.reactToWrongCollision(gameManager);
+            }
+
+        }
+        if (GameQuestion.getRightAnswer() == 2) {
+            if (phone2.collides(nerd.getBounds())) {
+                phone2.reactToCollision();
+            } else if ((phone1.collides(nerd.getBounds())) || (phone3.collides(nerd.getBounds())) || (phone4.collides(nerd.getBounds()))) {
+                phone2.reactToWrongCollision(gameManager);
+            }
+        }
+
+        if (GameQuestion.getRightAnswer() == 3) {
+            if (phone3.collides(nerd.getBounds())) {
+                phone3.reactToCollision();
+            } else if ((phone1.collides(nerd.getBounds())) || (phone2.collides(nerd.getBounds())) || (phone4.collides(nerd.getBounds()))) {
+                phone3.reactToWrongCollision(gameManager);
+            }
+        }
+        if (GameQuestion.getRightAnswer() == 4) {
+            if (phone4.collides(nerd.getBounds())) {
+                phone4.reactToCollision();
+            } else if ((phone1.collides(nerd.getBounds())) || (phone2.collides(nerd.getBounds())) || (phone3.collides(nerd.getBounds()))) {
+                phone3.reactToWrongCollision(gameManager);
+            }
+        }
+
+    }
+
+
     private void updatePhones() {
 
-        if (cam.position.x - (cam.viewportWidth / 2) > phones.getPosition().x + answerPhone1.getWidth()) {
-            phones.getPosition().add(answerPhone1.getWidth() * 4, 0);
+        if (cam.position.x - (cam.viewportWidth / 2) > phone1.getPosition().x + flyingPhone1.getWidth()) {
+            phone1.getPosition().add(flyingPhone1.getWidth() * 4, 0);
         }
-        if (cam.position.x - (cam.viewportWidth / 2) > phones2.getPosition().x + answerPhone2.getWidth()) {
-            phones2.getPosition().add(answerPhone2.getWidth() * 4, 0);
+        if (cam.position.x - (cam.viewportWidth / 2) > phone2.getPosition().x + flyingPhone2.getWidth()) {
+            phone2.getPosition().add(flyingPhone2.getWidth() * 4, 0);
         }
-        if (cam.position.x - (cam.viewportWidth / 2) > phones3.getPosition().x + answerPhone3.getWidth()) {
-            phones3.getPosition().add(answerPhone3.getWidth() * 4, 0);
+        if (cam.position.x - (cam.viewportWidth / 2) > phone3.getPosition().x + flyingPhone3.getWidth()) {
+            phone3.getPosition().add(flyingPhone3.getWidth() * 4, 0);
         }
+        if (cam.position.x - (cam.viewportWidth / 2) > phone4.getPosition().x + flyingPhone4.getWidth()) {
+            phone4.getPosition().add(flyingPhone4.getWidth() * 4, 0);
+        }
+        if (GameQuestion.answerGenerated) {
 
+            handleUserAnswers();
+        }
 
        /* if (phones.collides(nerd.getBounds())) {
             counter = -1;
@@ -185,20 +232,31 @@ public class PlayState extends State {
             if (obstacle.collides(nerd.getBounds())) {
                 switch (obstacle.getType()) {
                     case ConstantsGame.PIT_TYPE:
-                        counter = -1;
                         saveScore();
                         gameManager.set(new MenueState(gameManager));
                         break;
                     case ConstantsGame.WOMAN_TYPE:
-                        if (Score.thisCounter >= 35) {
+                        System.out.println("boolean direkt vor hit: " + alreadChanged);
+                        alreadChanged = false;
+                        System.out.println("boolean direkt nach hit: " + alreadChanged);
+                        if (!alreadChanged) {
+                            Score.updateHeart(gameManager);
+                        }
+
+
+                      /*  hasHit = true;
+                       if (hasHit) {
+                            Score.updateHeart(gameManager);
+                        }
+                       if (Score.thisCounter /20 > 3) {
                             Score.thisCounter = 0;
                             saveScore();
                             gameManager.set(new MenueState(gameManager));
                         }
                         hasHit = true;
                         counter++;
-
-                        score.updateScore();
+                        System.out.println (counter);
+                        //score.updateScore(gameManager);*/
                         break;
                     default:
                 }
@@ -221,19 +279,18 @@ public class PlayState extends State {
     @Override
     //calculations for the render method
     public void update(float dt) {
+
+
         handleInput();
         updateGround();
         nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty());
-        /*if (phones.collides(nerd.getBounds())) {
-            gameManager.set(new MenueState(gameManager));
-
-        }*/
         updatePhones();
-        phones.update(dt);
-        phones2.update(dt);
-        phones3.update(dt);
-        score.updateScore();
-        gameQuestion.updateQuestions(cam);
+        phone1.update(dt);
+        phone2.update(dt);
+        phone3.update(dt);
+        phone4.update(dt);
+        score.updateScore(gameManager);
+        gameQuestion.updateQuestions();
 
         //updateWomen();
         //updatePits();
@@ -287,9 +344,10 @@ public class PlayState extends State {
         spriteBatch.draw(ground, groundPos1.x, groundPos1.y);
         spriteBatch.draw(ground, groundPos2.x, groundPos2.y);
         spriteBatch.draw(nerd.getTexture(), nerd.getX(), nerd.getY());
-        spriteBatch.draw(phones.getTexture(), phones.getX(), phones.getY());
-        spriteBatch.draw(phones2.getTexture(), phones2.getX(), phones2.getY());
-        spriteBatch.draw(phones3.getTexture(), phones3.getX(), phones3.getY());
+        spriteBatch.draw(phone1.getTexture(), phone1.getX(), phone1.getY());
+        spriteBatch.draw(phone2.getTexture(), phone2.getX(), phone2.getY());
+        spriteBatch.draw(phone3.getTexture(), phone3.getX(), phone3.getY());
+        spriteBatch.draw(phone4.getTexture(), phone4.getX(), phone4.getY());
         /*for (Pit pit : pits) {
             spriteBatch.draw(pit.getPit(), pit.getPitPos().x, pit.getPitPos().y);
         }
@@ -347,3 +405,4 @@ public class PlayState extends State {
         return new Texture(texturePath);
     }
 }
+
