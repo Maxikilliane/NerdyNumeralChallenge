@@ -3,6 +3,8 @@ package de.mi.ur.Activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,13 +15,14 @@ import de.mi.ur.R;
 /**
  * Created by maxiwindl on 01.08.16.
  */
-public class StartActivity extends Activity implements View.OnClickListener {
+public class StartActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button buttonTutorial;
     private Button buttonPractice;
     private Button buttonGame;
     private Button buttonProgress;
 
+    private Toolbar myToolbar;
 
 
     @Override
@@ -28,6 +31,7 @@ public class StartActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.start_activity);
         setUpUI();
         initDatabase();
+        setupToolbar();
     }
 
     private void initDatabase(){
@@ -37,6 +41,16 @@ public class StartActivity extends Activity implements View.OnClickListener {
         db.close();
 
     }
+
+    private void setupToolbar() {
+        myToolbar = (Toolbar) findViewById(R.id.start_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setTitle(R.string.app_name);
+        //getSupportActionBar().setLogo(R.drawable.weather_button);
+        //getSupportActionBar().setIcon(R.drawable.settings_actionbar_icon);
+
+    }
+
     /*
     private void setupUI() {
         buttonTutorial = (Button) findViewById(R.id.start_tutorial_button);
