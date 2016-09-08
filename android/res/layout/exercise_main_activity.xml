@@ -17,8 +17,12 @@
 
         >
     </android.support.v7.widget.Toolbar>
+<<<<<<< .merge_file_wiFSUw
     -->
 <!--
+=======
+
+>>>>>>> .merge_file_rhF71q
     <ScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -31,14 +35,6 @@
         android:padding="@dimen/activity_general_padding"
         android:background="@android:color/black">
 
-
-        <TextView
-            android:layout_width="match_parent"
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        -->
 <!--
 numberpicker-height in dimen-file schreiben
 -->
@@ -139,13 +135,12 @@ numberpicker-height in dimen-file schreiben
         android:textColor="@color/text_white"
         android:background="@drawable/my_button"
         android:layout_marginBottom="@dimen/margin_bottom"/>
-<!--
-    </LinearLayout>
+
+</LinearLayout>
 
 
 </ScrollView>
 
--->
 
 
 

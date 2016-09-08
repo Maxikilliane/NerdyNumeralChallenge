@@ -10,7 +10,6 @@ import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -21,6 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import de.mi.ur.Constants;
+import de.mi.ur.DataBase.NNCDatabase;
+import de.mi.ur.LevelLogic.DifficultyCalculator;
+import de.mi.ur.LevelLogic.Level;
 import de.mi.ur.QuestionFragments.FreeTextQuestionFragment;
 import de.mi.ur.QuestionFragments.MultipleChoiceQuestionFragment;
 import de.mi.ur.QuestionFragments.QuestionFragment;
@@ -55,7 +57,9 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
     private boolean currentQuestionSolved = false;
 
     private String[] numeralSystems;
-    String [] buttonTexts;
+    private String[] buttonTexts;
+
+    private NNCDatabase db;
 
 
 
@@ -90,6 +94,9 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
             numeral2Base = extras.getInt(Constants.KEY_NUMERAL_2_BASE);
         }
         numeralSystems = getResources().getStringArray(R.array.numeral_systems);
+
+        db = new NNCDatabase(this);
+
     }
 
     private void setUpUI(){
@@ -116,16 +123,30 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
 
     private void updateProgress(){
         if(currentQuestionSolved){
-            practiseProgressBar.incrementProgressBy(10);
+            practiseProgressBar.incrementProgressBy(100 / Constants.NUM_QUESTIONS_PER_PRACTICE);
             currentQuestionSolved = false;
 
             if(practiseProgressBar.getProgress() == 100 ){
+                //  savePointsToDatabase();
                 // an dieser Stelle müssten dann noch die geschafften Aufgaben (Punkte) in die Datenbank gespeichert werden
                 startActivity(new Intent(PracticeActivity.this, PracticeMainActivity.class));
             }
         }
         updateQuestion();
     }
+
+    private void savePointsToDatabase() {
+        db.open();
+        Level currentLevel = db.getCurrentLevel();
+        int currentPoints = currentLevel.getPointsNeededForThisLevel();
+        int pointsToAdd = DifficultyCalculator.getPointsPerQuestion(typeOfQuestion, numeral1Base, numeral2Base) * Constants.NUM_QUESTIONS_PER_PRACTICE;
+        db.insertCurrentLevelPoints(currentPoints + pointsToAdd);
+        if (db.checkIfNextLevel()) {
+            Toast.makeText(this, "next Level", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(PracticeActivity.this, ProgressActivity.class));
+        }
+    }
+
 
     private void updateQuestion(){
         setUpQuestion();
@@ -235,7 +256,6 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
 
     private void setUpQuestionTypeSpecificStuff(){
         Resources StringRes = getResources();
-        String questionText = null ;
         switch (typeOfQuestion){
             case Constants.MULTIPLE_CHOICE:
                 this.questionFragment = new MultipleChoiceQuestionFragment();
@@ -255,7 +275,6 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
         }
 
         setUpFragment(questionFragment);
-        //setUpQuestion();
         questionTextView.setText(questionTypeText);
         questionChangeableView.setText(currentQuestion.getQuestion());
     }
@@ -272,7 +291,6 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
                 break;
             default:
                 currentQuestion = new FreeTextQuestion(numeral1Base, numeral2Base, questionLength);
-
         }
     }
 

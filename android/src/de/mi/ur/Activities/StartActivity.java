@@ -1,6 +1,5 @@
 package de.mi.ur.Activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import de.mi.ur.DataBase.NNCDatabase;
 import de.mi.ur.R;
 
 /**
@@ -21,22 +21,35 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     private Button buttonGame;
     private Button buttonProgress;
 
+    <<<<<<<.merge_file_Gr4rFo
     private TextView test;
     private Toolbar myToolbar;
+    =======
+
+            >>>>>>>.merge_file_ugA1dh
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_activity);
         setUpUI();
+        <<<<<<<.merge_file_Gr4rFo
         setupToolbar();
+        =======
+        initDatabase();
+    }
 
-         /* Testing Superscript - needs to be deleted
-        test = (TextView) findViewById(R.id.testView);
-        */
+    >>>>>>>.merge_file_ugA1dh
 
+    private void initDatabase() {
+        NNCDatabase db = new NNCDatabase(this);
+        db.open();
+        db.initLevelDatabase();
+        db.close();
 
     }
+
+    <<<<<<<.merge_file_Gr4rFo
 
     private void setupToolbar() {
         myToolbar = (Toolbar) findViewById(R.id.start_toolbar);
@@ -47,6 +60,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    =======
+            >>>>>>>.merge_file_ugA1dh
     /*
     private void setupUI() {
         buttonTutorial = (Button) findViewById(R.id.start_tutorial_button);
