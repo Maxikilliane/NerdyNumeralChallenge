@@ -37,7 +37,7 @@ public class TutorialMainActivity extends AppCompatActivity implements View.OnCl
         myToolbar = (Toolbar) findViewById(R.id.tutorial_main_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setTitle(R.string.tutorial_toolbar_headline);
-        //myToolbar.setNavigationIcon(R.drawable.toolbar_back);
+        myToolbar.setNavigationIcon(R.drawable.toolbar_back);
         myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
