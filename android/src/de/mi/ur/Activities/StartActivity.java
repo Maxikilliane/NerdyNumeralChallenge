@@ -34,6 +34,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         setupToolbar();
     }
 
+
     private void initDatabase(){
         NNCDatabase db = new NNCDatabase(this);
         db.open();
