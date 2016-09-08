@@ -43,6 +43,7 @@ public class Nerd {
         nerdAnimation = new Animation(new TextureRegion(texture), 7, 0.6f);
     }
 
+
     public void checkIfJumping() {
 
         if (!jumpFinished) {
@@ -54,7 +55,7 @@ public class Nerd {
     }
 
 
-    public void update(float dt, int gravity, int movement) {
+    public void update(float dt, int gravity, float movement) {
         checkIfJumping();
         nerdAnimation.update(dt);
 
@@ -67,7 +68,7 @@ public class Nerd {
         }
         //mulitpliziert alles mit delta-time
         velocity.scl(dt);
-        position.add(movement * dt, velocity.y, 0);
+        position.add(movement*dt, velocity.y, 0);
         if (position.y <= ground.getHeight() + ConstantsGame.GROUND_Y_OFFSET) {
             position.y = ground.getHeight() + ConstantsGame.GROUND_Y_OFFSET;
             jumpFinished = true;

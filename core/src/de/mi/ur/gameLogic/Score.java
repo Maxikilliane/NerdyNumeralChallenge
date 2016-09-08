@@ -102,20 +102,24 @@ public class Score {
         if (!PlayState.alreadChanged) {
             if ((hearts.get(0) == heartEmpty) && (hearts.get(1) == heartFilled) && hearts.get(2) == heartFilled) {
                 PlayState.alreadChanged = true;
-                state = 1;
+                state = 1;// 2 Herzen
                 return 1;
 
             }else if(hearts.get(1) == heartEmpty && hearts.get(2) == heartFilled && hearts.get(0) == heartEmpty) {
                 PlayState.alreadChanged = true;
-                state = 2;
+                state = 2; // 1 Herz
                 return 2;
             }else if (hearts.get(2) == heartEmpty && hearts.get(0) == heartEmpty && hearts.get(1) == heartEmpty) {
                 PlayState.alreadChanged = true;
-                state = 3;
+                state = 3; // kein Herz -> Menue
+
                 return 3;
-        } else{
+             }else  if ((hearts.get(0) == heartFilled) && (hearts.get(1) == heartFilled) && (hearts.get(2) == heartFilled)) {
                 PlayState.alreadChanged = true;
-                state = 4;
+                state = 4; // 3 Herzen
+                return 4;
+            }else{
+                PlayState.alreadChanged = true;
                 return 4;
             }
         }else{
@@ -151,24 +155,24 @@ public class Score {
 
 
     public static void updateHeart(GameStateManager manager) {
-        if (getStateOfHearts() == 4) {
+        state = getStateOfHearts();
+        if (state == 4) {
             System.out.println(4);
-
             changeHeart(true, 0);
-        }else if (getStateOfHearts() == 3) {
+        }else if (state == 3) {
             manager.set(new MenueState(manager));
             System.out.println("Ätschi");
-        } else if (getStateOfHearts() == 2) {
+        } else if (state == 2) {
             changeHeart(true, 2);
             System.out.println(2);
-        } else if (getStateOfHearts() == 1) {
+        } else if (state == 1) {
             changeHeart(true, 1);
             System.out.println(1);
         } else{
            // dieses else tritt ziemlich oft auf! :)
         }
 
-
+/*
         thisCounter++;
         System.out.println(thisCounter);
         System.out.println("counter geteilt: " + thisCounter / 20);
@@ -183,11 +187,12 @@ public class Score {
             hearts.set(2, heartEmpty);
         }
         System.out.println(thisCounter);
-
+*/
     }
 
+
     public static void addPoints() {
-        pointUpdate = 10;
+        pointUpdate = 0;
     }
 
     public void updateScore(GameStateManager manager) {
@@ -198,7 +203,7 @@ public class Score {
             currentScore = "0" + getTimeElapsed() + "   Points";
 
         } else {
-            currentScore = "" + getTimeElapsed() + pointUpdate + "   Points";
+            currentScore = "" + getTimeElapsed() + "   Points";
         }
         currentScorePoints = getTimeElapsed();
         if (PlayState.hasHit) {

@@ -122,10 +122,10 @@ public class GameQuestion {
 
             answerGenerated = true;
 
-            System.out.println("die richtige Lösung ist an Position: " + getRightAnswer());
+           // System.out.println("die richtige Lösung ist an Position: " + getRightAnswer());
 
             for (String answer : possAnswers) {
-                System.out.println("Antworten 2: " + answer);
+            //    System.out.println("Antworten 2: " + answer);
             }
         }
 
