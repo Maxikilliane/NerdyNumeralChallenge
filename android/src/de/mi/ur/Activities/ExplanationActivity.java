@@ -92,17 +92,7 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
         } else {
             continueButton.setEnabled(false);
         }
-        explanationText = tutorialTexts[explanationNumber];
-        explanationTextView.setText(Html.fromHtml(explanationText));
-        setVisibility();
-
-        questionTextView.setText(currentQuestion.getQuestion());
-        questionFragment.deleteText();
-
-        //sorgt dafür, dass mit Wechsel des ExplanationTexts auch der Focus vom EditText wieder weggeht
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(questionFragment.getSolutionEditText().getWindowToken(), 0);
-        //Toast.makeText(ExplanationActivity.this, "yes", Toast.LENGTH_SHORT).show();
+        refreshTexts();
         return super.onOptionsItemSelected(item);
     }
 
@@ -131,24 +121,24 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
 
                 continueButton.setEnabled(true);
 
-                
 
-
-                explanationText = tutorialTexts[explanationNumber];
-                explanationTextView.setText(Html.fromHtml(explanationText));
-                setVisibility();
-
-                questionTextView.setText(currentQuestion.getQuestion());
-                questionFragment.deleteText();
-
-                //sorgt dafür, dass mit Wechsel des ExplanationTexts auch der Focus vom EditText wieder weggeht
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(questionFragment.getSolutionEditText().getWindowToken(), 0);
-
-
+                refreshTexts();
             }
         });
 
+    }
+
+    private void refreshTexts(){
+        explanationText = tutorialTexts[explanationNumber];
+        explanationTextView.setText(Html.fromHtml(explanationText));
+        setVisibility();
+
+        questionTextView.setText(currentQuestion.getQuestion());
+        questionFragment.deleteText();
+
+        //sorgt dafür, dass mit Wechsel des ExplanationTexts auch der Focus vom EditText wieder weggeht
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(questionFragment.getSolutionEditText().getWindowToken(), 0);
     }
 
     // Welches Tutorial wurde angeklickt? Auswählen der richtigen Konstante für dieses Tutorial
@@ -262,16 +252,8 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
                 break;
             default:
         }
-        explanationText = tutorialTexts[explanationNumber];
-        explanationTextView.setText(Html.fromHtml(explanationText));
-        setVisibility();
 
-        questionTextView.setText(currentQuestion.getQuestion());
-        questionFragment.deleteText();
-
-        //sorgt dafür, dass mit Wechsel des ExplanationTexts auch der Focus vom EditText wieder weggeht
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(questionFragment.getSolutionEditText().getWindowToken(), 0);
+        refreshTexts();
     }
 
     private void setVisibility() {
