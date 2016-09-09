@@ -52,7 +52,7 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
     private KeyboardView.OnKeyboardActionListener mOnKeyboardActionListener;
 
     private int numeral1Base, numeral2Base;
-    private int questionLength = 2;
+    private int questionLength;
 
     private int typeOfQuestion;
     private Question currentQuestion;
@@ -93,6 +93,7 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
     private void init(){
         Bundle extras = getIntent().getExtras();
         if(extras != null){
+            questionLength = extras.getInt(Constants.KEY_QUESTION_LENGTH);
             typeOfQuestion = extras.getInt(Constants.KEY_TYPE_QUESTION);
             numeral1Base = extras.getInt(Constants.KEY_NUMERAL_1_BASE);
             numeral2Base = extras.getInt(Constants.KEY_NUMERAL_2_BASE);

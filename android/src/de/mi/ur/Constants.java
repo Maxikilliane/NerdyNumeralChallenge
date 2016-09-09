@@ -14,6 +14,8 @@ public class Constants {
     public static final String KEY_NUMERAL_2_BASE = "numeral2 base";
 
 
+    public static final String KEY_QUESTION_LENGTH = "question length";
+
     // Abfrage in ExplanationActivity, welches Tutorial angezeigt werden soll
     public static final String KEY_TYPE_TUTORIAL = "type of tutorial";
 
