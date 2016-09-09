@@ -3,9 +3,17 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/activity_general_padding"
+
     android:background="@color/black">
 
+    <include layout="@layout/toolbar"
+        android:id="@+id/practice_toolbar"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/activity_general_padding"
+        android:layout_below="@+id/practice_toolbar">
     <ProgressBar
         android:id="@+id/question_progressbar"
         android:layout_width="match_parent"
@@ -60,4 +68,6 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:visibility="gone" />
-</RelativeLayout>
+    </RelativeLayout>
+
+    </RelativeLayout>
