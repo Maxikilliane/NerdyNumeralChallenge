@@ -99,7 +99,8 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
     private void setupToolbar() {
         myToolbar = (Toolbar) findViewById(R.id.explanation_toolbar);
         setSupportActionBar(myToolbar);
-        getSupportActionBar().setTitle(R.string.app_name);
+        setUpToolbarTitle();
+        //getSupportActionBar().setTitle(R.string.app_name);
         myToolbar.setNavigationIcon(R.drawable.toolbar_back);
        /* if( explanationNumber < maxNumExplanations-1){
             myToolbar.setNavigationIcon(R.drawable.toolbar_next);
@@ -126,6 +127,25 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
             }
         });
 
+    }
+
+    private void setUpToolbarTitle() {
+        switch (tutorialType) {
+            case Constants.INTRO_TUTORIAL:
+                getSupportActionBar().setTitle(R.string.tutorial_intro_button);
+                break;
+            case Constants.DECIMAL_TUTORIAL:
+                getSupportActionBar().setTitle(Html.fromHtml(getResources().getString(R.string.tutorial_from_10_button)));
+                break;
+            case Constants.OTHER_TUTORIAL:
+                getSupportActionBar().setTitle(Html.fromHtml(getResources().getString(R.string.tutorial_from_other_button)));
+                break;
+            case Constants.TRICKS_TUTORIAL:
+                getSupportActionBar().setTitle(R.string.tutorial_tricks_button);
+                break;
+            default:
+                getSupportActionBar().setTitle(R.string.tutorial_toolbar_headline);
+        }
     }
 
     private void refreshTexts(){
