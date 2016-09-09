@@ -44,10 +44,6 @@ public class PracticeMainActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void setUpDifficultyCalculations(){
-        db.open();
-        currentLevel = db.getCurrentLevel();
-        db.close();
-        questionLength = currentLevel.getQuestionLength();
     }
 
     private void setupToolbar() {
@@ -129,6 +125,10 @@ public class PracticeMainActivity extends AppCompatActivity implements View.OnCl
             int numeral2Base = secondNumberSystem.getValue();
             i.putExtra(Constants.KEY_NUMERAL_1_BASE, numeral1Base);
             i.putExtra(Constants.KEY_NUMERAL_2_BASE, numeral2Base);
+            db.open();
+            currentLevel = db.getCurrentLevel();
+            db.close();
+            questionLength = currentLevel.getQuestionLength();
             questionLength += DifficultyCalculator.getBaseQuestionLength(numeral1Base, numeral2Base) ;
             i.putExtra(Constants.KEY_QUESTION_LENGTH, questionLength);
             startActivity(i);
