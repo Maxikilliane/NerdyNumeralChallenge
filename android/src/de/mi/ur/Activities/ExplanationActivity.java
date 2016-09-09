@@ -24,7 +24,7 @@ import de.mi.ur.R;
 /**
  * Created by Anna-Marie on 01.08.2016.
  *
- * InputType muss noch geändert werden!
+ * 
  */
 public class ExplanationActivity extends AppCompatActivity implements View.OnClickListener, FreeTextQuestionFragment.OnKeyboardListener{
     private TextView explanationTextView;
