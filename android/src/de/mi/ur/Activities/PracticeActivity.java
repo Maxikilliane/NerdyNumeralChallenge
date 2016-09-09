@@ -8,6 +8,8 @@ import android.content.res.Resources;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputType;
 import android.util.Log;
@@ -37,7 +39,7 @@ import de.mi.ur.R;
 /**
  * Created by Anna-Marie on 03.09.2016.
  */
-public class PracticeActivity extends Activity implements FreeTextQuestionFragment.OnKeyboardListener{
+public class PracticeActivity extends AppCompatActivity implements FreeTextQuestionFragment.OnKeyboardListener{
     private TextView questionTextView, questionChangeableView;
     private ProgressBar practiseProgressBar;
     private Button solutionButton;
@@ -62,6 +64,8 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
 
     private NNCDatabase db;
 
+    private Toolbar myToolbar;
+
 
 
 
@@ -70,9 +74,38 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
         setContentView(R.layout.practice_activity);
         init();
         setUpUI();
+        setupToolbar();
         setUpKeyboardHandler();
         setUpKeyboard();
         setUpQuestionTypeSpecificStuff();
+    }
+
+    private void setupToolbar() {
+        myToolbar = (Toolbar) findViewById(R.id.practice_toolbar);
+        setSupportActionBar(myToolbar);
+        setUpToolbarTitle();
+        //getSupportActionBar().setTitle(R.string.practice_main_toolbar_headline);
+        myToolbar.setNavigationIcon(R.drawable.toolbar_back);
+        myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+    private void setUpToolbarTitle() {
+        switch (typeOfQuestion){
+            case Constants.MULTIPLE_CHOICE:
+                getSupportActionBar().setTitle(R.string.multiple_choice_button);
+                break;
+            case Constants.TRUE_FALSE:
+                getSupportActionBar().setTitle(R.string.wrong_true_button);
+                break;
+            case Constants.FREETEXT :
+                getSupportActionBar().setTitle(R.string.manual_entry_button);
+                default:getSupportActionBar().setTitle(R.string.app_name);
+        }
     }
 
     protected void onStart(){
