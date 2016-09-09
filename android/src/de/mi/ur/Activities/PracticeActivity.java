@@ -1,13 +1,15 @@
 package de.mi.ur.Activities;
 
 import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.InputType;
 import android.util.Log;
@@ -37,12 +39,12 @@ import de.mi.ur.R;
 /**
  * Created by Anna-Marie on 03.09.2016.
  */
-public class PracticeActivity extends Activity implements FreeTextQuestionFragment.OnKeyboardListener{
+public class PracticeActivity extends AppCompatActivity implements FreeTextQuestionFragment.OnKeyboardListener{
     private TextView questionTextView, questionChangeableView;
     private ProgressBar practiseProgressBar;
     private Button solutionButton;
 
-    private FragmentManager fragmentManager;
+    private android.support.v4.app.FragmentManager fragmentManager;
     private QuestionFragment questionFragment;
 
     private Keyboard myKeyboard;
@@ -73,6 +75,7 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
         setUpKeyboardHandler();
         setUpKeyboard();
         setUpQuestionTypeSpecificStuff();
+
     }
 
     protected void onStart(){
@@ -298,7 +301,7 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
     }
 
     private void setUpFragment(QuestionFragment questionFragment){
-        fragmentManager = getFragmentManager();
+        fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.question_fragment_placeholder, questionFragment);
         fragmentTransaction.commit();

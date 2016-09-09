@@ -66,7 +66,7 @@ public class FreeTextQuestionFragment extends QuestionFragment {
         }
     }
 
-
+/*
     public void onAttach(Activity activity){
         super.onAttach(activity);
 
@@ -80,6 +80,7 @@ public class FreeTextQuestionFragment extends QuestionFragment {
                     + " must implement OnKeyboardListener");
         }
     }
+    */
 
 
     public EditText getSolutionEditText(){

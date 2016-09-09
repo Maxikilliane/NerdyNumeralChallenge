@@ -10,7 +10,7 @@ import de.mi.ur.Constants;
  * Diese Klasse wird derzeit nicht genutzt. Ist als private Klasse in die GameMainActivity ausgelagert.
  *
  */
-public class WeatherManager {
+public class WeatherManager implements WeatherListener{
     private int currentWeather;
     private String weatherUrlPart1 = "http://api.openweathermap.org/data/2.5/weather?";
     private String weatherUrlPart2Lat = "lat=";
@@ -18,7 +18,6 @@ public class WeatherManager {
     private String weatherUrlPart4AppId = "&appid="+Constants.API_ID;
     private WeatherAsyncTask weatherTask;
     private LocationController locationController;
-
     public WeatherManager(Context context, Activity activity) {
         locationController = new LocationController(context, activity);
         locationController.setCurrentPosition();
@@ -29,25 +28,20 @@ public class WeatherManager {
         return weatherUrl;
     }
 
-    private void calculateCurrentWeather(int weatherId) {
-        if (weatherId >= 200 && weatherId < 600) {
-            currentWeather = Constants.WEATHER_RAINY;
-        } else if (weatherId >= 600 && weatherId < 700) {
-            currentWeather = Constants.WEATHER_CLOUDY;
-        } else if (weatherId == 800) {
-            currentWeather = Constants.WEATHER_SUNNY;
-        } else {
-            currentWeather = Constants.WEATHER_CLOUDY;
-        }
+
+    public void startCurrentWeatherGetter(){
+        String Url = generateUrl();
+        weatherTask = new WeatherAsyncTask(this);
+        weatherTask.execute(Url);
     }
 
     public int getCurrentWeather(){
-        String Url = generateUrl();
-        weatherTask = new WeatherAsyncTask();
-        weatherTask.execute(Url);
-        calculateCurrentWeather(weatherTask.getWeatherId());
         return currentWeather;
     }
 
 
+    @Override
+    public void onDownloadFinished() {
+        currentWeather = weatherTask.getCurrentWeather();
+    }
 }

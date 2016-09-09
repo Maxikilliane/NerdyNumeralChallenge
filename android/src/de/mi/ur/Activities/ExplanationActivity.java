@@ -7,6 +7,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.view.View;
 import android.view.WindowManager;
@@ -32,7 +33,7 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
     private Button continueButton;
     private Button backButton;
 
-    private FragmentManager fragmentManager;
+    private android.support.v4.app.FragmentManager fragmentManager;
     private FreeTextQuestionFragment questionFragment;
 
 
@@ -151,12 +152,11 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void setUpFragment(){
-        fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentManager = getSupportFragmentManager();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         FreeTextQuestionFragment questionFrag = new FreeTextQuestionFragment();
         fragmentTransaction.add(R.id.revision_answer_fragment_placeholder, questionFrag);
         fragmentTransaction.commit();
-
         questionFragment = questionFrag;
 
     }

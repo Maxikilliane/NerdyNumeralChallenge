@@ -17,14 +17,17 @@ import de.mi.ur.AndroidCommunication.WeatherDataListener;
 import de.mi.ur.AndroidLauncher;
 import de.mi.ur.Constants;
 import de.mi.ur.R;
+import de.mi.ur.WeatherExtras.WeatherListener;
 import de.mi.ur.WeatherExtras.WeatherManager;
 
-public class GameMainActivity extends AppCompatActivity implements View.OnClickListener, WeatherDataListener {
+public class GameMainActivity extends AppCompatActivity implements View.OnClickListener, WeatherDataListener, WeatherListener {
 
     private Button buttonStartGame;
     private Button buttonWeather;
     private Button buttonViewHighscore;
     private Button buttonHelp;
+
+    private int currentWeather;
 
 
     private WeatherManager weatherManager;
@@ -75,8 +78,7 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.game_update_weather_button:
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                String weather = convertToWeatherName(weatherManager.getCurrentWeather());
-                    toastMessage = "Wetter aktualisiert! Gerade " + weather + ". Der Spielhintergrund wurde angepasst.";
+                    weatherManager.startCurrentWeatherGetter();
                 } else {
                     requestWeatherPermission(this);
                     toastMessage = "Default-Wetter: Die Sonne scheint!";
@@ -135,7 +137,7 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
         switch (requestCode) {
             case Constants.MY_PERMISSION_REQUEST_ACCESS_COARSE_LOCATION: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    weatherManager.getCurrentWeather();
+                    weatherManager.startCurrentWeatherGetter();
                 }
                 break;
             }
@@ -143,6 +145,11 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-
+    @Override
+    public void onDownloadFinished() {
+        String weather = convertToWeatherName(weatherManager.getCurrentWeather());
+        String toastMessage = "Wetter aktualisiert! Gerade " + weather + ". Der Spielhintergrund wurde angepasst.";
+        Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT);
+    }
 }
 
