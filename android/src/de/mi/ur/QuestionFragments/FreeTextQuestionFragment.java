@@ -39,7 +39,7 @@ public class FreeTextQuestionFragment extends QuestionFragment {
                 if(hasFocus) mCallback.onOpen();
             }
         });
-        solutionEditText.setOnClickListener(new View.OnClickListener() {
+        this.solutionEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mCallback.onOpen();

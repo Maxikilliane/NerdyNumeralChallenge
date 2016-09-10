@@ -174,7 +174,7 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
             @Override
             public void onKey(int primaryCode, int[] keyCodes) {
                 View focusCurrent = PracticeActivity.this.getWindow().getCurrentFocus();
-                if(focusCurrent == null || focusCurrent.getClass()!=EditText.class){
+                if(focusCurrent ==null || focusCurrent.getClass()!= android.support.v7.widget.AppCompatEditText.class){
                     return;
                 }
                 EditText editText = (EditText) focusCurrent;
