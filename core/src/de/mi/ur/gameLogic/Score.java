@@ -105,20 +105,20 @@ public class Score {
                 state = 1;
                 return 1;
 
-            }else if(hearts.get(1) == heartEmpty && hearts.get(2) == heartFilled && hearts.get(0) == heartEmpty) {
+            } else if (hearts.get(1) == heartEmpty && hearts.get(2) == heartFilled && hearts.get(0) == heartEmpty) {
                 PlayState.alreadChanged = true;
                 state = 2;
                 return 2;
-            }else if (hearts.get(2) == heartEmpty && hearts.get(0) == heartEmpty && hearts.get(1) == heartEmpty) {
+            } else if (hearts.get(2) == heartEmpty && hearts.get(0) == heartEmpty && hearts.get(1) == heartEmpty) {
                 PlayState.alreadChanged = true;
                 state = 3;
                 return 3;
-        } else{
+            } else {
                 PlayState.alreadChanged = true;
                 state = 4;
                 return 4;
             }
-        }else{
+        } else {
             return 0;
         }
             /*
@@ -155,7 +155,7 @@ public class Score {
             System.out.println(4);
 
             changeHeart(true, 0);
-        }else if (getStateOfHearts() == 3) {
+        } else if (getStateOfHearts() == 3) {
             manager.set(new MenueState(manager));
             System.out.println("Ätschi");
         } else if (getStateOfHearts() == 2) {
@@ -164,8 +164,8 @@ public class Score {
         } else if (getStateOfHearts() == 1) {
             changeHeart(true, 1);
             System.out.println(1);
-        } else{
-           // dieses else tritt ziemlich oft auf! :)
+        } else {
+            // dieses else tritt ziemlich oft auf! :)
         }
 
 

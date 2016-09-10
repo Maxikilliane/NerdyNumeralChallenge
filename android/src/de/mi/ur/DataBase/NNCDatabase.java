@@ -157,8 +157,8 @@ public class NNCDatabase implements HighscoreListener {
         database.insert(TABLE_LEVEL, null, levelValues);
     }
 
-    public Level getLevel(int levelId){
-        if(levelId < 0 || levelId >9){
+    public Level getLevel(int levelId) {
+        if (levelId < 0 || levelId > 9) {
             levelId = 0;
         }
         String whereClause = KEY_LEVEL_ID + " = " + levelId;
@@ -249,7 +249,7 @@ public class NNCDatabase implements HighscoreListener {
                         new Level(20, 0, "Unwissender", 0, 0)
                 };
 
-                for(Level level: levels){
+                for (Level level : levels) {
                     ContentValues levelValues = new ContentValues();
                     levelValues.put(KEY_LEVEL_ID, level.getId());
                     levelValues.put(KEY_LEVEL_NUM, level.getLevelNum());

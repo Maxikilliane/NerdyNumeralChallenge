@@ -27,7 +27,7 @@ public class Woman extends Obstacle {
         random = new Random();
         womanPos = new Vector2(x, ConstantsGame.WOMAN_Y);
         bounds = new Rectangle(womanPos.x, womanPos.y, woman.getWidth() + ConstantsGame.BOUNDS_OFFSET, woman.getHeight());
-        System.out.println("woman width: "+ woman.getWidth());
+        System.out.println("woman width: " + woman.getWidth());
 
     }
 

@@ -43,35 +43,34 @@ public class ProgressActivity extends AppCompatActivity {
         });
     }
 
-    private void setUpUI(){
+    private void setUpUI() {
         levelNumberView = (TextView) findViewById(R.id.level_number);
         levelNameView = (TextView) findViewById(R.id.level_name);
         levelProgressBar = (ProgressBar) findViewById(R.id.level_progress_bar);
         db = new NNCDatabase(this);
         db.open();
         currentLevel = db.getCurrentLevel();
-        String levelNumberText = "Level "+currentLevel.getLevelNum();
+        String levelNumberText = "Level " + currentLevel.getLevelNum();
         levelNumberView.setText(levelNumberText);
         levelNameView.setText(currentLevel.getLevelName());
         db.close();
     }
 
-    private void setUpProgress(){
+    private void setUpProgress() {
         db.open();
         int currentLevelNum = currentLevel.getLevelNum();
-        if(currentLevelNum >= 9){
+        if (currentLevelNum >= 9) {
             levelProgressBar.setProgress(100);
-        }else{
+        } else {
             int start = db.getLevel(currentLevel.getLevelNum()).getPointsNeededForThisLevel();
-            int end = db.getLevel(currentLevel.getLevelNum()+1).getPointsNeededForThisLevel();
+            int end = db.getLevel(currentLevel.getLevelNum() + 1).getPointsNeededForThisLevel();
             int percentage100 = end - start;
             int currentPoints = currentLevel.getPointsNeededForThisLevel();
-            double currentPercentage = (((double)(currentPoints - start) / percentage100));
+            double currentPercentage = (((double) (currentPoints - start) / percentage100));
             int currentProgress = (int) (currentPercentage * 100);
             levelProgressBar.setProgress(currentProgress);
         }
         db.close();
-
 
 
     }

@@ -1,13 +1,11 @@
 package de.mi.ur.Activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import de.mi.ur.DataBase.NNCDatabase;
 import de.mi.ur.R;
@@ -23,7 +21,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     private Button buttonProgress;
 
     private Toolbar myToolbar;
-
 
 
     @Override

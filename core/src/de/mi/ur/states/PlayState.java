@@ -67,8 +67,8 @@ public class PlayState extends State {
     protected PlayState(GameStateManager gameManager) {
         super(gameManager);
         this.highscoreListener = gameManager.getHighscoreListener();
-        ground = new Texture("ground.png");
         nerd = new Nerd(ConstantsGame.NERD_X, ConstantsGame.NERD_Y);
+        ground = new Texture("ground_v3.png");
         flyingPhone1 = new Texture("phone_answer_new_1.png");
         flyingPhone2 = new Texture("phone_different_animation_2.png");
         flyingPhone3 = new Texture("phone_answer_new_3.png");
@@ -81,7 +81,7 @@ public class PlayState extends State {
         phone3 = new AnswerPhones(500, 200, flyingPhone3);
         phone4 = new AnswerPhones(550, 200, flyingPhone4);
 
-        background = new Texture("bg_sunny.png");
+        background = new Texture("bg_sunny_neew.png");
 
         //background = getBackgroundWeather(gameManager);
         score = new Score();
@@ -256,14 +256,14 @@ public class PlayState extends State {
                         break;
                     case ConstantsGame.WOMAN_TYPE:
                         counter++;
-                        System.out.println("counter: "+counter);
+                        System.out.println("counter: " + counter);
                         System.out.println("boolean direkt vor hit: " + alreadChanged);
                         alreadChanged = false;
                         System.out.println("boolean direkt nach hit: " + alreadChanged);
-                        System.out.println("limitcounter: "+limitCounter);
+                        System.out.println("limitcounter: " + limitCounter);
                         if (counter >= limitCounter) {
                             Score.updateHeart(gameManager);
-                            counter =0;
+                            counter = 0;
                         }
 
 
@@ -308,7 +308,7 @@ public class PlayState extends State {
         updateGround();
         updateBG();
         nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty(dt));
-        System.out.println("delta time (framerate): "+dt);
+        System.out.println("delta time (framerate): " + dt);
         //System.out.println("limitCounter: "+limitCounter);
         updatePhones();
         phone1.update(dt);
@@ -329,19 +329,19 @@ public class PlayState extends State {
     private float increaseDifficulty(float dt) {
         long value = score.getCurrentScore();
         if (value > 50) {
-            this.limitCounter = (int) ((8/dt)*dt);
+            this.limitCounter = (int) ((8 / dt) * dt);
             return 130;
         }
         if (value > 100) {
-            this.limitCounter = (int) ((6/dt)*dt);
+            this.limitCounter = (int) ((6 / dt) * dt);
             return 160;
         }
         if (value > 150) {
-            this.limitCounter = (int) ((4/dt)*dt);
+            this.limitCounter = (int) ((4 / dt) * dt);
             return 190;
         }
         if (value > 200) {
-            this.limitCounter = (int) ((2/dt)*dt);
+            this.limitCounter = (int) ((2 / dt) * dt);
             return 220;
         }
         if (value > 250) {
@@ -353,7 +353,7 @@ public class PlayState extends State {
             return 280;
 
         } else {
-            this.limitCounter = (int) ((10/dt)*dt);
+            this.limitCounter = (int) ((10 / dt) * dt);
             return ConstantsGame.NERD_MOVEMENT_DEFAULT;
         }
     }

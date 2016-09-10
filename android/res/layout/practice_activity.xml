@@ -6,8 +6,9 @@
 
     android:background="@color/black">
 
-    <include layout="@layout/toolbar"
-        android:id="@+id/practice_toolbar"/>
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/practice_toolbar" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -70,4 +71,4 @@
         android:visibility="gone" />
     </RelativeLayout>
 
-    </RelativeLayout>
+</RelativeLayout>

@@ -1,18 +1,15 @@
 package de.mi.ur.Activities;
 
 import android.app.Activity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -39,7 +36,7 @@ import de.mi.ur.R;
 /**
  * Created by Anna-Marie on 03.09.2016.
  */
-public class PracticeActivity extends AppCompatActivity implements FreeTextQuestionFragment.OnKeyboardListener{
+public class PracticeActivity extends AppCompatActivity implements FreeTextQuestionFragment.OnKeyboardListener {
     private TextView questionTextView, questionChangeableView;
     private ProgressBar practiseProgressBar;
     private Button solutionButton;
