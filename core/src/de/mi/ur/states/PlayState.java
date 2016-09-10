@@ -27,6 +27,9 @@ import de.mi.ur.sprites.Woman;
  */
 public class PlayState extends State {
 
+    private int counter = 0;
+    private int limitCounter;
+
     private static Nerd nerd;
     private Texture background;
     public static Texture ground;
@@ -252,11 +255,15 @@ public class PlayState extends State {
                         gameManager.set(new MenueState(gameManager));
                         break;
                     case ConstantsGame.WOMAN_TYPE:
+                        counter++;
+                        System.out.println("counter: "+counter);
                         System.out.println("boolean direkt vor hit: " + alreadChanged);
                         alreadChanged = false;
                         System.out.println("boolean direkt nach hit: " + alreadChanged);
-                        if (!alreadChanged) {
+                        System.out.println("limitcounter: "+limitCounter);
+                        if (counter >= limitCounter) {
                             Score.updateHeart(gameManager);
+                            counter =0;
                         }
 
 
@@ -300,7 +307,9 @@ public class PlayState extends State {
         handleInput();
         updateGround();
         updateBG();
-        nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty());
+        nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty(dt));
+        System.out.println("delta time (framerate): "+dt);
+        //System.out.println("limitCounter: "+limitCounter);
         updatePhones();
         phone1.update(dt);
         phone2.update(dt);
@@ -317,27 +326,34 @@ public class PlayState extends State {
         cam.update();
     }
 
-    private int increaseDifficulty() {
+    private float increaseDifficulty(float dt) {
         long value = score.getCurrentScore();
         if (value > 50) {
+            this.limitCounter = (int) ((8/dt)*dt);
             return 130;
         }
         if (value > 100) {
+            this.limitCounter = (int) ((6/dt)*dt);
             return 160;
         }
         if (value > 150) {
+            this.limitCounter = (int) ((4/dt)*dt);
             return 190;
         }
         if (value > 200) {
+            this.limitCounter = (int) ((2/dt)*dt);
             return 220;
         }
         if (value > 250) {
+            this.limitCounter = 1;
             return 250;
         }
         if (value > 300) {
+            this.limitCounter = 1;
             return 280;
 
         } else {
+            this.limitCounter = (int) ((10/dt)*dt);
             return ConstantsGame.NERD_MOVEMENT_DEFAULT;
         }
     }

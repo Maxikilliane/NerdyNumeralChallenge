@@ -14,6 +14,8 @@ public class Constants {
     public static final String KEY_NUMERAL_2_BASE = "numeral2 base";
 
 
+    public static final String KEY_QUESTION_LENGTH = "question length";
+
     // Abfrage in ExplanationActivity, welches Tutorial angezeigt werden soll
     public static final String KEY_TYPE_TUTORIAL = "type of tutorial";
 
@@ -51,7 +53,7 @@ public class Constants {
     public static final String CURRENT_WEATHER = "current weather";
 
     //
-    public static final int MY_PERMISSION_REQUEST_ACCESS_COARSE_LOCATION = 1111;
+    public static final int MY_PERMISSION_REQUEST_ACCESS_COARSE_LOCATION = 111;
 
     //Practice
     public static final int NUM_QUESTIONS_PER_PRACTICE = 10;

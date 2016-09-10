@@ -17,7 +17,7 @@ import de.mi.ur.LevelLogic.Level;
  */
 public class NNCDatabase implements HighscoreListener {
     private static final String DATABASE_NAME = "NNC Database";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
 
     private static final String TABLE_HIGHSCORE = "nncGameHighscores";
     private static final String KEY_ID = "_id";
@@ -134,66 +134,37 @@ public class NNCDatabase implements HighscoreListener {
         return levels;
     }
 
-    public void initLevelDatabase(){
-        Level[] levels = {new Level(0, 0, "Unwissender", 0, 0),
-                        new Level(1, 1, "Initiant", 100, 0),
-                        new Level(2, 2, "Padawan", 300, 0),
-                        new Level(3, 3, "Nullen-Nerd", 600, 0),
-                        new Level(4, 4, "edler Einsen-Verehrer", 1000, 1),
-                        new Level(5, 5, "Quaternal-Kenner", 1500, 1),
-                new Level(6, 6, "Oktal-Jongleur", 2100, 1),
-                new Level(7, 7, "Hex-Beherrscher", 2800, 2),
-                new Level(8, 8, "Meister der Systeme", 3600, 2),
-                new Level(9, 9, "5up3r N3rd", 4500, 3),
-                new Level(-1, 0, "Unwissender", 0, 0)
-        };
-
-      /*  for(Level level: levels){
-            insertLevelData(level);
-        }*/
-    }
-
-   /* private long insertLevelData (Level level){
-        ContentValues levelValues = new ContentValues();
-        levelValues.put(KEY_LEVEL_ID, level.getId());
-        levelValues.put(KEY_LEVEL_NUM, level.getLevelNum());
-        levelValues.put(KEY_LEVEL_NAME, level.getLevelName());
-        levelValues.put(KEY_POINTS_FOR_NEXT_LEVEL, level.getPointsNeededForThisLevel());
-        levelValues.put(KEY_QUESTION_LENGTH, level.getQuestionLength());
-
-        return database.insert(TABLE_LEVEL, null, levelValues);
-    }*/
-
     public Level getCurrentLevel(){
-        String whereClause = KEY_LEVEL_ID + " = " + -1;
+        String whereClause = KEY_LEVEL_ID + " = " + 20;
         Cursor cursor = database.query(TABLE_LEVEL, ALL_COLUMNS_LEVEL, whereClause, null, null, null, null);
         return buildLevelFromCursor(cursor).get(0);
     }
 
     private void removeCurrentLevel(){
-        String whereClause = KEY_LEVEL_ID + " = " + -1;
+        String whereClause = KEY_LEVEL_ID + " = " + 20;
         database.delete(TABLE_LEVEL, whereClause, null);
     }
     public void insertCurrentLevelPoints(int points){
         Level currentLevel = getCurrentLevel();
-        removeCurrentLevel();
+
         ContentValues levelValues = new ContentValues();
         levelValues.put(KEY_LEVEL_ID, currentLevel.getId());
         levelValues.put(KEY_LEVEL_NUM, currentLevel.getLevelNum());
-        levelValues.put(KEY_LEVEL_NAME, getCurrentLevel().getLevelName());
+        levelValues.put(KEY_LEVEL_NAME, currentLevel.getLevelName());
         levelValues.put(KEY_POINTS_FOR_NEXT_LEVEL, points);
         levelValues.put(KEY_QUESTION_LENGTH, currentLevel.getQuestionLength());
-
+        removeCurrentLevel();
         database.insert(TABLE_LEVEL, null, levelValues);
     }
 
-    private Level getLevel(int levelNum){
-        String whereClause = KEY_LEVEL_NUM + " = " + levelNum;
+    public Level getLevel(int levelId){
+        if(levelId < 0 || levelId >9){
+            levelId = 0;
+        }
+        String whereClause = KEY_LEVEL_ID + " = " + levelId;
         Cursor cursor = database.query(TABLE_LEVEL, ALL_COLUMNS_LEVEL, whereClause, null, null, null, null);
         return buildLevelFromCursor(cursor).get(0);
-
     }
-
 
     public boolean checkIfNextLevel(){
         Level currentLevel = getCurrentLevel();
@@ -265,7 +236,30 @@ public class NNCDatabase implements HighscoreListener {
                 db.execSQL(CREATE_HIGHSCORE_TABLE);
                 db.execSQL(CREATE_LEVEL_TABLE);
 
-                initLevelDatabase();
+                Level[] levels = {new Level(0, 0, "Unwissender", 0, 0),
+                        new Level(1, 1, "Initiant", 100, 0),
+                        new Level(2, 2, "Padawan", 300, 0),
+                        new Level(3, 3, "Nullen-Nerd", 600, 0),
+                        new Level(4, 4, "edler Einsen-Verehrer", 1000, 1),
+                        new Level(5, 5, "Quaternal-Kenner", 1500, 1),
+                        new Level(6, 6, "Oktal-Jongleur", 2100, 1),
+                        new Level(7, 7, "Hex-Beherrscher", 2800, 2),
+                        new Level(8, 8, "Meister der Systeme", 3600, 2),
+                        new Level(9, 9, "5up3r N3rd", 4500, 3),
+                        new Level(20, 0, "Unwissender", 0, 0)
+                };
+
+                for(Level level: levels){
+                    ContentValues levelValues = new ContentValues();
+                    levelValues.put(KEY_LEVEL_ID, level.getId());
+                    levelValues.put(KEY_LEVEL_NUM, level.getLevelNum());
+                    levelValues.put(KEY_LEVEL_NAME, level.getLevelName());
+                    levelValues.put(KEY_POINTS_FOR_NEXT_LEVEL, level.getPointsNeededForThisLevel());
+                    levelValues.put(KEY_QUESTION_LENGTH, level.getQuestionLength());
+
+                    db.insert(TABLE_LEVEL, null, levelValues);
+                }
+
             }
 
             @Override

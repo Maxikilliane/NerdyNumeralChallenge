@@ -1,13 +1,15 @@
 package de.mi.ur.Activities;
 
 import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.InputType;
 import android.util.Log;
@@ -37,12 +39,12 @@ import de.mi.ur.R;
 /**
  * Created by Anna-Marie on 03.09.2016.
  */
-public class PracticeActivity extends Activity implements FreeTextQuestionFragment.OnKeyboardListener{
+public class PracticeActivity extends AppCompatActivity implements FreeTextQuestionFragment.OnKeyboardListener{
     private TextView questionTextView, questionChangeableView;
     private ProgressBar practiseProgressBar;
     private Button solutionButton;
 
-    private FragmentManager fragmentManager;
+    private android.support.v4.app.FragmentManager fragmentManager;
     private QuestionFragment questionFragment;
 
     private Keyboard myKeyboard;
@@ -50,7 +52,7 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
     private KeyboardView.OnKeyboardActionListener mOnKeyboardActionListener;
 
     private int numeral1Base, numeral2Base;
-    private int questionLength = 2;
+    private int questionLength;
 
     private int typeOfQuestion;
     private Question currentQuestion;
@@ -73,6 +75,7 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
         setUpKeyboardHandler();
         setUpKeyboard();
         setUpQuestionTypeSpecificStuff();
+
     }
 
     protected void onStart(){
@@ -90,6 +93,7 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
     private void init(){
         Bundle extras = getIntent().getExtras();
         if(extras != null){
+            questionLength = extras.getInt(Constants.KEY_QUESTION_LENGTH);
             typeOfQuestion = extras.getInt(Constants.KEY_TYPE_QUESTION);
             numeral1Base = extras.getInt(Constants.KEY_NUMERAL_1_BASE);
             numeral2Base = extras.getInt(Constants.KEY_NUMERAL_2_BASE);
@@ -128,9 +132,9 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
             currentQuestionSolved = false;
 
             if(practiseProgressBar.getProgress() == 100 ){
-              //  savePointsToDatabase();
+                savePointsToDatabase();
                 // an dieser Stelle müssten dann noch die geschafften Aufgaben (Punkte) in die Datenbank gespeichert werden
-                startActivity(new Intent(PracticeActivity.this, PracticeMainActivity.class));
+                finish();
             }
         }
         updateQuestion();
@@ -144,8 +148,10 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
         db.insertCurrentLevelPoints(currentPoints + pointsToAdd);
         if (db.checkIfNextLevel()){
             Toast.makeText(this, "next Level", Toast.LENGTH_SHORT).show();
+            finish();
             startActivity(new Intent(PracticeActivity.this, ProgressActivity.class));
         }
+        db.close();
     }
 
 
@@ -296,7 +302,7 @@ public class PracticeActivity extends Activity implements FreeTextQuestionFragme
     }
 
     private void setUpFragment(QuestionFragment questionFragment){
-        fragmentManager = getFragmentManager();
+        fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.question_fragment_placeholder, questionFragment);
         fragmentTransaction.commit();

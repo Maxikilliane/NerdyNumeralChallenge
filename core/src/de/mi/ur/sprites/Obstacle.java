@@ -29,7 +29,6 @@ public abstract class Obstacle {
         this.obstacleY = obstacleY;
         obstaclePos = new Vector2(x, obstacleY);
         bounds = new Rectangle(obstaclePos.x, obstaclePos.y, texture.getWidth() - ConstantsGame.PIT_BOUNDS_OFFSET, texture.getHeight());
-
     }
 
     public Texture getTexture() {

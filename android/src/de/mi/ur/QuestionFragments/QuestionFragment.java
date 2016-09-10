@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 /**
  * Created by Anna-Marie on 04.09.2016.
  */
-public abstract class QuestionFragment extends Fragment {
+public abstract class QuestionFragment extends android.support.v4.app.Fragment {
     public QuestionFragment() {
     }
 
