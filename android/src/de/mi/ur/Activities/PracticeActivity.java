@@ -130,7 +130,7 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
 
             if(practiseProgressBar.getProgress() == 100 ){
                 savePointsToDatabase();
-                // an dieser Stelle müssten dann noch die geschafften Aufgaben (Punkte) in die Datenbank gespeichert werden
+                Toast.makeText(this, "Geschafft!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }
@@ -295,6 +295,7 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
                 break;
             default:
                 currentQuestion = new FreeTextQuestion(numeral1Base, numeral2Base, questionLength);
+                
         }
     }
 
