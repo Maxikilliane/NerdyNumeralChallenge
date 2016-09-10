@@ -388,6 +388,11 @@ public class PlayState extends State {
         nerd.dispose();
         background.dispose();
         ground.dispose();
+        flyingPhone1.dispose();
+        flyingPhone2.dispose();
+        flyingPhone3.dispose();
+        flyingPhone4.dispose();
+        sun.dispose();
         /*
         for (Pit pit : pits) {
             pit.dispose();
