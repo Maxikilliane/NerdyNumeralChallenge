@@ -119,7 +119,8 @@ public class Score {
                 return 4;
             }
         } else {
-            return 0;
+            return state;
+
         }
             /*
         if (!PlayState.alreadChanged) {

@@ -305,7 +305,7 @@ public class PlayState extends State {
     @Override
     //calculations for the render method
     public void update(float dt) {
-        System.out.println(Score.getStateOfHearts());
+
 
         handleInput();
         updateGround();

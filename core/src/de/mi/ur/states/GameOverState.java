@@ -12,7 +12,7 @@ import de.mi.ur.gameLogic.Score;
  */
 public class GameOverState extends State {
 
-    private Texture playButton;
+
     private Texture gameOver;
 
 
@@ -54,7 +54,7 @@ public class GameOverState extends State {
 
     @Override
     public void dispose() {
-        playButton.dispose();
+
         gameOver.dispose();
 
 
