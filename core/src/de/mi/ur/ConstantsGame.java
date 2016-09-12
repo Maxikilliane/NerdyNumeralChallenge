@@ -8,7 +8,19 @@ import de.mi.ur.states.PlayState;
  */
 public class ConstantsGame {
 
+
         private static Nerd nerd = new Nerd(0,0);
+
+        public static final int DEFAULT_CAM_WIDTH = 240;
+        public static final int DEFAULT_CAM_HEIGHT = 400;
+
+        public static final int SCREEN_HEIGHT = 450;
+        public static final int SCREEN_WIDTH = 800;
+
+        public static final int GAME_OVER_OFFSET_X = 30;
+        public static final int GAME_OVER_OFFSET_Y = 220;
+
+
 
         public static final int NERD_GRAVITY_DEFAULT = -30;
         public static final int NERD_MOVEMENT_DEFAULT = 100;

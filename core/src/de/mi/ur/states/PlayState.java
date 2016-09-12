@@ -68,13 +68,13 @@ public class PlayState extends State {
         super(gameManager);
         this.highscoreListener = gameManager.getHighscoreListener();
         nerd = new Nerd(ConstantsGame.NERD_X, ConstantsGame.NERD_Y);
-        ground = new Texture("ground_v3.png");
+        ground = new Texture("ground_anton.png");
         flyingPhone1 = new Texture("phone_answer_new_1.png");
         flyingPhone2 = new Texture("phone_different_animation_2.png");
         flyingPhone3 = new Texture("phone_answer_new_3.png");
         flyingPhone4 = new Texture("phone_answer_new_4.png");
 
-        sun = new Texture("sun4sunnybg.png");
+        sun = new Texture("sun.png");
 
         phone1 = new AnswerPhones(400, 200, flyingPhone1);
         phone2 = new AnswerPhones(450, 200, flyingPhone2);
@@ -253,7 +253,8 @@ public class PlayState extends State {
                 switch (obstacle.getType()) {
                     case ConstantsGame.PIT_TYPE:
                         saveScore();
-                        gameManager.set(new MenueState(gameManager));
+                        cam.setToOrtho(false, ConstantsGame.DEFAULT_CAM_WIDTH, ConstantsGame.DEFAULT_CAM_HEIGHT);
+                        gameManager.set(new GameOverState(gameManager));
 
                         break;
                     case ConstantsGame.WOMAN_TYPE:

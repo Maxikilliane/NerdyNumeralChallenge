@@ -8,15 +8,15 @@ import de.mi.ur.ConstantsGame;
 import de.mi.ur.gameLogic.Score;
 
 /**
- * Created by maxiwindl on 31.07.16.
+ * Created by maxiwindl on 12.09.16.
  */
-public class MenueState extends State {
+public class GameOverState extends State {
 
-    private Texture background;
+    private Texture playButton;
+    private Texture gameOver;
 
 
-
-    public MenueState(GameStateManager gameManager) {
+    public GameOverState(GameStateManager gameManager) {
         super(gameManager);
 
         Score.thisCounter = 0;
@@ -24,7 +24,7 @@ public class MenueState extends State {
 
         cam.setToOrtho(false, ConstantsGame.SCREEN_WIDTH, ConstantsGame.SCREEN_HEIGHT);
 
-        background = new Texture("menu_state.png");
+        gameOver = new Texture("game_over.png");
 
 
     }
@@ -47,16 +47,18 @@ public class MenueState extends State {
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.setProjectionMatrix(cam.combined);
         spriteBatch.begin();
-        spriteBatch.draw(background, 0, 0, ConstantsGame.SCREEN_WIDTH, ConstantsGame.SCREEN_HEIGHT);
-
+        spriteBatch.draw(gameOver, cam.position.x - gameOver.getHeight() / 2 - ConstantsGame.GAME_OVER_OFFSET_X, cam.position.y - ConstantsGame.GAME_OVER_OFFSET_Y);
         spriteBatch.end();
 
     }
 
     @Override
     public void dispose() {
-        background.dispose();
+        playButton.dispose();
+        gameOver.dispose();
 
 
     }
 }
+
+

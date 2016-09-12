@@ -13,8 +13,7 @@ import de.mi.ur.states.MenueState;
 
 public class NerdyNumeralChallenge extends ApplicationAdapter {
 
-	public static final int WIDTH = 480;
-	public  static final int HEIGHT = 800;
+
 	private SpriteBatch batch;
 	private GameStateManager manager;
 
@@ -37,7 +36,8 @@ public class NerdyNumeralChallenge extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		manager = new GameStateManager(questionGenerator, weatherDataListener, highscoreListener);
 		manager.push(new MenueState(manager));
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+
+		Gdx.gl.glClearColor(0, 0, 0, 0);
 	}
 
 	@Override
