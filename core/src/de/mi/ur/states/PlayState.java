@@ -81,7 +81,7 @@ public class PlayState extends State {
         phone3 = new AnswerPhones(500, 200, flyingPhone3);
         phone4 = new AnswerPhones(550, 200, flyingPhone4);
 
-        background = new Texture("bg_sunny_neew.png");
+        background = new Texture("bg_sunny.png");
 
         //background = getBackgroundWeather(gameManager);
         score = new Score();
@@ -107,6 +107,7 @@ public class PlayState extends State {
             //pits.add(new Pit(i * (ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH)));
 
         }
+
         groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, ConstantsGame.GROUND_Y_OFFSET);
         groundPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2) + ground.getWidth(), ConstantsGame.GROUND_Y_OFFSET);
         bgPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, ConstantsGame.BACKGROUND_Y_POS);
@@ -253,6 +254,7 @@ public class PlayState extends State {
                     case ConstantsGame.PIT_TYPE:
                         saveScore();
                         gameManager.set(new MenueState(gameManager));
+
                         break;
                     case ConstantsGame.WOMAN_TYPE:
                         counter++;

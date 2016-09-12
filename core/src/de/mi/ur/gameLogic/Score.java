@@ -38,7 +38,7 @@ public class Score {
         currentScore = "Score: 0";
         scoreFont = new BitmapFont(Gdx.files.internal("goodTimesNew.fnt"));
         heartFilled = new Texture("heart_filled.png");
-        heartEmpty = new Texture("heart_empty_empty.png");
+        heartEmpty = new Texture("heart_empty.png");
         scoreFont.setUseIntegerPositions(false);
 
 

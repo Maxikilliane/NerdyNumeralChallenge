@@ -21,9 +21,9 @@ public class Woman extends Obstacle {
 
 
     public Woman(float x) {
-        super(x, ConstantsGame.WOMAN_Y, new Texture("obstacle_small.png"), ConstantsGame.WOMAN_TYPE);
+        super(x, ConstantsGame.WOMAN_Y, new Texture("woman.png"), ConstantsGame.WOMAN_TYPE);
 
-        woman = new Texture("obstacle_small.png");
+        woman = new Texture("woman.png");
         random = new Random();
         womanPos = new Vector2(x, ConstantsGame.WOMAN_Y);
         bounds = new Rectangle(womanPos.x, womanPos.y, woman.getWidth() + ConstantsGame.BOUNDS_OFFSET, woman.getHeight());
