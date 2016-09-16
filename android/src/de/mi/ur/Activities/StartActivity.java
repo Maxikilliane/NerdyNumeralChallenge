@@ -44,7 +44,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         myToolbar = (Toolbar) findViewById(R.id.start_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setTitle(R.string.app_name);
-        //getSupportActionBar().setLogo(R.drawable.weather_button);
+        getSupportActionBar().setLogo(R.drawable.ic_logo);
         //getSupportActionBar().setIcon(R.drawable.settings_actionbar_icon);
 
     }
