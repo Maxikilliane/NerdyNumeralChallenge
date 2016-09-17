@@ -298,7 +298,7 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
                 break;
             default:
                 currentQuestion = new FreeTextQuestion(numeral1Base, numeral2Base, questionLength);
-                
+
         }
     }
 
