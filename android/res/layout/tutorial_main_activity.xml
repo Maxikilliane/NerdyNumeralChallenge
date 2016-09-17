@@ -26,7 +26,6 @@
             android:layout_marginTop="@dimen/margin_top"
             android:background="@drawable/my_button"
             android:text="@string/tutorial_intro_button"
-            android:textAllCaps="false"
             android:textColor="@color/text_white"
             android:textSize="@dimen/text_general_size" />
 
@@ -61,7 +60,6 @@
             android:layout_marginBottom="@dimen/margin_bottom"
             android:background="@drawable/my_button"
             android:text="@string/tutorial_tricks_button"
-            android:textAllCaps="false"
             android:textColor="@color/text_white"
             android:textSize="@dimen/text_general_size" />
     </LinearLayout>

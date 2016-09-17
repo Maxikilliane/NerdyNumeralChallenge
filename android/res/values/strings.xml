@@ -15,9 +15,9 @@
     //TutorialMain
     <string name="tutorial_intro_button">Einführung</string>
     <string name="tutorial_from_10_button"><![CDATA[
-    B<sub><small>x</small></sub> zu B<sub><small>10</small></sub>
+    B<sub><small>x</small></sub> ZU B<sub><small>10</small></sub>
     ]]></string>
-    <string name="tutorial_from_other_button"><![CDATA[B<sub><small>10</small></sub> zu B<sub><small>x</small></sub>]]> </string>
+    <string name="tutorial_from_other_button"><![CDATA[B<sub><small>10</small></sub> ZU B<sub><small>x</small></sub>]]> </string>
     <string name="tutorial_tricks_button">Nerdy Tricks</string>
 
     //StartScreen
