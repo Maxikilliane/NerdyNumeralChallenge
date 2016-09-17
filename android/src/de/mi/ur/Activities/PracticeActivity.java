@@ -8,6 +8,7 @@ import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputType;
 import android.view.View;
@@ -61,6 +62,7 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
 
     private NNCDatabase db;
 
+    private Toolbar myToolbar;
 
 
 
@@ -69,6 +71,7 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
         setContentView(R.layout.practice_activity);
         init();
         setUpUI();
+        setupToolbar();
         setUpKeyboardHandler();
         setUpKeyboard();
         setUpQuestionTypeSpecificStuff();
@@ -122,6 +125,35 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
             }
         });
     }
+
+    private void setupToolbar() {
+        myToolbar = (Toolbar) findViewById(R.id.practice_toolbar);
+        setSupportActionBar(myToolbar);
+        setUpToolbarTitle();
+        //getSupportActionBar().setTitle(R.string.practice_main_toolbar_headline);
+        myToolbar.setNavigationIcon(R.drawable.toolbar_back);
+        myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
+    private void setUpToolbarTitle() {
+        switch (typeOfQuestion){
+            case Constants.MULTIPLE_CHOICE:
+                getSupportActionBar().setTitle(R.string.multiple_choice_button);
+                break;
+            case Constants.TRUE_FALSE:
+                getSupportActionBar().setTitle(R.string.wrong_true_button);
+                break;
+            case Constants.FREETEXT :
+                getSupportActionBar().setTitle(R.string.manual_entry_button);
+            default:getSupportActionBar().setTitle(R.string.practice_main_toolbar_headline);
+        }
+    }
+
 
     private void updateProgress(){
         if(currentQuestionSolved){
