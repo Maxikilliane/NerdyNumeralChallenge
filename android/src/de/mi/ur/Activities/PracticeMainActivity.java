@@ -36,7 +36,7 @@ public class PracticeMainActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.exercise_main_activity);
+        setContentView(R.layout.practice_main_activity);
         db = new NNCDatabase(this);
         setupToolbar();
         setupNumberPickers();

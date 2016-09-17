@@ -6,8 +6,9 @@
     android:background="@color/black">
 
     <include
+        android:id="@+id/practice_main_toolbar"
         layout="@layout/toolbar"
-        android:id="@+id/practice_main_toolbar" />
+       />
 
     <!--  <android.support.v7.widget.Toolbar
           android:id="@+id/my_toolbar"
@@ -21,20 +22,20 @@
   -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/practice_main_toolbar">
 
 
-        <LinearLayout
+        <RelativeLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:padding="@dimen/activity_general_padding"
-            android:background="@android:color/black">
+            android:background="@android:color/black"
+            android:layout_gravity="center_horizontal">
 
 
-<!--
-numberpicker-height in dimen-file schreiben
--->
+
     <TextView
         android:id="@+id/choose_numeral_system_textview"
         android:layout_width="match_parent"
@@ -44,7 +45,7 @@ numberpicker-height in dimen-file schreiben
         android:layout_marginTop="@dimen/margin"
         android:textColor="@android:color/white"
         android:gravity="center"
-        android:layout_below="@id/practice_main_toolbar" />
+        android:layout_alignParentTop="true" />
 
     <LinearLayout
         android:id="@+id/numberpicker_layout"
@@ -56,36 +57,37 @@ numberpicker-height in dimen-file schreiben
         android:layout_marginBottom="@dimen/margin_bottom"
         android:layout_below="@id/choose_numeral_system_textview">
 
+
         <de.mi.ur.NumberPicker.NumeralNumberPicker
             android:id="@+id/firstNumberPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_weight="1"
-            android:layout_margin="@dimen/margin"
             android:background="@color/turquoise"
             android:solidColor="@color/blue_grey"
+            android:gravity="center_horizontal"
+            android:layout_margin = "@dimen/margin"
             android:descendantFocusability="blocksDescendants"
 
             min="2"
             max="16"
             default="2"
-
-            />
+             />
 
         <de.mi.ur.NumberPicker.NumeralNumberPicker
             android:id="@+id/secondNumberPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_weight="1"
-            android:layout_margin="@dimen/margin"
             android:background="@color/turquoise"
             android:solidColor="@color/blue_grey"
+            android:gravity="center_horizontal"
+            android:layout_margin = "@dimen/margin"
             android:descendantFocusability="blocksDescendants"
             min="2"
             max="16"
-            default="10" />
+            default="10"
+            />
 
     </LinearLayout>
 
@@ -133,7 +135,7 @@ numberpicker-height in dimen-file schreiben
         android:background="@drawable/my_button"
         android:layout_marginBottom="@dimen/margin_bottom"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
 
     </ScrollView>
