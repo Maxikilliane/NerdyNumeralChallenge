@@ -8,7 +8,19 @@ import de.mi.ur.states.PlayState;
  */
 public class ConstantsGame {
 
+
         private static Nerd nerd = new Nerd(0,0);
+
+        public static final int DEFAULT_CAM_WIDTH = 240;
+        public static final int DEFAULT_CAM_HEIGHT = 400;
+
+        public static final int SCREEN_HEIGHT = 450;
+        public static final int SCREEN_WIDTH = 800;
+
+        public static final int GAME_OVER_OFFSET_X = 30;
+        public static final int GAME_OVER_OFFSET_Y = 220;
+
+
 
         public static final int NERD_GRAVITY_DEFAULT = -30;
         public static final int NERD_MOVEMENT_DEFAULT = 100;
@@ -40,6 +52,10 @@ public class ConstantsGame {
         public static final int QUESTION_ANSWER_OFFSET_Y = -10;
 
         public static final int WOMAN_Y = PlayState.ground.getHeight() + GROUND_Y_OFFSET;
+
+        public static final int BACKGROUND_Y_POS = 80;
+
+        public static final int SUN_Y_POS = 90;
 
 
 

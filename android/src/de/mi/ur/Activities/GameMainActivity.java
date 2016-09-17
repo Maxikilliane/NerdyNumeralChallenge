@@ -17,17 +17,14 @@ import de.mi.ur.AndroidCommunication.WeatherDataListener;
 import de.mi.ur.AndroidLauncher;
 import de.mi.ur.Constants;
 import de.mi.ur.R;
-import de.mi.ur.WeatherExtras.WeatherListener;
 import de.mi.ur.WeatherExtras.WeatherManager;
 
-public class GameMainActivity extends AppCompatActivity implements View.OnClickListener, WeatherDataListener, WeatherListener {
+public class GameMainActivity extends AppCompatActivity implements View.OnClickListener, WeatherDataListener {
 
     private Button buttonStartGame;
     private Button buttonWeather;
     private Button buttonViewHighscore;
     private Button buttonHelp;
-
-    private int currentWeather;
 
 
     private WeatherManager weatherManager;
@@ -46,7 +43,7 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
         myToolbar = (Toolbar) findViewById(R.id.game_main_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setTitle(R.string.game_main_toolbar_headline);
-        myToolbar.setNavigationIcon(R.drawable.toolbar_back);
+        // myToolbar.setNavigationIcon(R.drawable.toolbar_back);
         myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +75,8 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.game_update_weather_button:
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    weatherManager.startCurrentWeatherGetter();
+                String weather = convertToWeatherName(weatherManager.getCurrentWeather());
+                    toastMessage = "Wetter aktualisiert! Gerade " + weather + ". Der Spielhintergrund wurde angepasst.";
                 } else {
                     requestWeatherPermission(this);
                     toastMessage = "Default-Wetter: Die Sonne scheint!";
@@ -137,7 +135,7 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
         switch (requestCode) {
             case Constants.MY_PERMISSION_REQUEST_ACCESS_COARSE_LOCATION: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    weatherManager.startCurrentWeatherGetter();
+                    weatherManager.getCurrentWeather();
                 }
                 break;
             }
@@ -145,11 +143,6 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-    @Override
-    public void onDownloadFinished() {
-        String weather = convertToWeatherName(weatherManager.getCurrentWeather());
-        String toastMessage = "Wetter aktualisiert! Gerade " + weather + ". Der Spielhintergrund wurde angepasst.";
-        Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT);
-    }
+
 }
 

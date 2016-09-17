@@ -2,10 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/toolbar_next_button"
+    <item
+        android:id="@+id/toolbar_next_button"
         android:title="@string/forward_button_text"
         android:icon="@drawable/toolbar_next"
-        app:showAsAction="always"
-        />
+        app:showAsAction="always" />
 
 </menu>

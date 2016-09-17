@@ -9,9 +9,6 @@ import android.widget.Button;
 import android.widget.NumberPicker;
 
 import de.mi.ur.Constants;
-import de.mi.ur.DataBase.NNCDatabase;
-import de.mi.ur.LevelLogic.DifficultyCalculator;
-import de.mi.ur.LevelLogic.Level;
 import de.mi.ur.R;
 
 /**
@@ -26,31 +23,22 @@ public class PracticeMainActivity extends AppCompatActivity implements View.OnCl
     private Button freeText;
     private Toolbar myToolbar;
 
-    private NNCDatabase db;
-    private Level currentLevel;
-    private int questionLength;
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.exercise_main_activity);
-        db = new NNCDatabase(this);
         setupToolbar();
         setupNumberPickers();
         setupUI();
-        setUpDifficultyCalculations();
-    }
-
-    private void setUpDifficultyCalculations(){
     }
 
     private void setupToolbar() {
         myToolbar = (Toolbar) findViewById(R.id.practice_main_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setTitle(R.string.practice_main_toolbar_headline);
-        myToolbar.setNavigationIcon(R.drawable.toolbar_back);
+        // myToolbar.setNavigationIcon(R.drawable.toolbar_back);
         myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,12 +113,6 @@ public class PracticeMainActivity extends AppCompatActivity implements View.OnCl
             int numeral2Base = secondNumberSystem.getValue();
             i.putExtra(Constants.KEY_NUMERAL_1_BASE, numeral1Base);
             i.putExtra(Constants.KEY_NUMERAL_2_BASE, numeral2Base);
-            db.open();
-            currentLevel = db.getCurrentLevel();
-            db.close();
-            questionLength = currentLevel.getQuestionLength();
-            questionLength += DifficultyCalculator.getBaseQuestionLength(numeral1Base, numeral2Base) ;
-            i.putExtra(Constants.KEY_QUESTION_LENGTH, questionLength);
             startActivity(i);
         }
     }

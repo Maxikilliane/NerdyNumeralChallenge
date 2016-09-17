@@ -87,7 +87,7 @@ public class WeatherAsyncTask extends AsyncTask<String, Integer, String> {
         }
     }
 
-    public int getCurrentWeather(){
+    public int getCurrentWeather() {
         return currentWeather;
     }
 

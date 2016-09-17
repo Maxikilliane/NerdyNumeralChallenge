@@ -10,7 +10,7 @@ import de.mi.ur.Constants;
  * Diese Klasse wird derzeit nicht genutzt. Ist als private Klasse in die GameMainActivity ausgelagert.
  *
  */
-public class WeatherManager implements WeatherListener{
+public class WeatherManager implements WeatherListener {
     private int currentWeather;
     private String weatherUrlPart1 = "http://api.openweathermap.org/data/2.5/weather?";
     private String weatherUrlPart2Lat = "lat=";
@@ -29,13 +29,13 @@ public class WeatherManager implements WeatherListener{
     }
 
 
-    public void startCurrentWeatherGetter(){
+    public void startCurrentWeatherGetter() {
         String Url = generateUrl();
         weatherTask = new WeatherAsyncTask(this);
         weatherTask.execute(Url);
     }
 
-    public int getCurrentWeather(){
+    public int getCurrentWeather() {
         return currentWeather;
     }
 
