@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.NumberPicker;
 
 import de.mi.ur.Constants;
+import de.mi.ur.DataBase.NNCDatabase;
+import de.mi.ur.LevelLogic.DifficultyCalculator;
+import de.mi.ur.LevelLogic.Level;
 import de.mi.ur.R;
 
 /**
@@ -23,12 +26,18 @@ public class PracticeMainActivity extends AppCompatActivity implements View.OnCl
     private Button freeText;
     private Toolbar myToolbar;
 
+    private NNCDatabase db;
+    private Level currentLevel;
+    private int questionLength;
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.exercise_main_activity);
+        db = new NNCDatabase(this);
         setupToolbar();
         setupNumberPickers();
         setupUI();
@@ -48,31 +57,7 @@ public class PracticeMainActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void setupUI() {
-       /* multipleChoice = (Button) findViewById(R.id.multipleChoiceButton);
-        multipleChoice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setContentView(R.layout.multiple_choice_fragment);
-            }
-        });
 
-        trueFalse = (Button) findViewById(R.id.wrongTrueButton);
-        trueFalse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setContentView(R.layout.true_false_fragment);
-            }
-        });
-
-        freeText = (Button) findViewById(R.id.manualEntryButton);
-        freeText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                setContentView(R.layout.free_text_question_fragment);
-            }
-        });
-        */
         multipleChoice = (Button) findViewById(R.id.multiple_choice_button);
         multipleChoice.setOnClickListener(this);
         freeText = (Button) findViewById(R.id.manual_entry_button);
@@ -108,12 +93,19 @@ public class PracticeMainActivity extends AppCompatActivity implements View.OnCl
                 break;
         }
 
-        if (i != null) {
-            int numeral1Base = firstNumberSystem.getValue();
-            int numeral2Base = secondNumberSystem.getValue();
-            i.putExtra(Constants.KEY_NUMERAL_1_BASE, numeral1Base);
-            i.putExtra(Constants.KEY_NUMERAL_2_BASE, numeral2Base);
-            startActivity(i);
+            if (i != null) {
+                int numeral1Base = firstNumberSystem.getValue();
+                int numeral2Base = secondNumberSystem.getValue();
+                i.putExtra(Constants.KEY_NUMERAL_1_BASE, numeral1Base);
+                i.putExtra(Constants.KEY_NUMERAL_2_BASE, numeral2Base);
+                db.open();
+                currentLevel = db.getCurrentLevel();
+                db.close();
+                questionLength = currentLevel.getQuestionLength();
+                questionLength += DifficultyCalculator.getBaseQuestionLength(numeral1Base, numeral2Base) ;
+                i.putExtra(Constants.KEY_QUESTION_LENGTH, questionLength);
+                startActivity(i);
+
         }
     }
 }

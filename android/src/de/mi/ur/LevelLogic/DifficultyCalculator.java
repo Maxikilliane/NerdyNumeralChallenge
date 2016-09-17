@@ -47,6 +47,8 @@ public static int getPointsPerQuestion(int questionType, int numeral1Base, int n
         }
     }
 
+
+    // Zur Anwendung in PracticeMaIN
     public static int getBaseQuestionLength(int numeral1Base, int numeral2Base){
         if(numeral1Base > numeral2Base){
             if(numeral1Base <= 4){
