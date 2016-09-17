@@ -32,7 +32,6 @@ public class FreeTextQuestionFragment extends QuestionFragment {
         this.solutionEditText = (EditText) fragmentView.findViewById(R.id.freetext_edit_text);
        // this.solutionEditText.setInputType(InputType.TYPE_NULL);
         this.solutionEditText.setOnFocusChangeListener(new View.OnFocusChangeListener(){
-
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus) mCallback.onOpen();
@@ -123,6 +122,7 @@ public class FreeTextQuestionFragment extends QuestionFragment {
             solutionEditText.setText("");
             return true;
         }else{
+            solutionEditText.setText("");
             return false;
         }
     }
