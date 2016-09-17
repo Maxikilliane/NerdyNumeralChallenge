@@ -43,8 +43,8 @@ public class TrueFalseQuestionFragment extends QuestionFragment {
             return false;
         }else{
             RadioButton checkedButton = (RadioButton)fragmentView.findViewById(checkedButtonId);
+            choices.clearCheck();
             if(checkedButton.getText().toString().equals(rightAnswer)){
-                checkedButton.setChecked(false);
                 return true;
             }else{
                 return false;

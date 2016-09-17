@@ -73,8 +73,9 @@ public class MultipleChoiceQuestionFragment extends QuestionFragment{
             return false;
         }else{
             RadioButton checkedButton = (RadioButton)fragmentView.findViewById(checkedButtonId);
+            multipleChoices.clearCheck();
             if(checkedButton.getText().toString().equals(rightAnswer)){
-                checkedButton.setChecked(false);
+
                 return true;
 
             }else{

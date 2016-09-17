@@ -188,6 +188,7 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
         setUpQuestion();
         questionChangeableView.setText(currentQuestion.getQuestion());
 
+
     }
 
     private void setUpKeyboardHandler(){
@@ -327,7 +328,6 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
                 break;
             default:
                 currentQuestion = new FreeTextQuestion(numeral1Base, numeral2Base, questionLength);
-
         }
     }
 

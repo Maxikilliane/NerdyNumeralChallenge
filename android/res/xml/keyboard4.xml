@@ -2,23 +2,15 @@
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
     android:keyWidth="10%p"
     android:keyHeight="7.5%p"
-    android:verticalGap="2%p"
+    android:verticalGap="0.5%p"
+    android:horizontalGap="3%p"
     >
     <Row>
-        <Key android:codes='48' android:keyLabel="0" android:horizontalGap="4%p"/>
-        <Key android:codes='49' android:keyLabel="1" android:horizontalGap="4%p"/>
-        <Key android:codes="-1" android:keyLabel="back" android:keyWidth ="20%p" android:horizontalGap="20%p"/>
-    </Row>
-    <Row>
-        <Key android:codes='50' android:keyLabel="2" android:horizontalGap="4%p"/>
-        <Key android:codes='51' android:keyLabel="3" android:horizontalGap="4%p"/>
-        <Key
-            android:codes="500000"
-            android:keyLabel = "Enter"
-            android:keyWidth  = "20%p"
-            android:horizontalGap = "20%p"
-
-            />
+        <Key android:codes='48' android:keyLabel="0" android:horizontalGap="0%p"/>
+        <Key android:codes='49' android:keyLabel="1" />
+        <Key android:codes='50' android:keyLabel="2" />
+        <Key android:codes='51' android:keyLabel="3" />
+        <Key android:codes="-1" android:keyLabel="back" android:keyWidth ="20%p" android:horizontalGap="31%p"/>
     </Row>
 
 </Keyboard>
