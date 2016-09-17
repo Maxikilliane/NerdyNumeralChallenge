@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">NerdyNumeralChallenge</string>
+    <string name="app_name">\u0020NerdyNumeralChallenge</string>
     <string name="continue_button_text">-></string>
     <string name="back_button_text">zurück</string>
     <string name="forward_button_text">weiter</string>

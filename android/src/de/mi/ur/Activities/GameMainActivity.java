@@ -43,7 +43,7 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
         myToolbar = (Toolbar) findViewById(R.id.game_main_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setTitle(R.string.game_main_toolbar_headline);
-        // myToolbar.setNavigationIcon(R.drawable.toolbar_back);
+         myToolbar.setNavigationIcon(R.drawable.toolbar_back);
         myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -206,6 +206,20 @@ public class NNCDatabase implements HighscoreListener {
 
     @Override
     public void saveHighscoreToDatabase(int rank, int points) {
+        ArrayList<Highscore> allHighscores = getAllHighscores();
+        int size = allHighscores.size();
+        for(int i = size; i > rank; i--){
+            removeHighscoreData(i);
+            Highscore newHighscore = allHighscores.get(i-2);
+            newHighscore.lowerRankByOne();
+            insertHighscoreData(newHighscore);
+        }
+        if((size==rank) && (size != 3)){
+            removeHighscoreData(rank);
+            Highscore newHighscore = allHighscores.get(size-1);
+            newHighscore.lowerRankByOne();
+            insertHighscoreData(newHighscore);
+        }
         removeHighscoreData(rank);
         // Evtl im Spiel den Player zum Namen-Eingeben prompten und den dann noch übergeben.
         insertHighscoreData(new Highscore(rank, points, ""));

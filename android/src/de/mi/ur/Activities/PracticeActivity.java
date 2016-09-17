@@ -150,7 +150,7 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
                 break;
             case Constants.FREETEXT :
                 getSupportActionBar().setTitle(R.string.manual_entry_button);
-            default:getSupportActionBar().setTitle(R.string.practice_main_toolbar_headline);
+            default:getSupportActionBar().setTitle(R.string.manual_entry_button);
         }
     }
 
