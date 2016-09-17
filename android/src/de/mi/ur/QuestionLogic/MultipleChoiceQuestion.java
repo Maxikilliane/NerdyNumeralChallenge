@@ -17,7 +17,7 @@ public class MultipleChoiceQuestion extends Question {
         this.difficulty = difficulty;
 
         this.question = NumeralConverter.generateNumWithMaxDigits(numeral1Base, maxDigits);
-        this.rightAnswer = NumeralConverter.convertFromNumeralToNumeral(question, numeral1Base, numeral2Base);
+        this.rightAnswer = NumeralConverter.convertFromNumeralToNumeral(this.question, numeral1Base, numeral2Base);
     }
 
     public String[] generatePossAnswers() {
