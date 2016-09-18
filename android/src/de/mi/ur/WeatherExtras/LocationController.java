@@ -64,7 +64,7 @@ public class LocationController implements LocationListener {
     // Momentan immer null :(
     public String getLatitude(){
         if (currentLocation == null) {
-            return "0";
+            return "49";
         } else {
             double lat = currentLocation.getLatitude();
             return Double.toString(lat);
@@ -74,7 +74,7 @@ public class LocationController implements LocationListener {
 
     public String getLongitude(){
         if (currentLocation == null) {
-            return "0";
+            return "12";
         } else {
             double lon = currentLocation.getLongitude();
             return Double.toString(lon);
