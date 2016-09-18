@@ -1,12 +1,14 @@
 package de.mi.ur.Activities;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import de.mi.ur.DataBase.HighscoreAdapter;
 import de.mi.ur.DataBase.NNCDatabase;
@@ -19,9 +21,8 @@ import de.mi.ur.R;
 public class HighscoreActivity extends AppCompatActivity {
     private ListView highscoreListView;
     private NNCDatabase db;
-
     private Toolbar myToolbar;
-
+    private TextView noHighscoreView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +49,20 @@ public class HighscoreActivity extends AppCompatActivity {
     }
 
     private void setUpUI() {
+        noHighscoreView = (TextView) findViewById(R.id.no_highscore_view);
         highscoreListView = (ListView) findViewById(R.id.highscore_list);
-        HighscoreAdapter adapter = new HighscoreAdapter(this, db.getAllHighscoresCursor());
+        Cursor allHighscoresCursor = db.getAllHighscoresCursor();
+        HighscoreAdapter adapter = new HighscoreAdapter(this, allHighscoresCursor);
         highscoreListView.setAdapter(adapter);
         View v = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.highscore_listitem, null);
-        // highscoreListView.addHeaderView(v);
+        if((allHighscoresCursor.moveToFirst()) || allHighscoresCursor.getCount() !=0){
+            highscoreListView.addHeaderView(v);
+            noHighscoreView.setVisibility(View.GONE);
+        }else{
+            highscoreListView.setVisibility(View.GONE);
+
+        }
+
     }
 
     @Override

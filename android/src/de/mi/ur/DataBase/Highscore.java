@@ -25,4 +25,9 @@ public class Highscore {
     public String getName(){
         return this.name;
     }
+
+    public void lowerRankByOne(){
+        rank = rank +1;
+    }
+
 }

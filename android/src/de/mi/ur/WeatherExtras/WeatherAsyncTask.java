@@ -91,5 +91,4 @@ public class WeatherAsyncTask extends AsyncTask<String, Integer, String> {
         return currentWeather;
     }
 
-
 }

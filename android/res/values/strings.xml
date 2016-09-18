@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">NerdyNumeralChallenge</string>
+    <string name="app_name">\u0020NerdyNumeralChallenge</string>
     <string name="continue_button_text">-></string>
     <string name="back_button_text">zurück</string>
     <string name="forward_button_text">weiter</string>
@@ -15,9 +15,9 @@
     //TutorialMain
     <string name="tutorial_intro_button">Einführung</string>
     <string name="tutorial_from_10_button"><![CDATA[
-    B<sub><small>x</small></sub> zu B<sub><small>10</small></sub>
+    B<sub><small>x</small></sub> ZU B<sub><small>10</small></sub>
     ]]></string>
-    <string name="tutorial_from_other_button"><![CDATA[B<sub><small>10</small></sub> zu B<sub><small>x</small></sub>]]> </string>
+    <string name="tutorial_from_other_button"><![CDATA[B<sub><small>10</small></sub> ZU B<sub><small>x</small></sub>]]> </string>
     <string name="tutorial_tricks_button">Nerdy Tricks</string>
 
     //StartScreen
@@ -336,6 +336,10 @@
     <string name="game_help_toolbar_headline">Hilfe</string>
     <string name="progress_toolbar_headline">Fortschritt</string>
     <string name="settings_toolbar_headline">Einstellungen</string>
+
+    //Highscore
+    <string name="no_highscore_notice">Derzeit sind keine Highscores vorhanden!</string>
+    <string name="highscore_activity_content_description_image">trophy</string>
 
 
 
