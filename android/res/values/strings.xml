@@ -337,6 +337,10 @@
     <string name="progress_toolbar_headline">Fortschritt</string>
     <string name="settings_toolbar_headline">Einstellungen</string>
 
+    //Highscore
+    <string name="no_highscore_notice">Derzeit sind keine Highscores vorhanden!</string>
+    <string name="highscore_activity_content_description_image">trophy</string>
+
 
 
 

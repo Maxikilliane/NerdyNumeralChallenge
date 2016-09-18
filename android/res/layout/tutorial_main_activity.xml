@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="@dimen/activity_general_padding"
+        android:gravity="center"
 
         >
 
@@ -23,7 +24,6 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/button_size"
             android:layout_marginBottom="@dimen/margin_bottom"
-            android:layout_marginTop="@dimen/margin_top"
             android:background="@drawable/my_button"
             android:text="@string/tutorial_intro_button"
             android:textColor="@color/text_white"
