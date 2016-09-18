@@ -2,14 +2,20 @@ package de.mi.ur.Activities;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -26,6 +32,7 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
     private Button buttonViewHighscore;
     private Button buttonHelp;
 
+    private AlertDialog permissionInfoDialog;
 
     private WeatherManager weatherManager;
 
@@ -123,17 +130,27 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public static void requestWeatherPermission(Activity activity) {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.ACCESS_COARSE_LOCATION)) {
-            String toastMessage = activity.getResources().getString(R.string.location_permission_explanation);
-            Toast.makeText(activity, toastMessage, Toast.LENGTH_LONG).show();
+        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.ACCESS_FINE_LOCATION)) {
+            createInformationDialog(activity);
         }
-        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, Constants.MY_PERMISSION_REQUEST_ACCESS_COARSE_LOCATION);
-
     }
 
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    private static void createInformationDialog(Activity activity){
+        final Activity activity1 = activity;
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setMessage(R.string.location_permission_explanation).setTitle(R.string.location_permission_headline);
+        builder.setPositiveButton(R.string.ok_string, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                ActivityCompat.requestPermissions(activity1, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Constants.MY_PERMISSION_REQUEST_ACCESS_FINE_LOCATION);
+            }
+        });
+        AlertDialog permissionInfoDialog = builder.create();
+        permissionInfoDialog.show();
+    }
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
-            case Constants.MY_PERMISSION_REQUEST_ACCESS_COARSE_LOCATION: {
+            case Constants.MY_PERMISSION_REQUEST_ACCESS_FINE_LOCATION: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     weatherManager.getCurrentWeather();
                 }
