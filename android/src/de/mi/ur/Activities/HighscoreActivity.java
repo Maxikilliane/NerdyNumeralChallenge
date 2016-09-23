@@ -29,7 +29,6 @@ public class HighscoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.highscore_activity);
         db = new NNCDatabase(this);
-        db.open();
 
         setUpUI();
         setupToolbar();
@@ -51,6 +50,7 @@ public class HighscoreActivity extends AppCompatActivity {
     private void setUpUI() {
         noHighscoreView = (TextView) findViewById(R.id.no_highscore_view);
         highscoreListView = (ListView) findViewById(R.id.highscore_list);
+        db.open();
         Cursor allHighscoresCursor = db.getAllHighscoresCursor();
         HighscoreAdapter adapter = new HighscoreAdapter(this, allHighscoresCursor);
         highscoreListView.setAdapter(adapter);
@@ -62,7 +62,7 @@ public class HighscoreActivity extends AppCompatActivity {
             highscoreListView.setVisibility(View.GONE);
 
         }
-
+        db.close();
     }
 
     @Override

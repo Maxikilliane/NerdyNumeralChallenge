@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -36,6 +37,7 @@ import de.mi.ur.R;
 
 /**
  * Created by Anna-Marie on 03.09.2016.
+ * Keyboard-Code was mostly taken from: http://www.fampennings.nl/maarten/android/09keyboard/index.htm
  */
 public class PracticeActivity extends AppCompatActivity implements FreeTextQuestionFragment.OnKeyboardListener {
     private TextView questionTextView, questionChangeableView;
@@ -72,12 +74,15 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
         init();
         setUpUI();
         setupToolbar();
-        setUpKeyboardHandler();
+        //setUpKeyboardHandler();
         setUpKeyboard();
         setUpQuestionTypeSpecificStuff();
 
     }
 
+    /*
+     * UI-Elements in the fragment are initialized (not possible yet in onCreate)
+     */
     protected void onStart(){
         super.onStart();
         switch (typeOfQuestion){
@@ -112,15 +117,16 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
         solutionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String text;
+                String text = null;
                 if(questionFragment.isCorrectAnswer(currentQuestion.getRightAnswerString())){
-                    text = "correct";
                     currentQuestionSolved = true;
                 }else{
                     text ="wrong";
                     currentQuestionSolved = false;
                 }
-                Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+                if(text != null) {
+                    Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+                }
                 updateProgress();
             }
         });
@@ -154,21 +160,35 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
         }
     }
 
-
+/*
+ * case of correct answer: progressbar is updated,
+ * case 100% progress (10 questions answered): points for progress saved to database and activity closed
+ * new question generated
+ */
     private void updateProgress(){
         if(currentQuestionSolved){
-            practiseProgressBar.incrementProgressBy(100 / Constants.NUM_QUESTIONS_PER_PRACTICE);
+            practiseProgressBar.incrementProgressBy(Constants.PROGRESS_FULL / Constants.NUM_QUESTIONS_PER_PRACTICE);
             currentQuestionSolved = false;
 
-            if(practiseProgressBar.getProgress() == 100 ){
+            if(practiseProgressBar.getProgress() == Constants.PROGRESS_FULL ){
                 savePointsToDatabase();
                 Toast.makeText(this, "Geschafft!", Toast.LENGTH_SHORT).show();
-                finish();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                }, Constants.DELAY_2_SECONDS);
             }
         }
         updateQuestion();
     }
 
+    /*
+     * Changes the points of the currentLevel in the database
+     * Case progress to next level: show toast to user and redirect user to ProgressActivity
+     */
     private void savePointsToDatabase(){
         db.open();
         Level currentLevel = db.getCurrentLevel();
@@ -176,14 +196,25 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
         int pointsToAdd = DifficultyCalculator.getPointsPerQuestion(typeOfQuestion, numeral1Base, numeral2Base) * Constants.NUM_QUESTIONS_PER_PRACTICE;
         db.insertCurrentLevelPoints(currentPoints + pointsToAdd);
         if (db.checkIfNextLevel()){
+            db.close();
             Toast.makeText(this, "next Level", Toast.LENGTH_SHORT).show();
-            finish();
-            startActivity(new Intent(PracticeActivity.this, ProgressActivity.class));
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    finish();
+                    startActivity(new Intent(PracticeActivity.this, ProgressActivity.class));
+                }
+            }, Constants.DELAY_2_SECONDS);
+
         }
         db.close();
     }
 
 
+    /*
+     * Changes the question text according to the new question
+     */
     private void updateQuestion(){
         setUpQuestion();
         questionChangeableView.setText(currentQuestion.getQuestion());
@@ -191,6 +222,9 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
 
     }
 
+    /*
+     * handles the KeyboardEvents
+     */
     private void setUpKeyboardHandler(){
         mOnKeyboardActionListener = new KeyboardView.OnKeyboardActionListener() {
             @Override
@@ -201,23 +235,23 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
             public void onRelease(int primaryCode) {
             }
 
+            /*
+             * Receives the primary code of the Key which was pressed and displays it in current focus editable
+             */
             @Override
             public void onKey(int primaryCode, int[] keyCodes) {
                 View focusCurrent = PracticeActivity.this.getWindow().getCurrentFocus();
-                if(focusCurrent ==null || focusCurrent.getClass()!= android.support.v7.widget.AppCompatEditText.class){
+                if(focusCurrent == null || focusCurrent.getClass()!= android.support.v7.widget.AppCompatEditText.class){
                     return;
                 }
                 EditText editText = (EditText) focusCurrent;
                 Editable editable = editText.getText();
                 int start = editText.getSelectionStart();
                 switch(primaryCode){
-                    case -1:
+                    case Constants.BACK_KEY_PRESSED:
                         if(editable != null && start >0){
                             editable.delete(start -1, start);
                         }
-                        break;
-                    case 500000:
-                        hideCustomKeyboard();
                         break;
                     default:
                         editable.insert(start, Character.toString((char) primaryCode));
@@ -246,8 +280,14 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
         };
     }
 
+    /*
+     * Keyboard is only necessary if questionType is freetext
+     * Kind of keyboard is chosen according to numeral2base (the answer system)
+     * Custom keyboards have exactly the number of keys necessary to enter the answer (e.g. binary: 0, 1, back)
+     */
     private void setUpKeyboard(){
         if(typeOfQuestion == Constants.FREETEXT){
+            setUpKeyboardHandler();
             switch (numeral2Base){
                 case 2:myKeyboard = new Keyboard(this, R.xml.keyboard2);
                     break;
@@ -290,7 +330,9 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
         }
     }
 
-
+/*
+ * initializes the parts of the activity necessary for questions (currentQuestion, questionFragment...)
+ */
     private void setUpQuestionTypeSpecificStuff(){
         Resources StringRes = getResources();
         switch (typeOfQuestion){
@@ -316,6 +358,10 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
         questionChangeableView.setText(currentQuestion.getQuestion());
     }
 
+    /*
+     * depending on questiontype the tasks required when a new question is generated, are done,
+     * e.g.: changing the currentQuestion variable or updating button choices
+     */
     private void setUpQuestion(){
         switch (typeOfQuestion){
             case Constants.MULTIPLE_CHOICE:
@@ -339,6 +385,9 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
         this.questionFragment = questionFragment;
     }
 
+    /*
+     * opens the custom keyboard
+     */
     public void openKeyboard(View v){
         myKeyboardView.setVisibility(View.VISIBLE);
         myKeyboardView.setEnabled(true);

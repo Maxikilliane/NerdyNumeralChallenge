@@ -30,69 +30,45 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
     private Button solutionButton;
     private Button continueButton;
     private Button backButton;
-
-    private android.support.v4.app.FragmentManager fragmentManager;
+    private Toolbar myToolbar;
     private FreeTextQuestionFragment questionFragment;
 
+    private android.support.v4.app.FragmentManager fragmentManager;
 
     private int tutorialType;
     private int explanationNumber;
     private String[] tutorialTexts;
     private String explanationText;
     private int maxNumExplanations;
-
     private TutorialQuestion currentQuestion;
-
-    private Toolbar myToolbar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.explanation_activity);
-        //sorgt dafür, dass die Tastatur am Anfang nicht sofort aufpoppt
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        Bundle extras = getIntent().getExtras();
-        tutorialType = extras.getInt(Constants.KEY_TYPE_TUTORIAL);
-        explanationNumber = extras.getInt(Constants.KEY_NUMBER_TUTORIAL);
-
+        getExtras();
+        stopKeyboardPopUp();
         setUpTexts();
         setUpQuestions();
         setUpUI();
         setupToolbar();
-
     }
 
-
-    // durch diese Methode wird das Menü (hier nur der Next Pfeil) in der Toolbar angezeigt
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_explanation_menu, menu);
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    //diese Methode ist der "OnClickListener" und die "onClick-Methode" für das MenuItem, also den nextPfeil
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        continueButton.setEnabled(true);
-        backButton.setEnabled(true);
-
-        if (explanationNumber == maxNumExplanations - 1) {
-            continueButton.setEnabled(false);
-            questionFragment.getView().setBackgroundResource(R.color.black);
-            explanationNumber++;
-        } else if (explanationNumber != maxNumExplanations) {
-            questionFragment.getView().setBackgroundResource(R.drawable.mybackground);
-            explanationNumber++;
-        } else {
-            continueButton.setEnabled(false);
+    private void getExtras(){
+        if(getIntent().getExtras() != null) {
+            Bundle extras = getIntent().getExtras();
+            tutorialType = extras.getInt(Constants.KEY_TYPE_TUTORIAL);
+            explanationNumber = extras.getInt(Constants.KEY_NUMBER_TUTORIAL);
         }
-        refreshTexts();
-        return super.onOptionsItemSelected(item);
     }
+
+    private void stopKeyboardPopUp(){
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
+
+
 
     private void setupToolbar() {
         myToolbar = (Toolbar) findViewById(R.id.explanation_toolbar);
@@ -119,14 +95,15 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
                 }
 
                 continueButton.setEnabled(true);
-
-
                 refreshTexts();
             }
         });
 
     }
 
+    /*
+     * Chooses the correct title for the toolbar
+     */
     private void setUpToolbarTitle() {
         switch (tutorialType) {
             case Constants.INTRO_TUTORIAL:
@@ -146,6 +123,10 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    /*
+     * changes the explanation texts and gets the focus away from them
+     * deletes possible answers to the revision questions
+     */
     private void refreshTexts(){
         explanationText = tutorialTexts[explanationNumber];
         explanationTextView.setText(Html.fromHtml(explanationText));
@@ -159,7 +140,9 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
         imm.hideSoftInputFromWindow(questionFragment.getSolutionEditText().getWindowToken(), 0);
     }
 
-    // Welches Tutorial wurde angeklickt? Auswählen der richtigen Konstante für dieses Tutorial
+    /*
+     * Saving which tutorial has been chosen.
+     */
     private void setUpTexts(){
         int idTexts;
         switch (tutorialType){
@@ -195,6 +178,7 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
     }
 
     /*
+     * Sets up UI
      * Click auf Solution-Button: grüner Hintergrund falls richtige Lösung,
      *                            roter Hintergrund falls falsche Lösung + Toast mit richtiger Lösung
      */
@@ -231,6 +215,7 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
 
     }
 
+
     private void setUpFragment(){
         fragmentManager = getSupportFragmentManager();
         android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -242,8 +227,9 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
     }
 
     /*
-     * Click auf Continue-Button:nächster Erklärtext wird eingeblendet
-     * Click auf Back-Button: letzter Erklärtext wird eingeblendet
+     * Click on Continue-Button:next explanation text is shown
+     * Click on Back-Button: last explanation-text is shown
+     * UI-changes are caught (color of the answer-background, (in)visibility of the question-parts
      *
      */
     @Override
@@ -273,6 +259,11 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
         refreshTexts();
     }
 
+    /*
+     * Handles special cases at the end or beginning of a tutorial
+     * beginning: back button diasabled
+     * end: next button disabled, questionFragment is invisible (no question on the last part of a tutorial)
+     */
     private void setVisibility() {
         if (explanationNumber < maxNumExplanations) {
             currentQuestion = new TutorialQuestion(tutorialType, explanationNumber);
@@ -288,6 +279,9 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+    /*
+     * Notifys the user of a wrong answer and gives the right answer
+     */
     private void showWrongAnswerToast(){
         String wrongAnswerText = getResources().getString(R.string.wrong_answer_toast_text) +" "+currentQuestion.getRightAnswer() + ".";
         Toast wrongAnswerToast = Toast.makeText(this, wrongAnswerText, Toast.LENGTH_LONG);
@@ -298,5 +292,38 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onOpen() {
 
+    }
+
+    /*
+     * This method shows the menu (only next arrow here) in the toolbar
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_explanation_menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    /*
+     * This method is the onClickListener and onClick-Method for the menu-item (next arrow)
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        continueButton.setEnabled(true);
+        backButton.setEnabled(true);
+
+        if (explanationNumber == maxNumExplanations - 1) {
+            continueButton.setEnabled(false);
+            questionFragment.getView().setBackgroundResource(R.color.black);
+            explanationNumber++;
+        } else if (explanationNumber != maxNumExplanations) {
+            questionFragment.getView().setBackgroundResource(R.drawable.mybackground);
+            explanationNumber++;
+        } else {
+            continueButton.setEnabled(false);
+        }
+        refreshTexts();
+        return super.onOptionsItemSelected(item);
     }
 }
