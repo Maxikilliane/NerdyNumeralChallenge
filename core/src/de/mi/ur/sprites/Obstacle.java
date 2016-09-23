@@ -40,6 +40,10 @@ public abstract class Obstacle {
         counted = true;
     }
 
+    public void resetCounted() {
+        counted = false;
+    }
+
     public Texture getTexture() {
         return texture;
     }

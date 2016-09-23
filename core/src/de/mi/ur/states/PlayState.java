@@ -28,9 +28,6 @@ import de.mi.ur.sprites.Woman;
  */
 public class PlayState extends State{
 
-    private float counter = 0;
-    private int limitCounter;
-
     private static Nerd nerd;
     private Texture background;
     public static Texture ground;
@@ -283,12 +280,18 @@ public class PlayState extends State{
 
     }
 
+/*
+ * Problem gefunden: Wenn eine Frau (als ein Obstacle) einmal gecrasht wurde, wird obstacle.isCounted für dieses obstacle nie wieder
+ * gesetzt. D.h. irgendwann ist man gegen alle Frauen gerannt (bei mir schon nach 38 s) und dann werden sie nicht mehr erkannt.
+ * Vllt müssen wir doch Severins Lösung anwenden, irgendwie oder zusätzlich.
+ */
 
     private void updateObstacles() {
         for (int i = 0; i < obstacles.size; i++) {
             Obstacle obstacle = obstacles.get(i);
             if (cam.position.x - (cam.viewportWidth / 2) > obstacle.getObstaclePos().x + obstacle.getTexture().getWidth()) {
                 obstacle.reposition(obstacle.getObstaclePos().x + ((obstacle.getTexture().getWidth()) + generateNewDistance() + 800 * 4));
+                obstacle.resetCounted();
             }
             if (obstacle.collides(nerd.getBounds()) && !obstacle.isCounted()) {
                 switch (obstacle.getType()) {
@@ -363,31 +366,31 @@ public class PlayState extends State{
     private float increaseDifficulty(float dt) {
         long value = score.getCurrentScore();
         if (value > 50) {
-            this.limitCounter = (int) ((8 / dt) * dt);
+            //this.limitCounter = (int) ((8 / dt) * dt);
             return 130;
         }
         if (value > 100) {
-            this.limitCounter = (int) ((6 / dt) * dt);
+           // this.limitCounter = (int) ((6 / dt) * dt);
             return 160;
         }
         if (value > 150) {
-            this.limitCounter = (int) ((4 / dt) * dt);
+            //this.limitCounter = (int) ((4 / dt) * dt);
             return 190;
         }
         if (value > 200) {
-            this.limitCounter = (int) ((2 / dt) * dt);
+            //this.limitCounter = (int) ((2 / dt) * dt);
             return 220;
         }
         if (value > 250) {
-            this.limitCounter = 1;
+            //this.limitCounter = 1;
             return 250;
         }
         if (value > 300) {
-            this.limitCounter = 1;
+            //this.limitCounter = 1;
             return 280;
 
         } else {
-            this.limitCounter = (int) ((10 / dt) * dt);
+            //this.limitCounter = (int) ((10 / dt) * dt);
             return ConstantsGame.NERD_MOVEMENT_DEFAULT;
         }
     }
