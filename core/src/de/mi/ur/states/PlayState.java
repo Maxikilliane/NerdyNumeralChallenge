@@ -98,11 +98,6 @@ public class PlayState extends State{
         random = new Random();
 
         gameQuestion = new GameQuestion(gameManager.getMultipleChoiceListener());
-
-        //women = new Array<Woman>();
-
-        //pits = new Array<Pit>();
-
         obstacles = new Array<Obstacle>();
 
 
@@ -112,8 +107,7 @@ public class PlayState extends State{
             } else {
                 obstacles.add(new Woman(i * (500)));
             }
-            //women.add(new Woman(i * (500)));
-            //pits.add(new Pit(i * (ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH)));
+
 
         }
 
@@ -147,8 +141,9 @@ public class PlayState extends State{
             checkIfWomanIsInPit(woman);
             if (woman.collides(nerd.getBounds())) {
 
-                saveScore();
                 gameManager.set(new MenueState(gameManager));
+                saveScore();
+
             }
             hasHit = true;
 
@@ -194,12 +189,14 @@ public class PlayState extends State{
                 phone1.setCounted();
                 System.out.println("RICHTIGE LÖSUNG");
                 //Score.updateHeart(gameManager);
-                Score.updateHeart(gameManager, false);
+                alreadChanged = false;
+                Score.refillHeart();
             } else if ((phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())) {
                 System.out.println("FALSCHE LÖSUNG");
                 phone2.setCounted();
                 phone3.setCounted();
                 phone4.setCounted();
+                alreadChanged = false;
                 Score.updateHeart(gameManager, true);
             }
 
@@ -208,12 +205,14 @@ public class PlayState extends State{
             if (phone2.collides(nerd.getBounds()) && !phone2.isCounted()) {
                 System.out.println("RICHTIGE LÖSUNG ANGESPRUNGEN");
                 phone2.setCounted();
-                Score.updateHeart(gameManager, false);
+                alreadChanged = false;
+                Score.refillHeart();
             } else if ((phone1.collides(nerd.getBounds()) && !phone1.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())) {
                 System.out.println("FALSCHE LÖSUNG");
                 phone1.setCounted();
                 phone3.setCounted();
                 phone4.setCounted();
+                alreadChanged = false;
                 Score.updateHeart(gameManager, true);
             }
         }
@@ -222,13 +221,16 @@ public class PlayState extends State{
             if (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) {
                 System.out.println("RICHTIGE LÖSUNG ANGESPRUNGEN");
                 phone3.setCounted();
-                Score.updateHeart(gameManager, false);
+                alreadChanged = false;
+                Score.refillHeart();
             } else if ((phone1.collides(nerd.getBounds()) && !phone1.isCounted()) || (phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())) {
                 System.out.println("FALSCHE LÖSUNG");
                 phone1.setCounted();
                 phone2.setCounted();
                 phone4.setCounted();
+                alreadChanged = false;
                 Score.updateHeart(gameManager, true);
+
             }
         }
         //noch nicht counted gemacht
@@ -236,13 +238,17 @@ public class PlayState extends State{
             if (phone4.collides(nerd.getBounds()) && !phone4.isCounted()) {
                 System.out.println("RICHTIGE LÖSUNG");
                 phone4.setCounted();
-                phone4.reactToCollision(gameManager);
+                alreadChanged = false;
+                Score.refillHeart();
+               // phone4.reactToCollision(gameManager);
             } else if ((phone1.collides(nerd.getBounds()) && !phone1.isCounted()) || (phone2.collides(nerd.getBounds()) && phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && phone3.isCounted())) {
                 System.out.println("FALSCHE LÖSUNG");
                 phone2.setCounted();
                 phone1.setCounted();
                 phone3.setCounted();
-                phone4.reactToWrongCollision(gameManager);
+               // phone4.reactToWrongCollision(gameManager);
+                alreadChanged = false;
+                Score.updateHeart(gameManager, true);
             }
         }
 
@@ -287,13 +293,14 @@ public class PlayState extends State{
             if (obstacle.collides(nerd.getBounds()) && !obstacle.isCounted()) {
                 switch (obstacle.getType()) {
                     case ConstantsGame.PIT_TYPE:
+                        alreadChanged = false;
                         points =(int) score.getCurrentScorePoints();
                         System.out.println("points are initialised");
                         rank = highscoreListener.checkIfNewHighscore(points);
                         System.out.println("rank is initialised");
-                        saveScore();
                         cam.setToOrtho(false, ConstantsGame.DEFAULT_CAM_WIDTH, ConstantsGame.DEFAULT_CAM_HEIGHT);
                         gameManager.set(new GameOverState(gameManager));
+                        saveScore();
 
                         break;
                     case ConstantsGame.WOMAN_TYPE:
@@ -328,7 +335,7 @@ public class PlayState extends State{
 
         for (int i = 0; i < obstacles.size; i++) {
             Obstacle obstacle = obstacles.get(i);
-            System.out.println(obstacle.isCounted());
+            //System.out.println(obstacle.isCounted());
         }
 
         handleInput();
@@ -393,7 +400,9 @@ public class PlayState extends State{
             dialogListener.showDialog();
 
 
-            while (!dialogListener.getDialogDone() ){}
+            while (!dialogListener.getDialogDone() ){
+                //do nothing / wait
+            }
             String userName = dialogListener.getUserName();
             System.out.println("username "+userName);
             highscoreListener.saveHighscoreToDatabase(rank, (int) score.getCurrentScorePoints(), userName);

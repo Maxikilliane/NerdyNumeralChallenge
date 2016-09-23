@@ -70,13 +70,18 @@ public class AnswerPhones {
         return position;
     }
 
+
+    /*
+     * state 1: 2 hearts full
+     * state 2: 1 heart full
+     * state 3: 0 hearts full
+     * state 4: all hearts full
+     */
     public void reactToCollision(GameStateManager manager) {
 
         int state = Score.getStateOfHearts();
         System.out.println(state);
         if (state == 4) {
-
-
             //Score.changeHeart(false, 0);
         } else if (state == 3) {
             Score.changeHeart(false, 2);
