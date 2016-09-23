@@ -8,12 +8,14 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import de.mi.ur.AndroidCommunication.DialogListener;
 import de.mi.ur.AndroidCommunication.MultipleChoiceListener;
 import de.mi.ur.AndroidCommunication.WeatherDataListener;
+import de.mi.ur.DataBase.Highscore;
 import de.mi.ur.DataBase.NNCDatabase;
 import de.mi.ur.QuestionLogic.MultipleChoiceQuestion;
 
 public class AndroidLauncher extends AndroidApplication implements MultipleChoiceListener, WeatherDataListener, DialogListener {
 	private int currentWeather;
 	private NNCDatabase db;
+	private HighscoreDialog highscoreDialog;
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
@@ -43,7 +45,23 @@ public class AndroidLauncher extends AndroidApplication implements MultipleChoic
 
 	@Override
 	public void showDialog() {
-		HighscoreDialog highscoreDialog = new HighscoreDialog();
+		highscoreDialog = new HighscoreDialog();
 		highscoreDialog.show(getFragmentManager(), "My HighscoreDialog");
+
+	}
+
+	@Override
+	public boolean getDialogDone() {
+		if (highscoreDialog != null) {
+			return highscoreDialog.getDialogDone();
+		} else {
+			return true;
+		}
+
+	}
+
+	@Override
+	public String getUserName() {
+		return highscoreDialog.getUserName();
 	}
 }
