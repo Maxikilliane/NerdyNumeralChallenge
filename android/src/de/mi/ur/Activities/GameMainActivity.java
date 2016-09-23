@@ -42,7 +42,7 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.game_main_activity);
         setupUI();
         setupToolbar();
-        weatherManager = new WeatherManager(this, this);
+        weatherManager = new WeatherManager(this, this, this);
     }
 
     private void setupToolbar() {
@@ -82,8 +82,6 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
             case R.id.game_update_weather_button:
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     weatherManager.startCurrentWeatherGetter();
-                //String weather = convertToWeatherName(weatherManager.getCurrentWeather());
-                  //  toastMessage = "Wetter aktualisiert! Gerade " + weather + ". Der Spielhintergrund wurde angepasst.";
                 } else {
                     requestWeatherPermission(this);
                     toastMessage = "Default-Wetter: Die Sonne scheint!";
