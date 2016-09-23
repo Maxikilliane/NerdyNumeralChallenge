@@ -10,8 +10,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 
 import de.mi.ur.ConstantsGame;
+import de.mi.ur.states.GameOverState;
 import de.mi.ur.states.GameStateManager;
-import de.mi.ur.states.MenueState;
 import de.mi.ur.states.PlayState;
 
 
@@ -29,12 +29,13 @@ public class Score {
     private static int pointUpdate;
     BitmapFont scoreFont;
     private static Texture heartEmpty;
-    public static int thisCounter = 0;
+
 
     public static int state;
 
     public Score() {
         hearts = new Array<Texture>();
+        state = 4;
         currentScore = "Score: 0";
         scoreFont = new BitmapFont(Gdx.files.internal("goodTimesNew.fnt"));
         heartFilled = new Texture("heart_filled.png");
@@ -88,104 +89,73 @@ public class Score {
     }
 
     public static int getStateOfHearts() {
-       /* if (thisCounter/20 < 1) {
-            return 1;
-        }
-        if (thisCounter/20 <2 && thisCounter/20 >1) {
-            return 2;
-        }
-        if (thisCounter/20 > 2 && thisCounter <3 ) {
-            return 3;
-        } else {
-            return 4;
-        }*/
-        if (!PlayState.alreadChanged) {
-            if ((hearts.get(0) == heartEmpty) && (hearts.get(1) == heartFilled) && hearts.get(2) == heartFilled) {
-                PlayState.alreadChanged = true;
-                state = 1;
-                return 1;
 
-            } else if (hearts.get(1) == heartEmpty && hearts.get(2) == heartFilled && hearts.get(0) == heartEmpty) {
+        if ((!PlayState.alreadChanged && hearts.get(0) == heartEmpty) && (hearts.get(1) == heartFilled) && hearts.get(2) == heartFilled) {
+
+            state = 1;
                 PlayState.alreadChanged = true;
-                state = 2;
-                return 2;
-            } else if (hearts.get(2) == heartEmpty && hearts.get(0) == heartEmpty && hearts.get(1) == heartEmpty) {
-                PlayState.alreadChanged = true;
-                state = 3;
-                return 3;
-            } else {
-                PlayState.alreadChanged = true;
-                state = 4;
-                return 4;
-            }
-        } else {
             return state;
 
-        }
-            /*
-        if (!PlayState.alreadChanged) {
-            if (hearts.get(1) == heartEmpty && hearts.get(2) == heartFilled && hearts.get(0) == heartEmpty) {
-                PlayState.alreadChanged = true;
+        } else if (!PlayState.alreadChanged && hearts.get(1) == heartEmpty && hearts.get(2) == heartFilled && hearts.get(0) == heartEmpty) {
+
                 state = 2;
-                return 2;
-            }
-
-        }
-        if (!PlayState.alreadChanged) {
-            if (hearts.get(2) == heartEmpty && hearts.get(0) == heartEmpty && hearts.get(1) == heartEmpty) {
                 PlayState.alreadChanged = true;
+            return state;
+        } else if (!PlayState.alreadChanged && hearts.get(2) == heartEmpty && hearts.get(0) == heartEmpty && hearts.get(1) == heartEmpty) {
+
                 state = 3;
-                return 3;
-            }
-        }
-        if (!PlayState.alreadChanged) {
-
-            if ((hearts.get(0) == heartFilled) && (hearts.get(1) == heartFilled) && (hearts.get(2) == heartFilled)) {
                 PlayState.alreadChanged = true;
-                state = 4;
-                return 4;
+            return state;
+        } else {
+
+
+                PlayState.alreadChanged = true;
+            return state;
             }
 
-        }*/
-        //return state;
-    }
+
+        }
 
 
-    public static void updateHeart(GameStateManager manager) {
-        if (getStateOfHearts() == 4) {
-            System.out.println(4);
+    public static void updateHeart(GameStateManager manager, boolean dead) {
+        state = getStateOfHearts();
+        if (state == 4) {
 
-            changeHeart(true, 0);
-        } else if (getStateOfHearts() == 3) {
-            manager.set(new MenueState(manager));
-            System.out.println("Ätschi");
-        } else if (getStateOfHearts() == 2) {
-            changeHeart(true, 2);
+
+            changeHeart(dead, 0);
+        } else if (state == 3) {
+            manager.set(new GameOverState(manager));
+        } else if (state == 2) {
+            changeHeart(dead, 2);
             System.out.println(2);
-        } else if (getStateOfHearts() == 1) {
-            changeHeart(true, 1);
-            System.out.println(1);
+        } else if (state == 1) {
+            changeHeart(dead, 1);
         } else {
             // dieses else tritt ziemlich oft auf! :)
         }
 
 
-        thisCounter++;
-        System.out.println(thisCounter);
-        System.out.println("counter geteilt: " + thisCounter / 20);
-        if (thisCounter / 10 == 1) {
-            hearts.set(0, heartEmpty);
+    }
 
+    public static void refillHeart() {
+        state = getStateOfHearts();
+        if (state == 4) {
+
+
+            //changeHeart(dead, 0);
+        } else if (state == 3) {
+            changeHeart(false, 2);
+        } else if (state == 2) {
+            changeHeart(false, 1);
+        } else if (state == 1) {
+            changeHeart(false, 0);
+        } else {
+            // dieses else tritt ziemlich oft auf! :)
         }
-        if (thisCounter / 10 == 2) {
-            hearts.set(1, heartEmpty);
-        }
-        if (thisCounter / 10 == 3) {
-            hearts.set(2, heartEmpty);
-        }
-        System.out.println(thisCounter);
+
 
     }
+
 
     public static void addPoints() {
         pointUpdate = 10;
@@ -199,13 +169,10 @@ public class Score {
             currentScore = "0" + getTimeElapsed() + "   Points";
 
         } else {
-            currentScore = "" + getTimeElapsed() + pointUpdate + "   Points";
+            currentScore = "" + getTimeElapsed() + "   Points";
         }
         currentScorePoints = getTimeElapsed();
-        if (PlayState.hasHit) {
 
-            updateHeart(manager);
-        }
         PlayState.hasHit = false;
 
 

@@ -13,6 +13,7 @@ import de.mi.ur.ConstantsGame;
 public abstract class Obstacle {
 
     private Texture texture;
+    private boolean counted;
     private Rectangle bounds;
     private Vector2 obstaclePos;
     private int obstacleY;
@@ -29,6 +30,14 @@ public abstract class Obstacle {
         this.obstacleY = obstacleY;
         obstaclePos = new Vector2(x, obstacleY);
         bounds = new Rectangle(obstaclePos.x, obstaclePos.y, texture.getWidth() - ConstantsGame.PIT_BOUNDS_OFFSET, texture.getHeight());
+    }
+
+    public boolean isCounted() {
+        return counted;
+    }
+
+    public void setCounted() {
+        counted = true;
     }
 
     public Texture getTexture() {
