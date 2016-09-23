@@ -15,6 +15,7 @@ import de.mi.ur.R;
  */
 public class HighscoreAdapter extends CursorAdapter {
 
+
     public HighscoreAdapter(Context context, Cursor cursor) {
         super(context, cursor, 0);
     }

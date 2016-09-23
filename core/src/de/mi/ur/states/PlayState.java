@@ -26,7 +26,7 @@ import de.mi.ur.sprites.Woman;
  * <p/>
  * Obstacle funktioniert jetzt.
  */
-public class PlayState extends State {
+public class PlayState extends State{
 
     private float counter = 0;
     private int limitCounter;
@@ -62,6 +62,11 @@ public class PlayState extends State {
     private Vector2 groundPos1, groundPos2;
     private Vector2 bgPos1, bgPos2;
     private Array<Obstacle> obstacles;
+
+    private int rank;
+    private int points;
+
+
 
     private HighscoreListener highscoreListener;
     private DialogListener dialogListener;
@@ -282,6 +287,10 @@ public class PlayState extends State {
             if (obstacle.collides(nerd.getBounds()) && !obstacle.isCounted()) {
                 switch (obstacle.getType()) {
                     case ConstantsGame.PIT_TYPE:
+                        points =(int) score.getCurrentScorePoints();
+                        System.out.println("points are initialised");
+                        rank = highscoreListener.checkIfNewHighscore(points);
+                        System.out.println("rank is initialised");
                         saveScore();
                         cam.setToOrtho(false, ConstantsGame.DEFAULT_CAM_WIDTH, ConstantsGame.DEFAULT_CAM_HEIGHT);
                         gameManager.set(new GameOverState(gameManager));
@@ -377,10 +386,18 @@ public class PlayState extends State {
     }
 
     private void saveScore() {
-        int rank = highscoreListener.checkIfNewHighscore((int) score.getCurrentScorePoints());
+
+        points =(int) score.getCurrentScorePoints();
+        rank = highscoreListener.checkIfNewHighscore(points);
         if (rank != -1) {
             dialogListener.showDialog();
-            highscoreListener.saveHighscoreToDatabase(rank, (int) score.getCurrentScorePoints());
+
+
+            while (!dialogListener.getDialogDone() ){}
+            String userName = dialogListener.getUserName();
+            System.out.println("username "+userName);
+            highscoreListener.saveHighscoreToDatabase(rank, (int) score.getCurrentScorePoints(), userName);
+            System.out.println("highscore is uptodate");
         }
     }
 
@@ -461,9 +478,11 @@ public class PlayState extends State {
                 texturePath = "bg_snow.png";
                 break;
             default:
-                texturePath = "";
+                texturePath = "bg_sunny.png";
         }
         return new Texture(texturePath);
     }
+
+
 }
 

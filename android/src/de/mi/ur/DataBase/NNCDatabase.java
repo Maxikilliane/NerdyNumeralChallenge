@@ -46,6 +46,8 @@ public class NNCDatabase implements HighscoreListener {
     private static final String[] ALL_COLUMNS_HIGHSCORE = {KEY_ID, KEY_RANK, KEY_POINTS, KEY_NAME};
     private static final String[] ALL_COLUMNS_LEVEL = {KEY_ID, KEY_LEVEL_NUM, KEY_LEVEL_NAME, KEY_POINTS_FOR_NEXT_LEVEL, KEY_QUESTION_LENGTH};
 
+    public static String userName;
+
     private NncDBOpenHelper dbHelper;
     private SQLiteDatabase database;
 
@@ -205,7 +207,7 @@ public class NNCDatabase implements HighscoreListener {
     }
 
     @Override
-    public void saveHighscoreToDatabase(int rank, int points) {
+    public void saveHighscoreToDatabase(int rank, int points, String newUserName) {
         ArrayList<Highscore> allHighscores = getAllHighscores();
         int size = allHighscores.size();
         for(int i = size; i > rank; i--){
@@ -222,7 +224,7 @@ public class NNCDatabase implements HighscoreListener {
         }
         removeHighscoreData(rank);
         // Evtl im Spiel den Player zum Namen-Eingeben prompten und den dann noch übergeben.
-        insertHighscoreData(new Highscore(rank, points, ""));
+        insertHighscoreData(new Highscore(rank, points, newUserName));
 
     }
 
@@ -286,6 +288,8 @@ public class NNCDatabase implements HighscoreListener {
                 onCreate(db);
             }
         }
-    }
+
+
+}
 
 

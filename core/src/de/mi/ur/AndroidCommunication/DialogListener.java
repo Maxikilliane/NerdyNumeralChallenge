@@ -8,4 +8,9 @@ import javax.swing.text.View;
 public interface DialogListener {
 
     public void showDialog();
+
+    public boolean getDialogDone();
+
+    public String getUserName();
+
 }
