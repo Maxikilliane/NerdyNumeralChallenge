@@ -37,6 +37,7 @@ public class WeatherManager implements WeatherListener {
 
     public int getCurrentWeather() {
         return currentWeather;
+
     }
 
 

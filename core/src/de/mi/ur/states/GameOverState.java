@@ -19,8 +19,8 @@ public class GameOverState extends State {
     public GameOverState(GameStateManager gameManager) {
         super(gameManager);
 
-        Score.thisCounter = 0;
-        Score.state = 0;
+
+        Score.state = 4;
 
         cam.setToOrtho(false, ConstantsGame.SCREEN_WIDTH, ConstantsGame.SCREEN_HEIGHT);
 

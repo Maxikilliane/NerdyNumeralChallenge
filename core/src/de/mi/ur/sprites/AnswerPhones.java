@@ -8,7 +8,6 @@ import com.badlogic.gdx.math.Vector2;
 import de.mi.ur.ConstantsGame;
 import de.mi.ur.gameLogic.Score;
 import de.mi.ur.states.GameStateManager;
-import de.mi.ur.states.MenueState;
 
 /**
  * Created by maxiwindl on 05.09.16.
@@ -20,6 +19,7 @@ public class AnswerPhones {
 
 
     private Rectangle bounds;
+    private static boolean counted;
 
 
     private Animation phoneAnimation;
@@ -40,8 +40,21 @@ public class AnswerPhones {
         colliding = false;
     }
 
+    public boolean isCounted() {
+        return counted;
+    }
+
+    public void setCounted() {
+        counted = true;
+    }
+
+    public static void resetCounted() {
+        counted = false;
+    }
+
     public boolean collides(Rectangle player) {
         // return super.collides(player);
+
         return player.overlaps(bounds);
     }
 
@@ -57,87 +70,31 @@ public class AnswerPhones {
         return position;
     }
 
-    public void reactToCollision() {
-        if (Score.getStateOfHearts() == 4) {
-            Score.addPoints();
-        }
-        if (Score.getStateOfHearts() == 3) {
-            Score.changeHeart(false, 2);
-        }
-        if (Score.getStateOfHearts() == 2) {
-            Score.changeHeart(false, 1);
-        }
-        if (Score.getStateOfHearts() == 1) {
-            Score.changeHeart(false, 0);
-        }
-       /* if (Score.thisCounter/20 < 1) {
-            Score.addPoints();
-        }
-        if (Score.thisCounter/20 > 1 && Score.thisCounter/10 < 2) {
-            Score.changeHeart(false, 0);
-        }
-        if (Score.thisCounter/20 > 2 && Score.thisCounter/10 <3 ) {
-            Score.changeHeart(false, 1);
+    public void reactToCollision(GameStateManager manager) {
 
-        }
-        if (Score.thisCounter/20 >3) {
+        int state = Score.getStateOfHearts();
+        System.out.println(state);
+        if (state == 4) {
+
+
+            //Score.changeHeart(false, 0);
+        } else if (state == 3) {
             Score.changeHeart(false, 2);
-        }*/
+        } else if (state == 2) {
+            Score.changeHeart(false, 1);
+            System.out.println(2);
+        } else if (state == 1) {
+            Score.changeHeart(false, 0);
+        } else {
+            // dieses else tritt ziemlich oft auf! :)
+        }
+
     }
 
     public void reactToWrongCollision(GameStateManager manager) {
-       /* if (Score.thisCounter/20 < 1) {
-            Score.addPoints();
-        }
-        if (Score.thisCounter/20 > 1 && Score.thisCounter/20 < 2) {
-            Score.changeHeart(false, 0);
-        }
-        if (Score.thisCounter/20 > 2 && Score.thisCounter/20 <3 ) {
-            Score.changeHeart(false, 1);
+        System.out.println(Score.getStateOfHearts());
 
-        }
-        if (Score.thisCounter/20 >3) {
-            Score.changeHeart(false, 2);
-        }*/
-       /* PlayState.hasHit = false;
-        switch (Score.getStateOfHearts()) {
-            case 4:
-
-                Score.changeHeart(true, 0);
-
-                break;
-            case 3:
-
-                manager.set(new MenueState(manager));
-
-
-                break;
-            case 2:
-
-                Score.changeHeart(true, 2);
-
-                break;
-            case 1:
-
-
-                Score.changeHeart(true, 1);
-
-                break;
-            default:
-                break;
-        }*/
-        if (Score.getStateOfHearts() == 4) {
-            Score.changeHeart(true, 0);
-        }
-        if (Score.getStateOfHearts() == 3) {
-            manager.set(new MenueState(manager));
-        }
-        if (Score.getStateOfHearts() == 2) {
-            Score.changeHeart(true, 2);
-        }
-        if (Score.getStateOfHearts() == 1) {
-            Score.changeHeart(true, 1);
-        }
+        Score.updateHeart(manager, true);
 
     }
     public float getX() {
