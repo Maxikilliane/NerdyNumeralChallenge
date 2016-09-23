@@ -3,7 +3,9 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/activity_general_padding">
+    android:paddingRight="@dimen/activity_general_padding"
+    android:paddingLeft="@dimen/activity_general_padding"
+    >
 
 
     <EditText
@@ -13,7 +15,7 @@
         android:hint="@string/answer_prompt"
         android:textColor="@android:color/black"
         android:focusable="true"
-        android:padding="@dimen/activity_general_padding">
+        android:padding="@dimen/padding_medium">
         </EditText>
 
 </LinearLayout>
