@@ -5,12 +5,13 @@ import android.os.Bundle;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
+import de.mi.ur.AndroidCommunication.DialogListener;
 import de.mi.ur.AndroidCommunication.MultipleChoiceListener;
 import de.mi.ur.AndroidCommunication.WeatherDataListener;
 import de.mi.ur.DataBase.NNCDatabase;
 import de.mi.ur.QuestionLogic.MultipleChoiceQuestion;
 
-public class AndroidLauncher extends AndroidApplication implements MultipleChoiceListener, WeatherDataListener {
+public class AndroidLauncher extends AndroidApplication implements MultipleChoiceListener, WeatherDataListener, DialogListener {
 	private int currentWeather;
 	private NNCDatabase db;
 
@@ -24,7 +25,7 @@ public class AndroidLauncher extends AndroidApplication implements MultipleChoic
 		db = new NNCDatabase(this);
 		db.open();
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		initialize(new NerdyNumeralChallenge(this, this, db), config);
+		initialize(new NerdyNumeralChallenge(this, this, db,this), config);
 	}
 
 	@Override
@@ -40,9 +41,9 @@ public class AndroidLauncher extends AndroidApplication implements MultipleChoic
 		return currentWeather;
 	}
 
-
-	/**
-     * Created by Lydia on 15.08.2016.
-     */
-
+	@Override
+	public void showDialog() {
+		HighscoreDialog highscoreDialog = new HighscoreDialog();
+		highscoreDialog.show(getFragmentManager(), "My HighscoreDialog");
+	}
 }

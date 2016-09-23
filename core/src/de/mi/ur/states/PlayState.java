@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Array;
 
 import java.util.Random;
 
+import de.mi.ur.AndroidCommunication.DialogListener;
 import de.mi.ur.AndroidCommunication.HighscoreListener;
 import de.mi.ur.ConstantsGame;
 import de.mi.ur.gameLogic.GameQuestion;
@@ -63,10 +64,13 @@ public class PlayState extends State {
     private Array<Obstacle> obstacles;
 
     private HighscoreListener highscoreListener;
+    private DialogListener dialogListener;
+
 
     protected PlayState(GameStateManager gameManager) {
         super(gameManager);
         this.highscoreListener = gameManager.getHighscoreListener();
+        this.dialogListener = gameManager.getDialogListener();
         nerd = new Nerd(ConstantsGame.NERD_X, ConstantsGame.NERD_Y);
         ground = new Texture("ground_anton.png");
         flyingPhone1 = new Texture("phone_answer_new_1.png");
@@ -364,6 +368,7 @@ public class PlayState extends State {
     private void saveScore() {
         int rank = highscoreListener.checkIfNewHighscore((int) score.getCurrentScorePoints());
         if (rank != -1) {
+            dialogListener.showDialog();
             highscoreListener.saveHighscoreToDatabase(rank, (int) score.getCurrentScorePoints());
         }
     }
