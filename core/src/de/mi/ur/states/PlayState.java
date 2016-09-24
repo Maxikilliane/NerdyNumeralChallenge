@@ -380,19 +380,19 @@ public class PlayState extends State{
             return ConstantsGame.NERD_MOVEMENT_DEFAULT + ConstantsGame.VELOCITY_ADDED;
         }
         else if (value > ConstantsGame.SCORE_START + ConstantsGame.SCORE_DIFFERENCE && value <= ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*2) ) {
-            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.SCORE_DIFFERENCE*2);
+            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.VELOCITY_ADDED*2);
         }
         else if (value > ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*2) && value <= ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*3)) {
-            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.SCORE_DIFFERENCE*3);
+            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.VELOCITY_ADDED*3);
         }
         else if (value > ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*3) && value <= ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*4)) {
-            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.SCORE_DIFFERENCE*4);
+            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.VELOCITY_ADDED*4);
         }
         else if (value > ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE *4) && value <= ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*5)) {
-            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.SCORE_DIFFERENCE*5);
+            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.VELOCITY_ADDED*5);
         }
         else if (value > ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*5)) {
-            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.SCORE_DIFFERENCE*5);
+            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.VELOCITY_ADDED*5);
         }
         else {
             return ConstantsGame.NERD_MOVEMENT_DEFAULT;
@@ -428,7 +428,9 @@ public class PlayState extends State{
         spriteBatch.draw(background, bgPos2.x, ConstantsGame.BACKGROUND_Y_POS);
         spriteBatch.draw(sun, cam.position.x + ConstantsGame.SCORE_HEARTS_OFFSET_X, cam.position.y + ConstantsGame.SUN_Y_POS);
         score.renderScore(spriteBatch, cam);
-        gameQuestion.drawTasks(spriteBatch, cam);
+        if(isQuestionMode) {
+            gameQuestion.drawTasks(spriteBatch, cam);
+        }
         spriteBatch.draw(ground, groundPos1.x, groundPos1.y);
         spriteBatch.draw(ground, groundPos2.x, groundPos2.y);
         spriteBatch.draw(nerd.getTexture(), nerd.getX(), nerd.getY());
