@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Timer;
 
 import java.util.Random;
 
@@ -29,7 +28,7 @@ import de.mi.ur.sprites.Woman;
  */
 public class PlayState extends State{
 
-    private static boolean isQuestion;
+    private static boolean isQuestionMode;
 
     private static Nerd nerd;
     private Texture background;
@@ -51,14 +50,10 @@ public class PlayState extends State{
     private AnswerPhone phone2;
     private AnswerPhone phone3;
     private AnswerPhone phone4;
+    private AnswerPhone[] phones = {phone1, phone2, phone3, phone4};
 
-    private Woman woman;
     public static boolean hasHit;
-    private Array<Woman> women;
 
-    private Texture heartEmpty;
-
-    private Array<Pit> pits;
     private Vector2 groundPos1, groundPos2;
     private Vector2 bgPos1, bgPos2;
     private Array<Obstacle> obstacles;
@@ -68,15 +63,13 @@ public class PlayState extends State{
 
     private static float timeSum = 0;
 
-
-
     private HighscoreListener highscoreListener;
     private DialogListener dialogListener;
 
 
     protected PlayState(GameStateManager gameManager) {
         super(gameManager);
-        isQuestion = false;
+        isQuestionMode = false;
         this.highscoreListener = gameManager.getHighscoreListener();
         this.dialogListener = gameManager.getDialogListener();
         nerd = new Nerd(ConstantsGame.NERD_X, ConstantsGame.NERD_Y);
@@ -88,11 +81,10 @@ public class PlayState extends State{
 
         sun = new Texture("sun.png");
 
-        phone1 = new AnswerPhone(400, 200, flyingPhone1);
-        phone2 = new AnswerPhone(450, 200, flyingPhone2);
-        phone3 = new AnswerPhone(500, 200, flyingPhone3);
-        phone4 = new AnswerPhone(550, 200, flyingPhone4);
-
+        phone1 = new AnswerPhone(ConstantsGame.PHONE1_X, ConstantsGame.PHONES_Y, flyingPhone1);
+        phone2 = new AnswerPhone(ConstantsGame.PHONE2_X, ConstantsGame.PHONES_Y, flyingPhone2);
+        phone3 = new AnswerPhone(ConstantsGame.PHONE3_X, ConstantsGame.PHONES_Y, flyingPhone3);
+        phone4 = new AnswerPhone(ConstantsGame.PHONE4_X, ConstantsGame.PHONES_Y, flyingPhone4);
         background = new Texture("bg_sunny.png");
 
         //background = getBackgroundWeather(gameManager);
@@ -104,34 +96,21 @@ public class PlayState extends State{
         obstacles = new Array<Obstacle>();
 
 
-        for (int i = 0; i < 4; i++) {
-            int distance = generateNewDistance();
+        for (int i = 0; i < ConstantsGame.TOTAL_NUM_OBSTACLES; i++) {
             if (random.nextInt(2) == ConstantsGame.PIT_TYPE) {
-                //obstacles.add(new Pit(i * ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH));
-                //obstacles.add(new Pit((cam.position.x + cam.viewportWidth/2)+ ConstantsGame.PIT_WIDTH*2 + distance*(i+1)));
-                obstacles.add(new Pit((cam.position.x + cam.viewportWidth/2)+ ConstantsGame.PIT_WIDTH*2));
-                System.out.println("pit start pos: "+(cam.position.x + cam.viewportWidth/2)+ ConstantsGame.PIT_WIDTH*2 + (distance*(i+1)));
+                obstacles.add(new Pit(cam.position.x + (cam.viewportWidth/2) + ConstantsGame.PIT_WIDTH*2));
             } else {
-                //obstacles.add(new Woman(i * (500)));
-                //obstacles.add(new Woman((cam.position.x + cam.viewportWidth/2)+ ConstantsGame.WOMAN_WIDTH*2 + (i+1)*distance));
-                obstacles.add(new Woman((cam.position.x + cam.viewportWidth/2)+ ConstantsGame.WOMAN_WIDTH*2));
-                System.out.println("woman start pos: "+(cam.position.x + cam.viewportWidth/2)+ ConstantsGame.WOMAN_WIDTH*2 + (i+1)*distance);
+                obstacles.add(new Woman(cam.position.x + (cam.viewportWidth/2) + ConstantsGame.WOMAN_WIDTH*2));
             }
-            if(i !=0) {
-                Obstacle before = obstacles.get(i-1);
-                Obstacle obstacle = obstacles.get(i);
-                obstacle.reposition(before.getObstaclePos().x + (before.getTexture().getWidth()*2 + obstacle.getTexture().getWidth()*2 + distance));
-                System.out.println("obstacle start pos: "+obstacle.getObstaclePos());
-            }
+            setObstaclesPositionOutsideScreen();
         }
 
-        groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, ConstantsGame.GROUND_Y_OFFSET);
-        groundPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2) + ground.getWidth(), ConstantsGame.GROUND_Y_OFFSET);
-        bgPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, ConstantsGame.BACKGROUND_Y_POS);
-        bgPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2) + background.getWidth(), ConstantsGame.BACKGROUND_Y_POS);
+        groundPos1 = new Vector2(cam.position.x - (cam.viewportWidth / 2), ConstantsGame.GROUND_Y_OFFSET);
+        groundPos2 = new Vector2(cam.position.x - (cam.viewportWidth / 2) + ground.getWidth(), ConstantsGame.GROUND_Y_OFFSET);
+        bgPos1 = new Vector2(cam.position.x - (cam.viewportWidth / 2), ConstantsGame.BACKGROUND_Y_POS);
+        bgPos2 = new Vector2(cam.position.x - (cam.viewportWidth / 2) + background.getWidth(), ConstantsGame.BACKGROUND_Y_POS);
 
     }
-
 
     @Override
     protected void handleInput() {
@@ -139,22 +118,36 @@ public class PlayState extends State{
             if (Gdx.input.justTouched()) {
                 nerd.jump();
                 Nerd.jumpFinished = false;
-
             }
-
         }
-
     }
 
+    @Override
+    //calculations for the render method
+    public void update(float dt) {
+        updateTimeSum(dt);
+        handleInput();
+        updateGround();
+        updateBG();
+        nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty());
+        System.out.println("difficulty: "+increaseDifficulty());
+        updatePhones(dt);
+        score.updateScore(gameManager);
+        gameQuestion.updateQuestions();
+
+        updateObstacles();
 
 
+        cam.position.x = nerd.getPosition().x + ConstantsGame.NERD_POSITION_OFFSET;
+        cam.update();
+    }
 
-    private void checkIfWomanIsInPit(Woman woman) {
-        for (int i = 0; i < pits.size; i++) {
-            Pit pit = pits.get(i);
-            if (woman.getWomanPos().x == pit.getPitPos().x) {
-                woman.getWomanPos().x += pit.getPit().getWidth() + 150;
-            }
+    private void updateTimeSum(float dt){
+        timeSum = timeSum + dt;
+        if(timeSum > ConstantsGame.PHASE_DURATION){
+            togglePhase();
+            gameQuestion.resetCounted();
+            timeSum = 0;
         }
     }
 
@@ -178,7 +171,7 @@ public class PlayState extends State{
 
 
     public void handleUserAnswers() {
-        // System.out.println("richtige Loesung: " + GameQuestion.getRightAnswer());
+
         if (GameQuestion.getRightAnswer() == 1) {
             if (phone1.collides(nerd.getBounds()) && !phone1.isCounted()) {
                 phone1.setCounted();
@@ -186,7 +179,7 @@ public class PlayState extends State{
                 //Score.updateHeart(gameManager);
                 alreadChanged = false;
                 Score.refillHeart();
-                toggleStadium();
+                togglePhase();
             } else if ((phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())) {
                 System.out.println("FALSCHE LÖSUNG");
                 phone2.setCounted();
@@ -194,7 +187,7 @@ public class PlayState extends State{
                 phone4.setCounted();
                 alreadChanged = false;
                 Score.updateHeart(gameManager, true);
-                toggleStadium();
+                togglePhase();
             }
 
         }
@@ -204,7 +197,7 @@ public class PlayState extends State{
                 phone2.setCounted();
                 alreadChanged = false;
                 Score.refillHeart();
-                toggleStadium();
+                togglePhase();
             } else if ((phone1.collides(nerd.getBounds()) && !phone1.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())) {
                 System.out.println("FALSCHE LÖSUNG");
                 phone1.setCounted();
@@ -212,7 +205,7 @@ public class PlayState extends State{
                 phone4.setCounted();
                 alreadChanged = false;
                 Score.updateHeart(gameManager, true);
-                toggleStadium();
+                togglePhase();
             }
         }
 
@@ -222,7 +215,7 @@ public class PlayState extends State{
                 phone3.setCounted();
                 alreadChanged = false;
                 Score.refillHeart();
-                toggleStadium();
+                togglePhase();
             } else if ((phone1.collides(nerd.getBounds()) && !phone1.isCounted()) || (phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())) {
                 System.out.println("FALSCHE LÖSUNG");
                 phone1.setCounted();
@@ -230,7 +223,7 @@ public class PlayState extends State{
                 phone4.setCounted();
                 alreadChanged = false;
                 Score.updateHeart(gameManager, true);
-                toggleStadium();
+                togglePhase();
             }
         }
 
@@ -241,7 +234,7 @@ public class PlayState extends State{
                 alreadChanged = false;
                 Score.refillHeart();
                // phone4.reactToCollision(gameManager);
-                toggleStadium();
+                togglePhase();
             } else if ((phone1.collides(nerd.getBounds()) && !phone1.isCounted()) || (phone2.collides(nerd.getBounds()) && phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && phone3.isCounted())) {
                 System.out.println("FALSCHE LÖSUNG");
                 phone2.setCounted();
@@ -250,16 +243,20 @@ public class PlayState extends State{
                // phone4.reactToWrongCollision(gameManager);
                 alreadChanged = false;
                 Score.updateHeart(gameManager, true);
-                toggleStadium();
+                togglePhase();
             }
         }
 
     }
 
 
-    private void updatePhones() {
+    private void updatePhones(float dt) {
+        phone1.update(dt);
+        phone2.update(dt);
+        phone3.update(dt);
+        phone4.update(dt);
 
-        if(phone1.isCounted() || phone2.isCounted() || phone3.isCounted()|| phone4.isCounted() || !isQuestionStadium()) {
+        if(phone1.isCounted() || phone2.isCounted() || phone3.isCounted()|| phone4.isCounted() || !isQuestionPhase()) {
             setPhonePositionOutsideScreen(phone1, 0);
             setPhonePositionOutsideScreen(phone2, 50);
             setPhonePositionOutsideScreen(phone3, 100);
@@ -272,15 +269,9 @@ public class PlayState extends State{
         updatePhone(phone4, flyingPhone4);
 
         if (GameQuestion.answerGenerated) {
-
             handleUserAnswers();
         }
 
-       /* if (phones.collides(nerd.getBounds())) {
-            counter = -1;
-            saveScore();
-            gameManager.set(new MenueState(gameManager));
-        }*/
 
 
     }
@@ -294,19 +285,14 @@ public class PlayState extends State{
         }
     }
 
-    public void setObstaclesPositionOutsideScreen(){
+    private void setObstaclesPositionOutsideScreen(){
         Obstacle firstObstacle = obstacles.get(0);
-        firstObstacle.reposition((cam.position.x + cam.viewportWidth/2 )+ firstObstacle.getTexture().getWidth()*2);
-        //firstObstacle.getObstaclePos().set((cam.position.x + cam.viewportWidth/2 )+ firstObstacle.getTexture().getWidth()*2 , firstObstacle.getY());
+        firstObstacle.reposition(cam.position.x + (cam.viewportWidth/2) + firstObstacle.getTexture().getWidth()*2);
         for (int i = 1; i < obstacles.size; i++) {
+            int distance = generateNewDistance(score.getCurrentScorePoints());
             Obstacle obstacle = obstacles.get(i);
             Obstacle before = obstacles.get(i-1);
-            int distance = generateNewDistance();
             obstacle.reposition(before.getObstaclePos().x + (before.getTexture().getWidth()*2 + obstacle.getTexture().getWidth()*2 + distance));
-            /*
-            obstacle = obstacles.get(i);
-            obstacle.getObstaclePos().set(((cam.position.x + cam.viewportWidth/2)+ ConstantsGame.PIT_WIDTH*2 + generateNewDistance()*(i+1)),obstacle.getY());
-            */
         }
 
     }
@@ -315,8 +301,7 @@ public class PlayState extends State{
 
     private void updateObstacles() {
 
-        System.out.println("isQuestionStadium: "+isQuestionStadium());
-        if(isQuestionStadium()){
+        if(isQuestionPhase()){
             setObstaclesPositionOutsideScreen();
         } else {
             for (int i = 0; i < obstacles.size; i++) {
@@ -329,12 +314,10 @@ public class PlayState extends State{
                 }
 
                 if (cam.position.x - (cam.viewportWidth / 2) > obstacle.getObstaclePos().x + obstacle.getTexture().getWidth()) {
-                    int distance = generateNewDistance();
+                    int distance = generateNewDistance(score.getCurrentScorePoints());
                     obstacle.reposition(before.getObstaclePos().x + (before.getTexture().getWidth() * 2 + obstacle.getTexture().getWidth() * 2 + distance));
                     System.out.println("x-position obstacle: " + before.getObstaclePos().x + (before.getTexture().getWidth() * 2 + obstacle.getTexture().getWidth() * 2 + distance));
                     System.out.println("distance: " + distance);
-                    //obstacle.reposition((cam.position.x + cam.viewportWidth/2) + (i+1) * generateNewDistance() );
-                    //obstacle.reposition(obstacle.getObstaclePos().x + ((obstacle.getTexture().getWidth()) + generateNewDistance() + 800 * 4));
                     obstacle.resetCounted();
                 }
                 if (obstacle.collides(nerd.getBounds()) && !obstacle.isCounted()) {
@@ -364,85 +347,54 @@ public class PlayState extends State{
     }
 
 
-    private int generateNewDistance() {
-        int newInt = random.nextInt(200);
+    private int generateNewDistance(long scorePoints) {
+        int newInt;
+        if(scorePoints < ConstantsGame.SCORE_START){
+            newInt = random.nextInt(ConstantsGame.MAX_DISTANCE_LONG);
+        }else if (scorePoints < ConstantsGame.SCORE_START + ConstantsGame.SCORE_DIFFERENCE*2){
+            newInt = random.nextInt(ConstantsGame.MAX_DISTANCE_MEDIUM_LONG);
+        }else if(scorePoints < ConstantsGame.SCORE_START + ConstantsGame.SCORE_DIFFERENCE*4){
+            newInt = random.nextInt(ConstantsGame.MAX_DISTANCE_MEDIUM_SHORT);
+        }else {
+            newInt = random.nextInt(ConstantsGame.MAX_DISTANCE_SHORT);
+        }
 
-        if (newInt >= 10) {
+
+        if (newInt >= ConstantsGame.MIN_DISTANCE) {
+            System.out.println("scorePoint: "+scorePoints);
+            System.out.println("distance "+newInt);
             return newInt;
         } else {
-            return generateNewDistance();
+            return generateNewDistance(scorePoints);
         }
 
     }
 
-    @Override
-    //calculations for the render method
-    public void update(float dt) {
-        timeSum = timeSum+ dt;
-        //System.out.println("time sum dts: "+timeSum);
-        if(timeSum > 10){
-            toggleStadium();
-            gameQuestion.resetCounted();
-            System.out.println(isQuestionStadium());
-            System.out.println(gameQuestion.isCounted());
-            timeSum = 0;
+
+    private float increaseDifficulty() {
+        long value = score.getCurrentScorePoints();
+        if (value < ConstantsGame.SCORE_START) {
+            return ConstantsGame.NERD_MOVEMENT_DEFAULT;
         }
-
-        for (int i = 0; i < obstacles.size; i++) {
-            Obstacle obstacle = obstacles.get(i);
-            //System.out.println(obstacle.isCounted());
+        else if (value > ConstantsGame.SCORE_START && value <=ConstantsGame.SCORE_START + ConstantsGame.SCORE_DIFFERENCE){
+            return ConstantsGame.NERD_MOVEMENT_DEFAULT + ConstantsGame.VELOCITY_ADDED;
         }
-
-        handleInput();
-        updateGround();
-        updateBG();
-        nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty(dt));
-        updatePhones();
-
-        phone1.update(dt);
-        phone2.update(dt);
-        phone3.update(dt);
-        phone4.update(dt);
-        score.updateScore(gameManager);
-        gameQuestion.updateQuestions();
-
-        //updateWomen();
-        //updatePits();
-        updateObstacles();
-
-
-        cam.position.x = nerd.getPosition().x + ConstantsGame.NERD_POSITION_OFFSET;
-        cam.update();
-    }
-
-    private float increaseDifficulty(float dt) {
-        long value = score.getCurrentScore();
-        if (value > 50) {
-            //this.limitCounter = (int) ((8 / dt) * dt);
-            return 130;
+        else if (value > ConstantsGame.SCORE_START + ConstantsGame.SCORE_DIFFERENCE && value <= ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*2) ) {
+            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.SCORE_DIFFERENCE*2);
         }
-        if (value > 100) {
-           // this.limitCounter = (int) ((6 / dt) * dt);
-            return 160;
+        else if (value > ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*2) && value <= ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*3)) {
+            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.SCORE_DIFFERENCE*3);
         }
-        if (value > 150) {
-            //this.limitCounter = (int) ((4 / dt) * dt);
-            return 190;
+        else if (value > ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*3) && value <= ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*4)) {
+            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.SCORE_DIFFERENCE*4);
         }
-        if (value > 200) {
-            //this.limitCounter = (int) ((2 / dt) * dt);
-            return 220;
+        else if (value > ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE *4) && value <= ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*5)) {
+            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.SCORE_DIFFERENCE*5);
         }
-        if (value > 250) {
-            //this.limitCounter = 1;
-            return 250;
+        else if (value > ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*5)) {
+            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.SCORE_DIFFERENCE*5);
         }
-        if (value > 300) {
-            //this.limitCounter = 1;
-            return 280;
-
-        } else {
-            //this.limitCounter = (int) ((10 / dt) * dt);
+        else {
             return ConstantsGame.NERD_MOVEMENT_DEFAULT;
         }
     }
@@ -509,14 +461,7 @@ public class PlayState extends State{
         flyingPhone3.dispose();
         flyingPhone4.dispose();
         sun.dispose();
-        /*
-        for (Pit pit : pits) {
-            pit.dispose();
-        }
-        for (Woman woman : women) {
-            woman.dispose();
-        }
-        */
+
         for (Obstacle obstacle : obstacles) {
             obstacle.dispose();
         }
@@ -547,18 +492,13 @@ public class PlayState extends State{
         return new Texture(texturePath);
     }
 
-    public static boolean isQuestionStadium(){
-        return isQuestion;
+    public static boolean isQuestionPhase(){
+        return isQuestionMode;
     }
 
-    /*
-    public static void setState(boolean is_question){
-        isQuestion = is_question;
-    }
-    */
-
-    public static void toggleStadium(){
-       isQuestion = !isQuestion;
+    //switches between the QuestionPhase and the ObstaclePhase in the game
+    public static void togglePhase(){
+       isQuestionMode = !isQuestionMode;
         timeSum = 0;
     }
 
