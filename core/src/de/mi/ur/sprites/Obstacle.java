@@ -56,6 +56,10 @@ public abstract class Obstacle {
         return obstaclePos;
     }
 
+    public float getY(){
+        return obstacleY;
+    }
+
     public boolean collides(Rectangle player) {
         return player.overlaps(bounds);
     }

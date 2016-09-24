@@ -52,6 +52,7 @@ public class ConstantsGame {
         public static final int QUESTION_ANSWER_OFFSET_Y = -10;
 
         public static final int WOMAN_Y = PlayState.ground.getHeight() + GROUND_Y_OFFSET;
+        public static final int WOMAN_WIDTH = 34;
 
         public static final int BACKGROUND_Y_POS = 80;
 

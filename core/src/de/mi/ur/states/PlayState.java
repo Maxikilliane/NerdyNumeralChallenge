@@ -99,13 +99,24 @@ public class PlayState extends State{
 
 
         for (int i = 0; i < 4; i++) {
+            int distance = generateNewDistance();
             if (random.nextInt(2) == ConstantsGame.PIT_TYPE) {
-                obstacles.add(new Pit(i * ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH));
+                //obstacles.add(new Pit(i * ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH));
+                //obstacles.add(new Pit((cam.position.x + cam.viewportWidth/2)+ ConstantsGame.PIT_WIDTH*2 + distance*(i+1)));
+                obstacles.add(new Pit((cam.position.x + cam.viewportWidth/2)+ ConstantsGame.PIT_WIDTH*2));
+                System.out.println("pit start pos: "+(cam.position.x + cam.viewportWidth/2)+ ConstantsGame.PIT_WIDTH*2 + (distance*(i+1)));
             } else {
-                obstacles.add(new Woman(i * (500)));
+                //obstacles.add(new Woman(i * (500)));
+                //obstacles.add(new Woman((cam.position.x + cam.viewportWidth/2)+ ConstantsGame.WOMAN_WIDTH*2 + (i+1)*distance));
+                obstacles.add(new Woman((cam.position.x + cam.viewportWidth/2)+ ConstantsGame.WOMAN_WIDTH*2));
+                System.out.println("woman start pos: "+(cam.position.x + cam.viewportWidth/2)+ ConstantsGame.WOMAN_WIDTH*2 + (i+1)*distance);
             }
-
-
+            if(i !=0) {
+                Obstacle before = obstacles.get(i-1);
+                Obstacle obstacle = obstacles.get(i);
+                obstacle.reposition(before.getObstaclePos().x + (before.getTexture().getWidth()*2 + obstacle.getTexture().getWidth()*2 + distance));
+                System.out.println("obstacle start pos: "+obstacle.getObstaclePos());
+            }
         }
 
         groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, ConstantsGame.GROUND_Y_OFFSET);
@@ -129,25 +140,7 @@ public class PlayState extends State{
     }
 
 
-    private void updateWomen() {
-        for (int i = 0; i < women.size; i++) {
-            Woman woman = women.get(i);
-            if (cam.position.x - (cam.viewportWidth / 2) > woman.getWomanPos().x + woman.getWoman().getWidth()) {
-                woman.reposition(woman.getWomanPos().x + ((woman.getWoman().getWidth()) + generateNewDistance() + 400 * 4));
-            }
-            checkIfWomanIsInPit(woman);
-            if (woman.collides(nerd.getBounds())) {
 
-                gameManager.set(new MenueState(gameManager));
-                saveScore();
-
-            }
-            hasHit = true;
-
-        }
-
-
-    }
 
     private void checkIfWomanIsInPit(Woman woman) {
         for (int i = 0; i < pits.size; i++) {
@@ -180,8 +173,6 @@ public class PlayState extends State{
     public void handleUserAnswers() {
         // System.out.println("richtige Loesung: " + GameQuestion.getRightAnswer());
         if (GameQuestion.getRightAnswer() == 1) {
-
-
             if (phone1.collides(nerd.getBounds()) && !phone1.isCounted()) {
                 phone1.setCounted();
                 System.out.println("RICHTIGE LÖSUNG");
@@ -230,7 +221,7 @@ public class PlayState extends State{
 
             }
         }
-        //noch nicht counted gemacht
+
         if (GameQuestion.getRightAnswer() == 4 && !phone4.isCounted()) {
             if (phone4.collides(nerd.getBounds()) && !phone4.isCounted()) {
                 System.out.println("RICHTIGE LÖSUNG");
@@ -255,24 +246,17 @@ public class PlayState extends State{
     private void updatePhones() {
 
         if(phone1.isCounted() || phone2.isCounted() || phone3.isCounted()|| phone4.isCounted()) {
-            phone1.getPosition().set( cam.viewportWidth, phone1.getY());
-            phone2.getPosition().set( cam.viewportWidth+50, phone2.getY());
-            phone3.getPosition().set( cam.viewportWidth+100, phone3.getY());
-            phone4.getPosition().set( cam.viewportWidth+150, phone4.getY());
+            setPhonePositionOutsideScreen(phone1, 0);
+            setPhonePositionOutsideScreen(phone2, 50);
+            setPhonePositionOutsideScreen(phone3, 100);
+            setPhonePositionOutsideScreen(phone4, 150);
         }
 
-        if (cam.position.x - (cam.viewportWidth / 2) > phone1.getPosition().x + flyingPhone1.getWidth()) {
-            phone1.getPosition().add(flyingPhone1.getWidth() * 4, 0);
-        }
-        if (cam.position.x - (cam.viewportWidth / 2) > phone2.getPosition().x + flyingPhone2.getWidth()) {
-            phone2.getPosition().add(flyingPhone2.getWidth() * 4, 0);
-        }
-        if (cam.position.x - (cam.viewportWidth / 2) > phone3.getPosition().x + flyingPhone3.getWidth()) {
-            phone3.getPosition().add(flyingPhone3.getWidth() * 4, 0);
-        }
-        if (cam.position.x - (cam.viewportWidth / 2) > phone4.getPosition().x + flyingPhone4.getWidth()) {
-            phone4.getPosition().add(flyingPhone4.getWidth() * 4, 0);
-        }
+        updatePhone(phone1, flyingPhone1);
+        updatePhone(phone2, flyingPhone2);
+        updatePhone(phone3, flyingPhone3);
+        updatePhone(phone4, flyingPhone4);
+
         if (GameQuestion.answerGenerated) {
 
             handleUserAnswers();
@@ -286,18 +270,53 @@ public class PlayState extends State{
 
 
     }
+    private void setPhonePositionOutsideScreen(AnswerPhone phone, int distanceFromFirstPhone){
+        phone.getPosition().set((cam.position.x + cam.viewportWidth/2)+distanceFromFirstPhone, phone.getY());
+    }
 
-/*
- * Problem gefunden: Wenn eine Frau (als ein Obstacle) einmal gecrasht wurde, wird obstacle.isCounted für dieses obstacle nie wieder
- * gesetzt. D.h. irgendwann ist man gegen alle Frauen gerannt (bei mir schon nach 38 s) und dann werden sie nicht mehr erkannt.
- * Vllt müssen wir doch Severins Lösung anwenden, irgendwie oder zusätzlich.
- */
+    private void updatePhone(AnswerPhone phone, Texture flyingPhone){
+        if (cam.position.x - (cam.viewportWidth / 2) > phone.getPosition().x + flyingPhone.getWidth()) {
+            phone.getPosition().add(flyingPhone.getWidth()*4, 0);
+        }
+    }
+
+    public void setObstaclesPositionOutsideScreen(){
+        Obstacle firstObstacle = obstacles.get(0);
+        firstObstacle.reposition((cam.position.x + cam.viewportWidth/2 )+ firstObstacle.getTexture().getWidth()*2);
+        //firstObstacle.getObstaclePos().set((cam.position.x + cam.viewportWidth/2 )+ firstObstacle.getTexture().getWidth()*2 , firstObstacle.getY());
+        for (int i = 1; i < obstacles.size; i++) {
+            Obstacle obstacle = obstacles.get(i);
+            Obstacle before = obstacles.get(i-1);
+            int distance = generateNewDistance();
+            obstacle.reposition(before.getObstaclePos().x + (before.getTexture().getWidth()*2 + obstacle.getTexture().getWidth()*2 + distance));
+            /*
+            obstacle = obstacles.get(i);
+            obstacle.getObstaclePos().set(((cam.position.x + cam.viewportWidth/2)+ ConstantsGame.PIT_WIDTH*2 + generateNewDistance()*(i+1)),obstacle.getY());
+            */
+        }
+
+    }
+
+
 
     private void updateObstacles() {
+
         for (int i = 0; i < obstacles.size; i++) {
             Obstacle obstacle = obstacles.get(i);
+            Obstacle before = null;
+            if(i != 0){
+                 before = obstacles.get(i-1);
+            }else{
+                 before = obstacles.get(obstacles.size-1);
+            }
+
             if (cam.position.x - (cam.viewportWidth / 2) > obstacle.getObstaclePos().x + obstacle.getTexture().getWidth()) {
-                obstacle.reposition(obstacle.getObstaclePos().x + ((obstacle.getTexture().getWidth()) + generateNewDistance() + 800 * 4));
+                int distance = generateNewDistance();
+                obstacle.reposition(before.getObstaclePos().x + (before.getTexture().getWidth()*2 + obstacle.getTexture().getWidth()*2 + distance));
+                System.out.println("x-position obstacle: "+before.getObstaclePos().x + (before.getTexture().getWidth()*2 + obstacle.getTexture().getWidth()*2 + distance));
+                System.out.println("distance: "+ distance);
+                //obstacle.reposition((cam.position.x + cam.viewportWidth/2) + (i+1) * generateNewDistance() );
+                //obstacle.reposition(obstacle.getObstaclePos().x + ((obstacle.getTexture().getWidth()) + generateNewDistance() + 800 * 4));
                 obstacle.resetCounted();
             }
             if (obstacle.collides(nerd.getBounds()) && !obstacle.isCounted()) {
@@ -330,9 +349,9 @@ public class PlayState extends State{
 
 
     private int generateNewDistance() {
-        int newInt = random.nextInt(300);
+        int newInt = random.nextInt(200);
 
-        if (newInt >= 150) {
+        if (newInt >= 10) {
             return newInt;
         } else {
             return generateNewDistance();
@@ -437,18 +456,10 @@ public class PlayState extends State{
         spriteBatch.draw(ground, groundPos2.x, groundPos2.y);
         spriteBatch.draw(nerd.getTexture(), nerd.getX(), nerd.getY());
 
-        //hier noch Bedingung einfügen, dass phone1 erst rechts neben dem Bildschirm sein muss, wird so gesetzt!
         if(!phone1.isCounted() || !phone2.isCounted() || !phone3.isCounted()|| !phone4.isCounted()) {
             drawPhones(spriteBatch);
         }
 
-        /*for (Pit pit : pits) {
-            spriteBatch.draw(pit.getPit(), pit.getPitPos().x, pit.getPitPos().y);
-        }
-        for (Woman woman : women) {
-            spriteBatch.draw(woman.getWoman(), woman.getWomanPos().x, woman.getWomanPos().y);
-        }
-        */
         for (Obstacle obstacle : obstacles) {
             spriteBatch.draw(obstacle.getTexture(), obstacle.getObstaclePos().x, obstacle.getObstaclePos().y);
         }

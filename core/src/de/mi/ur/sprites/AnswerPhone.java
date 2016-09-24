@@ -32,8 +32,7 @@ public class AnswerPhone {
     public AnswerPhone(int x, int y, Texture texture) {
         position = new Vector2(x, y);
 
-
-
+        counted = true;
         phoneAnimation = new Animation(new TextureRegion(texture), 3, 0.8f);
 
         bounds = new Rectangle(x, y, texture.getWidth() / 3 + ConstantsGame.BOUNDS_OFFSET, texture.getHeight());
