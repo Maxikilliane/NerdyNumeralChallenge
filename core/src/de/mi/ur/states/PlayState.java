@@ -392,7 +392,7 @@ public class PlayState extends State{
             return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.VELOCITY_ADDED*5);
         }
         else if (value > ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*5)) {
-            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.VELOCITY_ADDED*5);
+            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.VELOCITY_ADDED*6);
         }
         else {
             return ConstantsGame.NERD_MOVEMENT_DEFAULT;
