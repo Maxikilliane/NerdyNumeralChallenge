@@ -79,6 +79,14 @@ public class ConstantsGame {
         public static final int PIT_TYPE = 0;
         public static final int WOMAN_TYPE = 1;
 
+        //Heart-States
+        public static final int HEARTSTATE_ALL_HEARTS_FULL = 4;
+        public static final int HEARTSTATE_2_HEARTS = 1;
+        public static final int HEARTSTATE_1_HEART = 2;
+        public static final int HEARTSTATE_NO_HEART = 3;
+
+        public static final int HEARTSTATE_OTHER = 5;
+
 
 
 }

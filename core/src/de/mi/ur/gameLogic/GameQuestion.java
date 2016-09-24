@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import de.mi.ur.AndroidCommunication.MultipleChoiceListener;
 import de.mi.ur.ConstantsGame;
-import de.mi.ur.sprites.AnswerPhones;
+import de.mi.ur.sprites.AnswerPhone;
 
 public class GameQuestion {
     private Score score;
@@ -122,7 +122,7 @@ public class GameQuestion {
             possAnswer4 = possAnswers.get(3);
 
             answerGenerated = true;
-            AnswerPhones.resetCounted();
+            AnswerPhone.resetCounted();
 
             // System.out.println("die richtige Lösung ist an Position: " + getRightAnswer());
 

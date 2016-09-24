@@ -13,7 +13,7 @@ import de.mi.ur.AndroidCommunication.HighscoreListener;
 import de.mi.ur.ConstantsGame;
 import de.mi.ur.gameLogic.GameQuestion;
 import de.mi.ur.gameLogic.Score;
-import de.mi.ur.sprites.AnswerPhones;
+import de.mi.ur.sprites.AnswerPhone;
 import de.mi.ur.sprites.Nerd;
 import de.mi.ur.sprites.Obstacle;
 import de.mi.ur.sprites.Pit;
@@ -27,9 +27,6 @@ import de.mi.ur.sprites.Woman;
  * Obstacle funktioniert jetzt.
  */
 public class PlayState extends State{
-
-    private float counter = 0;
-    private int limitCounter;
 
     private static Nerd nerd;
     private Texture background;
@@ -47,10 +44,10 @@ public class PlayState extends State{
     private Texture flyingPhone3;
     private Texture flyingPhone4;
 
-    private AnswerPhones phone1;
-    private AnswerPhones phone2;
-    private AnswerPhones phone3;
-    private AnswerPhones phone4;
+    private AnswerPhone phone1;
+    private AnswerPhone phone2;
+    private AnswerPhone phone3;
+    private AnswerPhone phone4;
 
     private Woman woman;
     public static boolean hasHit;
@@ -85,10 +82,10 @@ public class PlayState extends State{
 
         sun = new Texture("sun.png");
 
-        phone1 = new AnswerPhones(400, 200, flyingPhone1);
-        phone2 = new AnswerPhones(450, 200, flyingPhone2);
-        phone3 = new AnswerPhones(500, 200, flyingPhone3);
-        phone4 = new AnswerPhones(550, 200, flyingPhone4);
+        phone1 = new AnswerPhone(400, 200, flyingPhone1);
+        phone2 = new AnswerPhone(450, 200, flyingPhone2);
+        phone3 = new AnswerPhone(500, 200, flyingPhone3);
+        phone4 = new AnswerPhone(550, 200, flyingPhone4);
 
         background = new Texture("bg_sunny.png");
 
@@ -98,11 +95,6 @@ public class PlayState extends State{
         random = new Random();
 
         gameQuestion = new GameQuestion(gameManager.getMultipleChoiceListener());
-
-        //women = new Array<Woman>();
-
-        //pits = new Array<Pit>();
-
         obstacles = new Array<Obstacle>();
 
 
@@ -112,8 +104,7 @@ public class PlayState extends State{
             } else {
                 obstacles.add(new Woman(i * (500)));
             }
-            //women.add(new Woman(i * (500)));
-            //pits.add(new Pit(i * (ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH)));
+
 
         }
 
@@ -147,8 +138,9 @@ public class PlayState extends State{
             checkIfWomanIsInPit(woman);
             if (woman.collides(nerd.getBounds())) {
 
-                saveScore();
                 gameManager.set(new MenueState(gameManager));
+                saveScore();
+
             }
             hasHit = true;
 
@@ -194,12 +186,14 @@ public class PlayState extends State{
                 phone1.setCounted();
                 System.out.println("RICHTIGE LÖSUNG");
                 //Score.updateHeart(gameManager);
-                Score.updateHeart(gameManager, false);
+                alreadChanged = false;
+                Score.refillHeart();
             } else if ((phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())) {
                 System.out.println("FALSCHE LÖSUNG");
                 phone2.setCounted();
                 phone3.setCounted();
                 phone4.setCounted();
+                alreadChanged = false;
                 Score.updateHeart(gameManager, true);
             }
 
@@ -208,12 +202,14 @@ public class PlayState extends State{
             if (phone2.collides(nerd.getBounds()) && !phone2.isCounted()) {
                 System.out.println("RICHTIGE LÖSUNG ANGESPRUNGEN");
                 phone2.setCounted();
-                Score.updateHeart(gameManager, false);
+                alreadChanged = false;
+                Score.refillHeart();
             } else if ((phone1.collides(nerd.getBounds()) && !phone1.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())) {
                 System.out.println("FALSCHE LÖSUNG");
                 phone1.setCounted();
                 phone3.setCounted();
                 phone4.setCounted();
+                alreadChanged = false;
                 Score.updateHeart(gameManager, true);
             }
         }
@@ -222,13 +218,16 @@ public class PlayState extends State{
             if (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) {
                 System.out.println("RICHTIGE LÖSUNG ANGESPRUNGEN");
                 phone3.setCounted();
-                Score.updateHeart(gameManager, false);
+                alreadChanged = false;
+                Score.refillHeart();
             } else if ((phone1.collides(nerd.getBounds()) && !phone1.isCounted()) || (phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())) {
                 System.out.println("FALSCHE LÖSUNG");
                 phone1.setCounted();
                 phone2.setCounted();
                 phone4.setCounted();
+                alreadChanged = false;
                 Score.updateHeart(gameManager, true);
+
             }
         }
         //noch nicht counted gemacht
@@ -236,13 +235,17 @@ public class PlayState extends State{
             if (phone4.collides(nerd.getBounds()) && !phone4.isCounted()) {
                 System.out.println("RICHTIGE LÖSUNG");
                 phone4.setCounted();
-                phone4.reactToCollision(gameManager);
+                alreadChanged = false;
+                Score.refillHeart();
+               // phone4.reactToCollision(gameManager);
             } else if ((phone1.collides(nerd.getBounds()) && !phone1.isCounted()) || (phone2.collides(nerd.getBounds()) && phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && phone3.isCounted())) {
                 System.out.println("FALSCHE LÖSUNG");
                 phone2.setCounted();
                 phone1.setCounted();
                 phone3.setCounted();
-                phone4.reactToWrongCollision(gameManager);
+               // phone4.reactToWrongCollision(gameManager);
+                alreadChanged = false;
+                Score.updateHeart(gameManager, true);
             }
         }
 
@@ -250,6 +253,13 @@ public class PlayState extends State{
 
 
     private void updatePhones() {
+
+        if(phone1.isCounted() || phone2.isCounted() || phone3.isCounted()|| phone4.isCounted()) {
+            phone1.getPosition().set( cam.viewportWidth, phone1.getY());
+            phone2.getPosition().set( cam.viewportWidth+50, phone2.getY());
+            phone3.getPosition().set( cam.viewportWidth+100, phone3.getY());
+            phone4.getPosition().set( cam.viewportWidth+150, phone4.getY());
+        }
 
         if (cam.position.x - (cam.viewportWidth / 2) > phone1.getPosition().x + flyingPhone1.getWidth()) {
             phone1.getPosition().add(flyingPhone1.getWidth() * 4, 0);
@@ -277,23 +287,30 @@ public class PlayState extends State{
 
     }
 
+/*
+ * Problem gefunden: Wenn eine Frau (als ein Obstacle) einmal gecrasht wurde, wird obstacle.isCounted für dieses obstacle nie wieder
+ * gesetzt. D.h. irgendwann ist man gegen alle Frauen gerannt (bei mir schon nach 38 s) und dann werden sie nicht mehr erkannt.
+ * Vllt müssen wir doch Severins Lösung anwenden, irgendwie oder zusätzlich.
+ */
 
     private void updateObstacles() {
         for (int i = 0; i < obstacles.size; i++) {
             Obstacle obstacle = obstacles.get(i);
             if (cam.position.x - (cam.viewportWidth / 2) > obstacle.getObstaclePos().x + obstacle.getTexture().getWidth()) {
                 obstacle.reposition(obstacle.getObstaclePos().x + ((obstacle.getTexture().getWidth()) + generateNewDistance() + 800 * 4));
+                obstacle.resetCounted();
             }
             if (obstacle.collides(nerd.getBounds()) && !obstacle.isCounted()) {
                 switch (obstacle.getType()) {
                     case ConstantsGame.PIT_TYPE:
+                        alreadChanged = false;
                         points =(int) score.getCurrentScorePoints();
                         System.out.println("points are initialised");
                         rank = highscoreListener.checkIfNewHighscore(points);
                         System.out.println("rank is initialised");
-                        saveScore();
                         cam.setToOrtho(false, ConstantsGame.DEFAULT_CAM_WIDTH, ConstantsGame.DEFAULT_CAM_HEIGHT);
                         gameManager.set(new GameOverState(gameManager));
+                        saveScore();
 
                         break;
                     case ConstantsGame.WOMAN_TYPE:
@@ -301,6 +318,7 @@ public class PlayState extends State{
                         obstacle.setCounted();
                         System.out.println("Frau gecrashed" + obstacle.isCounted());
                         Score.updateHeart(gameManager, true);
+
 
 
                         break;
@@ -328,7 +346,7 @@ public class PlayState extends State{
 
         for (int i = 0; i < obstacles.size; i++) {
             Obstacle obstacle = obstacles.get(i);
-            System.out.println(obstacle.isCounted());
+            //System.out.println(obstacle.isCounted());
         }
 
         handleInput();
@@ -356,31 +374,31 @@ public class PlayState extends State{
     private float increaseDifficulty(float dt) {
         long value = score.getCurrentScore();
         if (value > 50) {
-            this.limitCounter = (int) ((8 / dt) * dt);
+            //this.limitCounter = (int) ((8 / dt) * dt);
             return 130;
         }
         if (value > 100) {
-            this.limitCounter = (int) ((6 / dt) * dt);
+           // this.limitCounter = (int) ((6 / dt) * dt);
             return 160;
         }
         if (value > 150) {
-            this.limitCounter = (int) ((4 / dt) * dt);
+            //this.limitCounter = (int) ((4 / dt) * dt);
             return 190;
         }
         if (value > 200) {
-            this.limitCounter = (int) ((2 / dt) * dt);
+            //this.limitCounter = (int) ((2 / dt) * dt);
             return 220;
         }
         if (value > 250) {
-            this.limitCounter = 1;
+            //this.limitCounter = 1;
             return 250;
         }
         if (value > 300) {
-            this.limitCounter = 1;
+            //this.limitCounter = 1;
             return 280;
 
         } else {
-            this.limitCounter = (int) ((10 / dt) * dt);
+            //this.limitCounter = (int) ((10 / dt) * dt);
             return ConstantsGame.NERD_MOVEMENT_DEFAULT;
         }
     }
@@ -388,15 +406,18 @@ public class PlayState extends State{
     private void saveScore() {
 
         points =(int) score.getCurrentScorePoints();
+        System.out.println("scorepoints: "+score.getCurrentScorePoints());
         rank = highscoreListener.checkIfNewHighscore(points);
         if (rank != -1) {
             dialogListener.showDialog();
 
 
-            while (!dialogListener.getDialogDone() ){}
+            while (!dialogListener.getDialogDone() ){
+                //do nothing / wait
+            }
             String userName = dialogListener.getUserName();
             System.out.println("username "+userName);
-            highscoreListener.saveHighscoreToDatabase(rank, (int) score.getCurrentScorePoints(), userName);
+            highscoreListener.saveHighscoreToDatabase(rank, points, userName);
             System.out.println("highscore is uptodate");
         }
     }
@@ -415,11 +436,11 @@ public class PlayState extends State{
         spriteBatch.draw(ground, groundPos1.x, groundPos1.y);
         spriteBatch.draw(ground, groundPos2.x, groundPos2.y);
         spriteBatch.draw(nerd.getTexture(), nerd.getX(), nerd.getY());
-        spriteBatch.draw(phone1.getTexture(), phone1.getX(), phone1.getY());
-        spriteBatch.draw(phone2.getTexture(), phone2.getX(), phone2.getY());
-        spriteBatch.draw(phone3.getTexture(), phone3.getX(), phone3.getY());
-        spriteBatch.draw(phone4.getTexture(), phone4.getX(), phone4.getY());
 
+        //hier noch Bedingung einfügen, dass phone1 erst rechts neben dem Bildschirm sein muss, wird so gesetzt!
+        if(!phone1.isCounted() || !phone2.isCounted() || !phone3.isCounted()|| !phone4.isCounted()) {
+            drawPhones(spriteBatch);
+        }
 
         /*for (Pit pit : pits) {
             spriteBatch.draw(pit.getPit(), pit.getPitPos().x, pit.getPitPos().y);
@@ -433,6 +454,13 @@ public class PlayState extends State{
         }
 
         spriteBatch.end();
+    }
+
+    private void drawPhones(SpriteBatch spriteBatch){
+        spriteBatch.draw(phone1.getTexture(), phone1.getX(), phone1.getY());
+        spriteBatch.draw(phone2.getTexture(), phone2.getX(), phone2.getY());
+        spriteBatch.draw(phone3.getTexture(), phone3.getX(), phone3.getY());
+        spriteBatch.draw(phone4.getTexture(), phone4.getX(), phone4.getY());
     }
 
     @Override

@@ -12,7 +12,7 @@ import de.mi.ur.states.GameStateManager;
 /**
  * Created by maxiwindl on 05.09.16.
  */
-public class AnswerPhones {
+public class AnswerPhone {
 
 
     private Vector2 position;
@@ -29,7 +29,7 @@ public class AnswerPhones {
     public boolean colliding;
 
 
-    public AnswerPhones(int x, int y, Texture texture) {
+    public AnswerPhone(int x, int y, Texture texture) {
         position = new Vector2(x, y);
 
 
@@ -70,13 +70,18 @@ public class AnswerPhones {
         return position;
     }
 
+
+    /*
+     * state 1: 2 hearts full
+     * state 2: 1 heart full
+     * state 3: 0 hearts full
+     * state 4: all hearts full
+     */
     public void reactToCollision(GameStateManager manager) {
 
         int state = Score.getStateOfHearts();
         System.out.println(state);
         if (state == 4) {
-
-
             //Score.changeHeart(false, 0);
         } else if (state == 3) {
             Score.changeHeart(false, 2);

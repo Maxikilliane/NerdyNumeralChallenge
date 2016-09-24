@@ -18,9 +18,13 @@ public class WeatherManager implements WeatherListener {
     private String weatherUrlPart4AppId = "&appid="+Constants.API_ID;
     private WeatherAsyncTask weatherTask;
     private LocationController locationController;
-    public WeatherManager(Context context, Activity activity) {
+    private WeatherListener weatherListener;
+
+
+    public WeatherManager(Context context, Activity activity, WeatherListener listener) {
         locationController = new LocationController(context, activity);
         locationController.setCurrentPosition();
+        weatherListener = listener;
     }
 
     private String generateUrl(){
@@ -37,12 +41,11 @@ public class WeatherManager implements WeatherListener {
 
     public int getCurrentWeather() {
         return currentWeather;
-
     }
-
 
     @Override
     public void onDownloadFinished() {
         currentWeather = weatherTask.getCurrentWeather();
+        weatherListener.onDownloadFinished();
     }
 }

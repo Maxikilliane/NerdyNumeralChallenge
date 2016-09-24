@@ -3,7 +3,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/activity_general_padding">
+    >
 
     <RadioGroup
         android:id="@+id/true_false_choices"
