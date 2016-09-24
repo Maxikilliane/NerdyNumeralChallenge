@@ -12,7 +12,7 @@ import de.mi.ur.states.GameStateManager;
 /**
  * Created by maxiwindl on 05.09.16.
  */
-public class AnswerPhones {
+public class AnswerPhone {
 
 
     private Vector2 position;
@@ -29,7 +29,7 @@ public class AnswerPhones {
     public boolean colliding;
 
 
-    public AnswerPhones(int x, int y, Texture texture) {
+    public AnswerPhone(int x, int y, Texture texture) {
         position = new Vector2(x, y);
 
 

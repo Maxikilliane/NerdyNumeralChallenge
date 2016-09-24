@@ -13,7 +13,7 @@ import de.mi.ur.AndroidCommunication.HighscoreListener;
 import de.mi.ur.ConstantsGame;
 import de.mi.ur.gameLogic.GameQuestion;
 import de.mi.ur.gameLogic.Score;
-import de.mi.ur.sprites.AnswerPhones;
+import de.mi.ur.sprites.AnswerPhone;
 import de.mi.ur.sprites.Nerd;
 import de.mi.ur.sprites.Obstacle;
 import de.mi.ur.sprites.Pit;
@@ -44,10 +44,10 @@ public class PlayState extends State{
     private Texture flyingPhone3;
     private Texture flyingPhone4;
 
-    private AnswerPhones phone1;
-    private AnswerPhones phone2;
-    private AnswerPhones phone3;
-    private AnswerPhones phone4;
+    private AnswerPhone phone1;
+    private AnswerPhone phone2;
+    private AnswerPhone phone3;
+    private AnswerPhone phone4;
 
     private Woman woman;
     public static boolean hasHit;
@@ -82,10 +82,10 @@ public class PlayState extends State{
 
         sun = new Texture("sun.png");
 
-        phone1 = new AnswerPhones(400, 200, flyingPhone1);
-        phone2 = new AnswerPhones(450, 200, flyingPhone2);
-        phone3 = new AnswerPhones(500, 200, flyingPhone3);
-        phone4 = new AnswerPhones(550, 200, flyingPhone4);
+        phone1 = new AnswerPhone(400, 200, flyingPhone1);
+        phone2 = new AnswerPhone(450, 200, flyingPhone2);
+        phone3 = new AnswerPhone(500, 200, flyingPhone3);
+        phone4 = new AnswerPhone(550, 200, flyingPhone4);
 
         background = new Texture("bg_sunny.png");
 
@@ -254,6 +254,13 @@ public class PlayState extends State{
 
     private void updatePhones() {
 
+        if(phone1.isCounted() || phone2.isCounted() || phone3.isCounted()|| phone4.isCounted()) {
+            phone1.getPosition().set( cam.viewportWidth, phone1.getY());
+            phone2.getPosition().set( cam.viewportWidth+50, phone2.getY());
+            phone3.getPosition().set( cam.viewportWidth+100, phone3.getY());
+            phone4.getPosition().set( cam.viewportWidth+150, phone4.getY());
+        }
+
         if (cam.position.x - (cam.viewportWidth / 2) > phone1.getPosition().x + flyingPhone1.getWidth()) {
             phone1.getPosition().add(flyingPhone1.getWidth() * 4, 0);
         }
@@ -311,6 +318,7 @@ public class PlayState extends State{
                         obstacle.setCounted();
                         System.out.println("Frau gecrashed" + obstacle.isCounted());
                         Score.updateHeart(gameManager, true);
+
 
 
                         break;
@@ -398,6 +406,7 @@ public class PlayState extends State{
     private void saveScore() {
 
         points =(int) score.getCurrentScorePoints();
+        System.out.println("scorepoints: "+score.getCurrentScorePoints());
         rank = highscoreListener.checkIfNewHighscore(points);
         if (rank != -1) {
             dialogListener.showDialog();
@@ -408,7 +417,7 @@ public class PlayState extends State{
             }
             String userName = dialogListener.getUserName();
             System.out.println("username "+userName);
-            highscoreListener.saveHighscoreToDatabase(rank, (int) score.getCurrentScorePoints(), userName);
+            highscoreListener.saveHighscoreToDatabase(rank, points, userName);
             System.out.println("highscore is uptodate");
         }
     }
@@ -427,11 +436,11 @@ public class PlayState extends State{
         spriteBatch.draw(ground, groundPos1.x, groundPos1.y);
         spriteBatch.draw(ground, groundPos2.x, groundPos2.y);
         spriteBatch.draw(nerd.getTexture(), nerd.getX(), nerd.getY());
-        spriteBatch.draw(phone1.getTexture(), phone1.getX(), phone1.getY());
-        spriteBatch.draw(phone2.getTexture(), phone2.getX(), phone2.getY());
-        spriteBatch.draw(phone3.getTexture(), phone3.getX(), phone3.getY());
-        spriteBatch.draw(phone4.getTexture(), phone4.getX(), phone4.getY());
 
+        //hier noch Bedingung einfügen, dass phone1 erst rechts neben dem Bildschirm sein muss, wird so gesetzt!
+        if(!phone1.isCounted() || !phone2.isCounted() || !phone3.isCounted()|| !phone4.isCounted()) {
+            drawPhones(spriteBatch);
+        }
 
         /*for (Pit pit : pits) {
             spriteBatch.draw(pit.getPit(), pit.getPitPos().x, pit.getPitPos().y);
@@ -445,6 +454,13 @@ public class PlayState extends State{
         }
 
         spriteBatch.end();
+    }
+
+    private void drawPhones(SpriteBatch spriteBatch){
+        spriteBatch.draw(phone1.getTexture(), phone1.getX(), phone1.getY());
+        spriteBatch.draw(phone2.getTexture(), phone2.getX(), phone2.getY());
+        spriteBatch.draw(phone3.getTexture(), phone3.getX(), phone3.getY());
+        spriteBatch.draw(phone4.getTexture(), phone4.getX(), phone4.getY());
     }
 
     @Override
