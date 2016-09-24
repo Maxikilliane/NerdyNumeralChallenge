@@ -50,7 +50,7 @@ public class PlayState extends State{
     private AnswerPhone phone2;
     private AnswerPhone phone3;
     private AnswerPhone phone4;
-    private AnswerPhone[] phones = {phone1, phone2, phone3, phone4};
+    private AnswerPhone[] phones = new AnswerPhone[4];
 
     public static boolean hasHit;
 
@@ -130,7 +130,7 @@ public class PlayState extends State{
         updateGround();
         updateBG();
         nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty());
-        System.out.println("difficulty: "+increaseDifficulty());
+        //System.out.println("difficulty: "+increaseDifficulty());
         updatePhones(dt);
         score.updateScore(gameManager);
         gameQuestion.updateQuestions();
@@ -171,6 +171,29 @@ public class PlayState extends State{
 
 
     public void handleUserAnswers() {
+        //kürzere Lösung: funktioniert so halb, Kollision wird erkannt, aber die Herzen-State Erkennung funktionieren noch nicht.
+       /* if((phone1.collides(nerd.getBounds()) && !phone1.isCounted())|| (phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())){
+            phones[0] = phone1;
+            phones[1] = phone2;
+            phones[2] = phone3;
+            phones[3] = phone4;
+
+            for(int i = 0; i < phones.length; i++) {
+                AnswerPhone phone = phones[i];
+                phone.setCounted();
+                if (GameQuestion.getRightAnswer() == (i + 1)) {
+                    Score.refillHeart();
+                    System.out.println("RICHTIGE LÖSUNG");
+
+                } else {
+                    System.out.println("FALSCHE LÖSUNG");
+
+                    Score.updateHeart(gameManager, true);
+                }
+            }
+            alreadChanged = false;
+            togglePhase();
+        }*/
 
         if (GameQuestion.getRightAnswer() == 1) {
             if (phone1.collides(nerd.getBounds()) && !phone1.isCounted()) {
@@ -317,7 +340,7 @@ public class PlayState extends State{
                     int distance = generateNewDistance(score.getCurrentScorePoints());
                     obstacle.reposition(before.getObstaclePos().x + (before.getTexture().getWidth() * 2 + obstacle.getTexture().getWidth() * 2 + distance));
                     System.out.println("x-position obstacle: " + before.getObstaclePos().x + (before.getTexture().getWidth() * 2 + obstacle.getTexture().getWidth() * 2 + distance));
-                    System.out.println("distance: " + distance);
+                   // System.out.println("distance: " + distance);
                     obstacle.resetCounted();
                 }
                 if (obstacle.collides(nerd.getBounds()) && !obstacle.isCounted()) {
