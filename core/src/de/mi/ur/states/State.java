@@ -13,16 +13,14 @@ public abstract class State {
     public static OrthographicCamera cam;
 
 
+
     protected GameStateManager gameManager;
 
     protected State (GameStateManager gameManager) {
         this.gameManager = gameManager;
         cam = new OrthographicCamera();
-
         //magic numbers vermeiden später
         cam.setToOrtho(false, ConstantsGame.DEFAULT_CAM_WIDTH, ConstantsGame.DEFAULT_CAM_HEIGHT);
-
-
     }
 
     protected abstract void handleInput ();

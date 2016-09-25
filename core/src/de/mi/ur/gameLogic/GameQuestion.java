@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.Timer;
 
 import java.util.ArrayList;
 
@@ -115,9 +114,9 @@ public class GameQuestion {
 /*
     Timer.schedule(new Timer.Task() {
         public void run() {
-            PlayState.toggleStadium();
+            PlayState.togglePhase();
             System.out.println("Vulnerable again");
-            System.out.println("question stadium: "+PlayState.isQuestionStadium());
+            System.out.println("question stadium: "+PlayState.isQuestionPhase());
         }
     }, 2, 20);
     */
@@ -125,8 +124,8 @@ public class GameQuestion {
 
         //System.out.println("question counted: "+counted);
 
-        //System.out.println("question stadium: "+PlayState.isQuestionStadium());
-        if(PlayState.isQuestionStadium() && !isCounted()) {
+        //System.out.println("question stadium: "+PlayState.isQuestionPhase());
+        if(PlayState.isQuestionPhase() && !isCounted()) {
 
                 question = multipleChoiceGenerator.getQuestionInfos(2, 10, 6, 0);
                 toSolve = question[ConstantsGame.QUESTION_POS] + "?";
@@ -146,7 +145,8 @@ public class GameQuestion {
                     //    System.out.println("Antworten 2: " + answer);
                 }
                 setCounted();
-                System.out.println("question counted: "+counted);
+                //
+            //System.out.println("question counted: "+counted);
 
         }
     }
