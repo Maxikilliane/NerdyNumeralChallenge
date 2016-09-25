@@ -7,7 +7,7 @@ import javax.swing.text.View;
  */
 public interface DialogListener {
 
-    public void showDialog();
+    public void showHighscoreDialog();
 
     public boolean getDialogDone();
 

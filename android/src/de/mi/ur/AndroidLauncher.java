@@ -44,10 +44,9 @@ public class AndroidLauncher extends AndroidApplication implements MultipleChoic
 	}
 
 	@Override
-	public void showDialog() {
+	public void showHighscoreDialog() {
 		highscoreDialog = new HighscoreDialog();
 		highscoreDialog.show(getFragmentManager(), "My HighscoreDialog");
-
 	}
 
 	@Override

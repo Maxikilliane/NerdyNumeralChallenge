@@ -453,7 +453,7 @@ public class PlayState extends State{
         System.out.println("scorepoints: "+score.getCurrentScorePoints());
         rank = highscoreListener.checkIfNewHighscore(points);
         if (rank != -1) {
-            dialogListener.showDialog();
+            dialogListener.showHighscoreDialog();
 
 
             while (!dialogListener.getDialogDone() ){
