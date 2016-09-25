@@ -25,7 +25,7 @@ public class MultipleChoiceDialog extends DialogFragment{
 
     private MultipleChoiceQuestion currentQuestion;
     private String [] items;
-    private TextView textView;
+    private TextView textView1, textView2;
     private RadioGroup radioGroup;
     private boolean rightAnswer, wrongAnswer;
 
@@ -40,11 +40,13 @@ public class MultipleChoiceDialog extends DialogFragment{
         items = currentQuestion.generatePossAnswers();
         System.out.println("Antworten"+ items[0] +"a" +items[1]);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Solve the question to save you");
+        //builder.setTitle("Rette dein Leben indem du für die gegebene Zahl im Binärsystem die richtige Entsprechung im Dezimalsystem auswählst.");
 
         final View dialogView = inflater.inflate(R.layout.multiple_choice_dialog, null);
-        textView = (TextView) dialogView.findViewById(R.id.multiple_choice_dialog_question);
-        textView.setText(currentQuestion.getQuestion());
+        textView1 = (TextView) dialogView.findViewById(R.id.multiple_choice_dialog_message);
+        textView1.setText("Rette dein Leben indem du für die gegebene Zahl im Binärsystem die richtige Entsprechung im Dezimalsystem auswählst.");
+        textView2 = (TextView) dialogView.findViewById(R.id.multiple_choice_dialog_question);
+        textView2.setText(currentQuestion.getQuestion());
         radioGroup = (RadioGroup) dialogView.findViewById(R.id.multiple_choices_dialog);
         for (int i = 0; i < radioGroup.getChildCount(); i++) {
             RadioButton button = ((RadioButton) radioGroup.getChildAt(i));
@@ -52,14 +54,15 @@ public class MultipleChoiceDialog extends DialogFragment{
         }
         builder.setView(dialogView);
 
-        builder.setNegativeButton("Die", new DialogInterface.OnClickListener() {
+       /* builder.setNegativeButton("Die", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(getActivity(), "You lost a life", Toast.LENGTH_SHORT).show();
                wrongAnswer = true;
+                System.out.println("Der MultipleChoiceDialog ist beendet");
             }
-        });
-        builder.setPositiveButton("Solve", new DialogInterface.OnClickListener() {
+        });*/
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 int checkedButtonId = radioGroup.getCheckedRadioButtonId();
@@ -76,10 +79,19 @@ public class MultipleChoiceDialog extends DialogFragment{
                         wrongAnswer = true;
                     }
                 }
+                System.out.println("Der MultipleChoiceDialog ist beendet");
             }
         });
 
         Dialog dialog = builder.create();
         return dialog;
+    }
+
+    public boolean getRightAnswer(){
+        return rightAnswer;
+    }
+
+    public boolean getWrongAnswer(){
+        return wrongAnswer;
     }
 }

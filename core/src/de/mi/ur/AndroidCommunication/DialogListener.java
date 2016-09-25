@@ -13,4 +13,10 @@ public interface DialogListener {
 
     public String getUserName();
 
+    public void showMultipleChoiceDialog();
+
+    public boolean getRightDialogAnswer();
+
+    public boolean getWrongDialogAnswer();
+
 }

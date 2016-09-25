@@ -16,6 +16,7 @@ public class AndroidLauncher extends AndroidApplication implements MultipleChoic
 	private int currentWeather;
 	private NNCDatabase db;
 	private HighscoreDialog highscoreDialog;
+	private MultipleChoiceDialog multipleChoiceDialog;
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
@@ -62,5 +63,22 @@ public class AndroidLauncher extends AndroidApplication implements MultipleChoic
 	@Override
 	public String getUserName() {
 		return highscoreDialog.getUserName();
+	}
+
+
+	@Override
+	public void showMultipleChoiceDialog() {
+		multipleChoiceDialog = new MultipleChoiceDialog();
+		multipleChoiceDialog.show(getFragmentManager(), "My MultipleChoiceDialog");
+	}
+
+	@Override
+	public boolean getRightDialogAnswer() {
+		return multipleChoiceDialog.getRightAnswer();
+	}
+
+	@Override
+	public boolean getWrongDialogAnswer() {
+		return multipleChoiceDialog.getWrongAnswer();
 	}
 }

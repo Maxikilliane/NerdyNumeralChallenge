@@ -66,6 +66,9 @@ public class PlayState extends State{
     private HighscoreListener highscoreListener;
     private DialogListener dialogListener;
 
+    private CurrentState currentState = CurrentState.Running;
+
+
 
     protected PlayState(GameStateManager gameManager) {
         super(gameManager);
@@ -125,6 +128,47 @@ public class PlayState extends State{
     @Override
     //calculations for the render method
     public void update(float dt) {
+        /*updateTimeSum(dt);
+        handleInput();
+        updateGround();
+        updateBG();
+        nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty());
+        //System.out.println("difficulty: "+increaseDifficulty());
+        updatePhones(dt);
+        score.updateScore(gameManager);
+        gameQuestion.updateQuestions();
+
+        updateObstacles();
+
+
+        cam.position.x = nerd.getPosition().x + ConstantsGame.NERD_POSITION_OFFSET;
+        cam.update();*/
+
+        switch (currentState){
+            case Running:
+                updatePlayState(dt);
+                break;
+            case Paused:
+                //dont Update
+
+                if (dialogListener.getWrongDialogAnswer()){
+                    Score.updateHeart(gameManager, true);
+                    System.out.println("Die Herzen sind aktuell");
+                }
+                if(dialogListener.getRightDialogAnswer() || dialogListener.getWrongDialogAnswer()){
+                    currentState = CurrentState.Running;
+                    System.out.println("Das spiel läuft wieder");
+                }else{
+                    currentState = CurrentState.Paused;
+                }
+                break;
+            default:updatePlayState(dt);
+        }
+    }
+
+
+
+    public void updatePlayState(float dt){
         updateTimeSum(dt);
         handleInput();
         updateGround();
@@ -360,7 +404,17 @@ public class PlayState extends State{
                             alreadChanged = false;
                             obstacle.setCounted();
                             System.out.println("Frau gecrashed" + obstacle.isCounted());
-                            Score.updateHeart(gameManager, true);
+                            //currentState = CurrentState.Paused;
+                            //dialogListener.showMultipleChoiceDialog();
+                           // Score.updateHeart(gameManager, true);
+                            currentState = CurrentState.Paused;
+                            dialogListener.showMultipleChoiceDialog();
+                            //while (!dialogListener.getRightDialogAnswer() && !dialogListener.getWrongDialogAnswer()){}
+                           /* if (dialogListener.getWrongDialogAnswer() && !dialogListener.getWrongDialogAnswer()){
+                                Score.updateHeart(gameManager, true);
+                                System.out.println("Die Herzen sind aktuell");
+                            }*/
+                            System.out.println("Wurden die Herzen beachtet?");
                             break;
                         default:
                     }
@@ -441,10 +495,59 @@ public class PlayState extends State{
         }
     }
 
+    private enum CurrentState{
+        Running, Paused
+    }
 
     @Override
     //draws things on the screen
     public void render(SpriteBatch spriteBatch) {
+        spriteBatch.setProjectionMatrix(cam.combined);
+        spriteBatch.begin();
+        spriteBatch.draw(background, bgPos1.x, ConstantsGame.BACKGROUND_Y_POS);
+        spriteBatch.draw(background, bgPos2.x, ConstantsGame.BACKGROUND_Y_POS);
+        spriteBatch.draw(sun, cam.position.x + ConstantsGame.SCORE_HEARTS_OFFSET_X, cam.position.y + ConstantsGame.SUN_Y_POS);
+        score.renderScore(spriteBatch, cam);
+        if (isQuestionMode) {
+            gameQuestion.drawTasks(spriteBatch, cam);
+        }
+        spriteBatch.draw(ground, groundPos1.x, groundPos1.y);
+        spriteBatch.draw(ground, groundPos2.x, groundPos2.y);
+        spriteBatch.draw(nerd.getTexture(), nerd.getX(), nerd.getY());
+
+        if (!phone1.isCounted() || !phone2.isCounted() || !phone3.isCounted() || !phone4.isCounted()) {
+            drawPhones(spriteBatch);
+        }
+
+        for (Obstacle obstacle : obstacles) {
+            spriteBatch.draw(obstacle.getTexture(), obstacle.getObstaclePos().x, obstacle.getObstaclePos().y);
+        }
+
+        spriteBatch.end();
+
+    }
+
+
+       /* switch (currentState){
+            case Running:
+                updatePlayState(spriteBatch);
+                break;
+            case Paused:
+                //dont Update
+                if(dialogListener.getRightDialogAnswer() || dialogListener.getWrongDialogAnswer()){
+                    currentState = CurrentState.Running;
+                }else{
+                    currentState = CurrentState.Paused;
+                }
+                break;
+            default:updatePlayState(spriteBatch);
+        }
+
+
+
+    }
+
+    public void updatePlayState(SpriteBatch spriteBatch){
         spriteBatch.setProjectionMatrix(cam.combined);
         spriteBatch.begin();
         spriteBatch.draw(background, bgPos1.x, ConstantsGame.BACKGROUND_Y_POS);
@@ -467,7 +570,9 @@ public class PlayState extends State{
         }
 
         spriteBatch.end();
-    }
+    }*/
+
+
 
     private void drawPhones(SpriteBatch spriteBatch){
         spriteBatch.draw(phone1.getTexture(), phone1.getX(), phone1.getY());
