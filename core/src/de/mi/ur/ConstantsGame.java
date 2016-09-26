@@ -31,7 +31,7 @@ public class ConstantsGame {
         public static final int NERD_POSITION_OFFSET = 80;
         public static final int NERD_X = 40;
         public static final int NERD_Y = 200;
-        public static final int NERD_BOUNDS_OFFSET = nerd.getWidth()/2;
+        public static final int NERD_BOUNDS_OFFSET = nerd.getWidth() / 2;
 
 
         //for Obstacles

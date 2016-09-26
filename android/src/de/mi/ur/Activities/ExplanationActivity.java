@@ -55,15 +55,15 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
         setupToolbar();
     }
 
-    private void getExtras(){
-        if(getIntent().getExtras() != null) {
+    private void getExtras() {
+        if (getIntent().getExtras() != null) {
             Bundle extras = getIntent().getExtras();
             tutorialType = extras.getInt(Constants.KEY_TYPE_TUTORIAL);
             explanationNumber = extras.getInt(Constants.KEY_NUMBER_TUTORIAL);
         }
     }
 
-    private void stopKeyboardPopUp(){
+    private void stopKeyboardPopUp() {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 

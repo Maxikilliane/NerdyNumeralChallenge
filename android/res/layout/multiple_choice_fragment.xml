@@ -4,14 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingRight="@dimen/activity_general_padding"
-    android:paddingLeft="@dimen/activity_general_padding"
-    >
+    android:paddingLeft="@dimen/activity_general_padding">
 
     <RadioGroup
         android:id="@+id/multiple_choices"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
         <RadioButton
             android:id="@+id/choice1"
             android:layout_width="wrap_content"

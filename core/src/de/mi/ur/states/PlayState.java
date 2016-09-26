@@ -1,6 +1,7 @@
 package de.mi.ur.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -26,7 +27,7 @@ import de.mi.ur.sprites.Woman;
  * <p/>
  * Obstacle funktioniert jetzt.
  */
-public class PlayState extends State{
+public class PlayState extends State {
 
     private static boolean isQuestionMode;
 
@@ -36,6 +37,9 @@ public class PlayState extends State{
     private Score score;
     private Texture sun;
     private Random random;
+    public static boolean sunny;
+    private boolean snowy;
+    private Music music;
     //private GameQuestion gameQuestion;
     private GameQuestion gameQuestion;
 
@@ -69,13 +73,21 @@ public class PlayState extends State{
     private CurrentState currentState = CurrentState.Running;
 
 
-
     protected PlayState(GameStateManager gameManager) {
         super(gameManager);
+        music = Gdx.audio.newMusic(Gdx.files.internal("ZeroOne403.mp3"));
+        music.setLooping(true);
+        music.setVolume(0.6f);
+        music.play();
         isQuestionMode = false;
         this.highscoreListener = gameManager.getHighscoreListener();
         this.dialogListener = gameManager.getDialogListener();
         nerd = new Nerd(ConstantsGame.NERD_X, ConstantsGame.NERD_Y);
+        if (snowy) {
+            ground = new Texture("ground_snow.png");
+        } else {
+            ground = new Texture("ground_anton.png");
+        }
         ground = new Texture("ground_anton.png");
         flyingPhone1 = new Texture("phone_answer_new_1.png");
         flyingPhone2 = new Texture("phone_different_animation_2.png");
@@ -84,11 +96,12 @@ public class PlayState extends State{
 
         sun = new Texture("sun.png");
 
+
         phone1 = new AnswerPhone(ConstantsGame.PHONE1_X, ConstantsGame.PHONES_Y, flyingPhone1);
         phone2 = new AnswerPhone(ConstantsGame.PHONE2_X, ConstantsGame.PHONES_Y, flyingPhone2);
         phone3 = new AnswerPhone(ConstantsGame.PHONE3_X, ConstantsGame.PHONES_Y, flyingPhone3);
         phone4 = new AnswerPhone(ConstantsGame.PHONE4_X, ConstantsGame.PHONES_Y, flyingPhone4);
-        background = new Texture("bg_sunny.png");
+        background = getBackgroundWeather(gameManager);
 
         //background = getBackgroundWeather(gameManager);
         score = new Score();
@@ -101,9 +114,9 @@ public class PlayState extends State{
 
         for (int i = 0; i < ConstantsGame.TOTAL_NUM_OBSTACLES; i++) {
             if (random.nextInt(2) == ConstantsGame.PIT_TYPE) {
-                obstacles.add(new Pit(cam.position.x + (cam.viewportWidth/2) + ConstantsGame.PIT_WIDTH*2));
+                obstacles.add(new Pit(cam.position.x + (cam.viewportWidth / 2) + ConstantsGame.PIT_WIDTH * 2));
             } else {
-                obstacles.add(new Woman(cam.position.x + (cam.viewportWidth/2) + ConstantsGame.WOMAN_WIDTH*2));
+                obstacles.add(new Woman(cam.position.x + (cam.viewportWidth / 2) + ConstantsGame.WOMAN_WIDTH * 2));
             }
             setObstaclesPositionOutsideScreen();
         }
@@ -144,31 +157,31 @@ public class PlayState extends State{
         cam.position.x = nerd.getPosition().x + ConstantsGame.NERD_POSITION_OFFSET;
         cam.update();*/
 
-        switch (currentState){
+        switch (currentState) {
             case Running:
                 updatePlayState(dt);
                 break;
             case Paused:
                 //dont Update
 
-                if (dialogListener.getWrongDialogAnswer()){
+                if (dialogListener.getWrongDialogAnswer()) {
                     Score.updateHeart(gameManager, true);
                     System.out.println("Die Herzen sind aktuell");
                 }
-                if(dialogListener.getRightDialogAnswer() || dialogListener.getWrongDialogAnswer()){
+                if (dialogListener.getRightDialogAnswer() || dialogListener.getWrongDialogAnswer()) {
                     currentState = CurrentState.Running;
                     System.out.println("Das spiel läuft wieder");
-                }else{
+                } else {
                     currentState = CurrentState.Paused;
                 }
                 break;
-            default:updatePlayState(dt);
+            default:
+                updatePlayState(dt);
         }
     }
 
 
-
-    public void updatePlayState(float dt){
+    public void updatePlayState(float dt) {
         updateTimeSum(dt);
         handleInput();
         updateGround();
@@ -186,9 +199,9 @@ public class PlayState extends State{
         cam.update();
     }
 
-    private void updateTimeSum(float dt){
+    private void updateTimeSum(float dt) {
         timeSum = timeSum + dt;
-        if(timeSum > ConstantsGame.PHASE_DURATION){
+        if (timeSum > ConstantsGame.PHASE_DURATION) {
             togglePhase();
             gameQuestion.resetCounted();
             timeSum = 0;
@@ -243,6 +256,7 @@ public class PlayState extends State{
             if (phone1.collides(nerd.getBounds()) && !phone1.isCounted()) {
                 phone1.setCounted();
                 System.out.println("RICHTIGE LÖSUNG");
+
                 //Score.updateHeart(gameManager);
                 alreadChanged = false;
                 Score.refillHeart();
@@ -300,14 +314,14 @@ public class PlayState extends State{
                 phone4.setCounted();
                 alreadChanged = false;
                 Score.refillHeart();
-               // phone4.reactToCollision(gameManager);
+                // phone4.reactToCollision(gameManager);
                 togglePhase();
             } else if ((phone1.collides(nerd.getBounds()) && !phone1.isCounted()) || (phone2.collides(nerd.getBounds()) && phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && phone3.isCounted())) {
                 System.out.println("FALSCHE LÖSUNG");
                 phone2.setCounted();
                 phone1.setCounted();
                 phone3.setCounted();
-               // phone4.reactToWrongCollision(gameManager);
+                // phone4.reactToWrongCollision(gameManager);
                 alreadChanged = false;
                 Score.updateHeart(gameManager, true);
                 togglePhase();
@@ -323,7 +337,7 @@ public class PlayState extends State{
         phone3.update(dt);
         phone4.update(dt);
 
-        if(phone1.isCounted() || phone2.isCounted() || phone3.isCounted()|| phone4.isCounted() || !isQuestionPhase()) {
+        if (phone1.isCounted() || phone2.isCounted() || phone3.isCounted() || phone4.isCounted() || !isQuestionPhase()) {
             setPhonePositionOutsideScreen(phone1, 0);
             setPhonePositionOutsideScreen(phone2, 50);
             setPhonePositionOutsideScreen(phone3, 100);
@@ -340,35 +354,34 @@ public class PlayState extends State{
         }
 
 
-
-    }
-    private void setPhonePositionOutsideScreen(AnswerPhone phone, int distanceFromFirstPhone){
-        phone.getPosition().set((cam.position.x + cam.viewportWidth/2)+distanceFromFirstPhone, phone.getY());
     }
 
-    private void updatePhone(AnswerPhone phone, Texture flyingPhone){
+    private void setPhonePositionOutsideScreen(AnswerPhone phone, int distanceFromFirstPhone) {
+        phone.getPosition().set((cam.position.x + cam.viewportWidth / 2) + distanceFromFirstPhone, phone.getY());
+    }
+
+    private void updatePhone(AnswerPhone phone, Texture flyingPhone) {
         if (cam.position.x - (cam.viewportWidth / 2) > phone.getPosition().x + flyingPhone.getWidth()) {
-            phone.getPosition().add(flyingPhone.getWidth()*4, 0);
+            phone.getPosition().add(flyingPhone.getWidth() * 4, 0);
         }
     }
 
-    private void setObstaclesPositionOutsideScreen(){
+    private void setObstaclesPositionOutsideScreen() {
         Obstacle firstObstacle = obstacles.get(0);
-        firstObstacle.reposition(cam.position.x + (cam.viewportWidth/2) + firstObstacle.getTexture().getWidth()*2);
+        firstObstacle.reposition(cam.position.x + (cam.viewportWidth / 2) + firstObstacle.getTexture().getWidth() * 2);
         for (int i = 1; i < obstacles.size; i++) {
             int distance = generateNewDistance(score.getCurrentScorePoints());
             Obstacle obstacle = obstacles.get(i);
-            Obstacle before = obstacles.get(i-1);
-            obstacle.reposition(before.getObstaclePos().x + (before.getTexture().getWidth()*2 + obstacle.getTexture().getWidth()*2 + distance));
+            Obstacle before = obstacles.get(i - 1);
+            obstacle.reposition(before.getObstaclePos().x + (before.getTexture().getWidth() * 2 + obstacle.getTexture().getWidth() * 2 + distance));
         }
 
     }
-
 
 
     private void updateObstacles() {
 
-        if(isQuestionPhase()){
+        if (isQuestionPhase()) {
             setObstaclesPositionOutsideScreen();
         } else {
             for (int i = 0; i < obstacles.size; i++) {
@@ -384,7 +397,7 @@ public class PlayState extends State{
                     int distance = generateNewDistance(score.getCurrentScorePoints());
                     obstacle.reposition(before.getObstaclePos().x + (before.getTexture().getWidth() * 2 + obstacle.getTexture().getWidth() * 2 + distance));
                     System.out.println("x-position obstacle: " + before.getObstaclePos().x + (before.getTexture().getWidth() * 2 + obstacle.getTexture().getWidth() * 2 + distance));
-                   // System.out.println("distance: " + distance);
+                    // System.out.println("distance: " + distance);
                     obstacle.resetCounted();
                 }
                 if (obstacle.collides(nerd.getBounds()) && !obstacle.isCounted()) {
@@ -406,7 +419,7 @@ public class PlayState extends State{
                             System.out.println("Frau gecrashed" + obstacle.isCounted());
                             //currentState = CurrentState.Paused;
                             //dialogListener.showMultipleChoiceDialog();
-                           // Score.updateHeart(gameManager, true);
+                            // Score.updateHeart(gameManager, true);
                             currentState = CurrentState.Paused;
                             dialogListener.showMultipleChoiceDialog();
                             //while (!dialogListener.getRightDialogAnswer() && !dialogListener.getWrongDialogAnswer()){}
@@ -426,20 +439,20 @@ public class PlayState extends State{
 
     private int generateNewDistance(long scorePoints) {
         int newInt;
-        if(scorePoints < ConstantsGame.SCORE_START){
+        if (scorePoints < ConstantsGame.SCORE_START) {
             newInt = random.nextInt(ConstantsGame.MAX_DISTANCE_LONG);
-        }else if (scorePoints < ConstantsGame.SCORE_START + ConstantsGame.SCORE_DIFFERENCE*2){
+        } else if (scorePoints < ConstantsGame.SCORE_START + ConstantsGame.SCORE_DIFFERENCE * 2) {
             newInt = random.nextInt(ConstantsGame.MAX_DISTANCE_MEDIUM_LONG);
-        }else if(scorePoints < ConstantsGame.SCORE_START + ConstantsGame.SCORE_DIFFERENCE*4){
+        } else if (scorePoints < ConstantsGame.SCORE_START + ConstantsGame.SCORE_DIFFERENCE * 4) {
             newInt = random.nextInt(ConstantsGame.MAX_DISTANCE_MEDIUM_SHORT);
-        }else {
+        } else {
             newInt = random.nextInt(ConstantsGame.MAX_DISTANCE_SHORT);
         }
 
 
         if (newInt >= ConstantsGame.MIN_DISTANCE) {
-            System.out.println("scorePoint: "+scorePoints);
-            System.out.println("distance "+newInt);
+            System.out.println("scorePoint: " + scorePoints);
+            System.out.println("distance " + newInt);
             return newInt;
         } else {
             return generateNewDistance(scorePoints);
@@ -452,50 +465,43 @@ public class PlayState extends State{
         long value = score.getCurrentScorePoints();
         if (value < ConstantsGame.SCORE_START) {
             return ConstantsGame.NERD_MOVEMENT_DEFAULT;
-        }
-        else if (value > ConstantsGame.SCORE_START && value <=ConstantsGame.SCORE_START + ConstantsGame.SCORE_DIFFERENCE){
+        } else if (value > ConstantsGame.SCORE_START && value <= ConstantsGame.SCORE_START + ConstantsGame.SCORE_DIFFERENCE) {
             return ConstantsGame.NERD_MOVEMENT_DEFAULT + ConstantsGame.VELOCITY_ADDED;
-        }
-        else if (value > ConstantsGame.SCORE_START + ConstantsGame.SCORE_DIFFERENCE && value <= ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*2) ) {
-            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.VELOCITY_ADDED*2);
-        }
-        else if (value > ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*2) && value <= ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*3)) {
-            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.VELOCITY_ADDED*3);
-        }
-        else if (value > ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*3) && value <= ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*4)) {
-            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.VELOCITY_ADDED*4);
-        }
-        else if (value > ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE *4) && value <= ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*5)) {
-            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.VELOCITY_ADDED*5);
-        }
-        else if (value > ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*5)) {
-            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.VELOCITY_ADDED*6);
-        }
-        else {
+        } else if (value > ConstantsGame.SCORE_START + ConstantsGame.SCORE_DIFFERENCE && value <= ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE * 2)) {
+            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.VELOCITY_ADDED * 2);
+        } else if (value > ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE * 2) && value <= ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE * 3)) {
+            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.VELOCITY_ADDED * 3);
+        } else if (value > ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE * 3) && value <= ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE * 4)) {
+            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.VELOCITY_ADDED * 4);
+        } else if (value > ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE * 4) && value <= ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE * 5)) {
+            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.VELOCITY_ADDED * 5);
+        } else if (value > ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE * 5)) {
+            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.VELOCITY_ADDED * 6);
+        } else {
             return ConstantsGame.NERD_MOVEMENT_DEFAULT;
         }
     }
 
     private void saveScore() {
 
-        points =(int) score.getCurrentScorePoints();
-        System.out.println("scorepoints: "+score.getCurrentScorePoints());
+        points = (int) score.getCurrentScorePoints();
+        System.out.println("scorepoints: " + score.getCurrentScorePoints());
         rank = highscoreListener.checkIfNewHighscore(points);
         if (rank != -1) {
             dialogListener.showHighscoreDialog();
 
 
-            while (!dialogListener.getDialogDone() ){
+            while (!dialogListener.getDialogDone()) {
                 //do nothing / wait
             }
             String userName = dialogListener.getUserName();
-            System.out.println("username "+userName);
+            System.out.println("username " + userName);
             highscoreListener.saveHighscoreToDatabase(rank, points, userName);
             System.out.println("highscore is uptodate");
         }
     }
 
-    private enum CurrentState{
+    private enum CurrentState {
         Running, Paused
     }
 
@@ -506,7 +512,9 @@ public class PlayState extends State{
         spriteBatch.begin();
         spriteBatch.draw(background, bgPos1.x, ConstantsGame.BACKGROUND_Y_POS);
         spriteBatch.draw(background, bgPos2.x, ConstantsGame.BACKGROUND_Y_POS);
-        spriteBatch.draw(sun, cam.position.x + ConstantsGame.SCORE_HEARTS_OFFSET_X, cam.position.y + ConstantsGame.SUN_Y_POS);
+        if (sunny) {
+            spriteBatch.draw(sun, cam.position.x + ConstantsGame.SCORE_HEARTS_OFFSET_X, cam.position.y + ConstantsGame.SUN_Y_POS);
+        }
         score.renderScore(spriteBatch, cam);
         if (isQuestionMode) {
             gameQuestion.drawTasks(spriteBatch, cam);
@@ -573,8 +581,7 @@ public class PlayState extends State{
     }*/
 
 
-
-    private void drawPhones(SpriteBatch spriteBatch){
+    private void drawPhones(SpriteBatch spriteBatch) {
         spriteBatch.draw(phone1.getTexture(), phone1.getX(), phone1.getY());
         spriteBatch.draw(phone2.getTexture(), phone2.getX(), phone2.getY());
         spriteBatch.draw(phone3.getTexture(), phone3.getX(), phone3.getY());
@@ -583,6 +590,7 @@ public class PlayState extends State{
 
     @Override
     public void dispose() {
+        music.dispose();
         nerd.dispose();
         background.dispose();
         ground.dispose();
@@ -590,7 +598,9 @@ public class PlayState extends State{
         flyingPhone2.dispose();
         flyingPhone3.dispose();
         flyingPhone4.dispose();
-        sun.dispose();
+        if (sunny) {
+            sun.dispose();
+        }
 
         for (Obstacle obstacle : obstacles) {
             obstacle.dispose();
@@ -605,15 +615,23 @@ public class PlayState extends State{
         String texturePath;
         switch (currentWeather) {
             case ConstantsGame.WEATHER_SUNNY:
+                sunny = true;
+                snowy = false;
                 texturePath = "bg_sunny.png";
                 break;
             case ConstantsGame.WEATHER_RAINY:
+                sunny = false;
+                snowy = false;
                 texturePath = "bg_rainy.png";
                 break;
             case ConstantsGame.WEATHER_CLOUDY:
+                sunny = false;
+                snowy = false;
                 texturePath = "bg_cloudy.png";
                 break;
             case ConstantsGame.WEATHER_SNOWY:
+                sunny = false;
+                snowy = true;
                 texturePath = "bg_snow.png";
                 break;
             default:
@@ -622,16 +640,15 @@ public class PlayState extends State{
         return new Texture(texturePath);
     }
 
-    public static boolean isQuestionPhase(){
+    public static boolean isQuestionPhase() {
         return isQuestionMode;
     }
 
     //switches between the QuestionPhase and the ObstaclePhase in the game
-    public static void togglePhase(){
-       isQuestionMode = !isQuestionMode;
+    public static void togglePhase() {
+        isQuestionMode = !isQuestionMode;
         timeSum = 0;
     }
-
 
 
 }

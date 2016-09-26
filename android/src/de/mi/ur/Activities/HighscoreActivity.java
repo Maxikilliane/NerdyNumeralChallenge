@@ -56,7 +56,7 @@ public class HighscoreActivity extends AppCompatActivity {
         highscoreListView.setAdapter(adapter);
         View v = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.highscore_listitem, null);
         if((allHighscoresCursor.moveToFirst()) || allHighscoresCursor.getCount() !=0){
-            highscoreListView.addHeaderView(v);
+//            highscoreListView.addHeaderView(v);
             noHighscoreView.setVisibility(View.GONE);
         }else{
             highscoreListView.setVisibility(View.GONE);

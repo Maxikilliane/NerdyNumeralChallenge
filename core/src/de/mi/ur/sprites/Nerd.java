@@ -1,5 +1,7 @@
 package de.mi.ur.sprites;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -16,6 +18,7 @@ public class Nerd {
     private Vector3 position;
     private Vector3 velocity;
     private Rectangle bounds;
+    private Sound sound;
 
     private Texture texture;
     //irgendwie auslagern?? COnstants.
@@ -38,7 +41,7 @@ public class Nerd {
         velocity = new Vector3(0, 0, 0);
         ground = new Texture("ground.png");
         bounds = new Rectangle(x, y, texture.getWidth() / 7 + ConstantsGame.BOUNDS_OFFSET, texture.getHeight());
-
+        sound = Gdx.audio.newSound(Gdx.files.internal("jumpsfx.ogg"));
 
         nerdAnimation = new Animation(new TextureRegion(texture), 7, 0.6f);
     }
@@ -90,10 +93,12 @@ public class Nerd {
 
 
     public void jump() {
+        sound.play(0.5f);
         velocity.y = 650;
     }
 
     public void dispose() {
+        sound.dispose();
         texture.dispose();
     }
 

@@ -56,7 +56,7 @@ public abstract class Obstacle {
         return obstaclePos;
     }
 
-    public float getY(){
+    public float getY() {
         return obstacleY;
     }
 

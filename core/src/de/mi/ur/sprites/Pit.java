@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import de.mi.ur.ConstantsGame;
+import de.mi.ur.states.PlayState;
 
 /**
  * Created by maxiwindl on 01.08.16.
@@ -20,7 +21,11 @@ public class Pit extends Obstacle {
 
     public Pit (float x) {
         super(x, 0, new Texture("pit_old.png"), ConstantsGame.PIT_TYPE);
-        pit = new Texture("pit_old.png");
+        if (PlayState.sunny) {
+            pit = new Texture("pit_old.png");
+        } else {
+            pit = new Texture("pit_bad_weather.png");
+        }
         pitPos = new Vector2(x, 0);
         bounds = new Rectangle(pitPos.x, pitPos.y, pit.getWidth() + ConstantsGame.BOUNDS_OFFSET, pit.getHeight());
 

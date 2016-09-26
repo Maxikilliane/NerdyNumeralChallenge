@@ -1,6 +1,7 @@
 package de.mi.ur.gameLogic;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -27,7 +28,9 @@ public class Score {
     public static Array<Texture> hearts;
     private long startTime;
     private static int pointUpdate;
+    private static Sound powerUp;
     BitmapFont scoreFont;
+    private static Sound fail;
     private static Texture heartEmpty;
 
 
@@ -35,13 +38,16 @@ public class Score {
 
     public Score() {
         hearts = new Array<Texture>();
+        powerUp = Gdx.audio.newSound(Gdx.files.internal("powerupsfx.ogg"));
         state = 4;
+        fail = Gdx.audio.newSound(Gdx.files.internal("failsfx.ogg"));
         currentScore = "Score: 0";
         currentBasicScorePoints = 0;
         scoreFont = new BitmapFont(Gdx.files.internal("goodTimesNew.fnt"));
         heartFilled = new Texture("heart_filled.png");
         heartEmpty = new Texture("heart_empty.png");
         scoreFont.setUseIntegerPositions(false);
+
 
 
     }
@@ -80,8 +86,8 @@ public class Score {
         return currentBasicScorePoints;
     }
 
-    public long getCurrentScorePoints(){
-        return getCurrentScore()+getCurrentBasicScorePoints();
+    public long getCurrentScorePoints() {
+        return getCurrentScore() + getCurrentBasicScorePoints();
     }
 
     public long startTimer() {
@@ -105,20 +111,20 @@ public class Score {
             state = ConstantsGame.HEARTSTATE_2_HEARTS;
                 PlayState.alreadChanged = true;
             return state;
-        } else if (!PlayState.alreadChanged && hearts.get(0) == heartEmpty && hearts.get(1) == heartEmpty && hearts.get(2) == heartFilled ) {
-                state = ConstantsGame.HEARTSTATE_1_HEART;
+        } else if (!PlayState.alreadChanged && hearts.get(0) == heartEmpty && hearts.get(1) == heartEmpty && hearts.get(2) == heartFilled) {
+            state = ConstantsGame.HEARTSTATE_1_HEART;
                 PlayState.alreadChanged = true;
             return state;
         } else if (!PlayState.alreadChanged && hearts.get(0) == heartEmpty && hearts.get(1) == heartEmpty && hearts.get(2) == heartEmpty) {
 
-                state = ConstantsGame.HEARTSTATE_NO_HEART;
+            state = ConstantsGame.HEARTSTATE_NO_HEART;
                 PlayState.alreadChanged = true;
             return state;
-        } else  if(!PlayState.alreadChanged && hearts.get(0)== heartFilled && hearts.get(1) == heartFilled && hearts.get(2) == heartFilled){
+        } else if (!PlayState.alreadChanged && hearts.get(0) == heartFilled && hearts.get(1) == heartFilled && hearts.get(2) == heartFilled) {
                 PlayState.alreadChanged = true;
             state = ConstantsGame.HEARTSTATE_ALL_HEARTS_FULL;
             return state;
-            }else{
+        } else {
             return ConstantsGame.HEARTSTATE_OTHER;
         }
 
@@ -128,14 +134,15 @@ public class Score {
 
     public static void updateHeart(GameStateManager manager, boolean dead) {
         state = getStateOfHearts();
-        System.out.println("State of hearts: "+state);
+        fail.play(0.5f);
+        System.out.println("State of hearts: " + state);
         if (state == ConstantsGame.HEARTSTATE_ALL_HEARTS_FULL) {
             changeHeart(dead, 0);
         } else if (state == ConstantsGame.HEARTSTATE_NO_HEART) {
             manager.set(new GameOverState(manager));
         } else if (state == ConstantsGame.HEARTSTATE_1_HEART) {
             changeHeart(dead, 2);
-           // System.out.println(2);
+            // System.out.println(2);
         } else if (state == ConstantsGame.HEARTSTATE_2_HEARTS) {
             changeHeart(dead, 1);
         } else {
@@ -147,7 +154,8 @@ public class Score {
 
     public static void refillHeart() {
         state = getStateOfHearts();
-        System.out.println("State of hearts: "+state);
+        powerUp.play(0.5f);
+        System.out.println("State of hearts: " + state);
         if (state == ConstantsGame.HEARTSTATE_ALL_HEARTS_FULL) {
             addPoints();
         } else if (state == ConstantsGame.HEARTSTATE_NO_HEART) {
@@ -176,7 +184,7 @@ public class Score {
             currentScore = "0" + getTimeElapsed() + "   Points";
 
         } else {
-            currentScore = "" + (getTimeElapsed()+currentBasicScorePoints) + "   Points";
+            currentScore = "" + (getTimeElapsed() + currentBasicScorePoints) + "   Points";
         }
 
         PlayState.hasHit = false;

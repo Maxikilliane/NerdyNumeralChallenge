@@ -31,6 +31,7 @@ public class NerdyNumeralChallenge extends ApplicationAdapter {
 		this.highscoreListener = highscoreListener;
 		this.dialogListener = dialogListener;
 
+
 		currentWeather = weatherDataListener.getCurrentWeather();
 	}
 	
@@ -53,5 +54,6 @@ public class NerdyNumeralChallenge extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		batch.dispose();
+
 	}
 }

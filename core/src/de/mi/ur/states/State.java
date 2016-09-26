@@ -13,7 +13,6 @@ public abstract class State {
     public static OrthographicCamera cam;
 
 
-
     protected GameStateManager gameManager;
 
     protected State (GameStateManager gameManager) {

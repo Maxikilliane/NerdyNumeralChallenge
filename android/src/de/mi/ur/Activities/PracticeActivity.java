@@ -124,7 +124,7 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
                     text ="wrong";
                     currentQuestionSolved = false;
                 }
-                if(text != null) {
+                if (text != null) {
                     Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
                 }
                 updateProgress();
@@ -160,17 +160,17 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
         }
     }
 
-/*
- * case of correct answer: progressbar is updated,
- * case 100% progress (10 questions answered): points for progress saved to database and activity closed
- * new question generated
- */
+    /*
+     * case of correct answer: progressbar is updated,
+     * case 100% progress (10 questions answered): points for progress saved to database and activity closed
+     * new question generated
+     */
     private void updateProgress(){
         if(currentQuestionSolved){
             practiseProgressBar.incrementProgressBy(Constants.PROGRESS_FULL / Constants.NUM_QUESTIONS_PER_PRACTICE);
             currentQuestionSolved = false;
 
-            if(practiseProgressBar.getProgress() == Constants.PROGRESS_FULL ){
+            if (practiseProgressBar.getProgress() == Constants.PROGRESS_FULL) {
                 savePointsToDatabase();
                 Toast.makeText(this, "Geschafft!", Toast.LENGTH_SHORT).show();
                 Handler handler = new Handler();
@@ -241,7 +241,7 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
             @Override
             public void onKey(int primaryCode, int[] keyCodes) {
                 View focusCurrent = PracticeActivity.this.getWindow().getCurrentFocus();
-                if(focusCurrent == null || focusCurrent.getClass()!= android.support.v7.widget.AppCompatEditText.class){
+                if (focusCurrent == null || focusCurrent.getClass() != android.support.v7.widget.AppCompatEditText.class) {
                     return;
                 }
                 EditText editText = (EditText) focusCurrent;
@@ -330,9 +330,9 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
         }
     }
 
-/*
- * initializes the parts of the activity necessary for questions (currentQuestion, questionFragment...)
- */
+    /*
+     * initializes the parts of the activity necessary for questions (currentQuestion, questionFragment...)
+     */
     private void setUpQuestionTypeSpecificStuff(){
         Resources StringRes = getResources();
         switch (typeOfQuestion){

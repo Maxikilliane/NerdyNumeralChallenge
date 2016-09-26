@@ -18,13 +18,11 @@ import de.mi.ur.QuestionLogic.MultipleChoiceQuestion;
 /**
  * Created by Lydia on 25.09.2016.
  */
-public class MultipleChoiceDialog extends DialogFragment{
-
-
+public class MultipleChoiceDialog extends DialogFragment {
 
 
     private MultipleChoiceQuestion currentQuestion;
-    private String [] items;
+    private String[] items;
     private TextView textView1, textView2;
     private RadioGroup radioGroup;
     private boolean rightAnswer, wrongAnswer;
@@ -36,9 +34,9 @@ public class MultipleChoiceDialog extends DialogFragment{
         wrongAnswer = false;
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        currentQuestion = new MultipleChoiceQuestion(2,10,6);
+        currentQuestion = new MultipleChoiceQuestion(2, 10, 6);
         items = currentQuestion.generatePossAnswers();
-        System.out.println("Antworten"+ items[0] +"a" +items[1]);
+        System.out.println("Antworten" + items[0] + "a" + items[1]);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         //builder.setTitle("Rette dein Leben indem du für die gegebene Zahl im Binärsystem die richtige Entsprechung im Dezimalsystem auswählst.");
 
@@ -66,15 +64,15 @@ public class MultipleChoiceDialog extends DialogFragment{
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 int checkedButtonId = radioGroup.getCheckedRadioButtonId();
-                if(checkedButtonId == -1){
+                if (checkedButtonId == -1) {
                     Toast.makeText(getActivity(), "You lost a life", Toast.LENGTH_SHORT).show();
                     wrongAnswer = true;
-                }else{
-                    RadioButton checkedButton = (RadioButton)dialogView.findViewById(checkedButtonId);
-                    if(checkedButton.getText().toString().equals(currentQuestion.getRightAnswerString())){
+                } else {
+                    RadioButton checkedButton = (RadioButton) dialogView.findViewById(checkedButtonId);
+                    if (checkedButton.getText().toString().equals(currentQuestion.getRightAnswerString())) {
                         Toast.makeText(getActivity(), "You saved yourself", Toast.LENGTH_SHORT).show();
                         rightAnswer = true;
-                    }else{
+                    } else {
                         Toast.makeText(getActivity(), "You lost a life", Toast.LENGTH_SHORT).show();
                         wrongAnswer = true;
                     }
@@ -87,11 +85,12 @@ public class MultipleChoiceDialog extends DialogFragment{
         return dialog;
     }
 
-    public boolean getRightAnswer(){
+
+    public boolean getRightAnswer() {
         return rightAnswer;
     }
 
-    public boolean getWrongAnswer(){
+    public boolean getWrongAnswer() {
         return wrongAnswer;
     }
 }

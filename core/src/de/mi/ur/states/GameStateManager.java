@@ -63,7 +63,7 @@ public class GameStateManager {
         return highscoreListener;
     }
 
-    public DialogListener getDialogListener(){
+    public DialogListener getDialogListener() {
         return dialogListener;
     }
 }
