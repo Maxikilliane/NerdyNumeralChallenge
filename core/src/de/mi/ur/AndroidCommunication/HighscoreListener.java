@@ -5,8 +5,12 @@ package de.mi.ur.AndroidCommunication;
  */
 public interface HighscoreListener {
 
+
     public int checkIfNewHighscore(int points);
 
-    public void saveHighscoreToDatabase(int rank, int points);
+    public void saveHighscoreToDatabase(int rank, int points, String userName);
+
+
+
 }
 

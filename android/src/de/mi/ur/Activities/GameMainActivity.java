@@ -42,14 +42,14 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.game_main_activity);
         setupUI();
         setupToolbar();
-        weatherManager = new WeatherManager(this, this);
+        weatherManager = new WeatherManager(this, this, this);
     }
 
     private void setupToolbar() {
         myToolbar = (Toolbar) findViewById(R.id.game_main_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setTitle(R.string.game_main_toolbar_headline);
-         myToolbar.setNavigationIcon(R.drawable.toolbar_back);
+        myToolbar.setNavigationIcon(R.drawable.toolbar_back);
         myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,6 +70,9 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
+    /*
+     * Handles Click-Events (mostly activity starting)
+     */
     @Override
     public void onClick(View v) {
         Intent i = null;
@@ -82,11 +85,10 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
             case R.id.game_update_weather_button:
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     weatherManager.startCurrentWeatherGetter();
-                //String weather = convertToWeatherName(weatherManager.getCurrentWeather());
-                  //  toastMessage = "Wetter aktualisiert! Gerade " + weather + ". Der Spielhintergrund wurde angepasst.";
                 } else {
                     requestWeatherPermission(this);
                     toastMessage = "Default-Wetter: Die Sonne scheint!";
+                    Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.game_highscore_button:
@@ -101,15 +103,12 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
         if(i!=null){
             startActivity(i);
         }
-        if (toastMessage != null) {
-            Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show();
-
-        }
-
     }
 
+    /*
+     * Checks the parameter, as to which kind of weather it is and generates appropriate content for user information
+     */
     private String convertToWeatherName(int weatherNumber) {
-
         switch (weatherNumber) {
             case Constants.WEATHER_SUNNY:
                 return "scheint die Sonne";
@@ -129,12 +128,18 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
         return weatherManager.getCurrentWeather();
     }
 
+    /*
+     * Requests the permission to access location data (fine location is required to use the gps-sensor.
+     */
     public static void requestWeatherPermission(Activity activity) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.ACCESS_FINE_LOCATION)) {
             createInformationDialog(activity);
         }
     }
 
+    /*
+     * Shows an information dialog to explain why the location permission is needed.
+     */
     private static void createInformationDialog(Activity activity){
         final Activity activity1 = activity;
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -148,6 +153,7 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
         permissionInfoDialog.show();
     }
 
+
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
             case Constants.MY_PERMISSION_REQUEST_ACCESS_FINE_LOCATION: {
@@ -160,6 +166,9 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
+    /*
+     * If the download and processing of new weather data is finished, this method is called to notify the user.
+     */
     @Override
     public void onDownloadFinished() {
         String weather = convertToWeatherName(weatherManager.getCurrentWeather());

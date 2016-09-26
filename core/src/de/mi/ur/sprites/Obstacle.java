@@ -40,6 +40,10 @@ public abstract class Obstacle {
         counted = true;
     }
 
+    public void resetCounted() {
+        counted = false;
+    }
+
     public Texture getTexture() {
         return texture;
     }
@@ -50,6 +54,10 @@ public abstract class Obstacle {
 
     public Vector2 getObstaclePos() {
         return obstaclePos;
+    }
+
+    public float getY(){
+        return obstacleY;
     }
 
     public boolean collides(Rectangle player) {

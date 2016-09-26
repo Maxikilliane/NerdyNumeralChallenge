@@ -8,11 +8,12 @@ import com.badlogic.gdx.utils.Array;
 
 import java.util.Random;
 
+import de.mi.ur.AndroidCommunication.DialogListener;
 import de.mi.ur.AndroidCommunication.HighscoreListener;
 import de.mi.ur.ConstantsGame;
 import de.mi.ur.gameLogic.GameQuestion;
 import de.mi.ur.gameLogic.Score;
-import de.mi.ur.sprites.AnswerPhones;
+import de.mi.ur.sprites.AnswerPhone;
 import de.mi.ur.sprites.Nerd;
 import de.mi.ur.sprites.Obstacle;
 import de.mi.ur.sprites.Pit;
@@ -25,10 +26,9 @@ import de.mi.ur.sprites.Woman;
  * <p/>
  * Obstacle funktioniert jetzt.
  */
-public class PlayState extends State {
+public class PlayState extends State{
 
-    private float counter = 0;
-    private int limitCounter;
+    private static boolean isQuestionMode;
 
     private static Nerd nerd;
     private Texture background;
@@ -46,27 +46,35 @@ public class PlayState extends State {
     private Texture flyingPhone3;
     private Texture flyingPhone4;
 
-    private AnswerPhones phone1;
-    private AnswerPhones phone2;
-    private AnswerPhones phone3;
-    private AnswerPhones phone4;
+    private AnswerPhone phone1;
+    private AnswerPhone phone2;
+    private AnswerPhone phone3;
+    private AnswerPhone phone4;
+    private AnswerPhone[] phones = new AnswerPhone[4];
 
-    private Woman woman;
     public static boolean hasHit;
-    private Array<Woman> women;
 
-    private Texture heartEmpty;
-
-    private Array<Pit> pits;
     private Vector2 groundPos1, groundPos2;
     private Vector2 bgPos1, bgPos2;
     private Array<Obstacle> obstacles;
 
+    private int rank;
+    private int points;
+
+    private static float timeSum = 0;
+
     private HighscoreListener highscoreListener;
+    private DialogListener dialogListener;
+
+    private CurrentState currentState = CurrentState.Running;
+
+
 
     protected PlayState(GameStateManager gameManager) {
         super(gameManager);
+        isQuestionMode = false;
         this.highscoreListener = gameManager.getHighscoreListener();
+        this.dialogListener = gameManager.getDialogListener();
         nerd = new Nerd(ConstantsGame.NERD_X, ConstantsGame.NERD_Y);
         ground = new Texture("ground_anton.png");
         flyingPhone1 = new Texture("phone_answer_new_1.png");
@@ -76,11 +84,10 @@ public class PlayState extends State {
 
         sun = new Texture("sun.png");
 
-        phone1 = new AnswerPhones(400, 200, flyingPhone1);
-        phone2 = new AnswerPhones(450, 200, flyingPhone2);
-        phone3 = new AnswerPhones(500, 200, flyingPhone3);
-        phone4 = new AnswerPhones(550, 200, flyingPhone4);
-
+        phone1 = new AnswerPhone(ConstantsGame.PHONE1_X, ConstantsGame.PHONES_Y, flyingPhone1);
+        phone2 = new AnswerPhone(ConstantsGame.PHONE2_X, ConstantsGame.PHONES_Y, flyingPhone2);
+        phone3 = new AnswerPhone(ConstantsGame.PHONE3_X, ConstantsGame.PHONES_Y, flyingPhone3);
+        phone4 = new AnswerPhone(ConstantsGame.PHONE4_X, ConstantsGame.PHONES_Y, flyingPhone4);
         background = new Texture("bg_sunny.png");
 
         //background = getBackgroundWeather(gameManager);
@@ -89,31 +96,24 @@ public class PlayState extends State {
         random = new Random();
 
         gameQuestion = new GameQuestion(gameManager.getMultipleChoiceListener());
-
-        //women = new Array<Woman>();
-
-        //pits = new Array<Pit>();
-
         obstacles = new Array<Obstacle>();
 
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < ConstantsGame.TOTAL_NUM_OBSTACLES; i++) {
             if (random.nextInt(2) == ConstantsGame.PIT_TYPE) {
-                obstacles.add(new Pit(i * ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH));
+                obstacles.add(new Pit(cam.position.x + (cam.viewportWidth/2) + ConstantsGame.PIT_WIDTH*2));
             } else {
-                obstacles.add(new Woman(i * (500)));
+                obstacles.add(new Woman(cam.position.x + (cam.viewportWidth/2) + ConstantsGame.WOMAN_WIDTH*2));
             }
-            //women.add(new Woman(i * (500)));
-            //pits.add(new Pit(i * (ConstantsGame.PIT_OFFSET + ConstantsGame.PIT_WIDTH)));
-
+            setObstaclesPositionOutsideScreen();
         }
 
-        groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, ConstantsGame.GROUND_Y_OFFSET);
-        groundPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2) + ground.getWidth(), ConstantsGame.GROUND_Y_OFFSET);
-        bgPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, ConstantsGame.BACKGROUND_Y_POS);
-        bgPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2) + background.getWidth(), ConstantsGame.BACKGROUND_Y_POS);
-    }
+        groundPos1 = new Vector2(cam.position.x - (cam.viewportWidth / 2), ConstantsGame.GROUND_Y_OFFSET);
+        groundPos2 = new Vector2(cam.position.x - (cam.viewportWidth / 2) + ground.getWidth(), ConstantsGame.GROUND_Y_OFFSET);
+        bgPos1 = new Vector2(cam.position.x - (cam.viewportWidth / 2), ConstantsGame.BACKGROUND_Y_POS);
+        bgPos2 = new Vector2(cam.position.x - (cam.viewportWidth / 2) + background.getWidth(), ConstantsGame.BACKGROUND_Y_POS);
 
+    }
 
     @Override
     protected void handleInput() {
@@ -121,39 +121,77 @@ public class PlayState extends State {
             if (Gdx.input.justTouched()) {
                 nerd.jump();
                 Nerd.jumpFinished = false;
-
             }
-
         }
+    }
 
+    @Override
+    //calculations for the render method
+    public void update(float dt) {
+        /*updateTimeSum(dt);
+        handleInput();
+        updateGround();
+        updateBG();
+        nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty());
+        //System.out.println("difficulty: "+increaseDifficulty());
+        updatePhones(dt);
+        score.updateScore(gameManager);
+        gameQuestion.updateQuestions();
+
+        updateObstacles();
+
+
+        cam.position.x = nerd.getPosition().x + ConstantsGame.NERD_POSITION_OFFSET;
+        cam.update();*/
+
+        switch (currentState){
+            case Running:
+                updatePlayState(dt);
+                break;
+            case Paused:
+                //dont Update
+
+                if (dialogListener.getWrongDialogAnswer()){
+                    Score.updateHeart(gameManager, true);
+                    System.out.println("Die Herzen sind aktuell");
+                }
+                if(dialogListener.getRightDialogAnswer() || dialogListener.getWrongDialogAnswer()){
+                    currentState = CurrentState.Running;
+                    System.out.println("Das spiel läuft wieder");
+                }else{
+                    currentState = CurrentState.Paused;
+                }
+                break;
+            default:updatePlayState(dt);
+        }
     }
 
 
-    private void updateWomen() {
-        for (int i = 0; i < women.size; i++) {
-            Woman woman = women.get(i);
-            if (cam.position.x - (cam.viewportWidth / 2) > woman.getWomanPos().x + woman.getWoman().getWidth()) {
-                woman.reposition(woman.getWomanPos().x + ((woman.getWoman().getWidth()) + generateNewDistance() + 400 * 4));
-            }
-            checkIfWomanIsInPit(woman);
-            if (woman.collides(nerd.getBounds())) {
 
-                saveScore();
-                gameManager.set(new MenueState(gameManager));
-            }
-            hasHit = true;
+    public void updatePlayState(float dt){
+        updateTimeSum(dt);
+        handleInput();
+        updateGround();
+        updateBG();
+        nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty());
+        //System.out.println("difficulty: "+increaseDifficulty());
+        updatePhones(dt);
+        score.updateScore(gameManager);
+        gameQuestion.updateQuestions();
 
-        }
+        updateObstacles();
 
 
+        cam.position.x = nerd.getPosition().x + ConstantsGame.NERD_POSITION_OFFSET;
+        cam.update();
     }
 
-    private void checkIfWomanIsInPit(Woman woman) {
-        for (int i = 0; i < pits.size; i++) {
-            Pit pit = pits.get(i);
-            if (woman.getWomanPos().x == pit.getPitPos().x) {
-                woman.getWomanPos().x += pit.getPit().getWidth() + 150;
-            }
+    private void updateTimeSum(float dt){
+        timeSum = timeSum + dt;
+        if(timeSum > ConstantsGame.PHASE_DURATION){
+            togglePhase();
+            gameQuestion.resetCounted();
+            timeSum = 0;
         }
     }
 
@@ -177,22 +215,46 @@ public class PlayState extends State {
 
 
     public void handleUserAnswers() {
-        // System.out.println("richtige Loesung: " + GameQuestion.getRightAnswer());
+        //kürzere Lösung: funktioniert so halb, Kollision wird erkannt, aber die Herzen-State Erkennung funktionieren noch nicht.
+       /* if((phone1.collides(nerd.getBounds()) && !phone1.isCounted())|| (phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())){
+            phones[0] = phone1;
+            phones[1] = phone2;
+            phones[2] = phone3;
+            phones[3] = phone4;
+
+            for(int i = 0; i < phones.length; i++) {
+                AnswerPhone phone = phones[i];
+                phone.setCounted();
+                if (GameQuestion.getRightAnswer() == (i + 1)) {
+                    Score.refillHeart();
+                    System.out.println("RICHTIGE LÖSUNG");
+
+                } else {
+                    System.out.println("FALSCHE LÖSUNG");
+
+                    Score.updateHeart(gameManager, true);
+                }
+            }
+            alreadChanged = false;
+            togglePhase();
+        }*/
+
         if (GameQuestion.getRightAnswer() == 1) {
-
-
             if (phone1.collides(nerd.getBounds()) && !phone1.isCounted()) {
                 phone1.setCounted();
                 System.out.println("RICHTIGE LÖSUNG");
                 //Score.updateHeart(gameManager);
-                //Score.updateHeart(gameManager, false);
+                alreadChanged = false;
                 Score.refillHeart();
+                togglePhase();
             } else if ((phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())) {
                 System.out.println("FALSCHE LÖSUNG");
                 phone2.setCounted();
                 phone3.setCounted();
                 phone4.setCounted();
+                alreadChanged = false;
                 Score.updateHeart(gameManager, true);
+                togglePhase();
             }
 
         }
@@ -200,14 +262,17 @@ public class PlayState extends State {
             if (phone2.collides(nerd.getBounds()) && !phone2.isCounted()) {
                 System.out.println("RICHTIGE LÖSUNG ANGESPRUNGEN");
                 phone2.setCounted();
+                alreadChanged = false;
                 Score.refillHeart();
-                //Score.updateHeart(gameManager, false);
+                togglePhase();
             } else if ((phone1.collides(nerd.getBounds()) && !phone1.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())) {
                 System.out.println("FALSCHE LÖSUNG");
                 phone1.setCounted();
                 phone3.setCounted();
                 phone4.setCounted();
+                alreadChanged = false;
                 Score.updateHeart(gameManager, true);
+                togglePhase();
             }
         }
 
@@ -215,170 +280,224 @@ public class PlayState extends State {
             if (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) {
                 System.out.println("RICHTIGE LÖSUNG ANGESPRUNGEN");
                 phone3.setCounted();
+                alreadChanged = false;
                 Score.refillHeart();
-                //Score.updateHeart(gameManager, false);
+                togglePhase();
             } else if ((phone1.collides(nerd.getBounds()) && !phone1.isCounted()) || (phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())) {
                 System.out.println("FALSCHE LÖSUNG");
                 phone1.setCounted();
                 phone2.setCounted();
                 phone4.setCounted();
+                alreadChanged = false;
                 Score.updateHeart(gameManager, true);
+                togglePhase();
             }
         }
-        //noch nicht counted gemacht
+
         if (GameQuestion.getRightAnswer() == 4 && !phone4.isCounted()) {
             if (phone4.collides(nerd.getBounds()) && !phone4.isCounted()) {
                 System.out.println("RICHTIGE LÖSUNG");
                 phone4.setCounted();
+                alreadChanged = false;
                 Score.refillHeart();
-                //phone4.reactToCollision(gameManager);
+               // phone4.reactToCollision(gameManager);
+                togglePhase();
             } else if ((phone1.collides(nerd.getBounds()) && !phone1.isCounted()) || (phone2.collides(nerd.getBounds()) && phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && phone3.isCounted())) {
                 System.out.println("FALSCHE LÖSUNG");
                 phone2.setCounted();
                 phone1.setCounted();
                 phone3.setCounted();
+               // phone4.reactToWrongCollision(gameManager);
+                alreadChanged = false;
                 Score.updateHeart(gameManager, true);
+                togglePhase();
             }
         }
 
     }
 
 
-    private void updatePhones() {
+    private void updatePhones(float dt) {
+        phone1.update(dt);
+        phone2.update(dt);
+        phone3.update(dt);
+        phone4.update(dt);
 
-        if (cam.position.x - (cam.viewportWidth / 2) > phone1.getPosition().x + flyingPhone1.getWidth()) {
-            phone1.getPosition().add(flyingPhone1.getWidth() * 4, 0);
+        if(phone1.isCounted() || phone2.isCounted() || phone3.isCounted()|| phone4.isCounted() || !isQuestionPhase()) {
+            setPhonePositionOutsideScreen(phone1, 0);
+            setPhonePositionOutsideScreen(phone2, 50);
+            setPhonePositionOutsideScreen(phone3, 100);
+            setPhonePositionOutsideScreen(phone4, 150);
         }
-        if (cam.position.x - (cam.viewportWidth / 2) > phone2.getPosition().x + flyingPhone2.getWidth()) {
-            phone2.getPosition().add(flyingPhone2.getWidth() * 4, 0);
-        }
-        if (cam.position.x - (cam.viewportWidth / 2) > phone3.getPosition().x + flyingPhone3.getWidth()) {
-            phone3.getPosition().add(flyingPhone3.getWidth() * 4, 0);
-        }
-        if (cam.position.x - (cam.viewportWidth / 2) > phone4.getPosition().x + flyingPhone4.getWidth()) {
-            phone4.getPosition().add(flyingPhone4.getWidth() * 4, 0);
-        }
+
+        updatePhone(phone1, flyingPhone1);
+        updatePhone(phone2, flyingPhone2);
+        updatePhone(phone3, flyingPhone3);
+        updatePhone(phone4, flyingPhone4);
+
         if (GameQuestion.answerGenerated) {
-
             handleUserAnswers();
         }
 
-       /* if (phones.collides(nerd.getBounds())) {
-            counter = -1;
-            saveScore();
-            gameManager.set(new MenueState(gameManager));
-        }*/
 
+
+    }
+    private void setPhonePositionOutsideScreen(AnswerPhone phone, int distanceFromFirstPhone){
+        phone.getPosition().set((cam.position.x + cam.viewportWidth/2)+distanceFromFirstPhone, phone.getY());
+    }
+
+    private void updatePhone(AnswerPhone phone, Texture flyingPhone){
+        if (cam.position.x - (cam.viewportWidth / 2) > phone.getPosition().x + flyingPhone.getWidth()) {
+            phone.getPosition().add(flyingPhone.getWidth()*4, 0);
+        }
+    }
+
+    private void setObstaclesPositionOutsideScreen(){
+        Obstacle firstObstacle = obstacles.get(0);
+        firstObstacle.reposition(cam.position.x + (cam.viewportWidth/2) + firstObstacle.getTexture().getWidth()*2);
+        for (int i = 1; i < obstacles.size; i++) {
+            int distance = generateNewDistance(score.getCurrentScorePoints());
+            Obstacle obstacle = obstacles.get(i);
+            Obstacle before = obstacles.get(i-1);
+            obstacle.reposition(before.getObstaclePos().x + (before.getTexture().getWidth()*2 + obstacle.getTexture().getWidth()*2 + distance));
+        }
 
     }
 
 
+
     private void updateObstacles() {
-        for (int i = 0; i < obstacles.size; i++) {
-            Obstacle obstacle = obstacles.get(i);
-            if (cam.position.x - (cam.viewportWidth / 2) > obstacle.getObstaclePos().x + obstacle.getTexture().getWidth()) {
-                obstacle.reposition(obstacle.getObstaclePos().x + ((obstacle.getTexture().getWidth()) + generateNewDistance() + 800 * 4));
-            }
-            if (obstacle.collides(nerd.getBounds()) && !obstacle.isCounted()) {
-                switch (obstacle.getType()) {
-                    case ConstantsGame.PIT_TYPE:
-                        saveScore();
-                        cam.setToOrtho(false, ConstantsGame.DEFAULT_CAM_WIDTH, ConstantsGame.DEFAULT_CAM_HEIGHT);
-                        gameManager.set(new GameOverState(gameManager));
 
-                        break;
-                    case ConstantsGame.WOMAN_TYPE:
-                        alreadChanged = false;
-                        obstacle.setCounted();
-                        System.out.println("Frau gecrashed" + obstacle.isCounted());
-                        Score.updateHeart(gameManager, true);
+        if(isQuestionPhase()){
+            setObstaclesPositionOutsideScreen();
+        } else {
+            for (int i = 0; i < obstacles.size; i++) {
+                Obstacle obstacle = obstacles.get(i);
+                Obstacle before = null;
+                if (i != 0) {
+                    before = obstacles.get(i - 1);
+                } else {
+                    before = obstacles.get(obstacles.size - 1);
+                }
 
+                if (cam.position.x - (cam.viewportWidth / 2) > obstacle.getObstaclePos().x + obstacle.getTexture().getWidth()) {
+                    int distance = generateNewDistance(score.getCurrentScorePoints());
+                    obstacle.reposition(before.getObstaclePos().x + (before.getTexture().getWidth() * 2 + obstacle.getTexture().getWidth() * 2 + distance));
+                    System.out.println("x-position obstacle: " + before.getObstaclePos().x + (before.getTexture().getWidth() * 2 + obstacle.getTexture().getWidth() * 2 + distance));
+                   // System.out.println("distance: " + distance);
+                    obstacle.resetCounted();
+                }
+                if (obstacle.collides(nerd.getBounds()) && !obstacle.isCounted()) {
+                    switch (obstacle.getType()) {
+                        case ConstantsGame.PIT_TYPE:
+                            alreadChanged = false;
+                            points = (int) score.getCurrentScorePoints();
+                            System.out.println("points are initialised");
+                            rank = highscoreListener.checkIfNewHighscore(points);
+                            System.out.println("rank is initialised");
+                            cam.setToOrtho(false, ConstantsGame.DEFAULT_CAM_WIDTH, ConstantsGame.DEFAULT_CAM_HEIGHT);
+                            gameManager.set(new GameOverState(gameManager));
+                            saveScore();
 
-                        break;
-                    default:
+                            break;
+                        case ConstantsGame.WOMAN_TYPE:
+                            alreadChanged = false;
+                            obstacle.setCounted();
+                            System.out.println("Frau gecrashed" + obstacle.isCounted());
+                            //currentState = CurrentState.Paused;
+                            //dialogListener.showMultipleChoiceDialog();
+                           // Score.updateHeart(gameManager, true);
+                            currentState = CurrentState.Paused;
+                            dialogListener.showMultipleChoiceDialog();
+                            //while (!dialogListener.getRightDialogAnswer() && !dialogListener.getWrongDialogAnswer()){}
+                           /* if (dialogListener.getWrongDialogAnswer() && !dialogListener.getWrongDialogAnswer()){
+                                Score.updateHeart(gameManager, true);
+                                System.out.println("Die Herzen sind aktuell");
+                            }*/
+                            System.out.println("Wurden die Herzen beachtet?");
+                            break;
+                        default:
+                    }
                 }
             }
         }
     }
 
 
-    private int generateNewDistance() {
-        int newInt = random.nextInt(300);
+    private int generateNewDistance(long scorePoints) {
+        int newInt;
+        if(scorePoints < ConstantsGame.SCORE_START){
+            newInt = random.nextInt(ConstantsGame.MAX_DISTANCE_LONG);
+        }else if (scorePoints < ConstantsGame.SCORE_START + ConstantsGame.SCORE_DIFFERENCE*2){
+            newInt = random.nextInt(ConstantsGame.MAX_DISTANCE_MEDIUM_LONG);
+        }else if(scorePoints < ConstantsGame.SCORE_START + ConstantsGame.SCORE_DIFFERENCE*4){
+            newInt = random.nextInt(ConstantsGame.MAX_DISTANCE_MEDIUM_SHORT);
+        }else {
+            newInt = random.nextInt(ConstantsGame.MAX_DISTANCE_SHORT);
+        }
 
-        if (newInt >= 150) {
+
+        if (newInt >= ConstantsGame.MIN_DISTANCE) {
+            System.out.println("scorePoint: "+scorePoints);
+            System.out.println("distance "+newInt);
             return newInt;
         } else {
-            return generateNewDistance();
+            return generateNewDistance(scorePoints);
         }
 
     }
 
-    @Override
-    //calculations for the render method
-    public void update(float dt) {
 
-
-        handleInput();
-        updateGround();
-        updateBG();
-        nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty(dt));
-        updatePhones();
-
-        phone1.update(dt);
-        phone2.update(dt);
-        phone3.update(dt);
-        phone4.update(dt);
-        score.updateScore(gameManager);
-        gameQuestion.updateQuestions();
-
-        //updateWomen();
-        //updatePits();
-        updateObstacles();
-
-
-        cam.position.x = nerd.getPosition().x + ConstantsGame.NERD_POSITION_OFFSET;
-        cam.update();
-    }
-
-    private float increaseDifficulty(float dt) {
-        long value = score.getCurrentScore();
-        if (value > 50) {
-            this.limitCounter = (int) ((8 / dt) * dt);
-            return 130;
+    private float increaseDifficulty() {
+        long value = score.getCurrentScorePoints();
+        if (value < ConstantsGame.SCORE_START) {
+            return ConstantsGame.NERD_MOVEMENT_DEFAULT;
         }
-        if (value > 100) {
-            this.limitCounter = (int) ((6 / dt) * dt);
-            return 160;
+        else if (value > ConstantsGame.SCORE_START && value <=ConstantsGame.SCORE_START + ConstantsGame.SCORE_DIFFERENCE){
+            return ConstantsGame.NERD_MOVEMENT_DEFAULT + ConstantsGame.VELOCITY_ADDED;
         }
-        if (value > 150) {
-            this.limitCounter = (int) ((4 / dt) * dt);
-            return 190;
+        else if (value > ConstantsGame.SCORE_START + ConstantsGame.SCORE_DIFFERENCE && value <= ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*2) ) {
+            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.VELOCITY_ADDED*2);
         }
-        if (value > 200) {
-            this.limitCounter = (int) ((2 / dt) * dt);
-            return 220;
+        else if (value > ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*2) && value <= ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*3)) {
+            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.VELOCITY_ADDED*3);
         }
-        if (value > 250) {
-            this.limitCounter = 1;
-            return 250;
+        else if (value > ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*3) && value <= ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*4)) {
+            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.VELOCITY_ADDED*4);
         }
-        if (value > 300) {
-            this.limitCounter = 1;
-            return 280;
-
-        } else {
-            this.limitCounter = (int) ((10 / dt) * dt);
+        else if (value > ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE *4) && value <= ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*5)) {
+            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.VELOCITY_ADDED*5);
+        }
+        else if (value > ConstantsGame.SCORE_START + (ConstantsGame.SCORE_DIFFERENCE*5)) {
+            return ConstantsGame.NERD_MOVEMENT_DEFAULT + (ConstantsGame.VELOCITY_ADDED*6);
+        }
+        else {
             return ConstantsGame.NERD_MOVEMENT_DEFAULT;
         }
     }
 
     private void saveScore() {
-        int rank = highscoreListener.checkIfNewHighscore((int) score.getCurrentScorePoints());
+
+        points =(int) score.getCurrentScorePoints();
+        System.out.println("scorepoints: "+score.getCurrentScorePoints());
+        rank = highscoreListener.checkIfNewHighscore(points);
         if (rank != -1) {
-            highscoreListener.saveHighscoreToDatabase(rank, (int) score.getCurrentScorePoints());
+            dialogListener.showHighscoreDialog();
+
+
+            while (!dialogListener.getDialogDone() ){
+                //do nothing / wait
+            }
+            String userName = dialogListener.getUserName();
+            System.out.println("username "+userName);
+            highscoreListener.saveHighscoreToDatabase(rank, points, userName);
+            System.out.println("highscore is uptodate");
         }
     }
 
+    private enum CurrentState{
+        Running, Paused
+    }
 
     @Override
     //draws things on the screen
@@ -389,28 +508,77 @@ public class PlayState extends State {
         spriteBatch.draw(background, bgPos2.x, ConstantsGame.BACKGROUND_Y_POS);
         spriteBatch.draw(sun, cam.position.x + ConstantsGame.SCORE_HEARTS_OFFSET_X, cam.position.y + ConstantsGame.SUN_Y_POS);
         score.renderScore(spriteBatch, cam);
-        gameQuestion.drawTasks(spriteBatch, cam);
+        if (isQuestionMode) {
+            gameQuestion.drawTasks(spriteBatch, cam);
+        }
         spriteBatch.draw(ground, groundPos1.x, groundPos1.y);
         spriteBatch.draw(ground, groundPos2.x, groundPos2.y);
         spriteBatch.draw(nerd.getTexture(), nerd.getX(), nerd.getY());
-        spriteBatch.draw(phone1.getTexture(), phone1.getX(), phone1.getY());
-        spriteBatch.draw(phone2.getTexture(), phone2.getX(), phone2.getY());
-        spriteBatch.draw(phone3.getTexture(), phone3.getX(), phone3.getY());
-        spriteBatch.draw(phone4.getTexture(), phone4.getX(), phone4.getY());
 
+        if (!phone1.isCounted() || !phone2.isCounted() || !phone3.isCounted() || !phone4.isCounted()) {
+            drawPhones(spriteBatch);
+        }
 
-        /*for (Pit pit : pits) {
-            spriteBatch.draw(pit.getPit(), pit.getPitPos().x, pit.getPitPos().y);
-        }
-        for (Woman woman : women) {
-            spriteBatch.draw(woman.getWoman(), woman.getWomanPos().x, woman.getWomanPos().y);
-        }
-        */
         for (Obstacle obstacle : obstacles) {
             spriteBatch.draw(obstacle.getTexture(), obstacle.getObstaclePos().x, obstacle.getObstaclePos().y);
         }
 
         spriteBatch.end();
+
+    }
+
+
+       /* switch (currentState){
+            case Running:
+                updatePlayState(spriteBatch);
+                break;
+            case Paused:
+                //dont Update
+                if(dialogListener.getRightDialogAnswer() || dialogListener.getWrongDialogAnswer()){
+                    currentState = CurrentState.Running;
+                }else{
+                    currentState = CurrentState.Paused;
+                }
+                break;
+            default:updatePlayState(spriteBatch);
+        }
+
+
+
+    }
+
+    public void updatePlayState(SpriteBatch spriteBatch){
+        spriteBatch.setProjectionMatrix(cam.combined);
+        spriteBatch.begin();
+        spriteBatch.draw(background, bgPos1.x, ConstantsGame.BACKGROUND_Y_POS);
+        spriteBatch.draw(background, bgPos2.x, ConstantsGame.BACKGROUND_Y_POS);
+        spriteBatch.draw(sun, cam.position.x + ConstantsGame.SCORE_HEARTS_OFFSET_X, cam.position.y + ConstantsGame.SUN_Y_POS);
+        score.renderScore(spriteBatch, cam);
+        if(isQuestionMode) {
+            gameQuestion.drawTasks(spriteBatch, cam);
+        }
+        spriteBatch.draw(ground, groundPos1.x, groundPos1.y);
+        spriteBatch.draw(ground, groundPos2.x, groundPos2.y);
+        spriteBatch.draw(nerd.getTexture(), nerd.getX(), nerd.getY());
+
+        if(!phone1.isCounted() || !phone2.isCounted() || !phone3.isCounted()|| !phone4.isCounted()) {
+            drawPhones(spriteBatch);
+        }
+
+        for (Obstacle obstacle : obstacles) {
+            spriteBatch.draw(obstacle.getTexture(), obstacle.getObstaclePos().x, obstacle.getObstaclePos().y);
+        }
+
+        spriteBatch.end();
+    }*/
+
+
+
+    private void drawPhones(SpriteBatch spriteBatch){
+        spriteBatch.draw(phone1.getTexture(), phone1.getX(), phone1.getY());
+        spriteBatch.draw(phone2.getTexture(), phone2.getX(), phone2.getY());
+        spriteBatch.draw(phone3.getTexture(), phone3.getX(), phone3.getY());
+        spriteBatch.draw(phone4.getTexture(), phone4.getX(), phone4.getY());
     }
 
     @Override
@@ -423,14 +591,7 @@ public class PlayState extends State {
         flyingPhone3.dispose();
         flyingPhone4.dispose();
         sun.dispose();
-        /*
-        for (Pit pit : pits) {
-            pit.dispose();
-        }
-        for (Woman woman : women) {
-            woman.dispose();
-        }
-        */
+
         for (Obstacle obstacle : obstacles) {
             obstacle.dispose();
         }
@@ -456,9 +617,22 @@ public class PlayState extends State {
                 texturePath = "bg_snow.png";
                 break;
             default:
-                texturePath = "";
+                texturePath = "bg_sunny.png";
         }
         return new Texture(texturePath);
     }
+
+    public static boolean isQuestionPhase(){
+        return isQuestionMode;
+    }
+
+    //switches between the QuestionPhase and the ObstaclePhase in the game
+    public static void togglePhase(){
+       isQuestionMode = !isQuestionMode;
+        timeSum = 0;
+    }
+
+
+
 }
 

@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import de.mi.ur.AndroidCommunication.DialogListener;
 import de.mi.ur.AndroidCommunication.HighscoreListener;
 import de.mi.ur.AndroidCommunication.MultipleChoiceListener;
 import de.mi.ur.AndroidCommunication.WeatherDataListener;
@@ -21,12 +22,14 @@ public class NerdyNumeralChallenge extends ApplicationAdapter {
 	private MultipleChoiceListener questionGenerator;
 	private WeatherDataListener weatherDataListener;
 	private HighscoreListener highscoreListener;
+	private DialogListener dialogListener;
 
 
-	public NerdyNumeralChallenge(MultipleChoiceListener multipleChoiceListener, WeatherDataListener weatherDataListener, HighscoreListener highscoreListener) {
+	public NerdyNumeralChallenge(MultipleChoiceListener multipleChoiceListener, WeatherDataListener weatherDataListener, HighscoreListener highscoreListener, DialogListener dialogListener) {
 		questionGenerator = multipleChoiceListener;
 		this.weatherDataListener = weatherDataListener;
 		this.highscoreListener = highscoreListener;
+		this.dialogListener = dialogListener;
 
 		currentWeather = weatherDataListener.getCurrentWeather();
 	}
@@ -34,7 +37,7 @@ public class NerdyNumeralChallenge extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		manager = new GameStateManager(questionGenerator, weatherDataListener, highscoreListener);
+		manager = new GameStateManager(questionGenerator, weatherDataListener, highscoreListener, dialogListener);
 		manager.push(new MenueState(manager));
 
 		Gdx.gl.glClearColor(0, 0, 0, 0);
