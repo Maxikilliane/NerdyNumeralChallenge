@@ -185,7 +185,8 @@ public class PlayState extends State {
                 phone1.setCounted();
                 System.out.println("RICHTIGE LÖSUNG");
                 //Score.updateHeart(gameManager);
-                Score.updateHeart(gameManager, false);
+                //Score.updateHeart(gameManager, false);
+                Score.refillHeart();
             } else if ((phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())) {
                 System.out.println("FALSCHE LÖSUNG");
                 phone2.setCounted();
@@ -199,7 +200,8 @@ public class PlayState extends State {
             if (phone2.collides(nerd.getBounds()) && !phone2.isCounted()) {
                 System.out.println("RICHTIGE LÖSUNG ANGESPRUNGEN");
                 phone2.setCounted();
-                Score.updateHeart(gameManager, false);
+                Score.refillHeart();
+                //Score.updateHeart(gameManager, false);
             } else if ((phone1.collides(nerd.getBounds()) && !phone1.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())) {
                 System.out.println("FALSCHE LÖSUNG");
                 phone1.setCounted();
@@ -213,7 +215,8 @@ public class PlayState extends State {
             if (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) {
                 System.out.println("RICHTIGE LÖSUNG ANGESPRUNGEN");
                 phone3.setCounted();
-                Score.updateHeart(gameManager, false);
+                Score.refillHeart();
+                //Score.updateHeart(gameManager, false);
             } else if ((phone1.collides(nerd.getBounds()) && !phone1.isCounted()) || (phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())) {
                 System.out.println("FALSCHE LÖSUNG");
                 phone1.setCounted();
@@ -227,13 +230,14 @@ public class PlayState extends State {
             if (phone4.collides(nerd.getBounds()) && !phone4.isCounted()) {
                 System.out.println("RICHTIGE LÖSUNG");
                 phone4.setCounted();
-                phone4.reactToCollision(gameManager);
+                Score.refillHeart();
+                //phone4.reactToCollision(gameManager);
             } else if ((phone1.collides(nerd.getBounds()) && !phone1.isCounted()) || (phone2.collides(nerd.getBounds()) && phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && phone3.isCounted())) {
                 System.out.println("FALSCHE LÖSUNG");
                 phone2.setCounted();
                 phone1.setCounted();
                 phone3.setCounted();
-                phone4.reactToWrongCollision(gameManager);
+                Score.updateHeart(gameManager, true);
             }
         }
 
@@ -313,10 +317,6 @@ public class PlayState extends State {
     //calculations for the render method
     public void update(float dt) {
 
-        for (int i = 0; i < obstacles.size; i++) {
-            Obstacle obstacle = obstacles.get(i);
-            System.out.println(obstacle.isCounted());
-        }
 
         handleInput();
         updateGround();
