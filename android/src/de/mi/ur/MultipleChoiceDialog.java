@@ -56,7 +56,7 @@ public class MultipleChoiceDialog extends DialogFragment {
         builder.setPositiveButton(Constants.DIALOG_POSITIVE_BUTTON, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                checkClickedAnswer();
+                //checkClickedAnswer();
                /* int checkedButtonId = radioGroup.getCheckedRadioButtonId();
                 if (checkedButtonId == -1) {
                     //Toast.makeText(getActivity(), "You lost a life", Toast.LENGTH_SHORT).show();
@@ -98,11 +98,16 @@ public class MultipleChoiceDialog extends DialogFragment {
         long currentTime = System.currentTimeMillis();
         long timeDifferenceInSeconds = (currentTime-startTime)/1000;
         if(timeDifferenceInSeconds >= Constants.DIALOG_SHOW_TIME_IN_SECONDS){
-            checkClickedAnswer();
             dismiss();
+
         }
     }
 
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        checkClickedAnswer();
+    }
 
     public boolean getRightAnswer() {
         return rightAnswer;
