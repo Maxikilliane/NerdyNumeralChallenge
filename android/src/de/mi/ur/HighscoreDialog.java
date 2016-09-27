@@ -23,7 +23,7 @@ public class HighscoreDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(Constants.HIGHSCORE_DIALOG_Title);
+        builder.setTitle(Constants.HIGHSCORE_DIALOG_TITLE_PART_ONE + AndroidLauncher.getCurrentUserName()+Constants.HIGHSCORE_DIALOG_TITLE_PART_TWO);
 
         editText = new EditText(getActivity());
         builder.setView(editText);
@@ -38,12 +38,14 @@ public class HighscoreDialog extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 userName = editText.getText().toString();
+                AndroidLauncher.setUserName(userName);
                 dialogDone = true;
             }
         });
         Dialog dialog = builder.create();
         return dialog;
     }
+
 
     public String getUserName() {
         return userName;

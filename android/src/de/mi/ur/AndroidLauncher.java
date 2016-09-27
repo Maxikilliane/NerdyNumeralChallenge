@@ -16,6 +16,7 @@ public class AndroidLauncher extends AndroidApplication implements MultipleChoic
 	private NNCDatabase db;
 	private HighscoreDialog highscoreDialog;
 	private MultipleChoiceDialog multipleChoiceDialog;
+	private static String userName = "Nerd";
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
@@ -61,7 +62,7 @@ public class AndroidLauncher extends AndroidApplication implements MultipleChoic
 
 	@Override
 	public String getUserName() {
-		return highscoreDialog.getUserName();
+		return userName;
 	}
 
 
@@ -84,5 +85,13 @@ public class AndroidLauncher extends AndroidApplication implements MultipleChoic
 	@Override
 	public boolean getWrongDialogAnswer() {
 		return multipleChoiceDialog.getWrongAnswer();
+	}
+
+	public static void setUserName(String name){
+		userName = name;
+	}
+
+	public static String getCurrentUserName(){
+		return userName;
 	}
 }

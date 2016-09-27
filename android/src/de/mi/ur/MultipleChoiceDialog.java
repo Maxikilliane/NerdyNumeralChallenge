@@ -56,21 +56,7 @@ public class MultipleChoiceDialog extends DialogFragment {
         builder.setPositiveButton(Constants.DIALOG_POSITIVE_BUTTON, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //checkClickedAnswer();
-               /* int checkedButtonId = radioGroup.getCheckedRadioButtonId();
-                if (checkedButtonId == -1) {
-                    //Toast.makeText(getActivity(), "You lost a life", Toast.LENGTH_SHORT).show();
-                    wrongAnswer = true;
-                } else {
-                    RadioButton checkedButton = (RadioButton) dialogView.findViewById(checkedButtonId);
-                    if (checkedButton.getText().toString().equals(currentQuestion.getRightAnswerString())) {
-                        //   Toast.makeText(getActivity(), "You saved yourself", Toast.LENGTH_SHORT).show();
-                        rightAnswer = true;
-                    } else {
-                        //   Toast.makeText(getActivity(), "You lost a life", Toast.LENGTH_SHORT).show();
-                        wrongAnswer = true;
-                    }
-                }*/
+                //if the user clicks on the ok button, the dialog disappears and the checkClickedAnswer method is performed -> onDismiss
             }
         });
         Dialog dialog = builder.create();
@@ -99,7 +85,6 @@ public class MultipleChoiceDialog extends DialogFragment {
         long timeDifferenceInSeconds = (currentTime-startTime)/1000;
         if(timeDifferenceInSeconds >= Constants.DIALOG_SHOW_TIME_IN_SECONDS){
             dismiss();
-
         }
     }
 
