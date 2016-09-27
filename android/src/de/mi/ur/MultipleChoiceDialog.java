@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RadioButton;
@@ -26,19 +27,19 @@ public class MultipleChoiceDialog extends DialogFragment {
     private TextView messageTextView, questionTextView;
     private RadioGroup radioGroup;
     private boolean rightAnswer, wrongAnswer;
+    private long startTime;
 
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        startTime = System.currentTimeMillis();
         rightAnswer = false;
         wrongAnswer = false;
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         currentQuestion = new MultipleChoiceQuestion(Constants.MULTIPLE_CHOICE_DIALOG_FIRST_NUMERAL_BASE, Constants.MULTIPLE_CHOICE_DIALOG_SECOND_NUMERAL_BASE, Constants.MULTIPLE_CHOICE_DIALOG_QUESTION_LENGTH);
         items = currentQuestion.generatePossAnswers();
-        System.out.println("Antworten" + items[0] + "a" + items[1]);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
         final View dialogView = inflater.inflate(R.layout.multiple_choice_dialog, null);
         messageTextView = (TextView) dialogView.findViewById(R.id.multiple_choice_dialog_message);
         messageTextView.setText(Constants.MULTIPLE_CHOICE_DIALOG_MESSAGE);
@@ -67,11 +68,19 @@ public class MultipleChoiceDialog extends DialogFragment {
                         wrongAnswer = true;
                     }
                 }
-                System.out.println("Der MultipleChoiceDialog ist beendet");
             }
         });
         Dialog dialog = builder.create();
         return dialog;
+    }
+
+    public long startTimer() {
+        startTime = System.currentTimeMillis();
+        return startTime;
+    }
+
+    private void stopTimeToDismissDialog(){
+
     }
 
 
