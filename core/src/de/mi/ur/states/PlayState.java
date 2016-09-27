@@ -34,7 +34,7 @@ public class PlayState extends State {
     private static Nerd nerd;
     private Texture background;
     public static Texture ground;
-    private Score score;
+    private static Score score;
     private Texture sun;
     private Random random;
     public static boolean sunny;
@@ -126,6 +126,10 @@ public class PlayState extends State {
         bgPos1 = new Vector2(cam.position.x - (cam.viewportWidth / 2), ConstantsGame.BACKGROUND_Y_POS);
         bgPos2 = new Vector2(cam.position.x - (cam.viewportWidth / 2) + background.getWidth(), ConstantsGame.BACKGROUND_Y_POS);
 
+    }
+
+    public static Score getScore (){
+        return score;
     }
 
     @Override
@@ -410,7 +414,7 @@ public class PlayState extends State {
                             System.out.println("rank is initialised");
                             cam.setToOrtho(false, ConstantsGame.DEFAULT_CAM_WIDTH, ConstantsGame.DEFAULT_CAM_HEIGHT);
                             gameManager.set(new GameOverState(gameManager));
-                            saveScore();
+                            //saveScore();
 
                             break;
                         case ConstantsGame.WOMAN_TYPE:
