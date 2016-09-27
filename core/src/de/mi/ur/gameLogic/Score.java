@@ -29,6 +29,7 @@ public class Score {
     private long startTime;
     private static int pointUpdate;
     private static Sound powerUp;
+    public static Sound gameOver;
     BitmapFont scoreFont;
     private static Sound fail;
     private static Texture heartEmpty;
@@ -39,8 +40,10 @@ public class Score {
     public Score() {
         hearts = new Array<Texture>();
         powerUp = Gdx.audio.newSound(Gdx.files.internal("powerupsfx.ogg"));
+
         state = 4;
         fail = Gdx.audio.newSound(Gdx.files.internal("failsfx.ogg"));
+        gameOver = Gdx.audio.newSound(Gdx.files.internal("gameoversfx.ogg"));
         currentScore = "Score: 0";
         currentBasicScorePoints = 0;
         scoreFont = new BitmapFont(Gdx.files.internal("goodTimesNew.fnt"));
@@ -139,6 +142,8 @@ public class Score {
         if (state == ConstantsGame.HEARTSTATE_ALL_HEARTS_FULL) {
             changeHeart(dead, 0);
         } else if (state == ConstantsGame.HEARTSTATE_NO_HEART) {
+            gameOver.play(0.5f);
+
             manager.set(new GameOverState(manager));
         } else if (state == ConstantsGame.HEARTSTATE_1_HEART) {
             changeHeart(dead, 2);
@@ -189,6 +194,17 @@ public class Score {
 
         PlayState.hasHit = false;
 
+
+    }
+
+    public void dispose() {
+        gameOver.dispose();
+        powerUp.dispose();
+        fail.dispose();
+        for (Texture heart : hearts) {
+            heart.dispose();
+        }
+        scoreFont.dispose();
 
     }
 

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import de.mi.ur.AndroidCommunication.MultipleChoiceListener;
 import de.mi.ur.ConstantsGame;
@@ -43,21 +44,17 @@ public class GameQuestion {
 
     private boolean counted;
 
+    private Random random;
+    private boolean isBinary;
+
 
     //evtl Enum übergeben ob Hex oder Binär... Random-Gen...
     public GameQuestion(MultipleChoiceListener multipleChoiceGenerator) {
+        random = new Random();
 
         counted = false;
         this.multipleChoiceGenerator = multipleChoiceGenerator;
 
-        //binär oder Hex-Abfrage
-        if (true) {
-            numeral1Base = 2;
-            maxDigits = 6;
-        } else {
-            numeral1Base = 16;
-            maxDigits = 2;
-        }
 
 
         score = new Score();
@@ -112,25 +109,33 @@ public class GameQuestion {
         return 0;
     }
 
-    /*
-        Timer.schedule(new Timer.Task() {
-            public void run() {
-                PlayState.togglePhase();
-                System.out.println("Vulnerable again");
-                System.out.println("question stadium: "+PlayState.isQuestionPhase());
-            }
-        }, 2, 20);
-        */
+    private void binaryOrHex() {
+        isBinary = random.nextBoolean();
+
+        //binär oder Hex-Abfrage
+        if (isBinary) {
+            numeral1Base = 2;
+            maxDigits = 6;
+        } else {
+            numeral1Base = 16;
+            maxDigits = 2;
+        }
+
+
+    }
+
     public void updateQuestions() {
+        binaryOrHex();
 
-        //System.out.println("question counted: "+counted);
-
-        //System.out.println("question stadium: "+PlayState.isQuestionPhase());
         if (PlayState.isQuestionPhase() && !isCounted()) {
 
-            question = multipleChoiceGenerator.getQuestionInfos(2, 10, 6, 0);
-            toSolve = question[ConstantsGame.QUESTION_POS] + "?";
+            question = multipleChoiceGenerator.getQuestionInfos(numeral1Base, numeral2Base, maxDigits, 0);
+            if (isBinary) {
 
+                toSolve = question[ConstantsGame.QUESTION_POS] + " (2)";
+            } else {
+                toSolve = question[ConstantsGame.QUESTION_POS] + " (16)";
+            }
             possAnswers = generatePossAnswers();
             possAnswer1 = possAnswers.get(0);
             possAnswer2 = possAnswers.get(1);
@@ -140,14 +145,10 @@ public class GameQuestion {
             answerGenerated = true;
             AnswerPhone.resetCounted();
 
-            // System.out.println("die richtige Lösung ist an Position: " + getRightAnswer());
 
-            for (String answer : possAnswers) {
-                //    System.out.println("Antworten 2: " + answer);
-            }
+
             setCounted();
-            //
-            //System.out.println("question counted: "+counted);
+
 
         }
     }
