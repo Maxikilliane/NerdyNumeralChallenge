@@ -30,10 +30,13 @@
 
     //Settings
     <string name="settings_sound_textView">Sounds</string>
-    <string name="settings_soundEffects">Soundeffekte</string>
+    <string name="settings_sound_effects">Soundeffekte</string>
     <string name="settings_music">Hintergrundmusik</string>
-    <string name="settings_pushNotifications">Push-Benachrichtigungen</string>
+    <string name="settings_push_notifications">Push-Benachrichtigungen</string>
     <string name="settings_push_activated">aktivieren</string>
+    <string name="settings_general">Allgemein</string>
+    <string name="settings_user_name">Benutzername</string>
+    <string name="settings_title">Einstellungen</string>
 
     //gameMain
     <string name="game_start">Start!</string>

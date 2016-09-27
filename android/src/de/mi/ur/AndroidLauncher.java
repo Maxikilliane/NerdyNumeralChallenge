@@ -1,10 +1,13 @@
 package de.mi.ur;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
+import de.mi.ur.Activities.SettingsActivity;
 import de.mi.ur.AndroidCommunication.DialogListener;
 import de.mi.ur.AndroidCommunication.MultipleChoiceListener;
 import de.mi.ur.AndroidCommunication.WeatherDataListener;
@@ -16,7 +19,7 @@ public class AndroidLauncher extends AndroidApplication implements MultipleChoic
 	private NNCDatabase db;
 	private HighscoreDialog highscoreDialog;
 	private MultipleChoiceDialog multipleChoiceDialog;
-	private static String userName = "Nerd";
+	//private static String userName = "Nerd";
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
@@ -62,7 +65,7 @@ public class AndroidLauncher extends AndroidApplication implements MultipleChoic
 
 	@Override
 	public String getUserName() {
-		return userName;
+		return highscoreDialog.getUserName();
 	}
 
 
@@ -87,11 +90,13 @@ public class AndroidLauncher extends AndroidApplication implements MultipleChoic
 		return multipleChoiceDialog.getWrongAnswer();
 	}
 
-	public static void setUserName(String name){
+	/*public static void setUserName(String name){
 		userName = name;
-	}
+	}*/
 
-	public static String getCurrentUserName(){
+	/*public static String getCurrentUserName(){
+		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+		String userName = sharedPref.getString("pref_user_name", "");
 		return userName;
-	}
+	}*/
 }

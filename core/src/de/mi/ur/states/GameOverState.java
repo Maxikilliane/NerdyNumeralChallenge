@@ -24,6 +24,8 @@ public class GameOverState extends State {
     private int points;
     private Score score;
 
+
+
     public GameOverState(GameStateManager gameManager) {
         super(gameManager);
 
@@ -47,6 +49,7 @@ public class GameOverState extends State {
             while (!dialogListener.getDialogDone()) {
                 //do nothing / wait
             }
+
             String userName = dialogListener.getUserName();
             System.out.println("username " + userName);
             highscoreListener.saveHighscoreToDatabase(rank, points, userName);

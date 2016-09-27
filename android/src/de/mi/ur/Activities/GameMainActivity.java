@@ -12,6 +12,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -55,6 +57,25 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
         });
     }
 
+    /*
+     * This method shows the menu (only settings icon here) in the toolbar
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_settings_menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    /*
+     * This method is the onClickListener and onClick-Method for the menu-item (settings icon)
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent i = new Intent(GameMainActivity.this, SettingsActivity.class);
+        startActivity(i);
+        return super.onOptionsItemSelected(item);
+    }
     private void setupUI() {
         buttonStartGame = (Button) findViewById(R.id.game_start_button);
         buttonStartGame.setOnClickListener(this);
