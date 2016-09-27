@@ -23,18 +23,18 @@ public class HighscoreDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.highscore_dialog_title);
+        builder.setTitle(Constants.HIGHSCORE_DIALOG_Title);
 
         editText = new EditText(getActivity());
         builder.setView(editText);
 
-        builder.setNegativeButton(R.string.highscore_dialog_negative_button, new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(Constants.DIALOG_NEGATIVE_BUTTON, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialogDone = true;
             }
         });
-        builder.setPositiveButton(R.string.highscore_dialog_positive_button, new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(Constants.DIALOG_POSITIVE_BUTTON, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 userName = editText.getText().toString();

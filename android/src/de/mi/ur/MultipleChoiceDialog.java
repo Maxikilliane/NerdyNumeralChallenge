@@ -23,7 +23,7 @@ public class MultipleChoiceDialog extends DialogFragment {
 
     private MultipleChoiceQuestion currentQuestion;
     private String[] items;
-    private TextView textView1, textView2;
+    private TextView messageTextView, questionTextView;
     private RadioGroup radioGroup;
     private boolean rightAnswer, wrongAnswer;
 
@@ -34,53 +34,42 @@ public class MultipleChoiceDialog extends DialogFragment {
         wrongAnswer = false;
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        currentQuestion = new MultipleChoiceQuestion(2, 10, 6);
+        currentQuestion = new MultipleChoiceQuestion(Constants.MULTIPLE_CHOICE_DIALOG_FIRST_NUMERAL_BASE, Constants.MULTIPLE_CHOICE_DIALOG_SECOND_NUMERAL_BASE, Constants.MULTIPLE_CHOICE_DIALOG_QUESTION_LENGTH);
         items = currentQuestion.generatePossAnswers();
         System.out.println("Antworten" + items[0] + "a" + items[1]);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        //builder.setTitle("Rette dein Leben indem du für die gegebene Zahl im Binärsystem die richtige Entsprechung im Dezimalsystem auswählst.");
 
         final View dialogView = inflater.inflate(R.layout.multiple_choice_dialog, null);
-        textView1 = (TextView) dialogView.findViewById(R.id.multiple_choice_dialog_message);
-        textView1.setText("Rette dein Leben indem du für die gegebene Zahl im Binärsystem die richtige Entsprechung im Dezimalsystem auswählst.");
-        textView2 = (TextView) dialogView.findViewById(R.id.multiple_choice_dialog_question);
-        textView2.setText(currentQuestion.getQuestion());
+        messageTextView = (TextView) dialogView.findViewById(R.id.multiple_choice_dialog_message);
+        messageTextView.setText(Constants.MULTIPLE_CHOICE_DIALOG_MESSAGE);
+        questionTextView = (TextView) dialogView.findViewById(R.id.multiple_choice_dialog_question);
+        questionTextView.setText(currentQuestion.getQuestion());
         radioGroup = (RadioGroup) dialogView.findViewById(R.id.multiple_choices_dialog);
         for (int i = 0; i < radioGroup.getChildCount(); i++) {
             RadioButton button = ((RadioButton) radioGroup.getChildAt(i));
             button.setText(items[i]);
         }
         builder.setView(dialogView);
-
-       /* builder.setNegativeButton("Die", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getActivity(), "You lost a life", Toast.LENGTH_SHORT).show();
-               wrongAnswer = true;
-                System.out.println("Der MultipleChoiceDialog ist beendet");
-            }
-        });*/
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(Constants.DIALOG_POSITIVE_BUTTON, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 int checkedButtonId = radioGroup.getCheckedRadioButtonId();
                 if (checkedButtonId == -1) {
-                    Toast.makeText(getActivity(), "You lost a life", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "You lost a life", Toast.LENGTH_SHORT).show();
                     wrongAnswer = true;
                 } else {
                     RadioButton checkedButton = (RadioButton) dialogView.findViewById(checkedButtonId);
                     if (checkedButton.getText().toString().equals(currentQuestion.getRightAnswerString())) {
-                        Toast.makeText(getActivity(), "You saved yourself", Toast.LENGTH_SHORT).show();
+                        //   Toast.makeText(getActivity(), "You saved yourself", Toast.LENGTH_SHORT).show();
                         rightAnswer = true;
                     } else {
-                        Toast.makeText(getActivity(), "You lost a life", Toast.LENGTH_SHORT).show();
+                        //   Toast.makeText(getActivity(), "You lost a life", Toast.LENGTH_SHORT).show();
                         wrongAnswer = true;
                     }
                 }
                 System.out.println("Der MultipleChoiceDialog ist beendet");
             }
         });
-
         Dialog dialog = builder.create();
         return dialog;
     }
