@@ -166,7 +166,7 @@ public class PlayState extends State {
                 updatePlayState(dt);
                 break;
             case Paused:
-                //dont Update
+                //don't Update
 
                 if (dialogListener.getWrongDialogAnswer()) {
                     Score.updateHeart(gameManager, true);

@@ -41,5 +41,8 @@
     // highscore
     <dimen name="list_text_size">20sp</dimen>
 
+    //MultiplechoiceDialog
+    <dimen name="multiple_choice_dialog_text_size">20sp</dimen>
+
 
 </resources>
