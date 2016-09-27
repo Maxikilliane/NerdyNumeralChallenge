@@ -88,7 +88,7 @@ public class PlayState extends State {
         } else {
             ground = new Texture("ground_anton.png");
         }
-        ground = new Texture("ground_anton.png");
+
         flyingPhone1 = new Texture("phone_answer_new_1.png");
         flyingPhone2 = new Texture("phone_different_animation_2.png");
         flyingPhone3 = new Texture("phone_answer_new_3.png");
