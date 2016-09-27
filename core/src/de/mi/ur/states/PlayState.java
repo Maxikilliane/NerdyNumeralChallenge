@@ -409,6 +409,7 @@ public class PlayState extends State {
                             rank = highscoreListener.checkIfNewHighscore(points);
                             System.out.println("rank is initialised");
                             cam.setToOrtho(false, ConstantsGame.DEFAULT_CAM_WIDTH, ConstantsGame.DEFAULT_CAM_HEIGHT);
+                            Score.gameOver.play();
                             gameManager.set(new GameOverState(gameManager));
                             saveScore();
 
@@ -605,6 +606,7 @@ public class PlayState extends State {
         for (Obstacle obstacle : obstacles) {
             obstacle.dispose();
         }
+        score.dispose();
 
 
     }
