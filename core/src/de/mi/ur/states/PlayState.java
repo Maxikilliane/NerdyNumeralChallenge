@@ -167,14 +167,12 @@ public class PlayState extends State {
                 break;
             case Paused:
                 //don't Update
-
+                dialogListener.dismissDialog();
                 if (dialogListener.getWrongDialogAnswer()) {
                     Score.updateHeart(gameManager, true);
-                    System.out.println("Die Herzen sind aktuell");
                 }
                 if (dialogListener.getRightDialogAnswer() || dialogListener.getWrongDialogAnswer()) {
                     currentState = CurrentState.Running;
-                    System.out.println("Das spiel läuft wieder");
                 } else {
                     currentState = CurrentState.Paused;
                 }
@@ -427,6 +425,7 @@ public class PlayState extends State {
                             // Score.updateHeart(gameManager, true);
                             currentState = CurrentState.Paused;
                             dialogListener.showMultipleChoiceDialog();
+
                             //while (!dialogListener.getRightDialogAnswer() && !dialogListener.getWrongDialogAnswer()){}
                            /* if (dialogListener.getWrongDialogAnswer() && !dialogListener.getWrongDialogAnswer()){
                                 Score.updateHeart(gameManager, true);

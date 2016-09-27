@@ -28,6 +28,8 @@ public class MultipleChoiceDialog extends DialogFragment {
     private RadioGroup radioGroup;
     private boolean rightAnswer, wrongAnswer;
     private long startTime;
+    private LayoutInflater inflater;
+    private View dialogView;// = inflater.inflate(R.layout.multiple_choice_dialog, null);
 
 
     @Override
@@ -36,11 +38,11 @@ public class MultipleChoiceDialog extends DialogFragment {
         rightAnswer = false;
         wrongAnswer = false;
 
-        LayoutInflater inflater = getActivity().getLayoutInflater();
+        inflater = getActivity().getLayoutInflater();
         currentQuestion = new MultipleChoiceQuestion(Constants.MULTIPLE_CHOICE_DIALOG_FIRST_NUMERAL_BASE, Constants.MULTIPLE_CHOICE_DIALOG_SECOND_NUMERAL_BASE, Constants.MULTIPLE_CHOICE_DIALOG_QUESTION_LENGTH);
         items = currentQuestion.generatePossAnswers();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        final View dialogView = inflater.inflate(R.layout.multiple_choice_dialog, null);
+        dialogView = inflater.inflate(R.layout.multiple_choice_dialog, null);
         messageTextView = (TextView) dialogView.findViewById(R.id.multiple_choice_dialog_message);
         messageTextView.setText(Constants.MULTIPLE_CHOICE_DIALOG_MESSAGE);
         questionTextView = (TextView) dialogView.findViewById(R.id.multiple_choice_dialog_question);
@@ -54,7 +56,8 @@ public class MultipleChoiceDialog extends DialogFragment {
         builder.setPositiveButton(Constants.DIALOG_POSITIVE_BUTTON, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                int checkedButtonId = radioGroup.getCheckedRadioButtonId();
+                checkClickedAnswer();
+               /* int checkedButtonId = radioGroup.getCheckedRadioButtonId();
                 if (checkedButtonId == -1) {
                     //Toast.makeText(getActivity(), "You lost a life", Toast.LENGTH_SHORT).show();
                     wrongAnswer = true;
@@ -67,20 +70,37 @@ public class MultipleChoiceDialog extends DialogFragment {
                         //   Toast.makeText(getActivity(), "You lost a life", Toast.LENGTH_SHORT).show();
                         wrongAnswer = true;
                     }
-                }
+                }*/
             }
         });
         Dialog dialog = builder.create();
         return dialog;
     }
 
-    public long startTimer() {
-        startTime = System.currentTimeMillis();
-        return startTime;
+    private void checkClickedAnswer (){
+        int checkedButtonId = radioGroup.getCheckedRadioButtonId();
+        if (checkedButtonId == -1) {
+            //Toast.makeText(getActivity(), "You lost a life", Toast.LENGTH_SHORT).show();
+            wrongAnswer = true;
+        } else {
+            RadioButton checkedButton = (RadioButton) dialogView.findViewById(checkedButtonId);
+            if (checkedButton.getText().toString().equals(currentQuestion.getRightAnswerString())) {
+                //   Toast.makeText(getActivity(), "You saved yourself", Toast.LENGTH_SHORT).show();
+                rightAnswer = true;
+            } else {
+                //   Toast.makeText(getActivity(), "You lost a life", Toast.LENGTH_SHORT).show();
+                wrongAnswer = true;
+            }
+        }
     }
 
-    private void stopTimeToDismissDialog(){
-
+    public void dismissDialog(){
+        long currentTime = System.currentTimeMillis();
+        long timeDifferenceInSeconds = (currentTime-startTime)/1000;
+        if(timeDifferenceInSeconds >= Constants.DIALOG_SHOW_TIME_IN_SECONDS){
+            checkClickedAnswer();
+            dismiss();
+        }
     }
 
 

@@ -71,6 +71,10 @@ public class AndroidLauncher extends AndroidApplication implements MultipleChoic
 		multipleChoiceDialog.show(getFragmentManager(), "My MultipleChoiceDialog");
 	}
 
+	@Override
+	public void dismissDialog() {
+		multipleChoiceDialog.dismissDialog();
+	}
 
 	@Override
 	public boolean getRightDialogAnswer() {
