@@ -343,6 +343,11 @@
     <string name="no_highscore_notice">Derzeit sind keine Highscores vorhanden!</string>
     <string name="highscore_activity_content_description_image">trophy</string>
 
+    //HighscoreDialog
+    <string name="highscore_dialog_title">Möchtest du einen Benutzernamen eingeben?</string>
+    <!--<string name="highscore_dialog_title">Would you like to enter a new username?</string>-->
+    <string name="highscore_dialog_negative_button">No</string>
+    <string name="highscore_dialog_positive_button">Enter</string>
 
 
 

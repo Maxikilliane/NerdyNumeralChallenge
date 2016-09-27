@@ -42,7 +42,8 @@
     <dimen name="list_text_size">20sp</dimen>
 
     //MultiplechoiceDialog
-    <dimen name="multiple_choice_dialog_text_size">20sp</dimen>
+    <dimen name="multiple_choice_dialog_explanation_text_size">18sp</dimen>
+    <dimen name="multiple_choice_dialog_exercise_text_size">20sp</dimen>
 
 
 </resources>
