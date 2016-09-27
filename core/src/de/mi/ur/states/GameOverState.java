@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import de.mi.ur.AndroidCommunication.DialogListener;
+import de.mi.ur.AndroidCommunication.HighscoreListener;
 import de.mi.ur.ConstantsGame;
 import de.mi.ur.gameLogic.Score;
 
@@ -15,6 +17,12 @@ public class GameOverState extends State {
 
     private Texture gameOver;
 
+    private HighscoreListener highscoreListener;
+    private DialogListener dialogListener;
+
+    private int rank;
+    private int points;
+    private Score score;
 
     public GameOverState(GameStateManager gameManager) {
         super(gameManager);
@@ -25,6 +33,26 @@ public class GameOverState extends State {
         cam.setToOrtho(false, ConstantsGame.SCREEN_WIDTH, ConstantsGame.SCREEN_HEIGHT);
 
         gameOver = new Texture("game_over.png");
+
+        this.highscoreListener = gameManager.getHighscoreListener();
+        this.dialogListener = gameManager.getDialogListener();
+        this.score = PlayState.getScore();
+        points = (int) score.getCurrentScorePoints();
+        System.out.println("scorepoints: " + score.getCurrentScorePoints());
+        rank = highscoreListener.checkIfNewHighscore(points);
+        if (rank != -1) {
+            dialogListener.showHighscoreDialog();
+
+
+            while (!dialogListener.getDialogDone()) {
+                //do nothing / wait
+            }
+            String userName = dialogListener.getUserName();
+            System.out.println("username " + userName);
+            highscoreListener.saveHighscoreToDatabase(rank, points, userName);
+            System.out.println("highscore is uptodate");
+        }
+
 
 
     }
