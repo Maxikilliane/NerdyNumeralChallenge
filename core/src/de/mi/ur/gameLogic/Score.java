@@ -32,7 +32,11 @@ public class Score {
     public static Sound gameOver;
     BitmapFont scoreFont;
     private static Sound fail;
+    private String pointUpdateString;
+    private BitmapFont updateFont;
     private static Texture heartEmpty;
+
+    private static boolean pointsAdded;
 
 
     public static int state;
@@ -50,6 +54,7 @@ public class Score {
         heartFilled = new Texture("heart_filled.png");
         heartEmpty = new Texture("heart_empty.png");
         scoreFont.setUseIntegerPositions(false);
+        updateFont = new BitmapFont(Gdx.files.internal("cantarrell4question.fnt"));
 
 
 
@@ -172,6 +177,8 @@ public class Score {
         System.out.println("State of hearts: " + state);
         if (state == ConstantsGame.HEARTSTATE_ALL_HEARTS_FULL) {
             addPoints();
+            pointsAdded = true;
+
         } else if (state == ConstantsGame.HEARTSTATE_NO_HEART) {
             changeHeart(false, 2);
         } else if (state == ConstantsGame.HEARTSTATE_1_HEART) {
@@ -207,6 +214,16 @@ public class Score {
         }
 
 
+    }
+
+    public void showPointUpdate(SpriteBatch batch, OrthographicCamera cam) {
+        if (pointsAdded) {
+            pointUpdateString = "+10 Points!";
+            updateFont.draw(batch, pointUpdateString, cam.position.x + ConstantsGame.SCORE_OFFSET_X, cam.position.y + ConstantsGame.SCORE_OFFSET_Y);
+
+            //updateFont.dispose();
+        }
+        pointsAdded = false;
     }
 
     public void dispose() {
