@@ -13,8 +13,12 @@ import de.mi.ur.AndroidCommunication.WeatherDataListener;
  * Created by maxiwindl on 31.07.16.
  */
 public class GameStateManager {
-    //manages the states of the game. E.g. the player hits pause and a new state is put ontop. WHen the player presses
-    //play again the pause state gets removed and the playstate is back.
+    /**
+     * manages the states of the game. It does that with a stack. E.g. the player hits a pit and a new state is put ontop. When the player taps again
+     * the playState restarts and the gameOverState gets removed.
+     */
+
+
     private Stack<State> states;
     private MultipleChoiceListener multipleChoiceListener;
     private WeatherDataListener weatherDataListener;
@@ -44,9 +48,12 @@ public class GameStateManager {
 
     }
 
+    //only the state on top of the stack needs to be updatet, so it does first peek and then update
     public void update (float flt) {
         states.peek().update(flt);
     }
+
+    //same functionality with the peek() as the update method
     public void render (SpriteBatch batch) {
         states.peek().render(batch);
     }

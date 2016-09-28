@@ -14,7 +14,6 @@ import de.mi.ur.states.MenueState;
 
 public class NerdyNumeralChallenge extends ApplicationAdapter {
 
-
 	private SpriteBatch batch;
 	private GameStateManager manager;
 
@@ -37,15 +36,17 @@ public class NerdyNumeralChallenge extends ApplicationAdapter {
 	
 	@Override
 	public void create () {
+		//the spriteBatch is only created once in this central place, because it's such a big and heavy file.
 		batch = new SpriteBatch();
 		manager = new GameStateManager(questionGenerator, weatherDataListener, highscoreListener, dialogListener);
 		manager.push(new MenueState(manager));
-
+		//moved up here from the render-method, because it doesn't need to be happening all the time
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 	}
 
 	@Override
 	public void render () {
+		//wipes the screen clean
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
      	manager.update(Gdx.graphics.getDeltaTime());
 		manager.render(batch);

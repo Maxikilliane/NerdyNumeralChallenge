@@ -66,9 +66,7 @@ public class Score {
         }
     }
 
-    public static Texture getHeartFilled() {
-        return heartFilled;
-    }
+
 
     public void renderScore(SpriteBatch batch, OrthographicCamera cam) {
         for (int i = 0; i < 3; i++) {
@@ -137,6 +135,11 @@ public class Score {
 
         }
 
+    /**
+     * this method is called, whenever the nerd loses one life. The method checks in which state the hearts are, e.g.
+     * which heart has to be set to an empty shape. To that it also plays the "fail" soundeffect.
+     */
+
 
     public static void updateHeart(GameStateManager manager, boolean dead) {
         state = getStateOfHearts();
@@ -162,6 +165,12 @@ public class Score {
 
 
     }
+
+    /**
+     * this method does nearly the same as the updateHeart method, but is called when the nerd regains a heart.
+     * To that it plays the "power up" soundeffect.
+     */
+
 
     public static void refillHeart() {
         state = getStateOfHearts();
@@ -189,6 +198,11 @@ public class Score {
         currentBasicScorePoints += 10;
     }
 
+    /**
+     * this method updates the score shown on the game in the top left corner. Per second the player gets
+     * one point.
+     * @param manager
+     */
     public void updateScore(GameStateManager manager) {
         if (getTimeElapsed() < 2) {
             currentScore = "0" + getTimeElapsed() + "   Point";
@@ -199,8 +213,6 @@ public class Score {
         } else {
             currentScore = "" + (getTimeElapsed() + currentBasicScorePoints) + "   Points";
         }
-
-        PlayState.hasHit = false;
 
 
     }

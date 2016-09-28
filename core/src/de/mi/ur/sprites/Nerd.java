@@ -70,7 +70,7 @@ public class Nerd {
                 velocity.add(0, gravity, 0);
             }
         }
-        //mulitpliziert alles mit delta-time
+        //multiplies all the values with the delta time.
         velocity.scl(dt);
         position.add(movement * dt, velocity.y, 0);
         if (position.y <= ground.getHeight() + ConstantsGame.GROUND_Y_OFFSET) {

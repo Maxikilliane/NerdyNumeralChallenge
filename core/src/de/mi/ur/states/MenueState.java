@@ -46,6 +46,9 @@ public class MenueState extends State {
     @Override
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.setProjectionMatrix(cam.combined);
+        /** the spriteBatch needs to be opened and closed before and after using. It's like a box:
+         * it gets opened, everything is put into it, and then it gets closed again.
+         */
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, ConstantsGame.SCREEN_WIDTH, ConstantsGame.SCREEN_HEIGHT);
 
