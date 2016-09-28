@@ -156,16 +156,16 @@ public class GameQuestion {
 
     public void drawTasks(SpriteBatch batch, OrthographicCamera cam) {
 
-        toSolveBitmap.draw(batch, toSolve, cam.position.x - 110, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
+        toSolveBitmap.draw(batch, toSolve, cam.position.x + ConstantsGame.QUESTION_TOSOLVE_OFFSET, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
 
 
-        possAnswer1Bitmap.draw(batch, "1:" + possAnswer1, cam.position.x - 40, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
+        possAnswer1Bitmap.draw(batch, "1:" + possAnswer1, cam.position.x + ConstantsGame.QUESTION_POSSANS_1_OFFSET, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
 
         possAnswer2Bitmap.draw(batch, "2:" + possAnswer2, cam.position.x, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
 
-        possAnswer3Bitmap.draw(batch, "3:" + possAnswer3, cam.position.x + 40, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
+        possAnswer3Bitmap.draw(batch, "3:" + possAnswer3, cam.position.x + ConstantsGame.QUESTION_POSSANS_3_OFFSET, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
 
-        possAnswer4Bitmap.draw(batch, "4:" + possAnswer4, cam.position.x + 80, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
+        possAnswer4Bitmap.draw(batch, "4:" + possAnswer4, cam.position.x + ConstantsGame.QUESTION_POSSANS_4_OFFSET, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
 
 
     }

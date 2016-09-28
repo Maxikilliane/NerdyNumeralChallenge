@@ -128,7 +128,7 @@ public class PlayState extends State {
 
     }
 
-    public static Score getScore (){
+    public static Score getScore() {
         return score;
     }
 
@@ -166,7 +166,7 @@ public class PlayState extends State {
                 updatePlayState(dt);
                 break;
             case Paused:
-                //don't Update
+                //dont Update
 
                 if (dialogListener.getWrongDialogAnswer()) {
                     Score.updateHeart(gameManager, true);
@@ -415,7 +415,7 @@ public class PlayState extends State {
                             cam.setToOrtho(false, ConstantsGame.DEFAULT_CAM_WIDTH, ConstantsGame.DEFAULT_CAM_HEIGHT);
                             Score.gameOver.play();
                             gameManager.set(new GameOverState(gameManager));
-                            //saveScore();
+                            saveScore();
 
                             break;
                         case ConstantsGame.WOMAN_TYPE:
