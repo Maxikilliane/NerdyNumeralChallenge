@@ -18,6 +18,7 @@ public abstract class State {
     protected State (GameStateManager gameManager) {
         this.gameManager = gameManager;
         cam = new OrthographicCamera();
+        //baüsfpjaf
         //magic numbers vermeiden später
         cam.setToOrtho(false, ConstantsGame.DEFAULT_CAM_WIDTH, ConstantsGame.DEFAULT_CAM_HEIGHT);
     }
