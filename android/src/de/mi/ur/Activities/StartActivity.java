@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -47,6 +49,26 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         getSupportActionBar().setLogo(R.drawable.ic_logo);
         //getSupportActionBar().setIcon(R.drawable.settings_actionbar_icon);
 
+    }
+
+    /*
+     * This method shows the menu (only settings icon here) in the toolbar
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_settings_menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    /*
+     * This method is the onClickListener and onClick-Method for the menu-item (settings icon)
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent i = new Intent(StartActivity.this, SettingsActivity.class);
+        startActivity(i);
+        return super.onOptionsItemSelected(item);
     }
 
     /*

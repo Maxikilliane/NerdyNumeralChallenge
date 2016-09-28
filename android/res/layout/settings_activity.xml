@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
-            android:text="@string/settings_soundEffects"
+            android:text="@string/settings_sound_effects"
             android:textColor="@color/text_white"
             android:textSize="@dimen/text_settings_size" />
 
@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_bottom"
         android:layout_marginTop="@dimen/text_settings_size"
-        android:text="@string/settings_pushNotifications"
+        android:text="@string/settings_push_notifications"
         android:textColor="@color/blue_grey"
         android:textSize="@dimen/text_general_size" />
 

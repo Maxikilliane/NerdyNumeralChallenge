@@ -88,7 +88,7 @@ public class PlayState extends State {
         } else {
             ground = new Texture("ground_anton.png");
         }
-
+        ground = new Texture("ground_anton.png");
         flyingPhone1 = new Texture("phone_answer_new_1.png");
         flyingPhone2 = new Texture("phone_different_animation_2.png");
         flyingPhone3 = new Texture("phone_answer_new_3.png");
@@ -128,7 +128,7 @@ public class PlayState extends State {
 
     }
 
-    public static Score getScore() {
+    public static Score getScore (){
         return score;
     }
 
@@ -166,15 +166,13 @@ public class PlayState extends State {
                 updatePlayState(dt);
                 break;
             case Paused:
-                //dont Update
-
+                //don't Update
+                dialogListener.dismissDialog();
                 if (dialogListener.getWrongDialogAnswer()) {
                     Score.updateHeart(gameManager, true);
-                    System.out.println("Die Herzen sind aktuell");
                 }
                 if (dialogListener.getRightDialogAnswer() || dialogListener.getWrongDialogAnswer()) {
                     currentState = CurrentState.Running;
-                    System.out.println("Das spiel läuft wieder");
                 } else {
                     currentState = CurrentState.Paused;
                 }
@@ -415,7 +413,7 @@ public class PlayState extends State {
                             cam.setToOrtho(false, ConstantsGame.DEFAULT_CAM_WIDTH, ConstantsGame.DEFAULT_CAM_HEIGHT);
                             Score.gameOver.play();
                             gameManager.set(new GameOverState(gameManager));
-                            saveScore();
+                            //saveScore();
 
                             break;
                         case ConstantsGame.WOMAN_TYPE:
@@ -427,6 +425,7 @@ public class PlayState extends State {
                             // Score.updateHeart(gameManager, true);
                             currentState = CurrentState.Paused;
                             dialogListener.showMultipleChoiceDialog();
+
                             //while (!dialogListener.getRightDialogAnswer() && !dialogListener.getWrongDialogAnswer()){}
                            /* if (dialogListener.getWrongDialogAnswer() && !dialogListener.getWrongDialogAnswer()){
                                 Score.updateHeart(gameManager, true);

@@ -66,13 +66,14 @@ public class Constants {
     public static final String DIALOG_POSITIVE_BUTTON = "Ok";
 
     //HighscoreDialog
-    public static final String HIGHSCORE_DIALOG_Title = "Möchtest du einen neuen Namen eingeben?";
+    public static final String HIGHSCORE_DIALOG_TITLE_PART_ONE = "Dein aktueller Name ist ";
+    public static final String HIGHSCORE_DIALOG_TITLE_PART_TWO = ". Möchtest du einen neuen Namen eingeben?";
 
     //MultipleChoiceDialog
     public static final int MULTIPLE_CHOICE_DIALOG_FIRST_NUMERAL_BASE = 2;
     public static final int MULTIPLE_CHOICE_DIALOG_SECOND_NUMERAL_BASE = 10;
     public static final int MULTIPLE_CHOICE_DIALOG_QUESTION_LENGTH = 6;
     public static final String MULTIPLE_CHOICE_DIALOG_MESSAGE = "Rette dein Leben indem du für die gegebene Zahl im Binärsystem die richtige Entsprechung im Dezimalsystem auswählst.";
-
+    public static final int DIALOG_SHOW_TIME_IN_SECONDS = 10;
 
 }

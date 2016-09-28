@@ -17,5 +17,7 @@ public interface DialogListener {
 
     public boolean getWrongDialogAnswer();
 
+    public void dismissDialog();
+
 
 }
