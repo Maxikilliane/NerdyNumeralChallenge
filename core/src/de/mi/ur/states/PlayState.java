@@ -40,7 +40,6 @@ public class PlayState extends State {
     public static boolean sunny;
     private boolean snowy;
     private Music music;
-    //private GameQuestion gameQuestion;
     private GameQuestion gameQuestion;
 
     public static boolean alreadChanged = true;
@@ -71,17 +70,23 @@ public class PlayState extends State {
     private DialogListener dialogListener;
 
     private CurrentState currentState = CurrentState.Running;
+    private boolean test = false;
 
 
     protected PlayState(GameStateManager gameManager) {
         super(gameManager);
+        this.dialogListener = gameManager.getDialogListener();
+
         music = Gdx.audio.newMusic(Gdx.files.internal("ZeroOne403.mp3"));
         music.setLooping(true);
         music.setVolume(0.6f);
-        music.play();
+
+        if(dialogListener.getBackgroundMusic()) {
+            music.play();
+        }
         isQuestionMode = false;
         this.highscoreListener = gameManager.getHighscoreListener();
-        this.dialogListener = gameManager.getDialogListener();
+
         nerd = new Nerd(ConstantsGame.NERD_X, ConstantsGame.NERD_Y);
         if (snowy) {
             ground = new Texture("ground_snow.png");

@@ -51,6 +51,8 @@ public class Constants {
 
     //Extra für AndroidLauncher
     public static final String CURRENT_WEATHER = "current weather";
+    public static final String BACKGROUND_MUSIC = "background music";
+    public static final String SOUND_EFFECTS = "sound effects";
 
     //
     public static final int MY_PERMISSION_REQUEST_ACCESS_FINE_LOCATION = 111;
