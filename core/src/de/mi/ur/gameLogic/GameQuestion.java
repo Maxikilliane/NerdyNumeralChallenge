@@ -48,7 +48,7 @@ public class GameQuestion {
     private boolean isBinary;
 
 
-    //evtl Enum übergeben ob Hex oder Binär... Random-Gen...
+
     public GameQuestion(MultipleChoiceListener multipleChoiceGenerator) {
         random = new Random();
 
@@ -109,6 +109,9 @@ public class GameQuestion {
         return 0;
     }
 
+    /**
+     * this method chooses randomly, whether the next question is in the binary- or the hex-system.
+     */
     private void binaryOrHex() {
         isBinary = random.nextBoolean();
 
@@ -124,6 +127,9 @@ public class GameQuestion {
 
     }
 
+    /**
+     * This method updates the questions. It generates randomly a new question and 4 possible answers
+     */
     public void updateQuestions() {
         binaryOrHex();
 

@@ -56,7 +56,7 @@ public class PlayState extends State {
     private AnswerPhone phone4;
     private AnswerPhone[] phones = new AnswerPhone[4];
 
-    public static boolean hasHit;
+
 
     private Vector2 groundPos1, groundPos2;
     private Vector2 bgPos1, bgPos2;
@@ -614,7 +614,7 @@ public class PlayState extends State {
 
     }
 
-    // Wenn Anton mit den Hintergründen fertig ist, kann man hier die Pfade dazu ablegen, damit der Hintergrund sich dem Wetter anpasst.
+    //adjusts the weather according to the current weather
     private Texture getBackgroundWeather(GameStateManager gameManager) {
         int currentWeather = gameManager.getWeatherDataListener().getCurrentWeather();
         String texturePath;
