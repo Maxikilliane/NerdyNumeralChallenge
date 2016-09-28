@@ -1,14 +1,23 @@
 package de.mi.ur.Activities;
 
+import android.app.AlarmManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.GregorianCalendar;
+
+import de.mi.ur.AlertReceiver;
 import de.mi.ur.DataBase.NNCDatabase;
 import de.mi.ur.R;
 
@@ -24,10 +33,17 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
     private Toolbar myToolbar;
 
+    private NotificationManager notificationManager;
+    private int notificationID = 1;
+
+   // private AlarmManager alarmManager;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.out.println("onCreate wird ausgeführt");
         setContentView(R.layout.start_activity);
         setUpUI();
         initDatabase();
@@ -141,6 +157,46 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             startActivity(i);
         }
     }
+
+   /* private void showNotification (){
+        NotificationCompat.Builder notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
+                .setContentTitle("Message")
+                .setContentText("MessageTex")
+                .setSmallIcon(R.drawable.icon);
+        PendingIntent resultIntent = new PendingIntent(StartActivity.this, StartActivity.class);
+        notificationBuilder.setContentIntent(resultIntent);
+
+        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(notificationID,notificationBuilder.build());
+    }*/
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        System.out.println("onStop wird ausgeführt");
+        setAlarm();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //alarmManager.cancel();
+        System.out.println("onStart wird ausgeführt");
+
+    }
+
+    public void setAlarm(){
+        Long alertTime = new GregorianCalendar().getTimeInMillis()+ 1000*15;//1000*60*60*24*14;
+        Intent alertIntent = new Intent(StartActivity.this, AlertReceiver.class);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, alertTime, PendingIntent.getBroadcast(StartActivity.this,1,alertIntent,PendingIntent.FLAG_UPDATE_CURRENT));
+        System.out.println("setAlarm wurde ausgeführt");
+    }
+
+
+
+
 
 
 }
