@@ -71,11 +71,13 @@ public class PlayState extends State {
 
     private CurrentState currentState = CurrentState.Running;
     private boolean test = false;
+    public static boolean soundEffects;
 
 
     protected PlayState(GameStateManager gameManager) {
         super(gameManager);
         this.dialogListener = gameManager.getDialogListener();
+        soundEffects = dialogListener.getSoundEffects();
 
         music = Gdx.audio.newMusic(Gdx.files.internal("ZeroOne403.mp3"));
         music.setLooping(true);
@@ -416,7 +418,9 @@ public class PlayState extends State {
                             rank = highscoreListener.checkIfNewHighscore(points);
                             System.out.println("rank is initialised");
                             cam.setToOrtho(false, ConstantsGame.DEFAULT_CAM_WIDTH, ConstantsGame.DEFAULT_CAM_HEIGHT);
-                            Score.gameOver.play();
+                            if(soundEffects) {
+                                Score.gameOver.play();
+                            }
                             gameManager.set(new GameOverState(gameManager));
                             //saveScore();
 

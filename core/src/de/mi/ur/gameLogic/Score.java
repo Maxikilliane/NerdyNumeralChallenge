@@ -34,6 +34,9 @@ public class Score {
     private static Sound fail;
     private static Texture heartEmpty;
 
+    private static boolean soundEffects = PlayState.soundEffects;
+
+
 
     public static int state;
 
@@ -137,13 +140,16 @@ public class Score {
 
     public static void updateHeart(GameStateManager manager, boolean dead) {
         state = getStateOfHearts();
-        fail.play(0.5f);
+        if(soundEffects) {
+            fail.play(0.5f);
+        }
         System.out.println("State of hearts: " + state);
         if (state == ConstantsGame.HEARTSTATE_ALL_HEARTS_FULL) {
             changeHeart(dead, 0);
         } else if (state == ConstantsGame.HEARTSTATE_NO_HEART) {
-            gameOver.play(0.5f);
-
+            if(soundEffects){
+                gameOver.play(0.5f);
+            }
             manager.set(new GameOverState(manager));
         } else if (state == ConstantsGame.HEARTSTATE_1_HEART) {
             changeHeart(dead, 2);
@@ -159,7 +165,9 @@ public class Score {
 
     public static void refillHeart() {
         state = getStateOfHearts();
-        powerUp.play(0.5f);
+        if(soundEffects) {
+            powerUp.play(0.5f);
+        }
         System.out.println("State of hearts: " + state);
         if (state == ConstantsGame.HEARTSTATE_ALL_HEARTS_FULL) {
             addPoints();

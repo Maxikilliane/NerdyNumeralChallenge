@@ -109,4 +109,6 @@ public class ConstantsGame {
         public static final int MAX_DISTANCE_SHORT = 110;
 
 
+
+
 }

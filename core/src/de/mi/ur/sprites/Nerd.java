@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
 import de.mi.ur.ConstantsGame;
+import de.mi.ur.states.PlayState;
 
 /**
  * Created by maxiwindl on 31.07.16.
@@ -93,7 +94,9 @@ public class Nerd {
 
 
     public void jump() {
-        sound.play(0.5f);
+        if(PlayState.soundEffects) {
+            sound.play(0.5f);
+        }
         velocity.y = 650;
     }
 
