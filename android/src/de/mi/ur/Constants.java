@@ -41,8 +41,6 @@ public class Constants {
     public static final int MAX_EXPLANATION_NUM_TRICKS = 5;
 
 
-    public static final String API_ID = "50ddb65d4b6d51050e5844a4284d6d46";
-
     public static final int WEATHER_SUNNY = 0;
     public static final int WEATHER_CLOUDY = 1;
     public static final int WEATHER_RAINY = 2;
@@ -79,7 +77,12 @@ public class Constants {
     public static final int DIALOG_SHOW_TIME_IN_SECONDS = 5;
 
     //WeatherExtras
+
+    public static final String API_ID = "50ddb65d4b6d51050e5844a4284d6d46";
     public static final String DEFAULT_LATITUDE ="49";
     public static final String DEFAULT_LONGITUDE= "12";
+    public static final String WEATHER_API_URL_1_LAT ="http://api.openweathermap.org/data/2.5/weather?lat=";
+    public static final String WEATHER_API_URL_2_LON = "&lon=";
+    public static final String WEATHER_API_URL_3 = "&appid="+API_ID;
 
 }

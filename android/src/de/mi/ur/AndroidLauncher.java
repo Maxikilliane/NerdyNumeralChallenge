@@ -9,6 +9,8 @@ import de.mi.ur.AndroidCommunication.DialogListener;
 import de.mi.ur.AndroidCommunication.MultipleChoiceListener;
 import de.mi.ur.AndroidCommunication.WeatherDataListener;
 import de.mi.ur.DataBase.NNCDatabase;
+import de.mi.ur.Dialogs.HighscoreDialog;
+import de.mi.ur.Dialogs.MultipleChoiceDialog;
 import de.mi.ur.QuestionLogic.MultipleChoiceQuestion;
 
 public class AndroidLauncher extends AndroidApplication implements MultipleChoiceListener, WeatherDataListener, DialogListener {
