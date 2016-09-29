@@ -52,10 +52,10 @@ public class ConstantsGame {
         //Question
         public static final int QUESTION_TOSOLVE_OFFSET = -115;
         public static final int QUESTION_OFFSET_Y = 120;
-        public static final int QUESTION_POSSANS_1_OFFSET = -35;
+        public static final int QUESTION_POSSANS_1_OFFSET = -40;
 
-        public static final int QUESTION_POSSANS_3_OFFSET = 35;
-        public static final int QUESTION_POSSANS_4_OFFSET = 75;
+        public static final int QUESTION_POSSANS_3_OFFSET = 40;
+        public static final int QUESTION_POSSANS_4_OFFSET = 80;
 
         //Array-Positionen für Frage und Antwort
         public static final int QUESTION_POS = 0;
@@ -103,8 +103,6 @@ public class ConstantsGame {
         public static final int MAX_DISTANCE_MEDIUM_LONG = 170;
         public static final int MAX_DISTANCE_MEDIUM_SHORT = 140;
         public static final int MAX_DISTANCE_SHORT = 110;
-
-
 
 
 }

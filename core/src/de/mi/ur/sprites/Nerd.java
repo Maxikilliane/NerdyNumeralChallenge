@@ -22,19 +22,15 @@ public class Nerd {
     private Sound sound;
 
     private Texture texture;
-    //irgendwie auslagern?? COnstants.
     private Texture ground;
 
 
     private Animation nerdAnimation;
 
-    private Animation jumpAnimation;
-    private Texture nerdJump;
+
 
     public boolean colliding;
 
-
-    //private Texture bird;
 
     public Nerd(int x, int y) {
         texture = new Texture("nerd.png");
@@ -66,7 +62,6 @@ public class Nerd {
 
         if (!colliding) {
             if (position.y > 0) {
-                //nur auf der y-Achse brauchen wir Schwerkraft
                 velocity.add(0, gravity, 0);
             }
         }
@@ -94,7 +89,7 @@ public class Nerd {
 
 
     public void jump() {
-        if(PlayState.soundEffects) {
+        if (PlayState.soundEffects) {
             sound.play(0.5f);
         }
         velocity.y = 650;
