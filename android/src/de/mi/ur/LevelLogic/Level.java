@@ -2,6 +2,11 @@ package de.mi.ur.LevelLogic;
 
 /**
  * Created by Anna-Marie on 07.09.2016.
+ *
+ * This class represent a Level the User can reach in Practicemode
+ *
+ * remark concerning pointsNeededForThisLevel: This is the amount of points the user needs to have to be in this level;
+ * in case of the currentLevel of the user, the points he/she currently has, are stored in this variable
  */
 public class Level {
     private int id;
