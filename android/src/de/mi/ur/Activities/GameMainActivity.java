@@ -98,23 +98,16 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         Intent i = null;
-        String toastMessage = null;
         switch (v.getId()){
             case R.id.game_start_button:
                 i = new Intent(GameMainActivity.this, AndroidLauncher.class);
                 i.putExtra(Constants.CURRENT_WEATHER, weatherManager.getCurrentWeather());
                 i.putExtra(Constants.BACKGROUND_MUSIC, getBackgroundMusic());
                 i.putExtra(Constants.SOUND_EFFECTS, getSoundEffects());
-                System.out.println("GameMainActivity: BackgorundMusik: " + getBackgroundMusic() + " SoundEffects: " + getSoundEffects());
+                System.out.println("GameMainActivity: BackgroundMusik: " + getBackgroundMusic() + " SoundEffects: " + getSoundEffects());
                 break;
             case R.id.game_update_weather_button:
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    weatherManager.startCurrentWeatherGetter();
-                } else {
-                    requestWeatherPermission(this);
-                    toastMessage = "Default-Wetter: Die Sonne scheint!";
-                    Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show();
-                }
+                handleWeatherButtonClick();
                 break;
             case R.id.game_highscore_button:
                 i = new Intent(GameMainActivity.this, HighscoreActivity.class);
@@ -131,7 +124,21 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
     }
 
     /*
-     * Checks the parameter, as to which kind of weather it is and generates appropriate content for user information
+     * requests new weather information (if relevant permissions were given
+     * else informs the user that default weather was set)
+     */
+    private void handleWeatherButtonClick(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            weatherManager.startCurrentWeatherGetter();
+        } else {
+            requestWeatherPermission(this);
+            String toastMessage = "Default-Wetter: Die Sonne scheint!";
+            Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /*
+     * Checks the parameter, which kind of weather it is and generates appropriate content for user information
      */
     private String convertToWeatherName(int weatherNumber) {
         switch (weatherNumber) {

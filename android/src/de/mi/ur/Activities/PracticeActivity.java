@@ -396,11 +396,6 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
         }
     }
 
-    public void hideCustomKeyboard() {
-        myKeyboardView.setVisibility(View.GONE);
-        myKeyboardView.setEnabled(false);
-    }
-
     @Override
     public void onOpen() {
         openKeyboard(findViewById(android.R.id.content));
