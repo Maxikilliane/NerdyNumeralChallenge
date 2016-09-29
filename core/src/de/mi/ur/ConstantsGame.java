@@ -1,6 +1,5 @@
 package de.mi.ur;
 
-import de.mi.ur.sprites.Nerd;
 import de.mi.ur.states.PlayState;
 
 /**
@@ -8,8 +7,6 @@ import de.mi.ur.states.PlayState;
  */
 public class ConstantsGame {
 
-
-        private static Nerd nerd = new Nerd(0,0);
 
         public static final int DEFAULT_CAM_WIDTH = 240;
         public static final int DEFAULT_CAM_HEIGHT = 400;
@@ -31,7 +28,6 @@ public class ConstantsGame {
         public static final int NERD_POSITION_OFFSET = 80;
         public static final int NERD_X = 40;
         public static final int NERD_Y = 200;
-        public static final int NERD_BOUNDS_OFFSET = nerd.getWidth() / 2;
 
 
         //for Obstacles
