@@ -139,13 +139,15 @@ public class Score {
 
     /**
      * this method is called, whenever the nerd loses one life. The method checks in which state the hearts are, e.g.
-     * which heart has to be set to an empty shape. To that it also plays the "fail" soundeffect.
+     * which heart has to be set to an empty shape. To that it also plays the "fail" soundeffect, when the soundeffects are enabled in the settings.
      */
 
 
     public static void updateHeart(GameStateManager manager, boolean dead) {
         state = getStateOfHearts();
-        fail.play(0.5f);
+        if(PlayState.soundEffects) {
+            fail.play(0.5f);
+        }
         System.out.println("State of hearts: " + state);
         if (state == ConstantsGame.HEARTSTATE_ALL_HEARTS_FULL) {
             changeHeart(dead, 0);
@@ -167,13 +169,15 @@ public class Score {
 
     /**
      * this method does nearly the same as the updateHeart method, but is called when the nerd regains a heart.
-     * To that it plays the "power up" soundeffect.
+     * To that it plays the "power up" soundeffect, when the soundeffects are enabled in the settings.
      */
 
 
     public static void refillHeart() {
         state = getStateOfHearts();
-        powerUp.play(0.5f);
+        if(PlayState.soundEffects) {
+            powerUp.play(0.5f);
+        }
         System.out.println("State of hearts: " + state);
         if (state == ConstantsGame.HEARTSTATE_ALL_HEARTS_FULL) {
             addPoints();
