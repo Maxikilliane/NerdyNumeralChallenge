@@ -22,8 +22,8 @@ public class AlertReceiver extends BroadcastReceiver {
      */
     @Override
     public void onReceive(Context context, Intent intent) {
-        if(StartActivity.getAlarmManagerActive()) {
-            createNotification(context, Constants.NOTIFICATION_TITLE,Constants.NOTIFICATION_MESSAGE);
+        if (StartActivity.getAlarmManagerActive()) {
+            createNotification(context, Constants.NOTIFICATION_TITLE, Constants.NOTIFICATION_MESSAGE);
         }
     }
 
@@ -32,7 +32,7 @@ public class AlertReceiver extends BroadcastReceiver {
      */
     public void createNotification(Context context, String title, String message) {
         System.out.println("Notification wird erstellt");
-        notificationIntent = PendingIntent.getActivity(context,0,new Intent(context, StartActivity.class),0);
+        notificationIntent = PendingIntent.getActivity(context, 0, new Intent(context, StartActivity.class), 0);
 
         NotificationCompat.Builder mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_logo)
