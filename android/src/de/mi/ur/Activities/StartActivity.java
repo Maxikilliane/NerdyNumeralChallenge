@@ -177,16 +177,16 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         setAlarm();
     }
 
-    @Override
+   /* @Override
     protected void onStart() {
         super.onStart();
-        //alarmManager.cancel();
         System.out.println("onStart wird ausgeführt");
 
-    }
+    }*/
 
+    //this Method starts the alarmManager. The alarmManager starts the alertIntent after the alertTime (in this case after 5 Seconds
     public void setAlarm(){
-        Long alertTime = new GregorianCalendar().getTimeInMillis()+ 1000*15;//1000*60*60*24*14;
+        Long alertTime = new GregorianCalendar().getTimeInMillis()+ 1000*5;//1000*60*60*24*14;
         Intent alertIntent = new Intent(StartActivity.this, AlertReceiver.class);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
