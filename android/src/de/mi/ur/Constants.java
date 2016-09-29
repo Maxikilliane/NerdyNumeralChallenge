@@ -78,4 +78,8 @@ public class Constants {
     public static final String MULTIPLE_CHOICE_DIALOG_MESSAGE = "Rette dein Leben indem du für die gegebene Zahl im Binärsystem die richtige Entsprechung im Dezimalsystem auswählst.";
     public static final int DIALOG_SHOW_TIME_IN_SECONDS = 10;
 
+    //AlertReceiver
+    public static final String NOTIFICATION_TITLE = "NerdyNumeralChallenge";
+    public static final String NOTIFICATION_MESSAGE = "Schau doch mal wieder bei NNC vorbei!";
+
 }
