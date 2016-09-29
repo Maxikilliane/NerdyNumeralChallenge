@@ -2,6 +2,8 @@ package de.mi.ur.DataBase;
 
 /**
  * Created by Anna-Marie on 09.08.2016.
+ *
+ * This class represents a Highscore from the game
  */
 public class Highscore {
     private int rank;
