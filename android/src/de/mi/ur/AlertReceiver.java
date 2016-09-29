@@ -14,15 +14,19 @@ import de.mi.ur.Activities.StartActivity;
  */
 
 public class AlertReceiver extends BroadcastReceiver {
+    private static PendingIntent notificationIntent;
+
     @Override
     public void onReceive(Context context, Intent intent) {
         System.out.println("wir sind jetzt im AlertReceiver");
-        createNotification(context, "NerdyNumeralChallenge", "Schau doch mal wieder bei NNC vorbei!");
+        if(StartActivity.getAlarmManagerActive()) {
+            createNotification(context, "NerdyNumeralChallenge", "Schau doch mal wieder bei NNC vorbei!");
+        }
     }
 
     public void createNotification(Context context, String msg, String msgText) {
         System.out.println("Notification wird erstellt");
-        PendingIntent notificationIntent = PendingIntent.getActivity(context,0,new Intent(context, StartActivity.class),0);
+        notificationIntent = PendingIntent.getActivity(context,0,new Intent(context, StartActivity.class),0);
 
         NotificationCompat.Builder mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_logo)
@@ -37,4 +41,5 @@ public class AlertReceiver extends BroadcastReceiver {
         System.out.println("Notification sollte erschienen sein");
 
     }
+
 }

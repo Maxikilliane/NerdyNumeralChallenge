@@ -19,7 +19,7 @@
         android:label="@string/app_name"
 
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
+        <receiver android:name=".AlertReceiver"/>
         <activity
             android:name=".Activities.StartActivity"
             android:label="@string/app_name" >

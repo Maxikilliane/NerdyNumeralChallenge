@@ -36,7 +36,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     private NotificationManager notificationManager;
     private int notificationID = 1;
 
-   // private AlarmManager alarmManager;
+    private AlarmManager alarmManager;
+
+    private static boolean isAlarmMangerActive = false;
 
 
 
@@ -170,6 +172,11 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         notificationManager.notify(notificationID,notificationBuilder.build());
     }*/
 
+    /*
+     * This method calls the normal onStop() method as well as the setAlarm() method, so that the user gets a push notification after
+     * two weeks of not using the app. If the StartActivity is started again during the two weeks, the notification will not be shown
+     * as you can see in onStart().
+     */
     @Override
     protected void onStop() {
         super.onStop();
@@ -177,26 +184,38 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         setAlarm();
     }
 
-   /* @Override
+    /*
+     * This method calls the normal onStart() method and sets the boolean isAlarmManagerActive to false, so that the push notification is not shown even
+     * if the alarmManager is running
+     */
+    @Override
     protected void onStart() {
         super.onStart();
         System.out.println("onStart wird ausgeführt");
-
-    }*/
+        isAlarmMangerActive = false;
+    }
 
     //this Method starts the alarmManager. The alarmManager starts the alertIntent after the alertTime (in this case after 5 Seconds
     public void setAlarm(){
-        Long alertTime = new GregorianCalendar().getTimeInMillis()+ 1000*5;//1000*60*60*24*14;
+        Long alertTime = new GregorianCalendar().getTimeInMillis()+1000*60*60*24*14;
         Intent alertIntent = new Intent(StartActivity.this, AlertReceiver.class);
-
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, alertTime, PendingIntent.getBroadcast(StartActivity.this,1,alertIntent,PendingIntent.FLAG_UPDATE_CURRENT));
+        isAlarmMangerActive = true;
         System.out.println("setAlarm wurde ausgeführt");
     }
 
+    /*@Override
+    protected void onDestroy() {
+        System.out.println("onDestroy1");
+        setAlarm();
+        System.out.println("onDestroy2");
+        super.onDestroy();
+        System.out.println("onDestroy");
+    }*/
 
-
-
-
-
+    // This method returns the boolean isAlarmManagerActive that the AlertReceiver has access
+    public static boolean getAlarmManagerActive(){
+        return isAlarmMangerActive;
+    }
 }
