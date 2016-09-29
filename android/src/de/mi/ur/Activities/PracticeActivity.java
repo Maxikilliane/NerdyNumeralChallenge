@@ -136,7 +136,6 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
         myToolbar = (Toolbar) findViewById(R.id.practice_toolbar);
         setSupportActionBar(myToolbar);
         setUpToolbarTitle();
-        //getSupportActionBar().setTitle(R.string.practice_main_toolbar_headline);
         myToolbar.setNavigationIcon(R.drawable.toolbar_back);
         myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,6 +145,9 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
         });
     }
 
+    /*
+     *This method sets up the toolbarTitle depending on which question type is chosen.
+     */
     private void setUpToolbarTitle() {
         switch (typeOfQuestion){
             case Constants.MULTIPLE_CHOICE:

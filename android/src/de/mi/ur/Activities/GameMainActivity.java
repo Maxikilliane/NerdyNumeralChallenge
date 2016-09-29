@@ -80,6 +80,7 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
         startActivity(i);
         return super.onOptionsItemSelected(item);
     }
+
     private void setupUI() {
         buttonStartGame = (Button) findViewById(R.id.game_start_button);
         buttonStartGame.setOnClickListener(this);

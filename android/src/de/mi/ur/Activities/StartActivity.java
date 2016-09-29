@@ -95,6 +95,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         buttonProgress.setOnClickListener(this);
     }
 
+    /*
+     * Handles Click-Events (activity starting)
+     */
     @Override
     public void onClick(View v) {
         Intent i = null;
