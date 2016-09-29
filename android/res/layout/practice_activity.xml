@@ -3,7 +3,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:background="@color/black">
 
     <include
@@ -14,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/practice_toolbar">
+
     <ProgressBar
         android:id="@+id/question_progressbar"
         android:layout_width="match_parent"
