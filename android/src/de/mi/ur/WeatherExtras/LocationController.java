@@ -12,14 +12,12 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 
 import de.mi.ur.Activities.GameMainActivity;
+import de.mi.ur.Constants;
 
 /**
  * Created by Anna-Marie on 11.08.2016.
  *
- * To-Do: GPS-Sensor verwenden! -> wenn kein Internet!
- *
- *
- *
+ * This class is responsible for the things concerning locations
  *
  */
 public class LocationController implements LocationListener {
@@ -34,6 +32,9 @@ public class LocationController implements LocationListener {
         currentActivity = activity;
     }
 
+    /*
+     * Gets the best provider according to the given criteria
+     */
     private String getBestProvider(){
         Criteria criteria = new Criteria();
         criteria.setPowerRequirement(Criteria.POWER_LOW);
@@ -45,7 +46,9 @@ public class LocationController implements LocationListener {
         return locationManager.getBestProvider(criteria, true);
     }
 
-    //momentan provider immer null
+   /*
+    * Set the current location in the instance variable currentLocation, if the relevant permissions are granted
+    */
     public void setCurrentPosition() {
         String provider = getBestProvider();
         if (provider == null) {
@@ -61,20 +64,26 @@ public class LocationController implements LocationListener {
     }
 
 
-    // Momentan immer null :(
+    /*
+     * Returns the latitude of the currentLocation as a String
+     * The default value is approximately the latitude of Regensburg
+     */
     public String getLatitude(){
         if (currentLocation == null) {
-            return "49";
+            return Constants.DEFAULT_LATITUDE;
         } else {
             double lat = currentLocation.getLatitude();
             return Double.toString(lat);
         }
-
     }
 
+    /*
+     * Returns the longitude of the currentLocation as a String
+     * The default value is approximately the longitude of Regensburg
+     */
     public String getLongitude(){
         if (currentLocation == null) {
-            return "12";
+            return Constants.DEFAULT_LONGITUDE;
         } else {
             double lon = currentLocation.getLongitude();
             return Double.toString(lon);

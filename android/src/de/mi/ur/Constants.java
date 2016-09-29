@@ -78,4 +78,8 @@ public class Constants {
     public static final String MULTIPLE_CHOICE_DIALOG_MESSAGE = "Rette dein Leben indem du für die gegebene Zahl im Binärsystem die richtige Entsprechung im Dezimalsystem auswählst.";
     public static final int DIALOG_SHOW_TIME_IN_SECONDS = 5;
 
+    //WeatherExtras
+    public static final String DEFAULT_LATITUDE ="49";
+    public static final String DEFAULT_LONGITUDE= "12";
+
 }
