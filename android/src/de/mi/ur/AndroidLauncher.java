@@ -1,13 +1,10 @@
 package de.mi.ur;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
-import de.mi.ur.Activities.SettingsActivity;
 import de.mi.ur.AndroidCommunication.DialogListener;
 import de.mi.ur.AndroidCommunication.MultipleChoiceListener;
 import de.mi.ur.AndroidCommunication.WeatherDataListener;
@@ -20,6 +17,8 @@ public class AndroidLauncher extends AndroidApplication implements MultipleChoic
 	private HighscoreDialog highscoreDialog;
 	private MultipleChoiceDialog multipleChoiceDialog;
 	//private static String userName = "Nerd";
+	private boolean backgroundMusic;
+	private boolean soundEffects;
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
@@ -27,6 +26,9 @@ public class AndroidLauncher extends AndroidApplication implements MultipleChoic
 		Bundle extras = getIntent().getExtras();
 		if(extras != null){
 			currentWeather = extras.getInt(Constants.CURRENT_WEATHER);
+			backgroundMusic = extras.getBoolean(Constants.BACKGROUND_MUSIC,true);
+			soundEffects = extras.getBoolean(Constants.SOUND_EFFECTS,true);
+			System.out.println("AndroidLaunecher: BackgorundMusik: " + backgroundMusic + " SoundEffects: "+ soundEffects);
 		}
 		db = new NNCDatabase(this);
 		db.open();
@@ -90,13 +92,13 @@ public class AndroidLauncher extends AndroidApplication implements MultipleChoic
 		return multipleChoiceDialog.getWrongAnswer();
 	}
 
-	/*public static void setUserName(String name){
-		userName = name;
-	}*/
+	@Override
+	public boolean getBackgroundMusic() {
+		return backgroundMusic;
+	}
 
-	/*public static String getCurrentUserName(){
-		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-		String userName = sharedPref.getString("pref_user_name", "");
-		return userName;
-	}*/
+	@Override
+	public boolean getSoundEffects() {
+		return soundEffects;
+	}
 }

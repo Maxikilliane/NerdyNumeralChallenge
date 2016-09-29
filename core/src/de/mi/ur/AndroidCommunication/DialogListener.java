@@ -19,5 +19,7 @@ public interface DialogListener {
 
     public void dismissDialog();
 
+    public boolean getBackgroundMusic();
 
+    public boolean getSoundEffects();
 }
