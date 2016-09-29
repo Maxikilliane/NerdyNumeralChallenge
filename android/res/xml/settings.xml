@@ -19,7 +19,7 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/settings_push_notifications">
         <CheckBoxPreference
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:key="pref_notifications"
             android:title="@string/settings_push_activated" />
     </PreferenceCategory>

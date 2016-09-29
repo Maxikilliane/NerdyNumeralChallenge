@@ -6,7 +6,9 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
@@ -24,7 +26,7 @@ import de.mi.ur.R;
 /**
  * Created by maxiwindl on 01.08.16.
  */
-public class StartActivity extends AppCompatActivity implements View.OnClickListener {
+public class StartActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button buttonTutorial;
     private Button buttonPractice;
@@ -32,8 +34,10 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     private Button buttonProgress;
     private Toolbar myToolbar;
     private AlarmManager alarmManager;
+    private SharedPreferences sharedPref;
 
     private static boolean isAlarmMangerActive = false;
+    private boolean pushNotification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,7 +136,13 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     protected void onStop() {
         super.onStop();
         System.out.println("onStop wird ausgeführt");
-        setAlarm();
+        loadPreferences();
+        if(pushNotification){
+            setAlarm();
+            System.out.println("setAlarm wurde ausgeführt");
+        }
+
+
     }
 
     /*
@@ -164,4 +174,12 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     public static boolean getAlarmManagerActive(){
         return isAlarmMangerActive;
     }
+
+
+    private void loadPreferences(){
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        pushNotification = sharedPref.getBoolean(SettingsActivity.KEY_PREF_PUSH_NOTIFICATIONS, true);
+    }
+
+
 }
