@@ -150,7 +150,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
      *This method starts the alarmManager. The alarmManager starts the alertIntent after the alertTime (in this case after two weeks).
      */
     public void setAlarm(){
-        Long alertTime = new GregorianCalendar().getTimeInMillis()+1000*60*5;//1000*60*60*24*14;
+        Long alertTime = new GregorianCalendar().getTimeInMillis()+1000*60*60*24*14;
         Intent alertIntent = new Intent(StartActivity.this, AlertReceiver.class);
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, alertTime, PendingIntent.getBroadcast(StartActivity.this,1,alertIntent,PendingIntent.FLAG_UPDATE_CURRENT));
