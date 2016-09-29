@@ -37,6 +37,7 @@
     <string name="settings_general">Allgemein</string>
     <string name="settings_user_name">Benutzername</string>
     <string name="settings_title">Einstellungen</string>
+    <string name="settings_legal_notice">Impressum</string>
 
     //gameMain
     <string name="game_start">Start!</string>
