@@ -29,7 +29,7 @@ public class AlertReceiver extends BroadcastReceiver {
         notificationIntent = PendingIntent.getActivity(context,0,new Intent(context, StartActivity.class),0);
 
         NotificationCompat.Builder mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.icon)
+                .setSmallIcon(R.drawable.ic_logo)
                 .setContentTitle(msg)
                 .setContentText(msgText);
 
