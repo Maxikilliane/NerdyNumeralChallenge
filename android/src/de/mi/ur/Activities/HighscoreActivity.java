@@ -29,7 +29,6 @@ public class HighscoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.highscore_activity);
         db = new NNCDatabase(this);
-
         setUpUI();
         setupToolbar();
     }
@@ -47,6 +46,10 @@ public class HighscoreActivity extends AppCompatActivity {
         });
     }
 
+
+    /*
+     * handles the setting up of UI-components
+     */
     private void setUpUI() {
         noHighscoreView = (TextView) findViewById(R.id.no_highscore_view);
         highscoreListView = (ListView) findViewById(R.id.highscore_list);
@@ -54,15 +57,22 @@ public class HighscoreActivity extends AppCompatActivity {
         Cursor allHighscoresCursor = db.getAllHighscoresCursor();
         HighscoreAdapter adapter = new HighscoreAdapter(this, allHighscoresCursor);
         highscoreListView.setAdapter(adapter);
+        displayIfIsHighscore(allHighscoresCursor);
+        db.close();
+    }
+
+    /*
+     * displays the current highscores if there are any
+     */
+    private void displayIfIsHighscore(Cursor allHighscoresCursor){
         View v = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.highscore_listitem, null);
-        if((allHighscoresCursor.moveToFirst()) || allHighscoresCursor.getCount() !=0){
-//            highscoreListView.addHeaderView(v);
+        if((allHighscoresCursor.moveToFirst()) || allHighscoresCursor.getCount() != 0){
+            highscoreListView.addHeaderView(v);
             noHighscoreView.setVisibility(View.GONE);
         }else{
             highscoreListView.setVisibility(View.GONE);
 
         }
-        db.close();
     }
 
     @Override

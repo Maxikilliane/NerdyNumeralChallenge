@@ -1,4 +1,4 @@
-package de.mi.ur;
+package de.mi.ur.Dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -13,7 +13,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import de.mi.ur.Constants;
 import de.mi.ur.QuestionLogic.MultipleChoiceQuestion;
+import de.mi.ur.R;
 
 
 /**

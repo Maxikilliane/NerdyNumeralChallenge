@@ -9,6 +9,8 @@ import de.mi.ur.R;
 
 /**
  * Created by Anna-Marie on 15.08.2016.
+ *
+ * This activity displays a help text for the game
  */
 public class GameHelpActivity extends AppCompatActivity {
     private Toolbar myToolbar;

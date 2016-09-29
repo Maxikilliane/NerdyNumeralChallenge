@@ -1,4 +1,4 @@
-package de.mi.ur;
+package de.mi.ur.Dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import de.mi.ur.Activities.SettingsActivity;
 import de.mi.ur.AndroidCommunication.HighscoreListener;
+import de.mi.ur.Constants;
 import de.mi.ur.DataBase.NNCDatabase;
 
 /**
