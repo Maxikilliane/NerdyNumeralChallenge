@@ -103,9 +103,9 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
             case R.id.game_start_button:
                 i = new Intent(GameMainActivity.this, AndroidLauncher.class);
                 i.putExtra(Constants.CURRENT_WEATHER, weatherManager.getCurrentWeather());
-                i.putExtra(Constants.BACKGROUND_MUSIC,getBackgroundMusic());
-                i.putExtra(Constants.SOUND_EFFECTS,getSoundEffects());
-                System.out.println("GameMainActivity: BackgorundMusik: " + getBackgroundMusic() + " SoundEffects: "+ getSoundEffects());
+                i.putExtra(Constants.BACKGROUND_MUSIC, getBackgroundMusic());
+                i.putExtra(Constants.SOUND_EFFECTS, getSoundEffects());
+                System.out.println("GameMainActivity: BackgorundMusik: " + getBackgroundMusic() + " SoundEffects: " + getSoundEffects());
                 break;
             case R.id.game_update_weather_button:
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -201,12 +201,12 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
         Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show();
     }
 
-    private boolean getBackgroundMusic(){
-        return  sharedPref.getBoolean("pref_music", true);
+    private boolean getBackgroundMusic() {
+        return sharedPref.getBoolean("pref_music", true);
     }
 
-    private boolean getSoundEffects(){
-        return sharedPref.getBoolean("pref_sound_effects",true);
+    private boolean getSoundEffects() {
+        return sharedPref.getBoolean("pref_sound_effects", true);
     }
 
 

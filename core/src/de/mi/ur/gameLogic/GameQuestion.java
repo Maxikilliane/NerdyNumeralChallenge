@@ -1,6 +1,6 @@
 package de.mi.ur.gameLogic;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -30,6 +30,11 @@ public class GameQuestion {
     private static ArrayList<String> possAnswers;
 
     private BitmapFont toSolveBitmap;
+
+    private BitmapFont number1;
+    private BitmapFont number2;
+    private BitmapFont number3;
+    private BitmapFont number4;
 
     private BitmapFont possAnswer1Bitmap;
     private BitmapFont possAnswer2Bitmap;
@@ -66,19 +71,31 @@ public class GameQuestion {
         possAnswer4 = "";
 
 
-        toSolveBitmap = new BitmapFont(Gdx.files.internal("good_times4question.fnt"));
+        toSolveBitmap = new BitmapFont();
         toSolveBitmap.setUseIntegerPositions(false);
 
-        possAnswer1Bitmap = new BitmapFont(Gdx.files.internal("cantarrell4question.fnt"));
+        number1 = new BitmapFont();
+        number1.setUseIntegerPositions(false);
+
+        number2 = new BitmapFont();
+        number2.setUseIntegerPositions(false);
+
+        number3 = new BitmapFont();
+        number3.setUseIntegerPositions(false);
+
+        number4 = new BitmapFont();
+        number4.setUseIntegerPositions(false);
+
+        possAnswer1Bitmap = new BitmapFont();
         possAnswer1Bitmap.setUseIntegerPositions(false);
 
-        possAnswer2Bitmap = new BitmapFont(Gdx.files.internal("cantarrell4question.fnt"));
+        possAnswer2Bitmap = new BitmapFont();
         possAnswer2Bitmap.setUseIntegerPositions(false);
 
-        possAnswer3Bitmap = new BitmapFont(Gdx.files.internal("cantarrell4question.fnt"));
+        possAnswer3Bitmap = new BitmapFont();
         possAnswer3Bitmap.setUseIntegerPositions(false);
 
-        possAnswer4Bitmap = new BitmapFont(Gdx.files.internal("cantarrell4question.fnt"));
+        possAnswer4Bitmap = new BitmapFont();
         possAnswer4Bitmap.setUseIntegerPositions(false);
     }
 
@@ -163,17 +180,37 @@ public class GameQuestion {
     public void drawTasks(SpriteBatch batch, OrthographicCamera cam) {
 
         toSolveBitmap.draw(batch, toSolve, cam.position.x + ConstantsGame.QUESTION_TOSOLVE_OFFSET, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
+        toSolveBitmap.setColor(Color.RED);
+
+        number1.draw(batch, "1:", cam.position.x + ConstantsGame.QUESTION_POSSANS_1_OFFSET, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
+        number1.setColor(Color.RED);
+        possAnswer1Bitmap.draw(batch, "   " + possAnswer1, cam.position.x + ConstantsGame.QUESTION_POSSANS_1_OFFSET, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
+        possAnswer1Bitmap.setColor(Color.BLACK);
+        number2.draw(batch, "2:", cam.position.x, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
+        number2.setColor(Color.RED);
+        possAnswer2Bitmap.draw(batch, "   " + possAnswer2, cam.position.x, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
+        possAnswer2Bitmap.setColor(Color.BLACK);
+        number3.draw(batch, "3:", cam.position.x + ConstantsGame.QUESTION_POSSANS_3_OFFSET, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
+        number3.setColor(Color.RED);
+        possAnswer3Bitmap.draw(batch, "   " + possAnswer3, cam.position.x + ConstantsGame.QUESTION_POSSANS_3_OFFSET, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
+        possAnswer3Bitmap.setColor(Color.BLACK);
+        number4.draw(batch, "4:", cam.position.x + ConstantsGame.QUESTION_POSSANS_4_OFFSET, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
+        number4.setColor(Color.RED);
+        possAnswer4Bitmap.setColor(Color.BLACK);
+        possAnswer4Bitmap.draw(batch, "   " + possAnswer4, cam.position.x + ConstantsGame.QUESTION_POSSANS_4_OFFSET, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
 
 
-        possAnswer1Bitmap.draw(batch, "1:" + possAnswer1, cam.position.x + ConstantsGame.QUESTION_POSSANS_1_OFFSET, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
+    }
 
-        possAnswer2Bitmap.draw(batch, "2:" + possAnswer2, cam.position.x, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
-
-        possAnswer3Bitmap.draw(batch, "3:" + possAnswer3, cam.position.x + ConstantsGame.QUESTION_POSSANS_3_OFFSET, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
-
-        possAnswer4Bitmap.draw(batch, "4:" + possAnswer4, cam.position.x + ConstantsGame.QUESTION_POSSANS_4_OFFSET, cam.position.y + ConstantsGame.QUESTION_OFFSET_Y);
-
-
+    public void dipose() {
+        number1.dispose();
+        possAnswer1Bitmap.dispose();
+        number2.dispose();
+        possAnswer2Bitmap.dispose();
+        number3.dispose();
+        possAnswer3Bitmap.dispose();
+        number4.dispose();
+        possAnswer4Bitmap.dispose();
     }
 
     public boolean isCounted() {

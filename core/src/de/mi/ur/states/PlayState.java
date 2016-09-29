@@ -83,10 +83,11 @@ public class PlayState extends State {
         music.setLooping(true);
         music.setVolume(0.6f);
 
-        if(dialogListener.getBackgroundMusic()) {
+        if (dialogListener.getBackgroundMusic()) {
             music.play();
         }
         isQuestionMode = false;
+
         this.highscoreListener = gameManager.getHighscoreListener();
 
         nerd = new Nerd(ConstantsGame.NERD_X, ConstantsGame.NERD_Y);
@@ -193,6 +194,7 @@ public class PlayState extends State {
     public void updatePlayState(float dt) {
         updateTimeSum(dt);
         handleInput();
+
         updateGround();
         updateBG();
         nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty());
@@ -418,7 +420,7 @@ public class PlayState extends State {
                             rank = highscoreListener.checkIfNewHighscore(points);
                             System.out.println("rank is initialised");
                             cam.setToOrtho(false, ConstantsGame.DEFAULT_CAM_WIDTH, ConstantsGame.DEFAULT_CAM_HEIGHT);
-                            if(soundEffects) {
+                            if (soundEffects) {
                                 Score.gameOver.play();
                             }
                             gameManager.set(new GameOverState(gameManager));
@@ -622,6 +624,7 @@ public class PlayState extends State {
             obstacle.dispose();
         }
         score.dispose();
+        gameQuestion.dipose();
 
 
     }

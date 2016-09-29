@@ -50,15 +50,9 @@
 
     //help
     <string name="game_help_explanation">
-        Dem Nerd stellen sich allerlei Hindernisse in den Weg. Gruben müssen übersprungen und weiblichen Wesen muss ausgewichen werden,
-        gleichzeitig gilt es Umrechnungsaufgaben zu lösen. \n\n
-        Oben links ist der derzeitige Punktestand zu sehen. Oben rechts wird angezeigt, wie viele Leben der Nerd noch hat. \n
-        Wenn oben eine Zahl im Binär oder Hex-System erscheint, muss eine Aufgabe gelöst werden. Lösungen im Dezimalsystem erscheinen und der Nerd muss die richtige Lösung durch Springen einsammeln. \n
-        Um zu Springen, tippe auf den Bildschirm. \n
-        Wenn der Nerd in Gruben fällt, verliert er ein Leben. Beim Zusammenstoß mit weiblichen Wesen kann er eine Aufgabe lösen, um einem Gespräch auszuweichen.
-        Falls er diese nicht innerhalb einer vorgegebenen Zeit löst, verliert er auch hier ein Leben.\n
-        Mit Verlieren des letzten Lebens endet das Spiel. \n\n
-        Bei Klick auf die Wettersonne oben links über dem Startknopf passt sich der Hintergrund des Spiels an das aktuelle Wetter an. \n\n
+        Dem Nerd stellen sich allerlei Hindernisse in den Weg. Gruben müssen übersprungen und weiblichen Wesen ausgewichen werden,
+        gleichzeitig gilt es Umrechnungsaufgaben zu lösen. \n\nOben links ist der derzeitige Punktestand zu sehen. Oben rechts wird angezeigt, wie viele Leben der Nerd noch hat. \nWenn oben links eine rote Zahl erscheint, kann eine Aufgabe gelöst werden. In Klammern hinter der roten Zahl ist vermerkt, ob es sich um das Hex- oder Binärsystem handelt. Die Lösungen sind immer im Dezimalsystem gegeben und mit den Nummern 1-4 gekennzeichnet. Der Nerd muss nun das Telefon mit der Nummer der richtigen Lösung anspringen. Gelingt das, werden entsprechend entweder bereits verlorene Leben wieder aufgefüllt oder man erhält einen Punktebonus. Springt man die falsche Lösung an, verliert man ein Leben.\nUm zu Springen, tippe auf den Bildschirm. \nWenn der Nerd in Gruben fällt, gibt es keine Rettung mehr und man hat verloren. Beim Zusammenstoß mit weiblichen Wesen ist allerdings noch Rettung möglich! Dem absolut unangenehmen Ereignis - einem Gespräch mit einer Frau - kann der Nerd entkommen! Dazu muss er eine Aufgabe im Binärsystem richtig lösen.
+        Falls dies nicht innerhalb einer vorgegebenen Zeit gelingt, ist ein Leben verloren.\nMit Verlust des letzten Lebens endet das Spiel. \n\nUnd übrigens: Mit Tippen auf den Sonnen-Button, oben rechts über dem Startknopf, passt sich der Hintergrund des Spiels an das aktuelle Wetter an. \n\n
         Los geht’s!\n
 </string>
 
