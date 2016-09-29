@@ -18,7 +18,6 @@ public class AndroidLauncher extends AndroidApplication implements MultipleChoic
 	private NNCDatabase db;
 	private HighscoreDialog highscoreDialog;
 	private MultipleChoiceDialog multipleChoiceDialog;
-	//private static String userName = "Nerd";
 	private boolean backgroundMusic;
 	private boolean soundEffects;
 

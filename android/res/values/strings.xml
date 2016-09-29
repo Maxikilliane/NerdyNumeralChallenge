@@ -38,6 +38,7 @@
     <string name="settings_user_name">Benutzername</string>
     <string name="settings_title">Einstellungen</string>
     <string name="settings_legal_notice">Impressum</string>
+    <string name="settings_default_user_name">Nerd</string>
 
     //gameMain
     <string name="game_start">Start!</string>

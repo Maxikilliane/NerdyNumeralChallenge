@@ -503,7 +503,7 @@ public class PlayState extends State {
         }
     }
 
-    private void saveScore() {
+    /*private void saveScore() {
 
         points = (int) score.getCurrentScorePoints();
         System.out.println("scorepoints: " + score.getCurrentScorePoints());
@@ -520,7 +520,7 @@ public class PlayState extends State {
             highscoreListener.saveHighscoreToDatabase(rank, points, userName);
             System.out.println("highscore is uptodate");
         }
-    }
+    }*/
 
     private enum CurrentState {
         Running, Paused
