@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.badlogic.gdx.utils.Timer;
 
 import de.mi.ur.ConstantsGame;
 import de.mi.ur.states.GameOverState;
@@ -223,11 +224,25 @@ public class Score {
     public void showPointUpdate(SpriteBatch batch, OrthographicCamera cam) {
         if (pointsAdded) {
             pointUpdateString = "+10 Points!";
-            updateFont.draw(batch, pointUpdateString, cam.position.x + ConstantsGame.SCORE_OFFSET_X, cam.position.y + ConstantsGame.SCORE_OFFSET_Y);
+            updateFont.setColor(Color.GREEN);
+            updateFont.draw(batch, pointUpdateString, cam.position.x - 70, cam.position.y + 10);
+            updateFont.setColor(Color.GREEN);
+            Timer.schedule(new Timer.Task() {
 
-            //updateFont.dispose();
+                @Override
+                public void run() {
+                    setPointsAdded();
+                }
+            }, 2);
+
         }
-        pointsAdded = false;
+
+        //pointsAdded = false;
+
+    }
+
+    private boolean setPointsAdded() {
+        return pointsAdded = false;
     }
 
     public void dispose() {
@@ -237,6 +252,7 @@ public class Score {
         for (Texture heart : hearts) {
             heart.dispose();
         }
+        updateFont.dispose();
         scoreFont.dispose();
 
     }

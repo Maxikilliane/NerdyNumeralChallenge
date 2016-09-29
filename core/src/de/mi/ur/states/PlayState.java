@@ -83,10 +83,11 @@ public class PlayState extends State {
         music.setLooping(true);
         music.setVolume(0.6f);
 
-        if(dialogListener.getBackgroundMusic()) {
+        if (dialogListener.getBackgroundMusic()) {
             music.play();
         }
         isQuestionMode = false;
+
         this.highscoreListener = gameManager.getHighscoreListener();
 
         nerd = new Nerd(ConstantsGame.NERD_X, ConstantsGame.NERD_Y);
@@ -193,6 +194,7 @@ public class PlayState extends State {
     public void updatePlayState(float dt) {
         updateTimeSum(dt);
         handleInput();
+
         updateGround();
         updateBG();
         nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty());
@@ -238,7 +240,7 @@ public class PlayState extends State {
 
     public void handleUserAnswers() {
         //kürzere Lösung: funktioniert so halb, Kollision wird erkannt, aber die Herzen-State Erkennung funktionieren noch nicht.
-       /* if((phone1.collides(nerd.getBounds()) && !phone1.isCounted())|| (phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())){
+        if((phone1.collides(nerd.getBounds()) && !phone1.isCounted())|| (phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())){
             phones[0] = phone1;
             phones[1] = phone2;
             phones[2] = phone3;
@@ -259,7 +261,12 @@ public class PlayState extends State {
             }
             alreadChanged = false;
             togglePhase();
-        }*/
+        }
+
+
+
+
+        /*
 
         if (GameQuestion.getRightAnswer() == 1) {
             if (phone1.collides(nerd.getBounds()) && !phone1.isCounted()) {
@@ -336,6 +343,7 @@ public class PlayState extends State {
                 togglePhase();
             }
         }
+*/
 
     }
 
@@ -418,7 +426,7 @@ public class PlayState extends State {
                             rank = highscoreListener.checkIfNewHighscore(points);
                             System.out.println("rank is initialised");
                             cam.setToOrtho(false, ConstantsGame.DEFAULT_CAM_WIDTH, ConstantsGame.DEFAULT_CAM_HEIGHT);
-                            if(soundEffects) {
+                            if (soundEffects) {
                                 Score.gameOver.play();
                             }
                             gameManager.set(new GameOverState(gameManager));
@@ -622,6 +630,7 @@ public class PlayState extends State {
             obstacle.dispose();
         }
         score.dispose();
+        gameQuestion.dipose();
 
 
     }

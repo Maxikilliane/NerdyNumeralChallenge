@@ -76,7 +76,7 @@ public class Constants {
     public static final int MULTIPLE_CHOICE_DIALOG_SECOND_NUMERAL_BASE = 10;
     public static final int MULTIPLE_CHOICE_DIALOG_QUESTION_LENGTH = 6;
     public static final String MULTIPLE_CHOICE_DIALOG_MESSAGE = "Rette dein Leben indem du für die gegebene Zahl im Binärsystem die richtige Entsprechung im Dezimalsystem auswählst.";
-    public static final int DIALOG_SHOW_TIME_IN_SECONDS = 10;
+    public static final int DIALOG_SHOW_TIME_IN_SECONDS = 5;
 
     //AlertReceiver
     public static final String NOTIFICATION_TITLE = "NerdyNumeralChallenge";

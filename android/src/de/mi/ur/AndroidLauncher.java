@@ -25,9 +25,9 @@ public class AndroidLauncher extends AndroidApplication implements MultipleChoic
 		Bundle extras = getIntent().getExtras();
 		if(extras != null){
 			currentWeather = extras.getInt(Constants.CURRENT_WEATHER);
-			backgroundMusic = extras.getBoolean(Constants.BACKGROUND_MUSIC,true);
-			soundEffects = extras.getBoolean(Constants.SOUND_EFFECTS,true);
-			System.out.println("AndroidLaunecher: BackgorundMusik: " + backgroundMusic + " SoundEffects: "+ soundEffects);
+			backgroundMusic = extras.getBoolean(Constants.BACKGROUND_MUSIC, true);
+			soundEffects = extras.getBoolean(Constants.SOUND_EFFECTS, true);
+			System.out.println("AndroidLaunecher: BackgorundMusik: " + backgroundMusic + " SoundEffects: " + soundEffects);
 		}
 		db = new NNCDatabase(this);
 		db.open();
