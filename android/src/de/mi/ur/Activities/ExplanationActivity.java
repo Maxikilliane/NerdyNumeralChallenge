@@ -136,7 +136,7 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
 
     /*
      * Saving which tutorial has been chosen and necessary information
-     * maxNumExplanations will determine when the -> button will be deactivated...
+     * maxNumExplanations will determine when the "->" button will be deactivated...
      */
     private void setUpTexts(){
         int idTexts;

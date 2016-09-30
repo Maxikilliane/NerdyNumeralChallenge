@@ -52,8 +52,14 @@
     //help
     <string name="game_help_explanation">
         Dem Nerd stellen sich allerlei Hindernisse in den Weg. Gruben müssen übersprungen und weiblichen Wesen ausgewichen werden,
-        gleichzeitig gilt es Umrechnungsaufgaben zu lösen. \n\nOben links ist der derzeitige Punktestand zu sehen. Oben rechts wird angezeigt, wie viele Leben der Nerd noch hat. \nWenn oben links eine rote Zahl erscheint, kann eine Aufgabe gelöst werden. In Klammern hinter der roten Zahl ist vermerkt, ob es sich um das Hex- oder Binärsystem handelt. Die Lösungen sind immer im Dezimalsystem gegeben und mit den Nummern 1-4 gekennzeichnet. Der Nerd muss nun das Telefon mit der Nummer der richtigen Lösung anspringen. Gelingt das, werden entsprechend entweder bereits verlorene Leben wieder aufgefüllt oder man erhält einen Punktebonus. Springt man die falsche Lösung an, verliert man ein Leben.\nUm zu Springen, tippe auf den Bildschirm. \nWenn der Nerd in Gruben fällt, gibt es keine Rettung mehr und man hat verloren. Beim Zusammenstoß mit weiblichen Wesen ist allerdings noch Rettung möglich! Dem absolut unangenehmen Ereignis - einem Gespräch mit einer Frau - kann der Nerd entkommen! Dazu muss er eine Aufgabe im Binärsystem richtig lösen.
-        Falls dies nicht innerhalb einer vorgegebenen Zeit gelingt, ist ein Leben verloren.\nMit Verlust des letzten Lebens endet das Spiel. \n\nUnd übrigens: Mit Tippen auf den Sonnen-Button, oben rechts über dem Startknopf, passt sich der Hintergrund des Spiels an das aktuelle Wetter an. \n\n
+        gleichzeitig gilt es Umrechnungsaufgaben zu lösen.\n\n
+        Oben links ist der derzeitige Punktestand zu sehen. Oben rechts wird angezeigt, wie viele Leben der Nerd noch hat.\n
+        Wenn oben links eine rote Zahl erscheint, kann eine Aufgabe gelöst werden. In Klammern hinter der roten Zahl ist vermerkt, ob es sich um das Hex- oder Binärsystem handelt. Die Lösungen sind immer im Dezimalsystem gegeben und mit den Nummern 1-4 gekennzeichnet. Der Nerd muss nun das Telefon mit der Nummer der richtigen Lösung anspringen. Gelingt das, werden entsprechend entweder bereits verlorene Leben wieder aufgefüllt oder man erhält einen Punktebonus. Springt man die falsche Lösung an, verliert man ein Leben.\n
+        Um zu Springen, tippe auf den Bildschirm.\n
+        Wenn der Nerd in Gruben fällt, gibt es keine Rettung mehr und man hat verloren. Beim Zusammenstoß mit weiblichen Wesen ist allerdings noch Rettung möglich! Dem absolut unangenehmen Ereignis - einem Gespräch mit einer Frau - kann der Nerd entkommen! Dazu muss er eine Aufgabe im Binärsystem richtig lösen.
+        Falls dies nicht innerhalb einer vorgegebenen Zeit gelingt, ist ein Leben verloren.\n
+        Mit Verlust des letzten Lebens endet das Spiel. \n\n
+        Und übrigens: Mit Tippen auf den Sonnen-Button, oben rechts über dem Startknopf, passt sich der Hintergrund des Spiels an das aktuelle Wetter an. \n\n
         Los geht’s!\n
 </string>
 
@@ -86,6 +92,12 @@
     <string name="freetext_question_2">\u0020 gegebene Zahl in das\u0020</string>
     <string name="freetext_question_3"> \u0020um.\n</string>
     <string name="answer_prompt">Antwort eingeben!</string>
+
+    <string name="freetext_question_string_1">Rechnen Sie die im\u0020</string>
+    <string name="freetext_question_string_2">er-System gegebene Zahl in das\u0020</string>
+    <string name="freetext_question_string_3">er-System um:\u0020</string>
+
+    "Rechnen Sie die im " + getNumeral1Base() + "er-System gegebene Zahl in das " + getNumeral2Base() + "er-System um: "
 
 
     //MultipleChoice: part1 + numeral_systems[x]+part2
