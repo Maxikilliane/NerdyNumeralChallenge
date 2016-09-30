@@ -117,6 +117,9 @@ public class Constants {
     public static final int QUESTION_DIFFICULTY_HARD = 2;
     public static final int QUESTION_DIFFICULTY_REALLY_HARD = 3;
 
+    //Font
+    public static final String FONT = "cantarell_font.ttf";
+
 
 
 }
