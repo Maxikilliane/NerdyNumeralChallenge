@@ -9,7 +9,6 @@ public class TutorialQuestion {
     private int tutorialTypeConstant;
     private int questionNumber;
     private Question question;
-    private Resources resources;
 
     private Question[][] questions = {
             {new KnowledgeQuestion("Welchen Wert hat die Ziffer 4 in der Zahl 9482?", "400"),
@@ -40,7 +39,6 @@ public class TutorialQuestion {
     }
 
     public String getQuestion(Resources resources){
-        this.resources = resources;
         return this.question.getQuestionString(resources);
     }
 
