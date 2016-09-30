@@ -1,5 +1,7 @@
 package de.mi.ur.QuestionLogic;
 
+import android.content.res.Resources;
+
 /**
  * Created by Anna-Marie on 02.08.2016.
  */
@@ -36,8 +38,8 @@ public class TutorialQuestion {
         this.question = questions[tutorialTypeConstant][questionNumber];
     }
 
-    public String getQuestion(){
-        return this.question.getQuestionString();
+    public String getQuestion(Resources resources){
+        return this.question.getQuestionString(resources);
     }
 
     public String getRightAnswer(){

@@ -126,7 +126,7 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
         explanationTextView.setText(Html.fromHtml(explanationText));
         setVisibility();
 
-        questionTextView.setText(currentQuestion.getQuestion());
+        questionTextView.setText(currentQuestion.getQuestion(getResources()));
         questionFragment.deleteText();
 
         //sorgt dafür, dass mit Wechsel des ExplanationTexts auch der Focus vom EditText wieder weggeht
@@ -184,7 +184,7 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
         explanationTextView.setText(Html.fromHtml(explanationText));
 
         questionTextView = (TextView) findViewById(R.id.revision_question_textview);
-        questionTextView.setText(Html.fromHtml(currentQuestion.getQuestion()));
+        questionTextView.setText(Html.fromHtml(currentQuestion.getQuestion(getResources())));
 
         solutionButton = (Button) findViewById(R.id.tutorial_solution_button);
         solutionButton.setOnClickListener(new View.OnClickListener() {
