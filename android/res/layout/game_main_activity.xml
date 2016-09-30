@@ -9,6 +9,7 @@
 
     <include layout="@layout/toolbar"
         android:id="@+id/game_main_toolbar"/>
+    
 
     <ScrollView
         android:layout_width="match_parent"
