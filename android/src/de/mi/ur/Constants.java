@@ -76,10 +76,6 @@ public class Constants {
     public static final String WEATHER_API_URL_2_LON = "&lon=";
     public static final String WEATHER_API_URL_3 = "&appid="+API_ID;
 
-    //AlertReceiver
-    public static final String NOTIFICATION_TITLE = "NerdyNumeralChallenge";
-    public static final String NOTIFICATION_MESSAGE = "Schau doch mal wieder bei NNC vorbei!";
-
     //Database
     public static final int HIHGEST_LEVEL = 9;
 
