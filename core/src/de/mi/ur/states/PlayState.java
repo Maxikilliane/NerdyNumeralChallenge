@@ -437,6 +437,7 @@ public class PlayState extends State {
                             currentState = CurrentState.Paused;
                             dialogListener.showMultipleChoiceDialog();
 
+
                             //while (!dialogListener.getRightDialogAnswer() && !dialogListener.getWrongDialogAnswer()){}
                            /* if (dialogListener.getWrongDialogAnswer() && !dialogListener.getWrongDialogAnswer()){
                                 Score.updateHeart(gameManager, true);
@@ -516,7 +517,7 @@ public class PlayState extends State {
         }
     }
 
-    private enum CurrentState {
+    public enum CurrentState {
         Running, Paused
     }
 
@@ -535,6 +536,7 @@ public class PlayState extends State {
             gameQuestion.drawTasks(spriteBatch, cam);
         }
         score.showPointUpdate(spriteBatch, cam);
+
 
         spriteBatch.draw(ground, groundPos1.x, groundPos1.y);
         spriteBatch.draw(ground, groundPos2.x, groundPos2.y);
