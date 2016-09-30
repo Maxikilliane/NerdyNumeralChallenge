@@ -53,16 +53,17 @@ public class PlayState extends State {
     private AnswerPhone phone2;
     private AnswerPhone phone3;
     private AnswerPhone phone4;
-    private AnswerPhone[] phones = new AnswerPhone[4];
-
-
 
     private Vector2 groundPos1, groundPos2;
     private Vector2 bgPos1, bgPos2;
     private Array<Obstacle> obstacles;
 
-    private int rank;
     private int points;
+
+    private enum CurrentState {
+        Running, Paused
+    }
+
 
     private static float timeSum = 0;
 
@@ -70,56 +71,99 @@ public class PlayState extends State {
     private DialogListener dialogListener;
 
     private CurrentState currentState = CurrentState.Running;
-    private boolean test = false;
     public static boolean soundEffects;
+
 
 
     protected PlayState(GameStateManager gameManager) {
         super(gameManager);
-        this.dialogListener = gameManager.getDialogListener();
-        soundEffects = dialogListener.getSoundEffects();
+        initListeners();
+        initMusic();
+        initScore();
+        initGraphics();
 
+        isQuestionMode = false;
+        gameQuestion = new GameQuestion(gameManager.getMultipleChoiceListener());
+    }
+
+    /*
+     * Gets the listeners which are relevant for the Playstate
+     */
+    private void initListeners() {
+        this.dialogListener = gameManager.getDialogListener();
+        this.highscoreListener = gameManager.getHighscoreListener();
+
+    }
+
+    /*
+     * Starts the music loop
+     */
+    private void initMusic() {
+        soundEffects = dialogListener.getSoundEffects();
         music = Gdx.audio.newMusic(Gdx.files.internal("ZeroOne403.mp3"));
         music.setLooping(true);
         music.setVolume(0.6f);
-
         if (dialogListener.getBackgroundMusic()) {
             music.play();
         }
-        isQuestionMode = false;
+    }
 
-        this.highscoreListener = gameManager.getHighscoreListener();
-
+    /*
+     * Inits the graphical parts of the game
+     */
+    private void initGraphics() {
         nerd = new Nerd(ConstantsGame.NERD_X, ConstantsGame.NERD_Y);
+        initPhones();
+        initWeather();
+        initObstacles();
+    }
+
+
+    /*
+     * inits all graphic-parts which change according to which weather it is
+     */
+    private void initWeather() {
+        initGround();
+        sun = new Texture("sun.png");
+        background = getBackgroundWeather(gameManager);
+        groundPos1 = new Vector2(cam.position.x - (cam.viewportWidth / 2), ConstantsGame.GROUND_Y_OFFSET);
+        groundPos2 = new Vector2(cam.position.x - (cam.viewportWidth / 2) + ground.getWidth(), ConstantsGame.GROUND_Y_OFFSET);
+        bgPos1 = new Vector2(cam.position.x - (cam.viewportWidth / 2), ConstantsGame.BACKGROUND_Y_POS);
+        bgPos2 = new Vector2(cam.position.x - (cam.viewportWidth / 2) + background.getWidth(), ConstantsGame.BACKGROUND_Y_POS);
+    }
+
+    private void initGround() {
         if (snowy) {
             ground = new Texture("ground_snow.png");
         } else {
             ground = new Texture("ground_anton.png");
         }
-        ground = new Texture("ground_anton.png");
+    }
+
+    private void initPhones() {
         flyingPhone1 = new Texture("phone_answer_new_1.png");
         flyingPhone2 = new Texture("phone_different_animation_2.png");
         flyingPhone3 = new Texture("phone_answer_new_3.png");
         flyingPhone4 = new Texture("phone_answer_new_4.png");
 
-        sun = new Texture("sun.png");
-
-
         phone1 = new AnswerPhone(ConstantsGame.PHONE1_X, ConstantsGame.PHONES_Y, flyingPhone1);
         phone2 = new AnswerPhone(ConstantsGame.PHONE2_X, ConstantsGame.PHONES_Y, flyingPhone2);
         phone3 = new AnswerPhone(ConstantsGame.PHONE3_X, ConstantsGame.PHONES_Y, flyingPhone3);
         phone4 = new AnswerPhone(ConstantsGame.PHONE4_X, ConstantsGame.PHONES_Y, flyingPhone4);
-        background = getBackgroundWeather(gameManager);
+    }
 
-        //background = getBackgroundWeather(gameManager);
+    private void initScore() {
         score = new Score();
         score.startTimer();
         random = new Random();
+    }
 
-        gameQuestion = new GameQuestion(gameManager.getMultipleChoiceListener());
+    /*
+     * inits the obstacles, the succession of pits and women is random
+     * obstacles are initially positioned outside the screen
+     */
+    private void initObstacles() {
         obstacles = new Array<Obstacle>();
-
-
         for (int i = 0; i < ConstantsGame.TOTAL_NUM_OBSTACLES; i++) {
             if (random.nextInt(2) == ConstantsGame.PIT_TYPE) {
                 obstacles.add(new Pit(cam.position.x + (cam.viewportWidth / 2) + ConstantsGame.PIT_WIDTH * 2));
@@ -128,18 +172,16 @@ public class PlayState extends State {
             }
             setObstaclesPositionOutsideScreen();
         }
-
-        groundPos1 = new Vector2(cam.position.x - (cam.viewportWidth / 2), ConstantsGame.GROUND_Y_OFFSET);
-        groundPos2 = new Vector2(cam.position.x - (cam.viewportWidth / 2) + ground.getWidth(), ConstantsGame.GROUND_Y_OFFSET);
-        bgPos1 = new Vector2(cam.position.x - (cam.viewportWidth / 2), ConstantsGame.BACKGROUND_Y_POS);
-        bgPos2 = new Vector2(cam.position.x - (cam.viewportWidth / 2) + background.getWidth(), ConstantsGame.BACKGROUND_Y_POS);
-
     }
 
-    public static Score getScore (){
+    public static Score getScore() {
         return score;
     }
 
+
+    /*
+     * The nerd jumps when the user taps the screen
+     */
     @Override
     protected void handleInput() {
         if (Nerd.jumpFinished) {
@@ -177,18 +219,18 @@ public class PlayState extends State {
     public void updatePlayState(float dt) {
         updateTimeSum(dt);
         handleInput();
-        updateGround();
-        updateBG();
-        nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty());
-        updatePhones(dt);
+        updateGraphics(dt);
         score.updateScore(gameManager);
         gameQuestion.updateQuestions();
-        updateObstacles();
 
         cam.position.x = nerd.getPosition().x + ConstantsGame.NERD_POSITION_OFFSET;
         cam.update();
     }
 
+    /*
+     * Is responsible for the changing between GamePhases (QuestionPhase and ObstaclePhase)
+     * The deltatimes between frames are summed up and once the reach a certain threshold, the phase is toggled and the timeSum reset to 0
+     */
     private void updateTimeSum(float dt) {
         timeSum = timeSum + dt;
         if (timeSum > ConstantsGame.PHASE_DURATION) {
@@ -197,6 +239,15 @@ public class PlayState extends State {
             timeSum = 0;
         }
     }
+
+    private void updateGraphics(float dt) {
+        updateGround();
+        updateBG();
+        nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty());
+        updatePhones(dt);
+        updateObstacles();
+    }
+
 
     private void updateGround() {
         if (cam.position.x - (cam.viewportWidth / 2) > groundPos1.x + ground.getWidth()) {
@@ -216,14 +267,13 @@ public class PlayState extends State {
         }
     }
 
-    private void setCountedAllPhones() {
-        phone1.setCounted();
-        phone2.setCounted();
-        phone3.setCounted();
-        phone4.setCounted();
-    }
-
-
+    /*
+     * Handles the case when a user jumps to choose an Answerphone
+     * If the answer is wrong, a heart is lost
+     * If the answer is right, and all hearts are full, the user gets 10 points,
+     *                         else they get a heart refilled
+     * In both cases, the gamePhase is changed
+     */
     public void handleUserAnswers() {
 
         if ((phone1.collides(nerd.getBounds()) && !phone1.isCounted()) || (phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())) {
@@ -270,6 +320,20 @@ public class PlayState extends State {
         }
     }
 
+    /*
+     * set all phones counted
+     */
+    private void setCountedAllPhones() {
+        phone1.setCounted();
+        phone2.setCounted();
+        phone3.setCounted();
+        phone4.setCounted();
+    }
+
+    /*
+     * updates the position of the phones.
+     * If they are counted or it is ObstaclePhase, they are positioned outside the screen so they are not visible to the user
+     */
     private void updatePhones(float dt) {
         phone1.update(dt);
         phone2.update(dt);
@@ -299,12 +363,18 @@ public class PlayState extends State {
         phone.getPosition().set((cam.position.x + cam.viewportWidth / 2) + distanceFromFirstPhone, phone.getY());
     }
 
+    /*
+     * Changes the position of the phone
+     */
     private void updatePhone(AnswerPhone phone, Texture flyingPhone) {
         if (cam.position.x - (cam.viewportWidth / 2) > phone.getPosition().x + flyingPhone.getWidth()) {
             phone.getPosition().add(flyingPhone.getWidth() * ConstantsGame.PHONE_X_TIMES_WIDTH, ConstantsGame.PHONE_Y_TO_ADD);
         }
     }
 
+    /*
+     * Sets all the obstacles outside the screen so they are invisible to the user
+     */
     private void setObstaclesPositionOutsideScreen() {
         Obstacle firstObstacle = obstacles.get(0);
         firstObstacle.reposition(cam.position.x + (cam.viewportWidth / 2) + firstObstacle.getTexture().getWidth() * 2);
@@ -318,15 +388,16 @@ public class PlayState extends State {
     }
 
 
+    /*
+     * updates the position of the obstacles and handles collision with the nerd
+     */
     private void updateObstacles() {
-
         if (isQuestionPhase()) {
             setObstaclesPositionOutsideScreen();
         } else {
             for (int i = 0; i < obstacles.size; i++) {
                 Obstacle obstacle = obstacles.get(i);
                 repositionObstacles(i, obstacle);
-
                 if (obstacle.collides(nerd.getBounds()) && !obstacle.isCounted()) {
                     alreadChanged = false;
                     switch (obstacle.getType()) {
@@ -343,6 +414,9 @@ public class PlayState extends State {
         }
     }
 
+    /*
+     * Adjusts the position of the obstacles and uses a new random distance between the obstacles
+     */
     private void repositionObstacles(int i, Obstacle obstacle) {
         Obstacle before;
         if (i != 0) {
@@ -358,9 +432,10 @@ public class PlayState extends State {
         }
     }
 
+    /*
+     * This method is called when the current game is over
+     */
     private void gameEnds() {
-        points = (int) score.getCurrentScorePoints();
-        rank = highscoreListener.checkIfNewHighscore(points);
         cam.setToOrtho(false, ConstantsGame.DEFAULT_CAM_WIDTH, ConstantsGame.DEFAULT_CAM_HEIGHT);
         if (soundEffects) {
             Score.gameOver.play();
@@ -368,6 +443,11 @@ public class PlayState extends State {
         gameManager.set(new GameOverState(gameManager));
     }
 
+    /*
+     * This method is called when the nerd runs into a woman and has the possibility to save his life by answering a question,
+     * which pops up in a dialog.
+     *
+     */
     private void possSave(Obstacle obstacle) {
         obstacle.setCounted();
         currentState = CurrentState.Paused;
@@ -375,6 +455,10 @@ public class PlayState extends State {
     }
 
 
+    /*
+     * generates a new random distance to go between obstacles
+     * The maximum possible distance becomes smaller the more points the user already has -> difficulty becomes higher
+     */
     private int generateNewDistance(long scorePoints) {
         int newInt;
         if (scorePoints < ConstantsGame.SCORE_START) {
@@ -387,16 +471,17 @@ public class PlayState extends State {
             newInt = random.nextInt(ConstantsGame.MAX_DISTANCE_SHORT);
         }
 
-
         if (newInt >= ConstantsGame.MIN_DISTANCE) {
             return newInt;
         } else {
             return generateNewDistance(scorePoints);
         }
-
     }
 
 
+    /*
+     * returns the x-velocity of the nerd, which is higher, the more points the user already has
+     */
     private float increaseDifficulty() {
         long value = score.getCurrentScorePoints();
         if (value < ConstantsGame.SCORE_START) {
@@ -419,30 +504,32 @@ public class PlayState extends State {
     }
 
 
-    private enum CurrentState {
-        Running, Paused
-    }
-
     @Override
     //draws things on the screen
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.setProjectionMatrix(cam.combined);
         spriteBatch.begin();
-        spriteBatch.draw(background, bgPos1.x, ConstantsGame.BACKGROUND_Y_POS);
-        spriteBatch.draw(background, bgPos2.x, ConstantsGame.BACKGROUND_Y_POS);
-        if (sunny) {
-            spriteBatch.draw(sun, cam.position.x + ConstantsGame.SCORE_HEARTS_OFFSET_X, cam.position.y + ConstantsGame.SUN_Y_POS);
-        }
+        drawGraphics(spriteBatch);
         score.renderScore(spriteBatch, cam);
         if (isQuestionMode) {
             gameQuestion.drawTasks(spriteBatch, cam);
         }
         score.showPointUpdate(spriteBatch, cam);
+        spriteBatch.end();
+    }
 
+    /*
+     * draws the basic graphic elements on the screen
+     */
+    private void drawGraphics(SpriteBatch spriteBatch) {
+        spriteBatch.draw(background, bgPos1.x, ConstantsGame.BACKGROUND_Y_POS);
+        spriteBatch.draw(background, bgPos2.x, ConstantsGame.BACKGROUND_Y_POS);
+        if (sunny) {
+            spriteBatch.draw(sun, cam.position.x + ConstantsGame.SCORE_HEARTS_OFFSET_X, cam.position.y + ConstantsGame.SUN_Y_POS);
+        }
         spriteBatch.draw(ground, groundPos1.x, groundPos1.y);
         spriteBatch.draw(ground, groundPos2.x, groundPos2.y);
         spriteBatch.draw(nerd.getTexture(), nerd.getX(), nerd.getY());
-
         if (!phone1.isCounted() || !phone2.isCounted() || !phone3.isCounted() || !phone4.isCounted()) {
             drawPhones(spriteBatch);
         }
@@ -450,58 +537,11 @@ public class PlayState extends State {
         for (Obstacle obstacle : obstacles) {
             spriteBatch.draw(obstacle.getTexture(), obstacle.getObstaclePos().x, obstacle.getObstaclePos().y);
         }
-
-
-        spriteBatch.end();
-
     }
 
-
-       /* switch (currentState){
-            case Running:
-                updatePlayState(spriteBatch);
-                break;
-            case Paused:
-                //dont Update
-                if(dialogListener.getRightDialogAnswer() || dialogListener.getWrongDialogAnswer()){
-                    currentState = CurrentState.Running;
-                }else{
-                    currentState = CurrentState.Paused;
-                }
-                break;
-            default:updatePlayState(spriteBatch);
-        }
-
-
-
-    }
-
-    public void updatePlayState(SpriteBatch spriteBatch){
-        spriteBatch.setProjectionMatrix(cam.combined);
-        spriteBatch.begin();
-        spriteBatch.draw(background, bgPos1.x, ConstantsGame.BACKGROUND_Y_POS);
-        spriteBatch.draw(background, bgPos2.x, ConstantsGame.BACKGROUND_Y_POS);
-        spriteBatch.draw(sun, cam.position.x + ConstantsGame.SCORE_HEARTS_OFFSET_X, cam.position.y + ConstantsGame.SUN_Y_POS);
-        score.renderScore(spriteBatch, cam);
-        if(isQuestionMode) {
-            gameQuestion.drawTasks(spriteBatch, cam);
-        }
-        spriteBatch.draw(ground, groundPos1.x, groundPos1.y);
-        spriteBatch.draw(ground, groundPos2.x, groundPos2.y);
-        spriteBatch.draw(nerd.getTexture(), nerd.getX(), nerd.getY());
-
-        if(!phone1.isCounted() || !phone2.isCounted() || !phone3.isCounted()|| !phone4.isCounted()) {
-            drawPhones(spriteBatch);
-        }
-
-        for (Obstacle obstacle : obstacles) {
-            spriteBatch.draw(obstacle.getTexture(), obstacle.getObstaclePos().x, obstacle.getObstaclePos().y);
-        }
-
-        spriteBatch.end();
-    }*/
-
-
+    /*
+     * draws the 4 phones on the screen
+     */
     private void drawPhones(SpriteBatch spriteBatch) {
         spriteBatch.draw(phone1.getTexture(), phone1.getX(), phone1.getY());
         spriteBatch.draw(phone2.getTexture(), phone2.getX(), phone2.getY());
@@ -509,6 +549,9 @@ public class PlayState extends State {
         spriteBatch.draw(phone4.getTexture(), phone4.getX(), phone4.getY());
     }
 
+    /*
+     * the graphical objects are deleted
+     */
     @Override
     public void dispose() {
         music.dispose();
@@ -563,11 +606,16 @@ public class PlayState extends State {
         return new Texture(texturePath);
     }
 
+    /*
+     * returns true if the game is in questionPhase and false if it is in obstaclePhase
+     */
     public static boolean isQuestionPhase() {
         return isQuestionMode;
     }
 
-    //switches between the QuestionPhase and the ObstaclePhase in the game
+    /*
+     *switches between the QuestionPhase and the ObstaclePhase in the game
+     */
     public static void togglePhase() {
         isQuestionMode = !isQuestionMode;
         timeSum = 0;
