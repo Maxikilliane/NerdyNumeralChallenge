@@ -58,7 +58,6 @@ public class PlayState extends State {
     private Vector2 bgPos1, bgPos2;
     private Array<Obstacle> obstacles;
 
-    private int points;
 
     private enum CurrentState {
         Running, Paused
