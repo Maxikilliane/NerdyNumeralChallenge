@@ -44,7 +44,7 @@ public class FreeTextQuestionFragment extends QuestionFragment {
     }
 
     public interface OnKeyboardListener{
-        public void onOpen();
+         void onOpen();
     }
 
     @Override
@@ -83,6 +83,10 @@ public class FreeTextQuestionFragment extends QuestionFragment {
         solutionEditText.setVisibility(View.VISIBLE);
     }
 
+    /*
+     * Gets the input from the EditText and compares it in case of right answer returns true, else false,
+     * in both cases resets EditText to empty
+     */
     public boolean isCorrectAnswer(String rightAnswer){
         if((solutionEditText.getText().toString()).equals(trimLeadingZeros(rightAnswer))){
             solutionEditText.setText("");
@@ -92,6 +96,10 @@ public class FreeTextQuestionFragment extends QuestionFragment {
             return false;
         }
     }
+
+    /*
+     * Value of a number is the same with or without leading zeros, for comparability, they are trimmed away
+     */
     private String trimLeadingZeros(String string) {
         String trimmed = string.trim();
         for (int i = 0; i < string.length() - 1; i++) {
