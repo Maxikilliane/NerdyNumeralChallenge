@@ -511,6 +511,7 @@ public class PlayState extends State {
         spriteBatch.begin();
         drawGraphics(spriteBatch);
         score.renderScore(spriteBatch, cam);
+        score.showPointUpdate(spriteBatch, cam);
         if (isQuestionMode) {
             gameQuestion.drawTasks(spriteBatch, cam);
         }
