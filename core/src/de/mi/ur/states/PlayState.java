@@ -153,22 +153,6 @@ public class PlayState extends State {
     @Override
     //calculations for the render method
     public void update(float dt) {
-        /*updateTimeSum(dt);
-        handleInput();
-        updateGround();
-        updateBG();
-        nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty());
-        //System.out.println("difficulty: "+increaseDifficulty());
-        updatePhones(dt);
-        score.updateScore(gameManager);
-        gameQuestion.updateQuestions();
-
-        updateObstacles();
-
-
-        cam.position.x = nerd.getPosition().x + ConstantsGame.NERD_POSITION_OFFSET;
-        cam.update();*/
-
         switch (currentState) {
             case Running:
                 updatePlayState(dt);
@@ -190,21 +174,16 @@ public class PlayState extends State {
         }
     }
 
-
     public void updatePlayState(float dt) {
         updateTimeSum(dt);
         handleInput();
-
         updateGround();
         updateBG();
         nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty());
-        //System.out.println("difficulty: "+increaseDifficulty());
         updatePhones(dt);
         score.updateScore(gameManager);
         gameQuestion.updateQuestions();
-
         updateObstacles();
-
 
         cam.position.x = nerd.getPosition().x + ConstantsGame.NERD_POSITION_OFFSET;
         cam.update();
@@ -410,8 +389,6 @@ public class PlayState extends State {
 
 
         if (newInt >= ConstantsGame.MIN_DISTANCE) {
-            System.out.println("scorePoint: " + scorePoints);
-            System.out.println("distance " + newInt);
             return newInt;
         } else {
             return generateNewDistance(scorePoints);
@@ -441,24 +418,6 @@ public class PlayState extends State {
         }
     }
 
-    /*private void saveScore() {
-
-        points = (int) score.getCurrentScorePoints();
-        System.out.println("scorepoints: " + score.getCurrentScorePoints());
-        rank = highscoreListener.checkIfNewHighscore(points);
-        if (rank != -1) {
-            dialogListener.showHighscoreDialog();
-
-
-            while (!dialogListener.getDialogDone()) {
-                //do nothing / wait
-            }
-            String userName = dialogListener.getUserName();
-            System.out.println("username " + userName);
-            highscoreListener.saveHighscoreToDatabase(rank, points, userName);
-            System.out.println("highscore is uptodate");
-        }
-    }*/
 
     private enum CurrentState {
         Running, Paused
