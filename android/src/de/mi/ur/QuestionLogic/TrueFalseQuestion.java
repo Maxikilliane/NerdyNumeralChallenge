@@ -14,6 +14,9 @@ public class TrueFalseQuestion extends Question {
         this.question = generateQuestion(numeral1Base, numeral2Base, maxDigits);
     }
 
+    /*
+     * generates the Expression which is displayed as a question
+     */
     private String generateQuestion(int numeral1Base, int numeral2Base, int maxDigits){
         String num1 = NumeralConverter.generateNumWithMaxDigits(numeral1Base, maxDigits);
         int numInt1 = NumeralConverter.convertFromNumeral(num1, numeral1Base);
