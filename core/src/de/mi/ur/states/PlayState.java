@@ -237,7 +237,7 @@ public class PlayState extends State {
         }
     }
 
-    private void setCountedAllPhones(){
+    private void setCountedAllPhones() {
         phone1.setCounted();
         phone2.setCounted();
         phone3.setCounted();
@@ -247,7 +247,7 @@ public class PlayState extends State {
 
     public void handleUserAnswers() {
 
-        if((phone1.collides(nerd.getBounds()) && !phone1.isCounted())||(phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())){
+        if ((phone1.collides(nerd.getBounds()) && !phone1.isCounted()) || (phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())) {
             alreadChanged = false;
             togglePhase();
         }
@@ -364,7 +364,7 @@ public class PlayState extends State {
         }
     }
 
-    private void repositionObstacles(int i, Obstacle obstacle){
+    private void repositionObstacles(int i, Obstacle obstacle) {
         Obstacle before;
         if (i != 0) {
             before = obstacles.get(i - 1);
@@ -379,7 +379,7 @@ public class PlayState extends State {
         }
     }
 
-    private void gameEnds(){
+    private void gameEnds() {
         points = (int) score.getCurrentScorePoints();
         rank = highscoreListener.checkIfNewHighscore(points);
         cam.setToOrtho(false, ConstantsGame.DEFAULT_CAM_WIDTH, ConstantsGame.DEFAULT_CAM_HEIGHT);
@@ -389,7 +389,7 @@ public class PlayState extends State {
         gameManager.set(new GameOverState(gameManager));
     }
 
-    private void possSave(Obstacle obstacle){
+    private void possSave(Obstacle obstacle) {
         obstacle.setCounted();
         currentState = CurrentState.Paused;
         dialogListener.showMultipleChoiceDialog();
