@@ -15,8 +15,6 @@ import de.mi.ur.R;
 public class FreeTextQuestionFragment extends QuestionFragment {
     private EditText solutionEditText;
     private OnKeyboardListener mCallback;
-    // gehört da unten mit dazu
-    //private String[] numeralSystems = getResources().getStringArray(R.array.numeral_systems);
 
     public FreeTextQuestionFragment(){
         super();

@@ -16,7 +16,7 @@ public class NumeralConverter {
      * Int number is converted to a String as a representation of another numeral system
      */
     public static String convertToNumeral(int number, int radix){
-        if(radix < Constants.MIN_NUMERAL_BASE || radix> Constants.MAX_NUMERAL_BASE){
+        if (radix < Constants.MIN_NUMERAL_BASE || radix > Constants.MAX_NUMERAL_BASE) {
             radix = Constants.DEFAULT_NUMERAL_BASE;
         }
         String toReturn = Integer.toString(number, radix);
