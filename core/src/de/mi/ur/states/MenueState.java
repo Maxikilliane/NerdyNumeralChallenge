@@ -14,19 +14,11 @@ public class MenueState extends State {
 
     private Texture background;
 
-
-
     public MenueState(GameStateManager gameManager) {
         super(gameManager);
-
-
         Score.state = 4;
-
         cam.setToOrtho(false, ConstantsGame.SCREEN_WIDTH, ConstantsGame.SCREEN_HEIGHT);
-
         background = new Texture("menu_state.png");
-
-
     }
 
     @Override
@@ -40,7 +32,6 @@ public class MenueState extends State {
     @Override
     public void update(float dt) {
         handleInput();
-
     }
 
     @Override
@@ -51,7 +42,6 @@ public class MenueState extends State {
          */
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, ConstantsGame.SCREEN_WIDTH, ConstantsGame.SCREEN_HEIGHT);
-
         spriteBatch.end();
 
     }

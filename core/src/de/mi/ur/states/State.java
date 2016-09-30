@@ -18,8 +18,6 @@ public abstract class State {
     protected State (GameStateManager gameManager) {
         this.gameManager = gameManager;
         cam = new OrthographicCamera();
-
-
         cam.setToOrtho(false, ConstantsGame.DEFAULT_CAM_WIDTH, ConstantsGame.DEFAULT_CAM_HEIGHT);
     }
 

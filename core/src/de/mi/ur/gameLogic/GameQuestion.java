@@ -14,7 +14,6 @@ import de.mi.ur.sprites.AnswerPhone;
 import de.mi.ur.states.PlayState;
 
 public class GameQuestion {
-    private Score score;
 
 
     private String toSolve;
@@ -62,7 +61,6 @@ public class GameQuestion {
 
 
 
-        score = new Score();
         toSolve = "";
 
         possAnswer1 = "";

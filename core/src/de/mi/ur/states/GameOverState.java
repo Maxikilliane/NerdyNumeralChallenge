@@ -40,7 +40,6 @@ public class GameOverState extends State {
         this.dialogListener = gameManager.getDialogListener();
         this.score = PlayState.getScore();
         points = (int) score.getCurrentScorePoints();
-        System.out.println("scorepoints: " + score.getCurrentScorePoints());
         rank = highscoreListener.checkIfNewHighscore(points);
         if (rank != -1) {
             dialogListener.showHighscoreDialog();
@@ -51,9 +50,9 @@ public class GameOverState extends State {
             }
 
             String userName = dialogListener.getUserName();
-            System.out.println("username " + userName);
+
             highscoreListener.saveHighscoreToDatabase(rank, points, userName);
-            System.out.println("highscore is uptodate");
+
         }
 
 

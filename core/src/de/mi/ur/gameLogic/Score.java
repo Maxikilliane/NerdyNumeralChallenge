@@ -28,7 +28,6 @@ public class Score {
     private static Texture heartFilled;
     public static Array<Texture> hearts;
     private long startTime;
-    private static int pointUpdate;
     private static Sound powerUp;
     public static Sound gameOver;
     BitmapFont scoreFont;
@@ -149,7 +148,6 @@ public class Score {
         if (PlayState.soundEffects) {
             fail.play(0.5f);
         }
-        System.out.println("State of hearts: " + state);
         if (state == ConstantsGame.HEARTSTATE_ALL_HEARTS_FULL) {
             changeHeart(dead, 0);
         } else if (state == ConstantsGame.HEARTSTATE_NO_HEART) {
@@ -158,11 +156,8 @@ public class Score {
             manager.set(new GameOverState(manager));
         } else if (state == ConstantsGame.HEARTSTATE_1_HEART) {
             changeHeart(dead, 2);
-            // System.out.println(2);
         } else if (state == ConstantsGame.HEARTSTATE_2_HEARTS) {
             changeHeart(dead, 1);
-        } else {
-            // dieses else tritt ziemlich oft auf! :)
         }
 
 
@@ -179,7 +174,6 @@ public class Score {
         if (PlayState.soundEffects) {
             powerUp.play(0.5f);
         }
-        System.out.println("State of hearts: " + state);
         if (state == ConstantsGame.HEARTSTATE_ALL_HEARTS_FULL) {
             addPoints();
             pointsAdded = true;
@@ -190,8 +184,6 @@ public class Score {
             changeHeart(false, 1);
         } else if (state == ConstantsGame.HEARTSTATE_2_HEARTS) {
             changeHeart(false, 0);
-        } else {
-            // dieses else tritt ziemlich oft auf! :)
         }
 
 
@@ -237,8 +229,6 @@ public class Score {
             }, 2);
 
         }
-
-        //pointsAdded = false;
 
     }
 

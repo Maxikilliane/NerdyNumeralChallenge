@@ -6,8 +6,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import de.mi.ur.ConstantsGame;
-import de.mi.ur.gameLogic.Score;
-import de.mi.ur.states.GameStateManager;
 
 /**
  * Created by maxiwindl on 05.09.16.
@@ -70,37 +68,6 @@ public class AnswerPhone {
     }
 
 
-    /*
-     * state 1: 2 hearts full
-     * state 2: 1 heart full
-     * state 3: 0 hearts full
-     * state 4: all hearts full
-     */
-    public void reactToCollision(GameStateManager manager) {
-
-        int state = Score.getStateOfHearts();
-        System.out.println(state);
-        if (state == 4) {
-            //Score.changeHeart(false, 0);
-        } else if (state == 3) {
-            Score.changeHeart(false, 2);
-        } else if (state == 2) {
-            Score.changeHeart(false, 1);
-            System.out.println(2);
-        } else if (state == 1) {
-            Score.changeHeart(false, 0);
-        } else {
-            // dieses else tritt ziemlich oft auf! :)
-        }
-
-    }
-
-    public void reactToWrongCollision(GameStateManager manager) {
-        System.out.println(Score.getStateOfHearts());
-
-        Score.updateHeart(manager, true);
-
-    }
     public float getX() {
         return position.x;
     }

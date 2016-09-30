@@ -198,7 +198,6 @@ public class PlayState extends State {
         updateGround();
         updateBG();
         nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty());
-        //System.out.println("difficulty: "+increaseDifficulty());
         updatePhones(dt);
         score.updateScore(gameManager);
         gameQuestion.updateQuestions();
@@ -251,10 +250,10 @@ public class PlayState extends State {
                 phone.setCounted();
                 if (GameQuestion.getRightAnswer() == (i + 1)) {
                     Score.refillHeart();
-                    System.out.println("RICHTIGE LÖSUNG");
+
 
                 } else {
-                    System.out.println("FALSCHE LÖSUNG");
+
 
                     Score.updateHeart(gameManager, true);
                 }
