@@ -241,37 +241,11 @@ public class PlayState extends State {
 
     public void handleUserAnswers() {
 
-        switch(GameQuestion.getRightAnswer()){
-            case 1:
-                testCollision(phone1, phone2, phone3, phone4);
-                togglePhase();
-                alreadChanged = false;
-                break;
-            case 2:
-                testCollision(phone2, phone1, phone3, phone4);
-                togglePhase();
-                alreadChanged = false;
-                break;
-            case 3:
-                testCollision(phone3, phone1, phone2, phone4);
-                togglePhase();
-                alreadChanged = false;
-                break;
-            case 4:
-                testCollision(phone4, phone1, phone2, phone3);
-                togglePhase();
-                alreadChanged = false;
-                break;
-            default:
-                break;
-
+        if((phone1.collides(nerd.getBounds()) && !phone1.isCounted())||(phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())){
+            alreadChanged = false;
+            togglePhase();
         }
 
-
-
-
-
-        /*
 
         if (GameQuestion.getRightAnswer() == 1) {
             if (phone1.collides(nerd.getBounds()) && !phone1.isCounted()) {
@@ -279,17 +253,15 @@ public class PlayState extends State {
                 System.out.println("RICHTIGE LÖSUNG");
 
                 //Score.updateHeart(gameManager);
-                alreadChanged = false;
                 Score.refillHeart();
-                togglePhase();
+
             } else if ((phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())) {
                 System.out.println("FALSCHE LÖSUNG");
                 phone2.setCounted();
                 phone3.setCounted();
                 phone4.setCounted();
-                alreadChanged = false;
+
                 Score.updateHeart(gameManager, true);
-                togglePhase();
             }
 
         }
@@ -297,17 +269,17 @@ public class PlayState extends State {
             if (phone2.collides(nerd.getBounds()) && !phone2.isCounted()) {
                 System.out.println("RICHTIGE LÖSUNG ANGESPRUNGEN");
                 phone2.setCounted();
-                alreadChanged = false;
+
                 Score.refillHeart();
-                togglePhase();
+
             } else if ((phone1.collides(nerd.getBounds()) && !phone1.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())) {
                 System.out.println("FALSCHE LÖSUNG");
                 phone1.setCounted();
                 phone3.setCounted();
                 phone4.setCounted();
-                alreadChanged = false;
+
                 Score.updateHeart(gameManager, true);
-                togglePhase();
+
             }
         }
 
@@ -315,17 +287,17 @@ public class PlayState extends State {
             if (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) {
                 System.out.println("RICHTIGE LÖSUNG ANGESPRUNGEN");
                 phone3.setCounted();
-                alreadChanged = false;
+
                 Score.refillHeart();
-                togglePhase();
+
             } else if ((phone1.collides(nerd.getBounds()) && !phone1.isCounted()) || (phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())) {
                 System.out.println("FALSCHE LÖSUNG");
                 phone1.setCounted();
                 phone2.setCounted();
                 phone4.setCounted();
-                alreadChanged = false;
+
                 Score.updateHeart(gameManager, true);
-                togglePhase();
+
             }
         }
 
@@ -333,22 +305,22 @@ public class PlayState extends State {
             if (phone4.collides(nerd.getBounds()) && !phone4.isCounted()) {
                 System.out.println("RICHTIGE LÖSUNG");
                 phone4.setCounted();
-                alreadChanged = false;
+
                 Score.refillHeart();
                 // phone4.reactToCollision(gameManager);
-                togglePhase();
+
             } else if ((phone1.collides(nerd.getBounds()) && !phone1.isCounted()) || (phone2.collides(nerd.getBounds()) && phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && phone3.isCounted())) {
                 System.out.println("FALSCHE LÖSUNG");
                 phone2.setCounted();
                 phone1.setCounted();
                 phone3.setCounted();
                 // phone4.reactToWrongCollision(gameManager);
-                alreadChanged = false;
+
                 Score.updateHeart(gameManager, true);
-                togglePhase();
+
             }
         }
-*/
+
 
     }
 
