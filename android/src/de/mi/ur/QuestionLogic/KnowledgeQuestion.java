@@ -4,6 +4,8 @@ import android.content.res.Resources;
 
 /**
  * Created by Anna-Marie on 19.08.2016.
+ *
+ * Is a basis, so that they can be saved together with FreeTextQuestions in a single Instance Variable
  */
 public class KnowledgeQuestion extends Question {
     String question;

@@ -23,14 +23,8 @@ public class Constants {
     public static final int TRICKS_TUTORIAL = 3;
 
     public static final String KEY_NUMBER_TUTORIAL = "number of explanation";
-    //evtl brauche ich die ganzen Number-Konstanten nicht (außer die erste), weil ich das jetzt ohne Intents mache (also nicht die Activity neu aufrufe...)
 
     public static final int NUMBER_1 = 0;
-    public static final int NUMBER_2 = 1;
-    public static final int NUMBER_3 = 2;
-    public static final int NUMBER_4 = 3;
-    public static final int NUMBER_5 = 4;
-    public static final int NUMBER_6 = 5;
 
     //Anzahl der Screens pro Tutorial -> Zählanfang im Array bei 0, d.h. das ist der letzte zugreifbare Punkt im jeweiligen String-Array
     public static final int MAX_EXPLANATION_NUM_INTRO = 5;
@@ -50,7 +44,7 @@ public class Constants {
     public static final String BACKGROUND_MUSIC = "background music";
     public static final String SOUND_EFFECTS = "sound effects";
 
-    //
+    //Permission
     public static final int MY_PERMISSION_REQUEST_ACCESS_FINE_LOCATION = 111;
 
     //Practice
@@ -58,6 +52,13 @@ public class Constants {
     public static final int PROGRESS_FULL = 100;
     public static final int DELAY_2_SECONDS = 2000;
     public static final int BACK_KEY_PRESSED = -1;
+
+    //Questions
+    public static final int NUM_WRONG_ANSWERS_MULTIPLE_CHOICE = 3;
+    public static final int MAX_NUMERAL_BASE = 16;
+    public static final int MIN_NUMERAL_BASE = 2;
+    public static final int DEFAULT_NUMERAL_BASE = 10;
+
 
     //MultipleChoiceDialog
     public static final int MULTIPLE_CHOICE_DIALOG_FIRST_NUMERAL_BASE = 2;

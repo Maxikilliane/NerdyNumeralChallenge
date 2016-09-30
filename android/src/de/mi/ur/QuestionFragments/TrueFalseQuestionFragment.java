@@ -37,6 +37,9 @@ public class TrueFalseQuestionFragment extends QuestionFragment {
         choices = (RadioGroup) fragmentView.findViewById(R.id.true_false_choices);
     }
 
+    /*
+     * checks if the right radio button is checked and clears the buttons afterwards (no extra method needed)
+     */
     public boolean isCorrectAnswer(String rightAnswer){
         int checkedButtonId = choices.getCheckedRadioButtonId();
         if(checkedButtonId == -1){

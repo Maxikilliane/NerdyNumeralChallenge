@@ -15,8 +15,6 @@ import de.mi.ur.R;
  */
 public class MultipleChoiceQuestionFragment extends QuestionFragment{
     private RadioGroup multipleChoices;
-    private RadioButton button1;
-    private TextView useless;
     private View fragmentView;
 
 
@@ -33,8 +31,6 @@ public class MultipleChoiceQuestionFragment extends QuestionFragment{
         View fragmentView = inflater.inflate(R.layout.multiple_choice_fragment, container, false);
         this.fragmentView = fragmentView;
         multipleChoices = (RadioGroup) fragmentView.findViewById(R.id.multiple_choices);
-        button1 = (RadioButton) fragmentView.findViewById(R.id.choice1);
-        useless = (TextView) fragmentView.findViewById(R.id.useless);
 
         setUpUI();
         return fragmentView;
@@ -44,8 +40,6 @@ public class MultipleChoiceQuestionFragment extends QuestionFragment{
 
     private void setUpUI(){
         multipleChoices = (RadioGroup) fragmentView.findViewById(R.id.multiple_choices);
-        useless = (TextView) fragmentView.findViewById(R.id.useless);
-
     }
 
 
