@@ -34,7 +34,7 @@ public class HighscoreDialog extends DialogFragment implements SharedPreferences
         loadPreferences();
         editText = new EditText(getActivity());
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.highscore_dialog_title_part_one+ userName+R.string.highscore_dialog_title_part_two)
+        builder.setTitle(getResources().getString(R.string.highscore_dialog_title_part_one)+ userName+getResources().getString(R.string.highscore_dialog_title_part_two))
                 .setView(editText)
                 .setNegativeButton(R.string.dialog_negative_button, new DialogInterface.OnClickListener() {
             @Override

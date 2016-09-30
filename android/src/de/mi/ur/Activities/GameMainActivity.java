@@ -105,7 +105,6 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
                 i.putExtra(Constants.CURRENT_WEATHER, weatherManager.getCurrentWeather());
                 i.putExtra(Constants.BACKGROUND_MUSIC, getBackgroundMusic());
                 i.putExtra(Constants.SOUND_EFFECTS, getSoundEffects());
-                System.out.println("GameMainActivity: BackgroundMusik: " + getBackgroundMusic() + " SoundEffects: " + getSoundEffects());
                 break;
             case R.id.game_update_weather_button:
                 handleWeatherButtonClick();
@@ -133,7 +132,7 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
             weatherManager.startCurrentWeatherGetter();
         } else {
             requestWeatherPermission(this);
-            String toastMessage = "Default-Wetter: Die Sonne scheint!";
+            String toastMessage = getResources().getString(R.string.default_weather_toast);
             Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show();
         }
     }
@@ -144,15 +143,15 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
     private String convertToWeatherName(int weatherNumber) {
         switch (weatherNumber) {
             case Constants.WEATHER_SUNNY:
-                return "scheint die Sonne";
+                return getResources().getString(R.string.weather_sunny);
             case Constants.WEATHER_CLOUDY:
-                return "ist es wolkig";
+                return getResources().getString(R.string.weather_cloudy);
             case Constants.WEATHER_RAINY:
-                return "regnet es";
+                return getResources().getString(R.string.weather_rainy);
             case Constants.WEATHER_SNOWY:
-                return "schneit es";
+                return getResources().getString(R.string.weather_snowy);
             default:
-                return "ist es wolkig";
+                return getResources().getString(R.string.weather_default);
         }
     }
 
@@ -209,7 +208,7 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onDownloadFinished() {
         String weather = convertToWeatherName(weatherManager.getCurrentWeather());
-        String  toastMessage = "Wetter aktualisiert! Gerade " + weather + ". Der Spielhintergrund wurde angepasst.";
+        String  toastMessage = getResources().getString(R.string.weather_toast_1) + weather + getResources().getString(R.string.weather_toast_2);
         Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show();
     }
 
