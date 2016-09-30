@@ -58,7 +58,9 @@ public class TutorialMainActivity extends AppCompatActivity implements View.OnCl
         tricksButton.setOnClickListener(this);
     }
 
-
+    /*
+     * Handles Click-Events (activity starting)
+     */
     @Override
     public void onClick(View v) {
         Intent i = new Intent (TutorialMainActivity.this, ExplanationActivity.class);

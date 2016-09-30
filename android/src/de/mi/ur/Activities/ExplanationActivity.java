@@ -73,15 +73,10 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
         myToolbar = (Toolbar) findViewById(R.id.explanation_toolbar);
         setSupportActionBar(myToolbar);
         setUpToolbarTitle();
-        //getSupportActionBar().setTitle(R.string.app_name);
         myToolbar.setNavigationIcon(R.drawable.toolbar_back);
-       /* if( explanationNumber < maxNumExplanations-1){
-            myToolbar.setNavigationIcon(R.drawable.toolbar_next);
-        }*/
         myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (explanationNumber == 0) {
                     backButton.setEnabled(false);
                     finish();

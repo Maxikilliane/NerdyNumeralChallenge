@@ -29,7 +29,7 @@
 
 
     //Settings
-    <string name="settings_sound_textView">Sounds</string>
+    <string name="settings_sound_textView">Spiel</string>
     <string name="settings_sound_effects">Soundeffekte</string>
     <string name="settings_music">Hintergrundmusik</string>
     <string name="settings_push_notifications">Push-Benachrichtigungen</string>
