@@ -87,8 +87,8 @@ public class AndroidLauncher extends AndroidApplication implements MultipleChoic
 		return highscoreDialog.getUserName();
 	}
 
-    /*
-     *This method shows a new multipleChoiceDialog
+	/*
+	 *This method shows a new multipleChoiceDialog
      */
 	@Override
 	public void showMultipleChoiceDialog() {

@@ -9,7 +9,11 @@
         layout="@layout/toolbar"
         android:id="@+id/practice_toolbar" />
 
-    <RelativeLayout
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/practice_toolbar">
@@ -55,7 +59,8 @@
         android:layout_below="@id/question_changeable_textview">
     </FrameLayout>
 
-    <Button
+
+            <Button
         android:id="@+id/question_solution_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -75,5 +80,6 @@
         android:focusableInTouchMode="true"
         android:visibility="gone" />
     </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

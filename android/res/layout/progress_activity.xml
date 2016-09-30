@@ -9,6 +9,9 @@
     <include layout="@layout/toolbar"
         android:id="@+id/progress_toolbar"/>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -39,4 +42,5 @@
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:progressDrawable="@drawable/green_progressbar" />
 </LinearLayout>
+    </ScrollView>
 </LinearLayout>

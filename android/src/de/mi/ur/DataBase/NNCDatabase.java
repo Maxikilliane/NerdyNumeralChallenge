@@ -131,6 +131,7 @@ public class NNCDatabase implements HighscoreListener {
     public Cursor getAllHighscoresCursor() {
         return database.query(TABLE_HIGHSCORE, ALL_COLUMNS_HIGHSCORE, null, null, null, null, KEY_RANK + " ASC");
     }
+
     /*
      * "building" highscores is done in this method to avoid duplicate code
      */
@@ -149,9 +150,9 @@ public class NNCDatabase implements HighscoreListener {
         return highscores;
     }
 
-/*
- * "building" levels is done in this method, to avoid duplicate code
- */
+    /*
+     * "building" levels is done in this method, to avoid duplicate code
+     */
     private ArrayList<Level> buildLevelFromCursor(Cursor cursor){
         ArrayList<Level> levels = new ArrayList<Level>();
         if(cursor.moveToFirst()){
@@ -222,7 +223,7 @@ public class NNCDatabase implements HighscoreListener {
     public boolean checkIfNextLevel(){
         Level currentLevel = getCurrentLevel();
         int currentLevelNum = currentLevel.getLevelNum();
-        if(currentLevelNum < Constants.HIHGEST_LEVEL) {
+        if (currentLevelNum < Constants.HIHGEST_LEVEL) {
             Level nextLevel = getLevel(currentLevelNum + 1);
 
             if (currentLevel.getPointsNeededForThisLevel() >= nextLevel.getPointsNeededForThisLevel()) {

@@ -5,13 +5,11 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import de.mi.ur.Constants;
 import de.mi.ur.QuestionLogic.MultipleChoiceQuestion;
@@ -64,7 +62,7 @@ public class MultipleChoiceDialog extends DialogFragment {
     /*
      *This method initialises values for the Class
      */
-    private void init(){
+    private void init() {
         startTime = System.currentTimeMillis();
         rightAnswer = false;
         wrongAnswer = false;
