@@ -238,30 +238,35 @@ public class PlayState extends State {
     }
 
 
+
     public void handleUserAnswers() {
-        //kürzere Lösung: funktioniert so halb, Kollision wird erkannt, aber die Herzen-State Erkennung funktionieren noch nicht.
-        if((phone1.collides(nerd.getBounds()) && !phone1.isCounted())|| (phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())){
-            phones[0] = phone1;
-            phones[1] = phone2;
-            phones[2] = phone3;
-            phones[3] = phone4;
 
-            for(int i = 0; i < phones.length; i++) {
-                AnswerPhone phone = phones[i];
-                phone.setCounted();
-                if (GameQuestion.getRightAnswer() == (i + 1)) {
-                    Score.refillHeart();
-                    System.out.println("RICHTIGE LÖSUNG");
+        switch(GameQuestion.getRightAnswer()){
+            case 1:
+                testCollision(phone1, phone2, phone3, phone4);
+                togglePhase();
+                alreadChanged = false;
+                break;
+            case 2:
+                testCollision(phone2, phone1, phone3, phone4);
+                togglePhase();
+                alreadChanged = false;
+                break;
+            case 3:
+                testCollision(phone3, phone1, phone2, phone4);
+                togglePhase();
+                alreadChanged = false;
+                break;
+            case 4:
+                testCollision(phone4, phone1, phone2, phone3);
+                togglePhase();
+                alreadChanged = false;
+                break;
+            default:
+                break;
 
-                } else {
-                    System.out.println("FALSCHE LÖSUNG");
-
-                    Score.updateHeart(gameManager, true);
-                }
-            }
-            alreadChanged = false;
-            togglePhase();
         }
+
 
 
 
@@ -344,6 +349,26 @@ public class PlayState extends State {
             }
         }
 */
+
+    }
+
+    private void testCollision(AnswerPhone correctPhone, AnswerPhone wrongPhone1, AnswerPhone wrongPhone2, AnswerPhone wrongPhone3){
+        if (correctPhone.collides(nerd.getBounds()) && !correctPhone.isCounted()) {
+            correctPhone.setCounted();
+            System.out.println("RICHTIGE LÖSUNG");
+
+            //Score.updateHeart(gameManager);
+            Score.refillHeart();
+
+        } else if ((wrongPhone1.collides(nerd.getBounds()) && !wrongPhone2.isCounted()) || (phone3.collides(nerd.getBounds()) && !wrongPhone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())) {
+            System.out.println("FALSCHE LÖSUNG");
+            wrongPhone1.setCounted();
+            wrongPhone2.setCounted();
+            wrongPhone3.setCounted();
+
+            Score.updateHeart(gameManager, true);
+
+        }
 
     }
 
