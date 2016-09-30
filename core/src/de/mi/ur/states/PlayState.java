@@ -198,6 +198,7 @@ public class PlayState extends State {
         updateGround();
         updateBG();
         nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty());
+        //System.out.println("difficulty: "+increaseDifficulty());
         updatePhones(dt);
         score.updateScore(gameManager);
         gameQuestion.updateQuestions();
@@ -236,116 +237,59 @@ public class PlayState extends State {
         }
     }
 
+    private void setCountedAllPhones(){
+        phone1.setCounted();
+        phone2.setCounted();
+        phone3.setCounted();
+        phone4.setCounted();
+    }
+
 
     public void handleUserAnswers() {
-        //kürzere Lösung: funktioniert so halb, Kollision wird erkannt, aber die Herzen-State Erkennung funktionieren noch nicht.
-        if ((phone1.collides(nerd.getBounds()) && !phone1.isCounted()) || (phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())) {
-            phones[0] = phone1;
-            phones[1] = phone2;
-            phones[2] = phone3;
-            phones[3] = phone4;
 
-            for (int i = 0; i < phones.length; i++) {
-                AnswerPhone phone = phones[i];
-                phone.setCounted();
-                if (GameQuestion.getRightAnswer() == (i + 1)) {
-                    Score.refillHeart();
-
-
-                } else {
-
-
-                    Score.updateHeart(gameManager, true);
-                }
-            }
+        if((phone1.collides(nerd.getBounds()) && !phone1.isCounted())||(phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())){
             alreadChanged = false;
             togglePhase();
         }
 
-
-
-
-        /*
-
         if (GameQuestion.getRightAnswer() == 1) {
             if (phone1.collides(nerd.getBounds()) && !phone1.isCounted()) {
-                phone1.setCounted();
-                System.out.println("RICHTIGE LÖSUNG");
-
-                //Score.updateHeart(gameManager);
-                alreadChanged = false;
+                setCountedAllPhones();
                 Score.refillHeart();
-                togglePhase();
             } else if ((phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())) {
-                System.out.println("FALSCHE LÖSUNG");
-                phone2.setCounted();
-                phone3.setCounted();
-                phone4.setCounted();
-                alreadChanged = false;
+                setCountedAllPhones();
                 Score.updateHeart(gameManager, true);
-                togglePhase();
             }
-
         }
         if (GameQuestion.getRightAnswer() == 2) {
             if (phone2.collides(nerd.getBounds()) && !phone2.isCounted()) {
-                System.out.println("RICHTIGE LÖSUNG ANGESPRUNGEN");
-                phone2.setCounted();
-                alreadChanged = false;
+                setCountedAllPhones();
                 Score.refillHeart();
-                togglePhase();
+
             } else if ((phone1.collides(nerd.getBounds()) && !phone1.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())) {
-                System.out.println("FALSCHE LÖSUNG");
-                phone1.setCounted();
-                phone3.setCounted();
-                phone4.setCounted();
-                alreadChanged = false;
+                setCountedAllPhones();
                 Score.updateHeart(gameManager, true);
-                togglePhase();
             }
         }
-
         if (GameQuestion.getRightAnswer() == 3) {
             if (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) {
-                System.out.println("RICHTIGE LÖSUNG ANGESPRUNGEN");
-                phone3.setCounted();
-                alreadChanged = false;
+                setCountedAllPhones();
                 Score.refillHeart();
-                togglePhase();
             } else if ((phone1.collides(nerd.getBounds()) && !phone1.isCounted()) || (phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())) {
-                System.out.println("FALSCHE LÖSUNG");
-                phone1.setCounted();
-                phone2.setCounted();
-                phone4.setCounted();
-                alreadChanged = false;
+                setCountedAllPhones();
                 Score.updateHeart(gameManager, true);
-                togglePhase();
             }
         }
-
         if (GameQuestion.getRightAnswer() == 4 && !phone4.isCounted()) {
             if (phone4.collides(nerd.getBounds()) && !phone4.isCounted()) {
-                System.out.println("RICHTIGE LÖSUNG");
-                phone4.setCounted();
-                alreadChanged = false;
+                setCountedAllPhones();
                 Score.refillHeart();
-                // phone4.reactToCollision(gameManager);
-                togglePhase();
             } else if ((phone1.collides(nerd.getBounds()) && !phone1.isCounted()) || (phone2.collides(nerd.getBounds()) && phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && phone3.isCounted())) {
-                System.out.println("FALSCHE LÖSUNG");
-                phone2.setCounted();
-                phone1.setCounted();
-                phone3.setCounted();
-                // phone4.reactToWrongCollision(gameManager);
-                alreadChanged = false;
+                setCountedAllPhones();
                 Score.updateHeart(gameManager, true);
-                togglePhase();
             }
         }
-*/
-
     }
-
 
     private void updatePhones(float dt) {
         phone1.update(dt);
@@ -354,10 +298,10 @@ public class PlayState extends State {
         phone4.update(dt);
 
         if (phone1.isCounted() || phone2.isCounted() || phone3.isCounted() || phone4.isCounted() || !isQuestionPhase()) {
-            setPhonePositionOutsideScreen(phone1, 0);
-            setPhonePositionOutsideScreen(phone2, 50);
-            setPhonePositionOutsideScreen(phone3, 100);
-            setPhonePositionOutsideScreen(phone4, 150);
+            setPhonePositionOutsideScreen(phone1, ConstantsGame.PHONE1_X_OUTSIDE_SCREEN);
+            setPhonePositionOutsideScreen(phone2, ConstantsGame.PHONE2_X_OUTSIDE_SCREEN);
+            setPhonePositionOutsideScreen(phone3, ConstantsGame.PHONE3_X_OUTSIDE_SCREEN);
+            setPhonePositionOutsideScreen(phone4, ConstantsGame.PHONE4_X_OUTSIDE_SCREEN);
         }
 
         updatePhone(phone1, flyingPhone1);
@@ -378,7 +322,7 @@ public class PlayState extends State {
 
     private void updatePhone(AnswerPhone phone, Texture flyingPhone) {
         if (cam.position.x - (cam.viewportWidth / 2) > phone.getPosition().x + flyingPhone.getWidth()) {
-            phone.getPosition().add(flyingPhone.getWidth() * 4, 0);
+            phone.getPosition().add(flyingPhone.getWidth() * ConstantsGame.PHONE_X_TIMES_WIDTH, ConstantsGame.PHONE_Y_TO_ADD);
         }
     }
 
@@ -402,59 +346,53 @@ public class PlayState extends State {
         } else {
             for (int i = 0; i < obstacles.size; i++) {
                 Obstacle obstacle = obstacles.get(i);
-                Obstacle before = null;
-                if (i != 0) {
-                    before = obstacles.get(i - 1);
-                } else {
-                    before = obstacles.get(obstacles.size - 1);
-                }
+                repositionObstacles(i, obstacle);
 
-                if (cam.position.x - (cam.viewportWidth / 2) > obstacle.getObstaclePos().x + obstacle.getTexture().getWidth()) {
-                    int distance = generateNewDistance(score.getCurrentScorePoints());
-                    obstacle.reposition(before.getObstaclePos().x + (before.getTexture().getWidth() * 2 + obstacle.getTexture().getWidth() * 2 + distance));
-                    System.out.println("x-position obstacle: " + before.getObstaclePos().x + (before.getTexture().getWidth() * 2 + obstacle.getTexture().getWidth() * 2 + distance));
-                    // System.out.println("distance: " + distance);
-                    obstacle.resetCounted();
-                }
                 if (obstacle.collides(nerd.getBounds()) && !obstacle.isCounted()) {
+                    alreadChanged = false;
                     switch (obstacle.getType()) {
                         case ConstantsGame.PIT_TYPE:
-                            alreadChanged = false;
-                            points = (int) score.getCurrentScorePoints();
-                            System.out.println("points are initialised");
-                            rank = highscoreListener.checkIfNewHighscore(points);
-                            System.out.println("rank is initialised");
-                            cam.setToOrtho(false, ConstantsGame.DEFAULT_CAM_WIDTH, ConstantsGame.DEFAULT_CAM_HEIGHT);
-                            if (soundEffects) {
-                                Score.gameOver.play();
-                            }
-                            gameManager.set(new GameOverState(gameManager));
-                            //saveScore();
-
+                            gameEnds();
                             break;
                         case ConstantsGame.WOMAN_TYPE:
-                            alreadChanged = false;
-                            obstacle.setCounted();
-                            System.out.println("Frau gecrashed" + obstacle.isCounted());
-                            //currentState = CurrentState.Paused;
-                            //dialogListener.showMultipleChoiceDialog();
-                            // Score.updateHeart(gameManager, true);
-                            currentState = CurrentState.Paused;
-                            dialogListener.showMultipleChoiceDialog();
-
-
-                            //while (!dialogListener.getRightDialogAnswer() && !dialogListener.getWrongDialogAnswer()){}
-                           /* if (dialogListener.getWrongDialogAnswer() && !dialogListener.getWrongDialogAnswer()){
-                                Score.updateHeart(gameManager, true);
-                                System.out.println("Die Herzen sind aktuell");
-                            }*/
-                            System.out.println("Wurden die Herzen beachtet?");
+                            possSave(obstacle);
                             break;
                         default:
                     }
                 }
             }
         }
+    }
+
+    private void repositionObstacles(int i, Obstacle obstacle){
+        Obstacle before;
+        if (i != 0) {
+            before = obstacles.get(i - 1);
+        } else {
+            before = obstacles.get(obstacles.size - 1);
+        }
+
+        if (cam.position.x - (cam.viewportWidth / 2) > obstacle.getObstaclePos().x + obstacle.getTexture().getWidth()) {
+            int distance = generateNewDistance(score.getCurrentScorePoints());
+            obstacle.reposition(before.getObstaclePos().x + (before.getTexture().getWidth() * 2 + obstacle.getTexture().getWidth() * 2 + distance));
+            obstacle.resetCounted();
+        }
+    }
+
+    private void gameEnds(){
+        points = (int) score.getCurrentScorePoints();
+        rank = highscoreListener.checkIfNewHighscore(points);
+        cam.setToOrtho(false, ConstantsGame.DEFAULT_CAM_WIDTH, ConstantsGame.DEFAULT_CAM_HEIGHT);
+        if (soundEffects) {
+            Score.gameOver.play();
+        }
+        gameManager.set(new GameOverState(gameManager));
+    }
+
+    private void possSave(Obstacle obstacle){
+        obstacle.setCounted();
+        currentState = CurrentState.Paused;
+        dialogListener.showMultipleChoiceDialog();
     }
 
 
@@ -522,7 +460,7 @@ public class PlayState extends State {
         }
     }*/
 
-    public enum CurrentState {
+    private enum CurrentState {
         Running, Paused
     }
 
@@ -541,7 +479,6 @@ public class PlayState extends State {
             gameQuestion.drawTasks(spriteBatch, cam);
         }
         score.showPointUpdate(spriteBatch, cam);
-
 
         spriteBatch.draw(ground, groundPos1.x, groundPos1.y);
         spriteBatch.draw(ground, groundPos2.x, groundPos2.y);

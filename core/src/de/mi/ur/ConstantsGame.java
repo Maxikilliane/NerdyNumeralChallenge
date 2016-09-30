@@ -36,9 +36,9 @@ public class ConstantsGame {
         public static final int PIT_WIDTH = 52;
         public static final int PIT_BOUNDS_OFFSET = 0;
 
-
         public static final int WOMAN_Y = PlayState.ground.getHeight() + GROUND_Y_OFFSET;
         public static final int WOMAN_WIDTH = 34;
+
 
 
         //Score
@@ -60,6 +60,8 @@ public class ConstantsGame {
         public static final int QUESTION_POS = 0;
         public static final int RIGHT_ANSWER_POS = 1;
         public static final int POSS_ANSWER1_POS = 2;
+        public static final int POSS_ANSWER2_POS = 3;
+        public static final int POSS_ANSWER3_POS = 4;
         public static final int POSS_ANSWER4_POS = 5;
 
 
@@ -87,7 +89,15 @@ public class ConstantsGame {
         public static final int PHONE3_X = 500;
         public static final int PHONE4_X = 550;
 
-        //
+        public static final int PHONE1_X_OUTSIDE_SCREEN = 0;
+        public static final int PHONE2_X_OUTSIDE_SCREEN = 50;
+        public static final int PHONE3_X_OUTSIDE_SCREEN = 100;
+        public static final int PHONE4_X_OUTSIDE_SCREEN = 150;
+
+        public static final int PHONE_Y_TO_ADD = 0;
+        public static final int PHONE_X_TIMES_WIDTH = 4;
+
+        //PlayState
         public static final int PHASE_DURATION = 15;
 
         //Difficulty
