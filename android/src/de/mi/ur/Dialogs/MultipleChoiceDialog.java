@@ -42,7 +42,7 @@ public class MultipleChoiceDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         dialogView = inflater.inflate(R.layout.multiple_choice_dialog, null);
         messageTextView = (TextView) dialogView.findViewById(R.id.multiple_choice_dialog_message);
-        messageTextView.setText(Constants.MULTIPLE_CHOICE_DIALOG_MESSAGE);
+        messageTextView.setText(R.string.multiple_choice_dialog_message);
         questionTextView = (TextView) dialogView.findViewById(R.id.multiple_choice_dialog_question);
         questionTextView.setText(currentQuestion.getQuestion());
         radioGroup = (RadioGroup) dialogView.findViewById(R.id.multiple_choices_dialog);
@@ -51,7 +51,7 @@ public class MultipleChoiceDialog extends DialogFragment {
             button.setText(items[i]);
         }
         builder.setView(dialogView);
-        builder.setPositiveButton(Constants.DIALOG_POSITIVE_BUTTON, new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.dialog_positive_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //if the user clicks on the ok button, the dialog disappears and the onDismiss method is called automatically.

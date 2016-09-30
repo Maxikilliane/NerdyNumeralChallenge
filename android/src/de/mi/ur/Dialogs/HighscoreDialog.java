@@ -14,6 +14,7 @@ import de.mi.ur.Activities.SettingsActivity;
 import de.mi.ur.AndroidCommunication.HighscoreListener;
 import de.mi.ur.Constants;
 import de.mi.ur.DataBase.NNCDatabase;
+import de.mi.ur.R;
 
 /**
  * Created by Lydia on 21.09.2016.
@@ -33,15 +34,15 @@ public class HighscoreDialog extends DialogFragment implements SharedPreferences
         loadPreferences();
         editText = new EditText(getActivity());
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(Constants.HIGHSCORE_DIALOG_TITLE_PART_ONE + userName+Constants.HIGHSCORE_DIALOG_TITLE_PART_TWO)
+        builder.setTitle(R.string.highscore_dialog_title_part_one+ userName+R.string.highscore_dialog_title_part_two)
                 .setView(editText)
-                .setNegativeButton(Constants.DIALOG_NEGATIVE_BUTTON, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.dialog_negative_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialogDone = true;
             }
         })
-                .setPositiveButton(Constants.DIALOG_POSITIVE_BUTTON, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.dialog_positive_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 userName = editText.getText().toString();

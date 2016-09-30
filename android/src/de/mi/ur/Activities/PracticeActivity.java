@@ -121,7 +121,7 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
                 if(questionFragment.isCorrectAnswer(currentQuestion.getRightAnswerString())){
                     currentQuestionSolved = true;
                 }else{
-                    text ="wrong";
+                    text = getResources().getString(R.string.wrong_answer_toast);
                     currentQuestionSolved = false;
                 }
                 if (text != null) {
@@ -174,7 +174,7 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
 
             if (practiseProgressBar.getProgress() == Constants.PROGRESS_FULL) {
                 savePointsToDatabase();
-                Toast.makeText(this, "Geschafft!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getResources().getText(R.string.exercice_managed_toast), Toast.LENGTH_SHORT).show();
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -199,7 +199,7 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
         db.insertCurrentLevelPoints(currentPoints + pointsToAdd);
         if (db.checkIfNextLevel()){
             db.close();
-            Toast.makeText(this, "next Level", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getText(R.string.next_level_toast), Toast.LENGTH_SHORT).show();
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
