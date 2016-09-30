@@ -5,6 +5,8 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
+import de.mi.ur.Constants;
+
 /**
  * Created by maxiwindl on 01.09.16.
  */
@@ -27,7 +29,7 @@ public class myCustomTextView extends TextView {
     }
 
     private void utilizeMyFont(Context context) {
-        Typeface myFont = FontSaver.getTypeface("cantarell_font.ttf", context);
+        Typeface myFont = FontSaver.getTypeface(Constants.FONT, context);
         setTypeface(myFont);
 
     }
