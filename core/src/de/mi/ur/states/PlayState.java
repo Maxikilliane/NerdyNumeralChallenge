@@ -59,6 +59,7 @@ public class PlayState extends State {
     private Array<Obstacle> obstacles;
 
     private int points;
+
     private enum CurrentState {
         Running, Paused
     }
@@ -88,7 +89,7 @@ public class PlayState extends State {
     /*
      * Gets the listeners which are relevant for the Playstate
      */
-    private void initListeners(){
+    private void initListeners() {
         this.dialogListener = gameManager.getDialogListener();
         this.highscoreListener = gameManager.getHighscoreListener();
 
@@ -97,7 +98,7 @@ public class PlayState extends State {
     /*
      * Starts the music loop
      */
-    private void initMusic(){
+    private void initMusic() {
         soundEffects = dialogListener.getSoundEffects();
         music = Gdx.audio.newMusic(Gdx.files.internal("ZeroOne403.mp3"));
         music.setLooping(true);
@@ -110,7 +111,7 @@ public class PlayState extends State {
     /*
      * Inits the graphical parts of the game
      */
-    private void initGraphics(){
+    private void initGraphics() {
         nerd = new Nerd(ConstantsGame.NERD_X, ConstantsGame.NERD_Y);
         initPhones();
         initWeather();
@@ -121,7 +122,7 @@ public class PlayState extends State {
     /*
      * inits all graphic-parts which change according to which weather it is
      */
-    private void initWeather(){
+    private void initWeather() {
         initGround();
         sun = new Texture("sun.png");
         background = getBackgroundWeather(gameManager);
@@ -131,7 +132,7 @@ public class PlayState extends State {
         bgPos2 = new Vector2(cam.position.x - (cam.viewportWidth / 2) + background.getWidth(), ConstantsGame.BACKGROUND_Y_POS);
     }
 
-    private void initGround(){
+    private void initGround() {
         if (snowy) {
             ground = new Texture("ground_snow.png");
         } else {
@@ -139,7 +140,7 @@ public class PlayState extends State {
         }
     }
 
-    private void initPhones(){
+    private void initPhones() {
         flyingPhone1 = new Texture("phone_answer_new_1.png");
         flyingPhone2 = new Texture("phone_different_animation_2.png");
         flyingPhone3 = new Texture("phone_answer_new_3.png");
@@ -151,7 +152,7 @@ public class PlayState extends State {
         phone4 = new AnswerPhone(ConstantsGame.PHONE4_X, ConstantsGame.PHONES_Y, flyingPhone4);
     }
 
-    private void initScore(){
+    private void initScore() {
         score = new Score();
         score.startTimer();
         random = new Random();
@@ -161,7 +162,7 @@ public class PlayState extends State {
      * inits the obstacles, the succession of pits and women is random
      * obstacles are initially positioned outside the screen
      */
-    private void initObstacles(){
+    private void initObstacles() {
         obstacles = new Array<Obstacle>();
         for (int i = 0; i < ConstantsGame.TOTAL_NUM_OBSTACLES; i++) {
             if (random.nextInt(2) == ConstantsGame.PIT_TYPE) {
@@ -173,7 +174,7 @@ public class PlayState extends State {
         }
     }
 
-    public static Score getScore(){
+    public static Score getScore() {
         return score;
     }
 
@@ -239,10 +240,10 @@ public class PlayState extends State {
         }
     }
 
-    private void updateGraphics(float dt){
+    private void updateGraphics(float dt) {
         updateGround();
         updateBG();
-        nerd.update(dt,ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty());
+        nerd.update(dt, ConstantsGame.NERD_GRAVITY_DEFAULT, increaseDifficulty());
         updatePhones(dt);
         updateObstacles();
     }
@@ -275,7 +276,7 @@ public class PlayState extends State {
      */
     public void handleUserAnswers() {
 
-        if((phone1.collides(nerd.getBounds()) && !phone1.isCounted())||(phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())){
+        if ((phone1.collides(nerd.getBounds()) && !phone1.isCounted()) || (phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())) {
             alreadChanged = false;
             togglePhase();
         }
@@ -322,7 +323,7 @@ public class PlayState extends State {
     /*
      * set all phones counted
      */
-    private void setCountedAllPhones(){
+    private void setCountedAllPhones() {
         phone1.setCounted();
         phone2.setCounted();
         phone3.setCounted();
@@ -416,7 +417,7 @@ public class PlayState extends State {
     /*
      * Adjusts the position of the obstacles and uses a new random distance between the obstacles
      */
-    private void repositionObstacles(int i, Obstacle obstacle){
+    private void repositionObstacles(int i, Obstacle obstacle) {
         Obstacle before;
         if (i != 0) {
             before = obstacles.get(i - 1);
@@ -434,7 +435,7 @@ public class PlayState extends State {
     /*
      * This method is called when the current game is over
      */
-    private void gameEnds(){
+    private void gameEnds() {
         cam.setToOrtho(false, ConstantsGame.DEFAULT_CAM_WIDTH, ConstantsGame.DEFAULT_CAM_HEIGHT);
         if (soundEffects) {
             Score.gameOver.play();
@@ -447,7 +448,7 @@ public class PlayState extends State {
      * which pops up in a dialog.
      *
      */
-    private void possSave(Obstacle obstacle){
+    private void possSave(Obstacle obstacle) {
         obstacle.setCounted();
         currentState = CurrentState.Paused;
         dialogListener.showMultipleChoiceDialog();
@@ -510,6 +511,7 @@ public class PlayState extends State {
         spriteBatch.begin();
         drawGraphics(spriteBatch);
         score.renderScore(spriteBatch, cam);
+        score.showPointUpdate(spriteBatch, cam);
         if (isQuestionMode) {
             gameQuestion.drawTasks(spriteBatch, cam);
         }
@@ -520,7 +522,7 @@ public class PlayState extends State {
     /*
      * draws the basic graphic elements on the screen
      */
-    private void drawGraphics(SpriteBatch spriteBatch){
+    private void drawGraphics(SpriteBatch spriteBatch) {
         spriteBatch.draw(background, bgPos1.x, ConstantsGame.BACKGROUND_Y_POS);
         spriteBatch.draw(background, bgPos2.x, ConstantsGame.BACKGROUND_Y_POS);
         if (sunny) {
