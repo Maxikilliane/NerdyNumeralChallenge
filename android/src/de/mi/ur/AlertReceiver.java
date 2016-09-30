@@ -14,34 +14,27 @@ import de.mi.ur.Activities.StartActivity;
  */
 
 public class AlertReceiver extends BroadcastReceiver {
-    private static PendingIntent notificationIntent;
-
-    /*
-     *This method is called when the BroadcastReceiver is receiving an Intent broadcast. If the boolean isAlarmManagerActive
-     * (access over StartActivity.getAlarmManagerActive() ) form the StartActivity is true, the createNotification method is called.
-     */
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (StartActivity.getAlarmManagerActive()) {
-            createNotification(context, StartActivity.getNotificationTitle(), StartActivity.getNotificationMessage());
-        }
+        System.out.println("wir sind jetzt im AlertReceiver");
+        createNotification(context, "NerdyNumeralChallenge", "Schau doch mal wieder bei NNC vorbei!");
     }
 
-    /*
-     * This method creates a new push notification. In this case the notification reminds the user to use the app.
-     */
-    public void createNotification(Context context, String title, String message) {
-        notificationIntent = PendingIntent.getActivity(context, 0, new Intent(context, StartActivity.class), 0);
+    public void createNotification(Context context, String msg, String msgText) {
+        System.out.println("Notification wird erstellt");
+        PendingIntent notificationIntent = PendingIntent.getActivity(context,0,new Intent(context, StartActivity.class),0);
 
         NotificationCompat.Builder mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.ic_logo)
-                .setContentTitle(title)
-                .setContentText(message);
+                .setSmallIcon(R.drawable.icon)
+                .setContentTitle(msg)
+                .setContentText(msgText);
+
         mBuilder.setContentIntent(notificationIntent);
         mBuilder.setDefaults(NotificationCompat.DEFAULT_LIGHTS);
         mBuilder.setAutoCancel(true);
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(1, mBuilder.build());
-    }
+        System.out.println("Notification sollte erschienen sein");
 
+    }
 }
