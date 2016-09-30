@@ -1,7 +1,5 @@
 package de.mi.ur;
 
-import de.mi.ur.LevelLogic.Level;
-
 /**
  * Created by Anna-Marie on 01.08.2016.
  */
@@ -70,17 +68,17 @@ public class Constants {
     //WeatherExtras
 
     public static final String API_ID = "50ddb65d4b6d51050e5844a4284d6d46";
-    public static final String DEFAULT_LATITUDE ="49";
-    public static final String DEFAULT_LONGITUDE= "12";
-    public static final String WEATHER_API_URL_1_LAT ="http://api.openweathermap.org/data/2.5/weather?lat=";
+    public static final String DEFAULT_LATITUDE = "49";
+    public static final String DEFAULT_LONGITUDE = "12";
+    public static final String WEATHER_API_URL_1_LAT = "http://api.openweathermap.org/data/2.5/weather?lat=";
     public static final String WEATHER_API_URL_2_LON = "&lon=";
-    public static final String WEATHER_API_URL_3 = "&appid="+API_ID;
+    public static final String WEATHER_API_URL_3 = "&appid=" + API_ID;
 
     //Database
     public static final int HIHGEST_LEVEL = 9;
 
     public static final int CURRENT_LEVEL_ID = 20;
-    public static final String [] levelNames = {"Unwissender",
+    public static final String[] levelNames = {"Unwissender",
             "Initiant",
             "Padawan",
             "Nullen-Nerd",

@@ -57,8 +57,6 @@ public class Score {
         scoreFont.setUseIntegerPositions(false);
         updateFont = new BitmapFont();
         updateFont.setUseIntegerPositions(false);
-   
-
 
 
     }

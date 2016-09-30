@@ -1,7 +1,5 @@
 package de.mi.ur.QuestionLogic;
 
-import android.content.res.Resources;
-
 /**
  * Created by Anna-Marie on 02.08.2016.
  *

@@ -46,9 +46,9 @@ public class LocationController implements LocationListener {
         return locationManager.getBestProvider(criteria, true);
     }
 
-   /*
-    * Set the current location in the instance variable currentLocation, if the relevant permissions are granted
-    */
+    /*
+     * Set the current location in the instance variable currentLocation, if the relevant permissions are granted
+     */
     public void setCurrentPosition() {
         String provider = getBestProvider();
         if (provider == null) {

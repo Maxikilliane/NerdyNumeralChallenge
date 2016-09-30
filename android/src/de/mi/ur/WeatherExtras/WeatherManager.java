@@ -30,7 +30,7 @@ public class WeatherManager implements WeatherListener {
      * Generates the URL to request weather data for the current location
      */
     private String generateUrl(){
-        return Constants.WEATHER_API_URL_1_LAT+locationController.getLatitude()+Constants.WEATHER_API_URL_2_LON+locationController.getLongitude()+Constants.WEATHER_API_URL_3;
+        return Constants.WEATHER_API_URL_1_LAT + locationController.getLatitude() + Constants.WEATHER_API_URL_2_LON + locationController.getLongitude() + Constants.WEATHER_API_URL_3;
     }
 
 

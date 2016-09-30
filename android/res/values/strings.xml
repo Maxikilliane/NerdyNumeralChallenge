@@ -123,7 +123,8 @@
     <string name="freetext_question_string_2">er-System gegebene Zahl in das\u0020</string>
     <string name="freetext_question_string_3">er-System um:\u0020</string>
 
-    "Rechnen Sie die im " + getNumeral1Base() + "er-System gegebene Zahl in das " + getNumeral2Base() + "er-System um: "
+    "Rechnen Sie die im " + getNumeral1Base() + "er-System gegebene Zahl in das " +
+    getNumeral2Base() + "er-System um: "
 
 
     //MultipleChoice: part1 + numeral_systems[x]+part2

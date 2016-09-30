@@ -1,23 +1,18 @@
 package de.mi.ur.Activities;
 
 import android.app.AlarmManager;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-
-import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
 
 import java.util.GregorianCalendar;
 
@@ -28,7 +23,7 @@ import de.mi.ur.R;
 /**
  * Created by maxiwindl on 01.08.16.
  */
-public class StartActivity extends AppCompatActivity implements View.OnClickListener{
+public class StartActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button buttonTutorial;
     private Button buttonPractice;
@@ -140,7 +135,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         super.onStop();
         System.out.println("onStop wird ausgeführt");
         loadPreferences();
-        if(pushNotification){
+        if (pushNotification) {
             setAlarm();
             System.out.println("setAlarm wurde ausgeführt");
         }
@@ -163,7 +158,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
      *This method starts the alarmManager. The alarmManager starts the alertIntent after the alertTime (in this case after two weeks).
      */
     public void setAlarm(){
-        Long alertTime = new GregorianCalendar().getTimeInMillis()+ 1000*60*60*24*14;
+        Long alertTime = new GregorianCalendar().getTimeInMillis() + 1000 * 60 * 60 * 24 * 14;
         Intent alertIntent = new Intent(StartActivity.this, AlertReceiver.class);
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, alertTime, PendingIntent.getBroadcast(StartActivity.this,1,alertIntent,PendingIntent.FLAG_UPDATE_CURRENT));
@@ -176,12 +171,12 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     /*
      *This method returns the boolean isAlarmManagerActive that the AlertReceiver has access
      */
-    public static boolean getAlarmManagerActive(){
+    public static boolean getAlarmManagerActive() {
         return isAlarmMangerActive;
     }
 
 
-    private void loadPreferences(){
+    private void loadPreferences() {
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         pushNotification = sharedPref.getBoolean(getResources().getString(R.string.key_pref_push_notifications), true);
     }
@@ -189,14 +184,14 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     /*
      *This method returns the notificationTitle, so that the AlertReceiver class has access.
      */
-    public static String getNotificationTitle(){
+    public static String getNotificationTitle() {
         return notificationTitle;
     }
 
     /*
      *This method returns the notificationMessage, so that the AlertReceiver class has access.
      */
-    public static String getNotificationMessage(){
+    public static String getNotificationMessage() {
         return notificationMessage;
     }
 
