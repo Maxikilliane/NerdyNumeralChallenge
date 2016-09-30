@@ -12,9 +12,6 @@ import de.mi.ur.SettingsFragment;
  */
 public class SettingsActivity extends PreferenceActivity {
 
-    public static final String KEY_PREF_USER_NAME = "pref_user_name";
-    public static final String KEY_PREF_PUSH_NOTIFICATIONS = "pref_notifications";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

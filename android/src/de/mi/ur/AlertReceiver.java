@@ -23,7 +23,7 @@ public class AlertReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (StartActivity.getAlarmManagerActive()) {
-            createNotification(context, Constants.NOTIFICATION_TITLE, Constants.NOTIFICATION_MESSAGE);
+            createNotification(context, StartActivity.getNotificationTitle(), StartActivity.getNotificationMessage());
         }
     }
 
@@ -31,7 +31,6 @@ public class AlertReceiver extends BroadcastReceiver {
      * This method creates a new push notification. In this case the notification reminds the user to use the app.
      */
     public void createNotification(Context context, String title, String message) {
-        System.out.println("Notification wird erstellt");
         notificationIntent = PendingIntent.getActivity(context, 0, new Intent(context, StartActivity.class), 0);
 
         NotificationCompat.Builder mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(context)

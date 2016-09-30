@@ -61,19 +61,10 @@ public class Constants {
     public static final int DELAY_2_SECONDS = 2000;
     public static final int BACK_KEY_PRESSED = -1;
 
-    //Dialog
-    public static final String DIALOG_NEGATIVE_BUTTON = "Nein";
-    public static final String DIALOG_POSITIVE_BUTTON = "Ok";
-
-    //HighscoreDialog
-    public static final String HIGHSCORE_DIALOG_TITLE_PART_ONE = "Dein aktueller Name ist ";
-    public static final String HIGHSCORE_DIALOG_TITLE_PART_TWO = ". Möchtest du einen neuen Namen eingeben?";
-
     //MultipleChoiceDialog
     public static final int MULTIPLE_CHOICE_DIALOG_FIRST_NUMERAL_BASE = 2;
     public static final int MULTIPLE_CHOICE_DIALOG_SECOND_NUMERAL_BASE = 10;
     public static final int MULTIPLE_CHOICE_DIALOG_QUESTION_LENGTH = 6;
-    public static final String MULTIPLE_CHOICE_DIALOG_MESSAGE = "Rette dein Leben indem du für die gegebene Zahl im Binärsystem die richtige Entsprechung im Dezimalsystem auswählst.";
     public static final int DIALOG_SHOW_TIME_IN_SECONDS = 5;
 
     //WeatherExtras
@@ -84,10 +75,6 @@ public class Constants {
     public static final String WEATHER_API_URL_1_LAT ="http://api.openweathermap.org/data/2.5/weather?lat=";
     public static final String WEATHER_API_URL_2_LON = "&lon=";
     public static final String WEATHER_API_URL_3 = "&appid="+API_ID;
-
-    //AlertReceiver
-    public static final String NOTIFICATION_TITLE = "NerdyNumeralChallenge";
-    public static final String NOTIFICATION_MESSAGE = "Schau doch mal wieder bei NNC vorbei!";
 
     //Database
     public static final int HIHGEST_LEVEL = 9;
