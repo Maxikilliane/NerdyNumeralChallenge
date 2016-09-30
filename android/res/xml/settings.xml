@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <PreferenceCategory android:title="@string/settings_general">
+    <PreferenceCategory android:title="@string/settings_game_textView">
         <EditTextPreference
             android:defaultValue="@string/settings_default_user_name"
             android:key="pref_user_name"
             android:title="@string/settings_user_name" />
-    </PreferenceCategory>
-    <PreferenceCategory android:title="@string/settings_sound_textView">
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="pref_sound_effects"
@@ -24,8 +21,7 @@
             android:title="@string/settings_push_activated" />
     </PreferenceCategory>
     <Preference
-        android:title="@string/settings_legal_notice"
         android:key="pref_legal_notice"
-        />
+        android:title="@string/settings_legal_notice" />
 
 </PreferenceScreen>
