@@ -30,7 +30,6 @@ public class FreeTextQuestionFragment extends QuestionFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View fragmentView = inflater.inflate(R.layout.free_text_question_fragment, container, false);
         this.solutionEditText = (EditText) fragmentView.findViewById(R.id.freetext_edit_text);
-       // this.solutionEditText.setInputType(InputType.TYPE_NULL);
         this.solutionEditText.setOnFocusChangeListener(new View.OnFocusChangeListener(){
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -64,42 +63,11 @@ public class FreeTextQuestionFragment extends QuestionFragment {
         }
     }
 
-/*
-    public void onAttach(Activity activity){
-        super.onAttach(activity);
-
-        // This makes sure that the container activity has implemented
-        // the callback interface. If not, it throws an exception
-        try {
-            this.mCallback = (OnKeyboardListener) activity;
-
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnKeyboardListener");
-        }
-    }
-    */
 
 
     public EditText getSolutionEditText(){
         return solutionEditText;
     }
-
-    /*Komische Exceptions wenn nicht ausgegraut... Fragment FreeTextQuestionFragment{3215388} not attached to Activity
-                                                              at android.app.Fragment.getResources(Fragment.java:805)
-    public void setQuestionText(int numeral1Base, int numeral2Base){
-        Resources res = getActivity().getResources();
-
-        String questionText = res.getString(R.string.free_text_question_1) +numeralSystems[numeral1Base -2] +
-                res.getString(R.string.free_text_question_2)+numeralSystems[numeral2Base -2] + res.getString(R.string.free_text_question_3);
-
-        questionTextView.setText(questionText);
-    }
-
-    public void setQuestionTextTutorialQuestion(String text){
-        questionTextView.setText(text);
-    }
-    */
 
     public String getTextFromSolutionEditText(){
         return solutionEditText.getText().toString();

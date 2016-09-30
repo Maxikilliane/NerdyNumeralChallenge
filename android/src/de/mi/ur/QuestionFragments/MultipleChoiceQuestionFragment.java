@@ -1,22 +1,13 @@
 package de.mi.ur.QuestionFragments;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
-
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import de.mi.ur.AndroidCommunication.MultipleChoiceListener;
-import de.mi.ur.QuestionLogic.MultipleChoiceQuestion;
 import de.mi.ur.R;
 
 /**
@@ -84,25 +75,5 @@ public class MultipleChoiceQuestionFragment extends QuestionFragment{
         }
     }
 
-/*
-    // Container Activity must implement this interface
-    public interface OnChoiceSelectedListener {
-        public void onChoiceSelected(int position);
-    }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        // This makes sure that the container activity has implemented
-        // the callback interface. If not, it throws an exception
-        try {
-            OnChoiceSelectedListener b = (OnChoiceSelectedListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString()
-                    + " must implement OnChoiceSelectedListener");
-        }
-    }
-
-*/
 }

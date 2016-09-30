@@ -66,7 +66,6 @@ public class MultipleChoiceDialog extends DialogFragment {
         startTime = System.currentTimeMillis();
         rightAnswer = false;
         wrongAnswer = false;
-
         inflater = getActivity().getLayoutInflater();
         currentQuestion = new MultipleChoiceQuestion(Constants.MULTIPLE_CHOICE_DIALOG_FIRST_NUMERAL_BASE, Constants.MULTIPLE_CHOICE_DIALOG_SECOND_NUMERAL_BASE, Constants.MULTIPLE_CHOICE_DIALOG_QUESTION_LENGTH);
         items = currentQuestion.generatePossAnswers();

@@ -21,10 +21,10 @@ public abstract class QuestionFragment extends android.support.v4.app.Fragment {
         return false;
     }
 
-    //für MultipleChoice
+    //for multiple choice
     public void setButtonTexts(String[] texts){}
 
-    //für FreeText
+    //for freetextquestions
     public void setSolutionEditTextInputType(int inputType){}
 }
 

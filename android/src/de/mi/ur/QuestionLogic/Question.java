@@ -38,64 +38,6 @@ public abstract class Question {
     }
 
 
-
-    /*
-     * Eine int-Zahl in einen String als Darstellung eines anderen Zahlensystems umrechnen
-     */
-
-    /*
-    public static String convertToNumeral(int number, int radix){
-        if(radix <2 || radix>16){
-            radix = 10;
-        }
-        String toReturn = Integer.toString(number, radix);
-        return toReturn.toUpperCase();
-    }
-
-    /*
-     * Eine String-Darstellung einer Zahl in einem Zahlensystem der Basis radix in eine int-Zahl (Dezimal) umrechnen
-     */
-
-    /*
-    public static int convertFromNumeral(String number, int radix){
-        return Integer.parseInt(number, radix);
-    }
-
-    public static String convertFromNumeralToNumeral(String number, int radixInput, int radixOutput){
-        int num = convertFromNumeral(number, radixInput);
-        return convertToNumeral(num, radixOutput);
-    }
-
-    /*
-    //gibt random int-Werte zwischen minInclusive und maxInclusive zurück
-    public static int generateRandomBetweenBounds(int minInclusive, int maxInclusive){
-        int bounds = maxInclusive - minInclusive;
-        int random = randomGen.nextInt(bounds+1);
-        return random+minInclusive;
-    }
-    */
-
-    /*
-     * Generiert eine Zahl im Zahlensystem mit der Basis numeralBase und mit maxDigits Ziffern
-     */
-
-    /*
-    public static String generateNumWithMaxDigits(int numeralBase, int maxDigits){
-        String number = "";
-        for(int i = 0; i<maxDigits; i++){
-            int num = randomGen.nextInt(numeralBase);
-            number += convertToNumeral(num, numeralBase);
-        }
-        return number;
-    }
-
-    public static String generateNumBelowMax(int destinationNumeralBase, int maxDecimal){
-        int num = randomGen.nextInt(maxDecimal);
-        return convertToNumeral(num, destinationNumeralBase);
-    }
-
-    */
-
     public String[] generatePossAnswers() {
         return null;
     }

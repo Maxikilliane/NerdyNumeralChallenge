@@ -11,7 +11,7 @@ public class NumeralConverter {
     public NumeralConverter(){}
 
     /*
-     * Eine int-Zahl in einen String als Darstellung eines anderen Zahlensystems umrechnen
+     * converts an int numeral to a string as a representation of Eine int-Zahl in einen String als Darstellung eines anderen Zahlensystems umrechnen
      */
     public static String convertToNumeral(int number, int radix){
         if(radix <2 || radix>16){
