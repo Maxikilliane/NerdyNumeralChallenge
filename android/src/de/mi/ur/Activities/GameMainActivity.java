@@ -166,9 +166,13 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
      */
     public static void requestWeatherPermission(Activity activity) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.ACCESS_FINE_LOCATION)) {
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Constants.MY_PERMISSION_REQUEST_ACCESS_FINE_LOCATION);
+        }else {
             createInformationDialog(activity);
         }
     }
+
+
 
     /*
      * Shows an information dialog to explain why the location permission is needed.
