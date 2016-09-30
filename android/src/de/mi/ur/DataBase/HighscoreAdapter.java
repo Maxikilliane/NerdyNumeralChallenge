@@ -12,6 +12,7 @@ import de.mi.ur.R;
 
 /**
  * Created by Anna-Marie on 02.09.2016.
+ * This class is used to connect a Cursor containing information on highscores to a listView
  */
 public class HighscoreAdapter extends CursorAdapter {
 

@@ -1,5 +1,7 @@
 package de.mi.ur;
 
+import de.mi.ur.LevelLogic.Level;
+
 /**
  * Created by Anna-Marie on 01.08.2016.
  */
@@ -9,10 +11,8 @@ public class Constants {
     public static final int MULTIPLE_CHOICE = 0;
     public static final int TRUE_FALSE = 1;
     public static final int FREETEXT = 2;
-
     public static final String KEY_NUMERAL_1_BASE = "numeral1 base";
     public static final String KEY_NUMERAL_2_BASE = "numeral2 base";
-
 
     public static final String KEY_QUESTION_LENGTH = "question length";
 
@@ -88,5 +88,50 @@ public class Constants {
     //AlertReceiver
     public static final String NOTIFICATION_TITLE = "NerdyNumeralChallenge";
     public static final String NOTIFICATION_MESSAGE = "Schau doch mal wieder bei NNC vorbei!";
+
+    //Database
+    public static final int HIHGEST_LEVEL = 9;
+
+    public static final int CURRENT_LEVEL_ID = 20;
+    public static final String [] levelNames = {"Unwissender",
+            "Initiant",
+            "Padawan",
+            "Nullen-Nerd",
+            "edler Einsen-Verehrer",
+            "Quaternal-Kenner",
+            "Oktal-Jongleur",
+            "Hex-Beherrscher",
+            "Meister der Systeme",
+            "5up3r N3rd"
+    };
+
+    public static final int LEVEL_NUM_0 = 0;
+    public static final int LEVEL_NUM_1 = 1;
+    public static final int LEVEL_NUM_2 = 2;
+    public static final int LEVEL_NUM_3 = 3;
+    public static final int LEVEL_NUM_4 = 4;
+    public static final int LEVEL_NUM_5 = 5;
+    public static final int LEVEL_NUM_6 = 6;
+    public static final int LEVEL_NUM_7 = 7;
+    public static final int LEVEL_NUM_8 = 8;
+    public static final int LEVEL_NUM_9 = 9;
+
+    public static final int NUM_POINTS_LVL_0 = 0;
+    public static final int NUM_POINTS_LVL_1 = 100;
+    public static final int NUM_POINTS_LVL_2 = 300;
+    public static final int NUM_POINTS_LVL_3 = 600;
+    public static final int NUM_POINTS_LVL_4 = 1000;
+    public static final int NUM_POINTS_LVL_5 = 1500;
+    public static final int NUM_POINTS_LVL_6 = 2100;
+    public static final int NUM_POINTS_LVL_7 = 2800;
+    public static final int NUM_POINTS_LVL_8 = 3600;
+    public static final int NUM_POINTS_LVL_9 = 4500;
+
+    public static final int QUESTION_DIFFICULTY_EASY = 0;
+    public static final int QUESTION_DIFFICULTY_MEDIUM = 1;
+    public static final int QUESTION_DIFFICULTY_HARD = 2;
+    public static final int QUESTION_DIFFICULTY_REALLY_HARD = 3;
+
+
 
 }
