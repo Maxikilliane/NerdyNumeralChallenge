@@ -56,8 +56,8 @@ public class HighscoreActivity extends AppCompatActivity {
         db.open();
         Cursor allHighscoresCursor = db.getAllHighscoresCursor();
         HighscoreAdapter adapter = new HighscoreAdapter(this, allHighscoresCursor);
-        highscoreListView.setAdapter(adapter);
         displayIfIsHighscore(allHighscoresCursor);
+        highscoreListView.setAdapter(adapter);
         db.close();
     }
 
