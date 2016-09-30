@@ -8,6 +8,8 @@ import android.widget.NumberPicker;
 
 /**
  * Created by Anna-Marie on 01.09.2016.
+ *
+ * Enables setting the min, max, and default Values of the Number Picker in the xml, separating code and layout
  */
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
