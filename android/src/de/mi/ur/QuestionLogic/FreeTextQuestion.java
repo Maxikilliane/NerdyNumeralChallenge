@@ -31,7 +31,7 @@ public class FreeTextQuestion extends Question {
     @Override
     public String getQuestionString(Resources resources){
 
-        return resources.getString(R.string.freetext_question_1) + getNumeral1Base() + resources.getString(R.string.freetext_question_2) + getNumeral2Base() + resources.getString(R.string.freetext_question_3) + questionNumber;
+        return resources.getString(R.string.freetext_question_string_1) + getNumeral1Base() + resources.getString(R.string.freetext_question_string_2) + getNumeral2Base() + resources.getString(R.string.freetext_question_string_3) + questionNumber;
     }
 
     /*
