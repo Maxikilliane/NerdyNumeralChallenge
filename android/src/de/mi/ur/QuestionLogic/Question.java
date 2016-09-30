@@ -1,5 +1,7 @@
 package de.mi.ur.QuestionLogic;
 
+import android.content.res.Resources;
+
 import java.util.Random;
 
 /**
@@ -19,7 +21,7 @@ public abstract class Question {
         return false;
     }
 
-    public String getQuestionString() {
+    public String getQuestionString(Resources resources) {
         return "";
     }
 

@@ -388,5 +388,26 @@
     //Progress
     <string name="level">Level\u0020</string>
 
+    //TutorialQuestion
+    <string name="knowledge_question_1">Welchen Wert hat die Ziffer 4 in der Zahl 9482?</string>
+    <string name="knowledge_answer_1">400</string>
+    <string name="knowledge_question_2">Welche Zahl ist größer: 001 oder 100?</string>
+    <string name="knowledge_answer_2">100</string>
+    <string name="knowledge_question_3">Wie viele Ziffern hat das Trinärsystem (zur Basis 3)?</string>
+    <string name="knowledge_answer_3">3</string>
+    <string name="knowledge_question_4">Was sind die Ziffern des Duodezimalsystems (Basis 12)? Mit 0 beginnen, durch , und Leerzeichen trennen!</string>
+    <string name="knowledge_answer_4">0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B</string>
+    <string name="knowledge_question_5">Welche Basis hat das Quaternalsystem?</string>
+    <string name="knowledge_answer_5">4</string>
+    <string name="knowledge_question_6">Welchem Wert entspricht die 1 an der 4<sup><small>2</small></sup>-Stelle?</string>
+    <string name="knowledge_answer_6">16</string>
+    <string name="knowledge_question_7">Was ist der größte Stellenwert aus dem Trinärsystem, der in 30 passt?</string>
+    <string name="knowledge_answer_7">27</string>
+    <string name="knowledge_question_8">Für welche Dezimalzahl steht 'D'?</string>
+    <string name="knowledge_answer_8">13</string>
+    <string name="knowledge_question_9">Was ist die Basis des nächsthöheren Zahlensystem mit einer Basis von 2<sup><small>n</small></sup>?</string>
+    <string name="knowledge_answer_9">32</string>
+    <string name="knowledge_question_10">Kann zwischen dem 4er und dem 16er System direkt umgerechnet werden? Ja oder Nein eingeben!</string>
+    <string name="knowledge_answer_10">Ja</string>
 
 </resources>

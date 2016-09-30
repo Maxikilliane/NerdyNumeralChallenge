@@ -1,5 +1,7 @@
 package de.mi.ur.QuestionLogic;
 
+import android.content.res.Resources;
+
 /**
  * Created by Anna-Marie on 02.08.2016.
  */
@@ -7,6 +9,7 @@ public class TutorialQuestion {
     private int tutorialTypeConstant;
     private int questionNumber;
     private Question question;
+    private Resources resources;
 
     private Question[][] questions = {
             {new KnowledgeQuestion("Welchen Wert hat die Ziffer 4 in der Zahl 9482?", "400"),
@@ -36,8 +39,9 @@ public class TutorialQuestion {
         this.question = questions[tutorialTypeConstant][questionNumber];
     }
 
-    public String getQuestion(){
-        return this.question.getQuestionString();
+    public String getQuestion(Resources resources){
+        this.resources = resources;
+        return this.question.getQuestionString(resources);
     }
 
     public String getRightAnswer(){
