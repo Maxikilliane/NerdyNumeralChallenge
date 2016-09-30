@@ -12,8 +12,6 @@ import de.mi.ur.SettingsFragment;
  */
 public class SettingsActivity extends PreferenceActivity {
 
-    public static final String KEY_PREF_USER_NAME = "pref_user_name";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

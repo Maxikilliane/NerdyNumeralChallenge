@@ -1,4 +1,4 @@
-package de.mi.ur;
+package de.mi.ur.Dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -13,7 +13,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import de.mi.ur.Constants;
 import de.mi.ur.QuestionLogic.MultipleChoiceQuestion;
+import de.mi.ur.R;
 
 
 /**
@@ -29,22 +31,18 @@ public class MultipleChoiceDialog extends DialogFragment {
     private boolean rightAnswer, wrongAnswer;
     private long startTime;
     private LayoutInflater inflater;
-    private View dialogView;// = inflater.inflate(R.layout.multiple_choice_dialog, null);
+    private View dialogView;
 
-
+    /*
+     *This method creates a new dialog.
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        startTime = System.currentTimeMillis();
-        rightAnswer = false;
-        wrongAnswer = false;
-
-        inflater = getActivity().getLayoutInflater();
-        currentQuestion = new MultipleChoiceQuestion(Constants.MULTIPLE_CHOICE_DIALOG_FIRST_NUMERAL_BASE, Constants.MULTIPLE_CHOICE_DIALOG_SECOND_NUMERAL_BASE, Constants.MULTIPLE_CHOICE_DIALOG_QUESTION_LENGTH);
-        items = currentQuestion.generatePossAnswers();
+        init();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         dialogView = inflater.inflate(R.layout.multiple_choice_dialog, null);
         messageTextView = (TextView) dialogView.findViewById(R.id.multiple_choice_dialog_message);
-        messageTextView.setText(Constants.MULTIPLE_CHOICE_DIALOG_MESSAGE);
+        messageTextView.setText(R.string.multiple_choice_dialog_message);
         questionTextView = (TextView) dialogView.findViewById(R.id.multiple_choice_dialog_question);
         questionTextView.setText(currentQuestion.getQuestion());
         radioGroup = (RadioGroup) dialogView.findViewById(R.id.multiple_choices_dialog);
@@ -53,33 +51,49 @@ public class MultipleChoiceDialog extends DialogFragment {
             button.setText(items[i]);
         }
         builder.setView(dialogView);
-        builder.setPositiveButton(Constants.DIALOG_POSITIVE_BUTTON, new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.dialog_positive_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //if the user clicks on the ok button, the dialog disappears and the checkClickedAnswer method is performed -> onDismiss
+                //if the user clicks on the ok button, the dialog disappears and the onDismiss method is called automatically.
             }
         });
         Dialog dialog = builder.create();
         return dialog;
     }
 
+    /*
+     *This method initialises values for the Class
+     */
+    private void init(){
+        startTime = System.currentTimeMillis();
+        rightAnswer = false;
+        wrongAnswer = false;
+
+        inflater = getActivity().getLayoutInflater();
+        currentQuestion = new MultipleChoiceQuestion(Constants.MULTIPLE_CHOICE_DIALOG_FIRST_NUMERAL_BASE, Constants.MULTIPLE_CHOICE_DIALOG_SECOND_NUMERAL_BASE, Constants.MULTIPLE_CHOICE_DIALOG_QUESTION_LENGTH);
+        items = currentQuestion.generatePossAnswers();
+    }
+
+    /*
+     *This method is checking if the clicked answer is true ore false and then updates the boolean wrongAnswer ore rightAnswer
+     */
     private void checkClickedAnswer (){
         int checkedButtonId = radioGroup.getCheckedRadioButtonId();
         if (checkedButtonId == -1) {
-            //Toast.makeText(getActivity(), "You lost a life", Toast.LENGTH_SHORT).show();
             wrongAnswer = true;
         } else {
             RadioButton checkedButton = (RadioButton) dialogView.findViewById(checkedButtonId);
             if (checkedButton.getText().toString().equals(currentQuestion.getRightAnswerString())) {
-                //   Toast.makeText(getActivity(), "You saved yourself", Toast.LENGTH_SHORT).show();
                 rightAnswer = true;
             } else {
-                //   Toast.makeText(getActivity(), "You lost a life", Toast.LENGTH_SHORT).show();
                 wrongAnswer = true;
             }
         }
     }
 
+    /*
+     *This method dismisses the dialog after the DIALOG_SHOW_TIME_IN_SECONDS
+     */
     public void dismissDialog(){
         long currentTime = System.currentTimeMillis();
         long timeDifferenceInSeconds = (currentTime-startTime)/1000;
@@ -88,16 +102,25 @@ public class MultipleChoiceDialog extends DialogFragment {
         }
     }
 
+    /*
+     *This method is always called when the dialog gets dismissed.
+     */
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
         checkClickedAnswer();
     }
 
+    /*
+     *This method returns the boolean rightAnswer, which is needed in the PlayState.
+     */
     public boolean getRightAnswer() {
         return rightAnswer;
     }
 
+    /*
+     *This method returns the boolean wrongAnswer, which is needed in the PlayState.
+     */
     public boolean getWrongAnswer() {
         return wrongAnswer;
     }

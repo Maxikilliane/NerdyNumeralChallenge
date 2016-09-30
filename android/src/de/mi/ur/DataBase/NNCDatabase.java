@@ -10,21 +10,35 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 
 import de.mi.ur.AndroidCommunication.HighscoreListener;
+import de.mi.ur.Constants;
 import de.mi.ur.LevelLogic.Level;
 
 /**
  * Created by Anna-Marie on 09.08.2016.
+ *
+ * This class is responsible for storing the things needed after the shutdown of the application
  */
 public class NNCDatabase implements HighscoreListener {
+    // generall database
     private static final String DATABASE_NAME = "NNC Database";
     private static final int DATABASE_VERSION = 1;
 
+    /*
+     * highscore table constants
+     */
     private static final String TABLE_HIGHSCORE = "nncGameHighscores";
     private static final String KEY_ID = "_id";
     private static final String KEY_RANK = "rank";
     private static final String KEY_POINTS = "points";
     private static final String KEY_NAME = "name";
 
+    private static final int COLUMN_RANK_INDEX = 1;
+    private static final int COLUMN_POINTS_INDEX = 2;
+    private static final int COLUMN_NAME_INDEX = 3;
+
+    /*
+     * level table constants
+     */
     private static final String TABLE_LEVEL = "nncLevel";
     private static final String KEY_LEVEL_ID = "_id";
     private static final String KEY_LEVEL_NUM = "level_number";
@@ -32,22 +46,20 @@ public class NNCDatabase implements HighscoreListener {
     private static final String KEY_POINTS_FOR_NEXT_LEVEL = "points_for_next_level";
     private static final String KEY_QUESTION_LENGTH = "question_length";
 
-
-    private static final int COLUMN_RANK_INDEX = 1;
-    private static final int COLUMN_POINTS_INDEX = 2;
-    private static final int COLUMN_NAME_INDEX = 3;
-
     private static final int COLUMN_LEVEL_ID_INDEX = 0;
     private static final int COLUMN_LEVEL_NUM_INDEX = 1;
     private static final int COLUMN_LEVEL_NAME_INDEX = 2;
     private static final int COLUMN_POINTS_NEXT_LEVEL_INDEX = 3;
     private static final int COLUMN_QUESTION_LENGTH_INDEX = 4;
 
+
+    /*
+     * access to all columns of the database with this as a where-clause
+     */
     private static final String[] ALL_COLUMNS_HIGHSCORE = {KEY_ID, KEY_RANK, KEY_POINTS, KEY_NAME};
     private static final String[] ALL_COLUMNS_LEVEL = {KEY_ID, KEY_LEVEL_NUM, KEY_LEVEL_NAME, KEY_POINTS_FOR_NEXT_LEVEL, KEY_QUESTION_LENGTH};
 
-    public static String userName;
-
+    // instance variables
     private NncDBOpenHelper dbHelper;
     private SQLiteDatabase database;
 
@@ -56,6 +68,9 @@ public class NNCDatabase implements HighscoreListener {
 
     }
 
+    /*
+     * gets a usable database
+     */
     public void open() throws SQLException {
         try {
             database = dbHelper.getWritableDatabase();
@@ -69,6 +84,9 @@ public class NNCDatabase implements HighscoreListener {
     }
 
 
+    /*
+     * Saves a highscore in the database
+     */
     public long insertHighscoreData(Highscore highscore) {
         ContentValues highscoreValues = new ContentValues();
 
@@ -79,14 +97,19 @@ public class NNCDatabase implements HighscoreListener {
         return database.insert(TABLE_HIGHSCORE, null, highscoreValues);
     }
 
+    /*
+     * removes a highscore with a certain rank from the database
+     */
     public void removeHighscoreData (int rank){
         String whereClause = KEY_RANK + " = "+ rank;
         database.delete(TABLE_HIGHSCORE, whereClause, null);
     }
 
 
+    /*
+     * Gets a highscore with a certain rank from the database
+     */
     public Highscore getHighscoreWithCertainRank(int rank) {
-
         String whereClause = KEY_RANK + " = " + rank;
         Cursor cursor = database.query(TABLE_HIGHSCORE, ALL_COLUMNS_HIGHSCORE, whereClause, null, null, null, null);
         ArrayList<Highscore> highscore = buildHighscoresFromCursor(cursor);
@@ -94,16 +117,23 @@ public class NNCDatabase implements HighscoreListener {
         return highscore.get(0);
     }
 
+    /*
+     * Gets an ArrayList of all Highscores saved in the database
+     */
     public ArrayList<Highscore> getAllHighscores() {
         Cursor cursor = getAllHighscoresCursor();
         return buildHighscoresFromCursor(cursor);
     }
 
+    /*
+     * gets a Cursor pointing to all Highscores
+     */
     public Cursor getAllHighscoresCursor() {
         return database.query(TABLE_HIGHSCORE, ALL_COLUMNS_HIGHSCORE, null, null, null, null, KEY_RANK + " ASC");
     }
-
-    //um duplicate code zu vermeiden wird das "Zusammenbauen" der Highscores in diese Methode ausgelagert
+    /*
+     * "building" highscores is done in this method to avoid duplicate code
+     */
     private ArrayList<Highscore> buildHighscoresFromCursor(Cursor cursor) {
         ArrayList<Highscore> highscores = new ArrayList<>();
         if (cursor.moveToFirst()) {
@@ -119,7 +149,9 @@ public class NNCDatabase implements HighscoreListener {
         return highscores;
     }
 
-
+/*
+ * "building" levels is done in this method, to avoid duplicate code
+ */
     private ArrayList<Level> buildLevelFromCursor(Cursor cursor){
         ArrayList<Level> levels = new ArrayList<Level>();
         if(cursor.moveToFirst()){
@@ -136,16 +168,26 @@ public class NNCDatabase implements HighscoreListener {
         return levels;
     }
 
+    /*
+     * gets the current Level of the user from the database
+     */
     public Level getCurrentLevel(){
-        String whereClause = KEY_LEVEL_ID + " = " + 20;
+        String whereClause = KEY_LEVEL_ID + " = " + Constants.CURRENT_LEVEL_ID;
         Cursor cursor = database.query(TABLE_LEVEL, ALL_COLUMNS_LEVEL, whereClause, null, null, null, null);
         return buildLevelFromCursor(cursor).get(0);
     }
 
+    /*
+     * removes the current Level of the user from the database
+     */
     private void removeCurrentLevel(){
-        String whereClause = KEY_LEVEL_ID + " = " + 20;
+        String whereClause = KEY_LEVEL_ID + " = " + Constants.CURRENT_LEVEL_ID;
         database.delete(TABLE_LEVEL, whereClause, null);
     }
+
+    /*
+     * updates the points in the current level of the user
+     */
     public void insertCurrentLevelPoints(int points){
         Level currentLevel = getCurrentLevel();
 
@@ -159,6 +201,11 @@ public class NNCDatabase implements HighscoreListener {
         database.insert(TABLE_LEVEL, null, levelValues);
     }
 
+    /*
+     * gets the level with the given ID from the database
+     * levelId should be between 0 and 0
+     * to get the currentLevel, please use the appropriate method
+     */
     public Level getLevel(int levelId) {
         if (levelId < 0 || levelId > 9) {
             levelId = 0;
@@ -168,10 +215,14 @@ public class NNCDatabase implements HighscoreListener {
         return buildLevelFromCursor(cursor).get(0);
     }
 
+    /*
+     * Checks whether the user advances to the next level,
+     * and if so, changes the information in the currentLevel accordingly
+     */
     public boolean checkIfNextLevel(){
         Level currentLevel = getCurrentLevel();
         int currentLevelNum = currentLevel.getLevelNum();
-        if(currentLevelNum < 9) {
+        if(currentLevelNum < Constants.HIHGEST_LEVEL) {
             Level nextLevel = getLevel(currentLevelNum + 1);
 
             if (currentLevel.getPointsNeededForThisLevel() >= nextLevel.getPointsNeededForThisLevel()) {
@@ -193,6 +244,10 @@ public class NNCDatabase implements HighscoreListener {
         return false;
     }
 
+    /*
+     * checks if points is large enough to be a new highscore.
+     * returns the rank in the highscore, or -1 if the points are not good enough for a highscore
+     */
     @Override
     public int checkIfNewHighscore(int points) {
         if (getAllHighscores().size() == 0 || getHighscoreWithCertainRank(1).getPoints() < points) {
@@ -206,6 +261,10 @@ public class NNCDatabase implements HighscoreListener {
         }
     }
 
+    /*
+     * This method saves the new highscore to the database
+     * all the old highscores are adapted to the new one
+     */
     @Override
     public void saveHighscoreToDatabase(int rank, int points, String newUserName) {
         ArrayList<Highscore> allHighscores = getAllHighscores();
@@ -223,7 +282,6 @@ public class NNCDatabase implements HighscoreListener {
             insertHighscoreData(newHighscore);
         }
         removeHighscoreData(rank);
-        // Evtl im Spiel den Player zum Namen-Eingeben prompten und den dann noch übergeben.
         insertHighscoreData(new Highscore(rank, points, newUserName));
 
     }
@@ -247,22 +305,30 @@ public class NNCDatabase implements HighscoreListener {
                 super(context, name, factory, version);
             }
 
+        /*
+         * The two tables are initiated
+         * and the level-table is filled with the information on levels.
+         * The current level is the same as level 0 (except for the id) at the beginning
+         */
             @Override
             public void onCreate(SQLiteDatabase db) {
                 db.execSQL(CREATE_HIGHSCORE_TABLE);
                 db.execSQL(CREATE_LEVEL_TABLE);
 
-                Level[] levels = {new Level(0, 0, "Unwissender", 0, 0),
-                        new Level(1, 1, "Initiant", 100, 0),
-                        new Level(2, 2, "Padawan", 300, 0),
-                        new Level(3, 3, "Nullen-Nerd", 600, 0),
-                        new Level(4, 4, "edler Einsen-Verehrer", 1000, 1),
-                        new Level(5, 5, "Quaternal-Kenner", 1500, 1),
-                        new Level(6, 6, "Oktal-Jongleur", 2100, 1),
-                        new Level(7, 7, "Hex-Beherrscher", 2800, 2),
-                        new Level(8, 8, "Meister der Systeme", 3600, 2),
-                        new Level(9, 9, "5up3r N3rd", 4500, 3),
-                        new Level(20, 0, "Unwissender", 0, 0)
+                String[] levelNames = Constants.levelNames;
+
+                Level[] levels = {
+                        new Level(Constants.LEVEL_NUM_0, Constants.LEVEL_NUM_0, levelNames[0], Constants.NUM_POINTS_LVL_0, Constants.QUESTION_DIFFICULTY_EASY),
+                        new Level(Constants.LEVEL_NUM_1, Constants.LEVEL_NUM_1, levelNames[1], Constants.NUM_POINTS_LVL_1, Constants.QUESTION_DIFFICULTY_EASY),
+                        new Level(Constants.LEVEL_NUM_2, Constants.LEVEL_NUM_2, levelNames[2], Constants.NUM_POINTS_LVL_2, Constants.QUESTION_DIFFICULTY_EASY),
+                        new Level(Constants.LEVEL_NUM_3, Constants.LEVEL_NUM_3, levelNames[3], Constants.NUM_POINTS_LVL_3, Constants.QUESTION_DIFFICULTY_EASY),
+                        new Level(Constants.LEVEL_NUM_4, Constants.LEVEL_NUM_4, levelNames[4], Constants.NUM_POINTS_LVL_4, Constants.QUESTION_DIFFICULTY_MEDIUM),
+                        new Level(Constants.LEVEL_NUM_5, Constants.LEVEL_NUM_5, levelNames[5], Constants.NUM_POINTS_LVL_5, Constants.QUESTION_DIFFICULTY_MEDIUM),
+                        new Level(Constants.LEVEL_NUM_6, Constants.LEVEL_NUM_6, levelNames[6], Constants.NUM_POINTS_LVL_6, Constants.QUESTION_DIFFICULTY_MEDIUM),
+                        new Level(Constants.LEVEL_NUM_7, Constants.LEVEL_NUM_7, levelNames[7], Constants.NUM_POINTS_LVL_7, Constants.QUESTION_DIFFICULTY_HARD),
+                        new Level(Constants.LEVEL_NUM_8, Constants.LEVEL_NUM_8, levelNames[8], Constants.NUM_POINTS_LVL_8, Constants.QUESTION_DIFFICULTY_HARD),
+                        new Level(Constants.LEVEL_NUM_9, Constants.LEVEL_NUM_9, levelNames[9], Constants.NUM_POINTS_LVL_9, Constants.QUESTION_DIFFICULTY_REALLY_HARD),
+                        new Level(Constants.CURRENT_LEVEL_ID, Constants.LEVEL_NUM_0, levelNames[0], Constants.NUM_POINTS_LVL_0, Constants.QUESTION_DIFFICULTY_EASY)
                 };
 
                 for (Level level : levels) {
@@ -278,6 +344,10 @@ public class NNCDatabase implements HighscoreListener {
 
             }
 
+
+        /*
+         * This method handles the case of changes to the structure of the database
+         */
             @Override
             public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
                 // on upgrade drop older tables

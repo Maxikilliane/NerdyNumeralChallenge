@@ -121,7 +121,7 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
                 if(questionFragment.isCorrectAnswer(currentQuestion.getRightAnswerString())){
                     currentQuestionSolved = true;
                 }else{
-                    text ="wrong";
+                    text = getResources().getString(R.string.wrong_answer_toast);
                     currentQuestionSolved = false;
                 }
                 if (text != null) {
@@ -136,7 +136,6 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
         myToolbar = (Toolbar) findViewById(R.id.practice_toolbar);
         setSupportActionBar(myToolbar);
         setUpToolbarTitle();
-        //getSupportActionBar().setTitle(R.string.practice_main_toolbar_headline);
         myToolbar.setNavigationIcon(R.drawable.toolbar_back);
         myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,6 +145,9 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
         });
     }
 
+    /*
+     *This method sets up the toolbarTitle depending on which question type is chosen.
+     */
     private void setUpToolbarTitle() {
         switch (typeOfQuestion){
             case Constants.MULTIPLE_CHOICE:
@@ -172,7 +174,7 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
 
             if (practiseProgressBar.getProgress() == Constants.PROGRESS_FULL) {
                 savePointsToDatabase();
-                Toast.makeText(this, "Geschafft!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getResources().getString(R.string.exercice_managed_toast), Toast.LENGTH_SHORT).show();
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -197,7 +199,7 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
         db.insertCurrentLevelPoints(currentPoints + pointsToAdd);
         if (db.checkIfNextLevel()){
             db.close();
-            Toast.makeText(this, "next Level", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.next_level_toast), Toast.LENGTH_SHORT).show();
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
@@ -394,11 +396,6 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
         if(v!=null){
             ((InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(v.getWindowToken(),0);
         }
-    }
-
-    public void hideCustomKeyboard() {
-        myKeyboardView.setVisibility(View.GONE);
-        myKeyboardView.setEnabled(false);
     }
 
     @Override

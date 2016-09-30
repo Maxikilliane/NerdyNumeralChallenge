@@ -80,6 +80,7 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
         startActivity(i);
         return super.onOptionsItemSelected(item);
     }
+
     private void setupUI() {
         buttonStartGame = (Button) findViewById(R.id.game_start_button);
         buttonStartGame.setOnClickListener(this);
@@ -98,23 +99,15 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         Intent i = null;
-        String toastMessage = null;
         switch (v.getId()){
             case R.id.game_start_button:
                 i = new Intent(GameMainActivity.this, AndroidLauncher.class);
                 i.putExtra(Constants.CURRENT_WEATHER, weatherManager.getCurrentWeather());
                 i.putExtra(Constants.BACKGROUND_MUSIC, getBackgroundMusic());
                 i.putExtra(Constants.SOUND_EFFECTS, getSoundEffects());
-                System.out.println("GameMainActivity: BackgorundMusik: " + getBackgroundMusic() + " SoundEffects: " + getSoundEffects());
                 break;
             case R.id.game_update_weather_button:
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    weatherManager.startCurrentWeatherGetter();
-                } else {
-                    requestWeatherPermission(this);
-                    toastMessage = "Default-Wetter: Die Sonne scheint!";
-                    Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show();
-                }
+                handleWeatherButtonClick();
                 break;
             case R.id.game_highscore_button:
                 i = new Intent(GameMainActivity.this, HighscoreActivity.class);
@@ -131,20 +124,34 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
     }
 
     /*
-     * Checks the parameter, as to which kind of weather it is and generates appropriate content for user information
+     * requests new weather information (if relevant permissions were given
+     * else informs the user that default weather was set)
+     */
+    private void handleWeatherButtonClick(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            weatherManager.startCurrentWeatherGetter();
+        } else {
+            requestWeatherPermission(this);
+            String toastMessage = getResources().getString(R.string.default_weather_toast);
+            Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /*
+     * Checks the parameter, which kind of weather it is and generates appropriate content for user information
      */
     private String convertToWeatherName(int weatherNumber) {
         switch (weatherNumber) {
             case Constants.WEATHER_SUNNY:
-                return "scheint die Sonne";
+                return getResources().getString(R.string.weather_sunny);
             case Constants.WEATHER_CLOUDY:
-                return "ist es wolkig";
+                return getResources().getString(R.string.weather_cloudy);
             case Constants.WEATHER_RAINY:
-                return "regnet es";
+                return getResources().getString(R.string.weather_rainy);
             case Constants.WEATHER_SNOWY:
-                return "schneit es";
+                return getResources().getString(R.string.weather_snowy);
             default:
-                return "ist es wolkig";
+                return getResources().getString(R.string.weather_default);
         }
     }
 
@@ -158,9 +165,13 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
      */
     public static void requestWeatherPermission(Activity activity) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.ACCESS_FINE_LOCATION)) {
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, Constants.MY_PERMISSION_REQUEST_ACCESS_FINE_LOCATION);
+        }else {
             createInformationDialog(activity);
         }
     }
+
+
 
     /*
      * Shows an information dialog to explain why the location permission is needed.
@@ -197,7 +208,7 @@ public class GameMainActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onDownloadFinished() {
         String weather = convertToWeatherName(weatherManager.getCurrentWeather());
-        String  toastMessage = "Wetter aktualisiert! Gerade " + weather + ". Der Spielhintergrund wurde angepasst.";
+        String  toastMessage = getResources().getString(R.string.weather_toast_1) + weather + getResources().getString(R.string.weather_toast_2);
         Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show();
     }
 

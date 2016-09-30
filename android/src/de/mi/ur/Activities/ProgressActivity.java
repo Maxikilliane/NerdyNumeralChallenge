@@ -50,7 +50,7 @@ public class ProgressActivity extends AppCompatActivity {
         db = new NNCDatabase(this);
         db.open();
         currentLevel = db.getCurrentLevel();
-        String levelNumberText = "Level " + currentLevel.getLevelNum();
+        String levelNumberText = getResources().getString(R.string.level) + currentLevel.getLevelNum();
         levelNumberView.setText(levelNumberText);
         levelNameView.setText(currentLevel.getLevelName());
         db.close();

@@ -4,6 +4,10 @@ import java.util.Random;
 
 /**
  * Created by Anna-Marie on 02.08.2016.
+ *
+ * This class is the superclass for the questions, and makes it possible to have an instance variable where
+ * the practice-questions can be saved, regardless of which kind of question it is.
+ * The methods do not have any functionality.
  */
 public abstract class Question {
     private static Random randomGen;

@@ -75,6 +75,9 @@ public class PracticeMainActivity extends AppCompatActivity implements View.OnCl
         secondNumberSystem.setMaxValue(16);
     }
 
+    /*
+     * Handles Click-Events (activity starting)
+     */
     @Override
     public void onClick(View v) {
         Intent i = null;

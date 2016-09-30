@@ -22,7 +22,7 @@ import de.mi.ur.R;
 /**
  * Created by Anna-Marie on 01.08.2016.
  *
- *
+ * The Tutorial-Texts and questions are displayed in this activity.
  */
 public class ExplanationActivity extends AppCompatActivity implements View.OnClickListener, FreeTextQuestionFragment.OnKeyboardListener {
     private TextView explanationTextView;
@@ -46,7 +46,6 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.explanation_activity);
-
         getExtras();
         stopKeyboardPopUp();
         setUpTexts();
@@ -74,15 +73,10 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
         myToolbar = (Toolbar) findViewById(R.id.explanation_toolbar);
         setSupportActionBar(myToolbar);
         setUpToolbarTitle();
-        //getSupportActionBar().setTitle(R.string.app_name);
         myToolbar.setNavigationIcon(R.drawable.toolbar_back);
-       /* if( explanationNumber < maxNumExplanations-1){
-            myToolbar.setNavigationIcon(R.drawable.toolbar_next);
-        }*/
         myToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (explanationNumber == 0) {
                     backButton.setEnabled(false);
                     finish();
@@ -141,7 +135,8 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
     }
 
     /*
-     * Saving which tutorial has been chosen.
+     * Saving which tutorial has been chosen and necessary information
+     * maxNumExplanations will determine when the "->" button will be deactivated...
      */
     private void setUpTexts(){
         int idTexts;
@@ -179,8 +174,8 @@ public class ExplanationActivity extends AppCompatActivity implements View.OnCli
 
     /*
      * Sets up UI
-     * Click auf Solution-Button: grüner Hintergrund falls richtige Lösung,
-     *                            roter Hintergrund falls falsche Lösung + Toast mit richtiger Lösung
+     * Click on Solution-Button:    green background if solution is correct
+     *                              red background + Toast with correct solution, if solution is incorrect
      */
     private void setUpUI(){
 

@@ -6,7 +6,9 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +16,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
 
 import java.util.GregorianCalendar;
 
@@ -24,21 +28,19 @@ import de.mi.ur.R;
 /**
  * Created by maxiwindl on 01.08.16.
  */
-public class StartActivity extends AppCompatActivity implements View.OnClickListener {
+public class StartActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Button buttonTutorial;
     private Button buttonPractice;
     private Button buttonGame;
     private Button buttonProgress;
-
     private Toolbar myToolbar;
+    private AlarmManager alarmManager;
+    private SharedPreferences sharedPref;
 
-    private NotificationManager notificationManager;
-    private int notificationID = 1;
-
-   // private AlarmManager alarmManager;
-
-
+    private static boolean isAlarmMangerActive = false;
+    private boolean pushNotification;
+    private static String notificationTitle, notificationMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,16 +57,16 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         NNCDatabase db = new NNCDatabase(this);
         db.open();
         db.close();
-
     }
 
+    /*
+     *This method configured the toolbar.
+     */
     private void setupToolbar() {
         myToolbar = (Toolbar) findViewById(R.id.start_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setTitle(R.string.app_name);
         getSupportActionBar().setLogo(R.drawable.ic_logo);
-        //getSupportActionBar().setIcon(R.drawable.settings_actionbar_icon);
-
     }
 
     /*
@@ -73,7 +75,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_settings_menu, menu);
-
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -88,40 +89,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     }
 
     /*
-    private void setupUI() {
-        buttonTutorial = (Button) findViewById(R.id.start_tutorial_button);
-        buttonTutorial.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                Intent i = new Intent(StartActivity.this, TutorialMainActivity.class);
-                startActivity(i);
-            }
-        });
-        buttonPractice = (Button) findViewById(R.id.start_practice_button);
-        buttonGame = (Button) findViewById(R.id.start_game_button);
-        buttonGame.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                Intent i = new Intent (StartActivity.this, GameMainActivity.class);
-                startActivity(i);
-            }
-        });
-
-        buttonProgress = (Button) findViewById(R.id.start_progress_button);
-        buttonProgress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(StartActivity.this, ProgressActivity.class);
-                startActivity(i);
-            }
-        });
-
-    }
-*/
-
-
-    // Meiner Meinung nach elegantere Lösung für das Verbinden der Buttons mit Click Listener, man
-    // müsste nur oben noch implements OnClickListener schreiben
-
-
+     *This method configured the UserInterface
+     */
     private void setUpUI() {
         buttonTutorial = (Button) findViewById(R.id.start_tutorial_button);
         buttonTutorial.setOnClickListener(this);
@@ -133,6 +102,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         buttonProgress.setOnClickListener(this);
     }
 
+    /*
+     * Handles Click-Events (activity starting)
+     */
     @Override
     public void onClick(View v) {
         Intent i = null;
@@ -158,45 +130,74 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-   /* private void showNotification (){
-        NotificationCompat.Builder notificationBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(this)
-                .setContentTitle("Message")
-                .setContentText("MessageTex")
-                .setSmallIcon(R.drawable.icon);
-        PendingIntent resultIntent = new PendingIntent(StartActivity.this, StartActivity.class);
-        notificationBuilder.setContentIntent(resultIntent);
-
-        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(notificationID,notificationBuilder.build());
-    }*/
-
+    /*
+     * This method calls the normal onStop() method as well as the setAlarm() method, so that the user gets a push notification after
+     * two weeks of not using the app. If the StartActivity is started again during the two weeks, the notification will not be shown
+     * as you can see in onStart().
+     */
     @Override
     protected void onStop() {
         super.onStop();
         System.out.println("onStop wird ausgeführt");
-        setAlarm();
+        loadPreferences();
+        if(pushNotification){
+            setAlarm();
+            System.out.println("setAlarm wurde ausgeführt");
+        }
+
+
     }
 
-   /* @Override
+    /*
+     * This method calls the normal onStart() method and sets the boolean isAlarmManagerActive to false, so that the push notification is not shown even
+     * if the alarmManager is running
+     */
+    @Override
     protected void onStart() {
         super.onStart();
         System.out.println("onStart wird ausgeführt");
+        isAlarmMangerActive = false;
+    }
 
-    }*/
-
-    //this Method starts the alarmManager. The alarmManager starts the alertIntent after the alertTime (in this case after 5 Seconds
+    /*
+     *This method starts the alarmManager. The alarmManager starts the alertIntent after the alertTime (in this case after two weeks).
+     */
     public void setAlarm(){
-        Long alertTime = new GregorianCalendar().getTimeInMillis()+ 1000*5;//1000*60*60*24*14;
+        Long alertTime = new GregorianCalendar().getTimeInMillis()+ 1000*60*60*24*14;
         Intent alertIntent = new Intent(StartActivity.this, AlertReceiver.class);
-
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, alertTime, PendingIntent.getBroadcast(StartActivity.this,1,alertIntent,PendingIntent.FLAG_UPDATE_CURRENT));
-        System.out.println("setAlarm wurde ausgeführt");
+        isAlarmMangerActive = true;
+        notificationTitle = getResources().getString(R.string.notification_title);
+        notificationMessage = getResources().getString(R.string.notification_message);
     }
 
 
+    /*
+     *This method returns the boolean isAlarmManagerActive that the AlertReceiver has access
+     */
+    public static boolean getAlarmManagerActive(){
+        return isAlarmMangerActive;
+    }
 
 
+    private void loadPreferences(){
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        pushNotification = sharedPref.getBoolean(getResources().getString(R.string.key_pref_push_notifications), true);
+    }
 
+    /*
+     *This method returns the notificationTitle, so that the AlertReceiver class has access.
+     */
+    public static String getNotificationTitle(){
+        return notificationTitle;
+    }
+
+    /*
+     *This method returns the notificationMessage, so that the AlertReceiver class has access.
+     */
+    public static String getNotificationMessage(){
+        return notificationMessage;
+    }
 
 }

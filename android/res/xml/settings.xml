@@ -1,31 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <PreferenceCategory android:title="@string/settings_general">
+    <PreferenceCategory android:title="@string/settings_game_textView">
         <EditTextPreference
-            android:defaultValue="Nerd"
-            android:key="pref_user_name"
+            android:defaultValue="@string/settings_default_user_name"
+            android:key="@string/key_pref_user_name"
             android:title="@string/settings_user_name" />
-    </PreferenceCategory>
-    <PreferenceCategory android:title="@string/settings_sound_textView">
         <CheckBoxPreference
             android:defaultValue="true"
-            android:key="pref_sound_effects"
+            android:key="@string/key_pref_sound_effects"
             android:title="@string/settings_sound_effects" />
         <CheckBoxPreference
             android:defaultValue="true"
-            android:key="pref_music"
+            android:key="@string/key_pref_background_music"
             android:title="@string/settings_music" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/settings_push_notifications">
         <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="pref_notifications"
+            android:defaultValue="true"
+            android:key="@string/key_pref_push_notifications"
             android:title="@string/settings_push_activated" />
     </PreferenceCategory>
     <Preference
-        android:title="@string/settings_legal_notice"
-        android:key="pref_legal_notice"
-        />
+        android:key="@string/key_pref_legal_notice"
+        android:title="@string/settings_legal_notice" />
 
 </PreferenceScreen>

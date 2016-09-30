@@ -17,6 +17,8 @@ import de.mi.ur.Constants;
 
 /**
  * Created by Anna-Marie on 11.08.2016.
+ *
+ * This class keeps the downloading of weather data away from the main thread and handles further processing of weather data
  */
 public class WeatherAsyncTask extends AsyncTask<String, Integer, String> {
     private WeatherListener listener;
@@ -26,11 +28,13 @@ public class WeatherAsyncTask extends AsyncTask<String, Integer, String> {
         this.listener = listener;
     }
 
-    //überarbeiten!
+    /*
+     * The actual background task,
+     * downloads data from given URL in params
+     */
     @Override
     protected String doInBackground(String[] params) {
         String jsonString = "";
-
         try {
             URL url = new URL(params[0]);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -46,7 +50,7 @@ public class WeatherAsyncTask extends AsyncTask<String, Integer, String> {
                 is.close();
                 conn.disconnect();
             } else {
-                throw new IllegalStateException("HTTP response: " + responseCode);
+                throw new IllegalStateException("HTTP response code: " + responseCode);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -54,6 +58,10 @@ public class WeatherAsyncTask extends AsyncTask<String, Integer, String> {
         return jsonString;
     }
 
+
+    /*
+     * handles post executive tasks and notifies the listener, that the download has been finished
+     */
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
         int currentWeatherId = getWeatherIdFromJson(result);
@@ -61,6 +69,9 @@ public class WeatherAsyncTask extends AsyncTask<String, Integer, String> {
         listener.onDownloadFinished();
     }
 
+    /*
+     * Gets the weatherId (an int value representing different states of weather) out of the JSON received as an answer
+     */
     private int getWeatherIdFromJson(String text) {
         int weatherId = -1;
         try {
@@ -75,11 +86,21 @@ public class WeatherAsyncTask extends AsyncTask<String, Integer, String> {
         return weatherId;
     }
 
+
+    /*
+     * Transfers the weatherId into one of the four possible weather states in NNC (sunny, rainy, cloudy, snowing)
+     * 2xx - 5xx different types of rain
+     * 6xx different kinds of snow
+     * 800 clear (=sunny)
+     * 80x diffent kinds of clouds
+     * rest: extremes (e.g. volcanic ash, tornado...) are not represented in NNC
+     * For further information regarding the weather codes see http://openweathermap.org/weather-conditions
+     */
     private int calculateCurrentWeather(int weatherId) {
         if (weatherId >= 200 && weatherId < 600) {
             return Constants.WEATHER_RAINY;
         } else if (weatherId >= 600 && weatherId < 700) {
-            return Constants.WEATHER_CLOUDY;
+            return Constants.WEATHER_SNOWY;
         } else if (weatherId == 800) {
             return Constants.WEATHER_SUNNY;
         } else {
@@ -87,6 +108,9 @@ public class WeatherAsyncTask extends AsyncTask<String, Integer, String> {
         }
     }
 
+    /*
+     * Allows other classes to get the information on currentWeather
+     */
     public int getCurrentWeather() {
         return currentWeather;
     }

@@ -240,7 +240,7 @@ public class PlayState extends State {
 
     public void handleUserAnswers() {
         //kürzere Lösung: funktioniert so halb, Kollision wird erkannt, aber die Herzen-State Erkennung funktionieren noch nicht.
-       /* if((phone1.collides(nerd.getBounds()) && !phone1.isCounted())|| (phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())){
+        if((phone1.collides(nerd.getBounds()) && !phone1.isCounted())|| (phone2.collides(nerd.getBounds()) && !phone2.isCounted()) || (phone3.collides(nerd.getBounds()) && !phone3.isCounted()) || (phone4.collides(nerd.getBounds()) && !phone4.isCounted())){
             phones[0] = phone1;
             phones[1] = phone2;
             phones[2] = phone3;
@@ -261,7 +261,12 @@ public class PlayState extends State {
             }
             alreadChanged = false;
             togglePhase();
-        }*/
+        }
+
+
+
+
+        /*
 
         if (GameQuestion.getRightAnswer() == 1) {
             if (phone1.collides(nerd.getBounds()) && !phone1.isCounted()) {
@@ -338,6 +343,7 @@ public class PlayState extends State {
                 togglePhase();
             }
         }
+*/
 
     }
 
@@ -498,7 +504,7 @@ public class PlayState extends State {
         }
     }
 
-    private void saveScore() {
+    /*private void saveScore() {
 
         points = (int) score.getCurrentScorePoints();
         System.out.println("scorepoints: " + score.getCurrentScorePoints());
@@ -515,7 +521,7 @@ public class PlayState extends State {
             highscoreListener.saveHighscoreToDatabase(rank, points, userName);
             System.out.println("highscore is uptodate");
         }
-    }
+    }*/
 
     public enum CurrentState {
         Running, Paused
