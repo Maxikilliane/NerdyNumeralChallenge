@@ -60,8 +60,6 @@ public class AnswerPhone {
     public void update(float dt) {
         phoneAnimation.update(dt);
         bounds.setPosition(position.x, position.y);
-
-
     }
 
 
