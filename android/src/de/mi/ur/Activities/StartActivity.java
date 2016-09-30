@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
+
 import java.util.GregorianCalendar;
 
 import de.mi.ur.AlertReceiver;
@@ -38,6 +40,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
     private static boolean isAlarmMangerActive = false;
     private boolean pushNotification;
+    private static String notificationTitle, notificationMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,6 +168,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, alertTime, PendingIntent.getBroadcast(StartActivity.this,1,alertIntent,PendingIntent.FLAG_UPDATE_CURRENT));
         isAlarmMangerActive = true;
+        notificationTitle = getResources().getString(R.string.notification_title);
+        notificationMessage = getResources().getString(R.string.notification_message);
     }
 
 
@@ -179,6 +184,20 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     private void loadPreferences(){
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         pushNotification = sharedPref.getBoolean(SettingsActivity.KEY_PREF_PUSH_NOTIFICATIONS, true);
+    }
+
+    /*
+     *This method returns the notificationTitle, so that the AlertReceiver class has access.
+     */
+    public static String getNotificationTitle(){
+        return notificationTitle;
+    }
+
+    /*
+     *This method returns the notificationMessage, so that the AlertReceiver class has access.
+     */
+    public static String getNotificationMessage(){
+        return notificationMessage;
     }
 
 }

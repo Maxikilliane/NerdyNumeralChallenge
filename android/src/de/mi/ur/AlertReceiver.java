@@ -23,7 +23,7 @@ public class AlertReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (StartActivity.getAlarmManagerActive()) {
-            createNotification(context, Constants.NOTIFICATION_TITLE, Constants.NOTIFICATION_MESSAGE);
+            createNotification(context, StartActivity.getNotificationTitle(), StartActivity.getNotificationMessage());
         }
     }
 
