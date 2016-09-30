@@ -181,7 +181,7 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
                     public void run() {
                         finish();
                     }
-                }, Constants.DELAY_2_SECONDS);
+                }, Constants.DELAY_HALF_SECOND);
             }
         }
         updateQuestion();
@@ -207,7 +207,7 @@ public class PracticeActivity extends AppCompatActivity implements FreeTextQuest
                     finish();
                     startActivity(new Intent(PracticeActivity.this, ProgressActivity.class));
                 }
-            }, Constants.DELAY_2_SECONDS);
+            }, Constants.DELAY_HALF_SECOND);
 
         }
         db.close();

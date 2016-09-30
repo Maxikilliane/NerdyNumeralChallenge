@@ -50,7 +50,7 @@ public class Constants {
     //Practice
     public static final int NUM_QUESTIONS_PER_PRACTICE = 10;
     public static final int PROGRESS_FULL = 100;
-    public static final int DELAY_2_SECONDS = 2000;
+    public static final int DELAY_HALF_SECOND = 500;
     public static final int BACK_KEY_PRESSED = -1;
 
     //Questions

@@ -11,12 +11,13 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/practice_toolbar">
 
         <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/practice_toolbar">
+        android:layout_height="wrap_content"
+        >
 
     <ProgressBar
         android:id="@+id/question_progressbar"
@@ -70,6 +71,10 @@
         android:layout_below="@+id/question_fragment_placeholder"
         android:layout_centerHorizontal="true" />
 
+
+    </RelativeLayout>
+    </ScrollView>
+
     <android.inputmethodservice.KeyboardView
         android:id="@+id/custom_keyboard"
         android:layout_width="match_parent"
@@ -79,7 +84,5 @@
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:visibility="gone" />
-    </RelativeLayout>
-    </ScrollView>
 
 </RelativeLayout>
