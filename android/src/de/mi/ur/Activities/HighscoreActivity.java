@@ -64,9 +64,9 @@ public class HighscoreActivity extends AppCompatActivity {
     /*
      * displays the current highscores if there are any
      */
-    private void displayIfIsHighscore(Cursor allHighscoresCursor){
+    private void displayIfIsHighscore(Cursor allHighscoresCursor) {
         View v = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.highscore_listitem, null);
-        if((allHighscoresCursor.moveToFirst()) || allHighscoresCursor.getCount() != 0){
+        if ((allHighscoresCursor.moveToFirst()) || allHighscoresCursor.getCount() != 0) {
             highscoreListView.addHeaderView(v);
             noHighscoreView.setVisibility(View.GONE);
         }else{

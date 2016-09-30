@@ -20,8 +20,6 @@
             android:key="@string/key_pref_push_notifications"
             android:title="@string/settings_push_activated" />
     </PreferenceCategory>
-    <Preference
-        android:key="@string/key_pref_legal_notice"
-        android:title="@string/settings_legal_notice" />
+
 
 </PreferenceScreen>

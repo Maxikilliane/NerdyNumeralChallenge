@@ -45,7 +45,6 @@
     <string name="key_pref_push_notifications">pref_notifications</string>
     <string name="key_pref_background_music">pref_music</string>
     <string name="key_pref_sound_effects">pref_sound_effects</string>
-    <string name="key_pref_legal_notice">pref_legal_notice</string>
 
     //gameMain
     <string name="game_start">Start!</string>
@@ -123,7 +122,8 @@
     <string name="freetext_question_string_2">er-System gegebene Zahl in das\u0020</string>
     <string name="freetext_question_string_3">er-System um:\u0020</string>
 
-    "Rechnen Sie die im " + getNumeral1Base() + "er-System gegebene Zahl in das " + getNumeral2Base() + "er-System um: "
+    "Rechnen Sie die im " + getNumeral1Base() + "er-System gegebene Zahl in das " +
+    getNumeral2Base() + "er-System um: "
 
 
     //MultipleChoice: part1 + numeral_systems[x]+part2
@@ -378,14 +378,14 @@
     <string name="dialog_positive_button">Ok</string>
 
     //HighscoreDialog
-    <string name="highscore_dialog_title_part_one">Dein aktueller Name ist\u0020</string>
-    <string name="highscore_dialog_title_part_two">. Möchtest du einen neuen Namen eingeben?</string>
+    <string name="highscore_dialog_title">Du hast einen neuen Highscore!</string>
+    <string name="highscore_dialog_message_part_one">Dein aktueller Name ist\u0020</string>
+    <string name="highscore_dialog_message_part_two">. Möchtest du einen neuen Namen eingeben?</string>
 
     //MultipleChoiceDialog
     <string name="multiple_choice_dialog_message">Rette dein Leben indem du für die gegebene Zahl im Binärsystem die richtige Entsprechung im Dezimalsystem auswählst.</string>
 
     //Progress
     <string name="level">Level\u0020</string>
-
 
 </resources>

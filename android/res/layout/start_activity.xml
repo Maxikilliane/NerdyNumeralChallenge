@@ -2,73 +2,82 @@
 
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-   >
 
-    <include layout="@layout/toolbar"
-        android:id="@+id/start_toolbar"/>
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/start_toolbar"
+        layout="@layout/toolbar" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="@dimen/activity_general_padding"
-        android:gravity="center_vertical"
-        >
+        android:layout_height="match_parent">
 
 
-    <Button
-        android:id="@+id/start_tutorial_button"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/button_size"
-        android:text="@string/start_tutorial_button"
-        android:textColor="@color/text_white"
-        android:textSize="@dimen/text_general_size"
-        android:layout_marginBottom="@dimen/margin_bottom"
-        android:background="@drawable/my_button"
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical">
 
-        />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
 
-    <Button
-        android:id="@+id/start_practice_button"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/button_size"
-        android:text="@string/start_practice_button"
-        android:textColor="@color/text_white"
-        android:textSize="@dimen/text_general_size"
-        android:background="@drawable/my_button"
-        android:layout_marginBottom="@dimen/margin_bottom"
-        />
+                <Button
+                    android:id="@+id/start_tutorial_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_size"
+                    android:layout_marginBottom="@dimen/margin_bottom"
+                    android:background="@drawable/my_button"
+                    android:text="@string/start_tutorial_button"
+                    android:textColor="@color/text_white"
+                    android:textSize="@dimen/text_general_size"
 
-    <Button
-        android:id ="@+id/start_game_button"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/button_size"
-        android:text="@string/start_game_button"
-        android:textColor="@color/text_white"
-
-        android:textSize="@dimen/text_general_size"
-        android:background="@drawable/my_button"
-        android:layout_marginBottom="@dimen/margin_bottom"/>
-
-    <Button
-        android:id="@+id/start_progress_button"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/button_size"
-        android:text="@string/start_progress_button"
-        android:textColor="@color/text_white"
-        android:textSize="@dimen/text_general_size"
-        android:background="@drawable/my_button"/>
-
-    <TextView
-        android:id="@+id/testView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+                    />
 
 
-</LinearLayout>
+                <Button
+                    android:id="@+id/start_practice_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_size"
+                    android:layout_marginBottom="@dimen/margin_bottom"
+                    android:background="@drawable/my_button"
+                    android:text="@string/start_practice_button"
+                    android:textColor="@color/text_white"
+                    android:textSize="@dimen/text_general_size" />
+
+                <Button
+                    android:id="@+id/start_game_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_size"
+                    android:layout_marginBottom="@dimen/margin_bottom"
+                    android:background="@drawable/my_button"
+
+                    android:text="@string/start_game_button"
+                    android:textColor="@color/text_white"
+                    android:textSize="@dimen/text_general_size" />
+
+                <Button
+                    android:id="@+id/start_progress_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/button_size"
+                    android:background="@drawable/my_button"
+                    android:text="@string/start_progress_button"
+                    android:textColor="@color/text_white"
+                    android:textSize="@dimen/text_general_size" />
+
+                <TextView
+                    android:id="@+id/testView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 </LinearLayout>

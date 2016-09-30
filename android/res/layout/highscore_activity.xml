@@ -2,39 +2,47 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/black"
+    android:orientation="vertical"
 
     >
 
-    <include layout="@layout/toolbar"
-        android:id="@+id/game_highscore_toolbar"/>
+    <include
+        android:id="@+id/game_highscore_toolbar"
+        layout="@layout/toolbar" />
 
-    <FrameLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/activity_general_padding"
-        android:gravity="center">
+        android:layout_gravity="center">
 
-        <ImageView
-            android:id="@+id/trophy_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/trophy"
-            android:padding="@dimen/padding_small"
-            android:contentDescription="@string/highscore_activity_content_description_image"
-        />
-
-        <TextView
-            android:id="@+id/no_highscore_view"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/no_highscore_notice"
-            android:background="@drawable/mybackground"
-            android:textSize="@dimen/list_text_size"
-            android:textColor="@color/white"
-            android:padding="@dimen/padding_medium"/>
+            android:gravity="center"
+            android:padding="@dimen/activity_general_padding">
+
+            <ImageView
+                android:id="@+id/trophy_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/highscore_activity_content_description_image"
+                android:padding="@dimen/padding_small"
+                android:src="@drawable/trophy" />
+
+            <TextView
+                android:id="@+id/no_highscore_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/mybackground"
+                android:padding="@dimen/padding_medium"
+                android:text="@string/no_highscore_notice"
+                android:textColor="@color/white"
+                android:textSize="@dimen/list_text_size" />
 
         <ListView
         android:id="@+id/highscore_list"
@@ -46,7 +54,8 @@
         </ListView>
 
 
-</FrameLayout>
-
+        </FrameLayout>
+    </ScrollView>
+    </LinearLayout>
 
 </LinearLayout>

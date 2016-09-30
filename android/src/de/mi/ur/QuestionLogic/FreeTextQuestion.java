@@ -2,6 +2,8 @@ package de.mi.ur.QuestionLogic;
 
 import android.content.res.Resources;
 
+import de.mi.ur.R;
+
 /**
  * Created by Anna-Marie on 02.08.2016.
  *
@@ -27,8 +29,9 @@ public class FreeTextQuestion extends Question {
     }
 
     @Override
-    public String getQuestionString(){
-        return "Rechnen Sie die im " + getNumeral1Base() + "er-System gegebene Zahl in das " + getNumeral2Base() + "er-System um: " + questionNumber;
+    public String getQuestionString(Resources resources){
+
+        return resources.getString(R.string.freetext_question_1) + getNumeral1Base() + resources.getString(R.string.freetext_question_2) + getNumeral2Base() + resources.getString(R.string.freetext_question_3) + questionNumber;
     }
 
     /*

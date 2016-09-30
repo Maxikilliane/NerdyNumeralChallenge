@@ -1,5 +1,7 @@
 package de.mi.ur.QuestionLogic;
 
+import android.content.res.Resources;
+
 /**
  * Created by Anna-Marie on 19.08.2016.
  */
@@ -19,7 +21,7 @@ public class KnowledgeQuestion extends Question {
     }
 
     @Override
-    public String getQuestionString() {
+    public String getQuestionString(Resources resources) {
         return question;
     }
 
