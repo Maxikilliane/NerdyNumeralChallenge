@@ -47,7 +47,7 @@ public class HighscoreDialog extends DialogFragment implements SharedPreferences
             public void onClick(DialogInterface dialog, int which) {
                 userName = editText.getText().toString();
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString(SettingsActivity.KEY_PREF_USER_NAME, userName);
+                editor.putString(getResources().getString(R.string.key_pref_user_name), userName);
                 editor.commit();
                 dialogDone = true;
             }
@@ -61,7 +61,7 @@ public class HighscoreDialog extends DialogFragment implements SharedPreferences
      */
     private void loadPreferences(){
         sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        userName = sharedPref.getString(SettingsActivity.KEY_PREF_USER_NAME, "");
+        userName = sharedPref.getString(getResources().getString(R.string.key_pref_user_name), "");
     }
 
     /*

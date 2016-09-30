@@ -183,7 +183,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
     private void loadPreferences(){
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        pushNotification = sharedPref.getBoolean(SettingsActivity.KEY_PREF_PUSH_NOTIFICATIONS, true);
+        pushNotification = sharedPref.getBoolean(getResources().getString(R.string.key_pref_push_notifications), true);
     }
 
     /*
