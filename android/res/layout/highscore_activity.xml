@@ -11,9 +11,13 @@
         android:id="@+id/game_highscore_toolbar"
         layout="@layout/toolbar" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -51,6 +55,6 @@
 
         </FrameLayout>
     </ScrollView>
-
+    </LinearLayout>
 
 </LinearLayout>

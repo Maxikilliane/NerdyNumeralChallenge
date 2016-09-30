@@ -16,8 +16,9 @@ import de.mi.ur.Activities.StartActivity;
 public class AlertReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        System.out.println("wir sind jetzt im AlertReceiver");
-        createNotification(context, "NerdyNumeralChallenge", "Schau doch mal wieder bei NNC vorbei!");
+        if (StartActivity.getAlarmManagerActive()) {
+            createNotification(context, StartActivity.getNotificationTitle(), StartActivity.getNotificationMessage());
+        }
     }
 
     public void createNotification(Context context, String msg, String msgText) {
