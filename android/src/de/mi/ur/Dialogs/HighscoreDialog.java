@@ -8,12 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import de.mi.ur.Activities.SettingsActivity;
-import de.mi.ur.AndroidCommunication.HighscoreListener;
-import de.mi.ur.Constants;
-import de.mi.ur.DataBase.NNCDatabase;
 import de.mi.ur.R;
 
 /**
@@ -35,14 +30,14 @@ public class HighscoreDialog extends DialogFragment implements SharedPreferences
         editText = new EditText(getActivity());
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(getResources().getString(R.string.highscore_dialog_title))
-                .setMessage(getResources().getString(R.string.highscore_dialog_message_part_one)+ userName+getResources().getString(R.string.highscore_dialog_message_part_two))
+                .setMessage(getResources().getString(R.string.highscore_dialog_message_part_one) + userName + getResources().getString(R.string.highscore_dialog_message_part_two))
                 .setView(editText)
                 .setNegativeButton(R.string.dialog_negative_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialogDone = true;
             }
-        })
+                })
                 .setPositiveButton(R.string.dialog_positive_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
